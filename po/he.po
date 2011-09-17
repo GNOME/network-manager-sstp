@@ -1,0 +1,414 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Yair Hershkovitz, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-01-23 12:14+0200\n"
+"PO-Revision-Date: 2011-01-23 12:39+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:129
+msgid "_Secondary Password:"
+msgstr "ססמה _משנית:"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:243
+msgid "_Username:"
+msgstr "שם _משתמש:"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:245
+msgid "_Domain:"
+msgstr "מ_תחם:"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:247
+msgid "_Password:"
+msgstr "_ססמה:"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:336
+msgid "Connect _anonymously"
+msgstr "התחברות כ_אלמוני"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:341
+msgid "Connect as _user:"
+msgstr "התחברות כמ_שתמש:"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:450
+msgid "_Remember passwords for this session"
+msgstr "שמירת הססמה עבור ה_פעלה זו"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:452
+msgid "_Save passwords in keyring"
+msgstr "שמירת הססמאות ב_קבוצת המפתחות"
+
+#: ../auth-dialog/main.c:62
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgstr "עליך להזדהות כדי לגשת אל הרשת הווירטואלית הפרטית '%s'."
+
+#: ../auth-dialog/main.c:63
+msgid "Authenticate VPN"
+msgstr "אימות מול ה־VPN"
+
+#: ../nm-sstp.desktop.in.h:1
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "הוספה, הסרה ועריכה של חיבורי VPN דרך SSTP"
+
+#: ../nm-sstp.desktop.in.h:2
+msgid "SSTP VPN Connection Manager"
+msgstr "מנהל חיבורי ה־VPN באמצעות SSTP"
+
+#: ../properties/advanced-dialog.c:186
+msgid "All Available (Default)"
+msgstr "כל הזמינות (בררת מחדל)"
+
+#: ../properties/advanced-dialog.c:190
+msgid "128-bit (most secure)"
+msgstr "128-סיביות (הבטוח ביותר)"
+
+#: ../properties/advanced-dialog.c:199
+msgid "40-bit (less secure)"
+msgstr "40-סיביות (פחות מאובטח)"
+
+#: ../properties/advanced-dialog.c:305
+msgid "PAP"
+msgstr "PAP"
+
+#: ../properties/advanced-dialog.c:318
+msgid "CHAP"
+msgstr "CHAP"
+
+#: ../properties/advanced-dialog.c:330
+msgid "MSCHAP"
+msgstr "MSCHAP"
+
+#: ../properties/advanced-dialog.c:342
+msgid "MSCHAPv2"
+msgstr "MSCHAPv2"
+
+#: ../properties/advanced-dialog.c:355
+msgid "EAP"
+msgstr "EAP"
+
+#: ../properties/nm-sstp-dialog.glade.h:1
+msgid "<b>Authentication</b>"
+msgstr "<b>אימות</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:2
+msgid "<b>Echo</b>"
+msgstr "<b>הד</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:3
+msgid "<b>General</b>"
+msgstr "<b>כללי</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:4
+msgid "<b>Optional</b>"
+msgstr "<b>לא מחייב</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:5
+msgid "<b>Security and Compression</b>"
+msgstr "<b>אבטחה וכיווץ</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:6
+msgid "Ad_vanced..."
+msgstr "מ_תקדם..."
+
+#: ../properties/nm-sstp-dialog.glade.h:7
+msgid "Allow _BSD data compression"
+msgstr "הפעלת כיווץ נ_תונים BSD"
+
+#: ../properties/nm-sstp-dialog.glade.h:8
+msgid "Allow _Deflate data compression"
+msgstr "הפעלת כיווץ נתונים ב_פריסה"
+
+#: ../properties/nm-sstp-dialog.glade.h:9
+msgid "Allow st_ateful encryption"
+msgstr "הפעלת הצפנת "
+
+#: ../properties/nm-sstp-dialog.glade.h:10
+msgid "Allow the following authentication methods:"
+msgstr "אפשור שיטות ההזדהות הבאות:"
+
+#: ../properties/nm-sstp-dialog.glade.h:11
+msgid "Default"
+msgstr "בררת מחדל"
+
+#: ../properties/nm-sstp-dialog.glade.h:12
+msgid "NT Domain:"
+msgstr "מתחם NT:"
+
+#: ../properties/nm-sstp-dialog.glade.h:13
+msgid ""
+"Note: MPPE encryption is only available with MSCHAP authentication methods. "
+"To enable this checkbox, select one or more of the MSCHAP authentication "
+"methods: MSCHAP or MSCHAPv2."
+msgstr ""
+"לתשומת לבך: הצפנת MPPE זמינה רק עם שיטות האימות MSCHAP. כדי להפעיל תיבת "
+"בחירה זו יש לבחור באחת או יותר משיטות ההצפנה MSCHAP:‏ MSCHAP או MSCHAP גרסה 2."
+
+#: ../properties/nm-sstp-dialog.glade.h:14
+msgid "SSTP Advanced Options"
+msgstr "אפשרויות SSTP מתקדמות"
+
+#: ../properties/nm-sstp-dialog.glade.h:15
+msgid "Password:"
+msgstr "ססמה:"
+
+#: ../properties/nm-sstp-dialog.glade.h:16
+msgid "Send PPP _echo packets"
+msgstr "שליחת ח_בילות הד PPP"
+
+#: ../properties/nm-sstp-dialog.glade.h:17
+msgid "Show password"
+msgstr "הצגת הססמה"
+
+#: ../properties/nm-sstp-dialog.glade.h:18
+msgid "Use TCP _header compression"
+msgstr "שימוש בד_חיסת כותרות TCP"
+
+#: ../properties/nm-sstp-dialog.glade.h:19
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "שימוש בהצפנת _נקודה לנקודה (MPPE)"
+
+#: ../properties/nm-sstp-dialog.glade.h:20
+msgid "User name:"
+msgstr "שם משתמש:"
+
+#: ../properties/nm-sstp-dialog.glade.h:21
+msgid "_Gateway:"
+msgstr "שער _גישה:"
+
+#: ../properties/nm-sstp-dialog.glade.h:22
+msgid "_Security:"
+msgstr "_אבטחה:"
+
+#: ../properties/nm-sstp.c:50
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "פרוטוקול תיעול מנקודה לנקודה (SSTP)"
+
+#: ../properties/nm-sstp.c:51
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "תואם ל־Microsoft ולשרתי VPN דרך SSTP אחרים."
+
+#~ msgid "Authentication Type:"
+#~ msgstr "סוג אימות:"
+
+#~ msgid "_Remember for this session"
+#~ msgstr "_שמירה עבור הפעלה זו"
+
+#~ msgid "_Save in keyring"
+#~ msgstr "_שמירה בקבוצת המפתחות"
+
+#~ msgid "Authenticate Connection"
+#~ msgstr "אימות החיבור"
+
+#~ msgid "Authentication Required"
+#~ msgstr "נדרש אימות"
+
+#~ msgid "_Authentication Type:"
+#~ msgstr "_סוג האימות:"
+
+#~ msgid "_Remote name:"
+#~ msgstr "שם _מרוחק:"
+
+#~ msgid "VPN Connection Manager (PPP generic)"
+#~ msgstr "מנהל חיבורי VPN ‏(PPP כללי)"
+
+#~ msgid "00:00:00:00"
+#~ msgstr "00:00:00:00"
+
+#~ msgid "<b>Packet Parameters</b>"
+#~ msgstr "<b>אפשרויות חבילה</b>"
+
+#~ msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
+#~ msgstr "<i>דוגמה: 172.16.0.0/16 10.11.12.0/24</i>"
+
+#~ msgid ""
+#~ "A list of extra options to pppd as would be typed on the command line"
+#~ msgstr "רשימה של אפשרויות נוספות עבור pppd כפי שהן נרשמות בשורת הפקודה"
+
+#~ msgid "C_hannel:"
+#~ msgstr "ע_רוץ:"
+
+#~ msgid "Compression & Encryption"
+#~ msgstr "כיווץ והצפנה"
+
+#~ msgid "Connection"
+#~ msgstr "חיבור"
+
+#~ msgid "Connection na_me:"
+#~ msgstr "_שם החיבור:"
+
+#~ msgid "Custom _PPP options:"
+#~ msgstr "אפשרויות _PPP מותאמות:"
+
+#~ msgid "Debug _output"
+#~ msgstr "_פלט ניפוי"
+
+#~ msgid "Find Device"
+#~ msgstr "חיפוש התקן"
+
+#~ msgid "GPRS Options"
+#~ msgstr "אפשרויות GPRS"
+
+#~ msgid "Host name or IP address of the SSTP server"
+#~ msgstr "שם המארח או כתובת ה־IP של שרת ה־SSTP"
+
+#~ msgid "IP a_ddress:"
+#~ msgstr "כתובת _IP:"
+
+#~ msgid ""
+#~ "If BSD compression is not allowed the 'nobsdcomp' option is passed to pppd"
+#~ msgstr "אם כיווץ BSD אינו מורשה אז האפשרות 'nobsdcomp' מועברת ל־pppd"
+
+#~ msgid "Maximum Receive Unit"
+#~ msgstr "גודל יחידת קבלה מרבי"
+
+#~ msgid "Maximum Transmit Unit"
+#~ msgstr "גודל יחידת שליחה מרבי"
+
+#~ msgid "Refuse C_HAP"
+#~ msgstr "דחיית C_HAP"
+
+#~ msgid "Refuse _EAP"
+#~ msgstr "דחיית _EAP"
+
+#~ msgid "Refuse _MS CHAP"
+#~ msgstr "דחיית _MS CHAP"
+
+#~ msgid "Require 128 bit M_PPE encryption"
+#~ msgstr "דרישת הצפנת M_PPE ‏128 סיביות"
+
+#~ msgid "Require MPPE _encryption"
+#~ msgstr "דרישת הצפנת _MPPE"
+
+#~ msgid "Routing"
+#~ msgstr "ניתוב"
+
+#~ msgid "Serial Options"
+#~ msgstr "אפשרויות חיבור טורי"
+
+#~ msgid "Service providers IP address"
+#~ msgstr "כתובת IP של ספק השירות"
+
+#~ msgid "Telep_hone number:"
+#~ msgstr "מספר ט_לפון:"
+
+#~ msgid "Time in seconds between echo requests"
+#~ msgstr "הזמן בשניות בין בקשות הד"
+
+#~ msgid "Typ_e:"
+#~ msgstr "_סוג:"
+
+#~ msgid "When checked the \"refuse-chap\" option is passed to pppd."
+#~ msgstr "כאשר התיבה מסומנת מוגדרת האפשרות \"refuse-chap\" ב־pppd."
+
+#~ msgid "When checked the \"refuse-eap\" option is passed to pppd."
+#~ msgstr "כאשר התיבה מסומנת מוגדרת האפשרות \"refuse-eap\" ב־pppd."
+
+#~ msgid "When checked the \"refuse-mschap\" option is passed to pppd."
+#~ msgstr "כאשר התיבה מסומנת מוגדרת האפשרות \"refuse-mschap\" ב־pppd."
+
+#~ msgid "When checked the 'lock' option is passed to pppd"
+#~ msgstr "כאשר התיבה מסומנת מועברת האפשרות 'lock' ב־pppd"
+
+#~ msgid "When checked the 'require-mppc' option is passed to pppd"
+#~ msgstr "כאשר התיבה מסומנת מועברת האפשרות 'require-mppc' ב־pppd"
+
+#~ msgid "When checked this sets the pppd 'noipdefault' option"
+#~ msgstr "כאשר התיבה מסומנת מוגדרת האפשרות 'noipdefault' ב־pppd"
+
+#~ msgid "When checked this sets the pppd 'usepeerdns' option"
+#~ msgstr "כאשר תיבה זו מסומנת מוגדרת האפשרות 'usepeerdns' ב־pppd"
+
+#~ msgid ""
+#~ "When this check box is cleared the \"noauth\" option is passed to pppd."
+#~ msgstr "כאשר תיבה זו אינה מסומנת האפשרות \"noauth\" מועברת ל־pppd."
+
+#~ msgid "_Access point name:"
+#~ msgstr "שם _נקודת גישה:"
+
+#~ msgid "_Device address:"
+#~ msgstr "_כתובת ההתקן:"
+
+#~ msgid "_Import Saved Configuration..."
+#~ msgstr "_יבוא הגדרות שמורות..."
+
+#~ msgid "_Modem connection"
+#~ msgstr "חיבור _מודם"
+
+#~ msgid "_Packet type:"
+#~ msgstr "_סוג חבילה:"
+
+#~ msgid "_Require MPPC compression"
+#~ msgstr "נדרש כיווץ _MPPC"
+
+#~ msgid "Name"
+#~ msgstr "שם"
+
+#~ msgid "SSTP Server"
+#~ msgstr "שרת SSTP"
+
+#~ msgid "Telephone Number"
+#~ msgstr "מספר טלפון"
+
+#~ msgid "Bluetooth Address"
+#~ msgstr "כתובת Bluetooth"
+
+#~ msgid "Bluetooth Channel"
+#~ msgstr "ערוץ Bluetooth"
+
+#~ msgid "GPRS APN"
+#~ msgstr "GPRS APN"
+
+#~ msgid "GPRS IP"
+#~ msgstr "GPRS IP"
+
+#~ msgid "Connect via a modem"
+#~ msgstr "חיבור בעזרת מודם"
+
+#~ msgid "Use 128 bit MPPE encryption"
+#~ msgstr "שימוש בהצפנת MPPE‏ 128סיביות"
+
+#~ msgid "Do not use BSD compression"
+#~ msgstr "אין להשתמש בכיווץ BSD"
+
+#~ msgid "Refuse EAP"
+#~ msgstr "דחיית EAP"
+
+#~ msgid "Refuse CHAP"
+#~ msgstr "דחיית CHAP"
+
+#~ msgid "Maximum transmit unit (in bytes)"
+#~ msgstr "גודל יחידת שליחה מרבי (בבתים)"
+
+#~ msgid "Maximum receive unit (in bytes)"
+#~ msgstr "גודל יחידת קבלה מרבי (בבתים)"
+
+#~ msgid "Custom PPP options"
+#~ msgstr "אפשרויות PPP מותאמות אישית"
+
+#~ msgid "The following '%s' connection will be created:"
+#~ msgstr "חיבור ה־'%s' הבא ייווצר:"
+
+#~ msgid "\t%s:  %s\n"
+#~ msgstr "\t%s:  %s\n"
+
+#~ msgid "Select file to import"
+#~ msgstr "בחירת קובץ ליבוא"
+
+#~ msgid "Save as..."
+#~ msgstr "שמירה בשם..."
+
+#~ msgid "A file named \"%s\" already exists."
+#~ msgstr "קובץ בשם \"%s\" כבר קיים"
+
+#~ msgid "Do you want to replace it with the one you are saving?"
+#~ msgstr "האם להחליפו בקובץ המיועד לשמירה?"

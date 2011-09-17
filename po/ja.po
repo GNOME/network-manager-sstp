@@ -1,0 +1,724 @@
+# Japanese message catalog for NetworkManager-sstp
+# Copyright (C) 2006,2007,2011 THE NetworkManager-sstp's COPYRIGHT HOLDER
+# This file is distributed under the same license as the NetworkManager-openvpn package.
+# Satoru SATOH <ss@gnome.gr.jp>, 2006, 2007.
+# Hajime Taira <htaira@redhat.com>, 2011.
+# NISHIBORI Kiyotaka <ml.nishibori.kiyotaka@gmail.com>, 2011.
+# OKANO Takayoshi <kano@na.rim.or.jp>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NetworkManager-sstp master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2011-04-24 09:29+0000\n"
+"PO-Revision-Date: 2011-04-25 02:53+0900\n"
+"Last-Translator: Hajime Taira <htaira@redhat.com>\n"
+"Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:129
+msgid "_Secondary Password:"
+msgstr "第二パスワード(_S):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:243
+msgid "_Username:"
+msgstr "ユーザ名(_U):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:245
+msgid "_Domain:"
+msgstr "ドメイン(_D):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:247
+msgid "_Password:"
+msgstr "パスワード(_P):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:342
+msgid "Connect _anonymously"
+msgstr "匿名で接続(_A)"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:347
+msgid "Connect as _user:"
+msgstr "ユーザで接続(_U):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:452
+msgid "_Remember passwords for this session"
+msgstr "このセッションのパスワードを記憶する(_R)"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:454
+msgid "_Save passwords in keyring"
+msgstr "パスワードをキーリングに保存する(_S)"
+
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never be saved.
+#.
+#: ../auth-dialog/main.c:92
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgstr "仮想プライベートネットワーク %s にアクセスするには認証が必要です。"
+
+#: ../auth-dialog/main.c:93
+msgid "Authenticate VPN"
+msgstr "認証 VPN"
+
+#: ../nm-sstp.desktop.in.h:1
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "SSTP VPN 接続の追加、削除または編集"
+
+#: ../nm-sstp.desktop.in.h:2
+msgid "SSTP VPN Connection Manager"
+msgstr "SSTP VPN 接続マネージャ"
+
+#: ../properties/advanced-dialog.c:187
+msgid "All Available (Default)"
+msgstr "利用可能なものすべて (デフォルト)"
+
+#: ../properties/advanced-dialog.c:191
+msgid "128-bit (most secure)"
+msgstr "128 ビット (最も安全)"
+
+#: ../properties/advanced-dialog.c:200
+msgid "40-bit (less secure)"
+msgstr "40 ビット (最低限の安全)"
+
+#: ../properties/advanced-dialog.c:309
+msgid "PAP"
+msgstr "PAP"
+
+#: ../properties/advanced-dialog.c:322
+msgid "CHAP"
+msgstr "CHAP"
+
+#: ../properties/advanced-dialog.c:334
+msgid "MSCHAP"
+msgstr "MSCHAP"
+
+#: ../properties/advanced-dialog.c:346
+msgid "MSCHAPv2"
+msgstr "MSCHAPv2"
+
+#: ../properties/advanced-dialog.c:359
+msgid "EAP"
+msgstr "EAP"
+
+#: ../properties/nm-sstp-dialog.ui.h:1
+msgid "<b>Authentication</b>"
+msgstr "<b>認証</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>Echo</b>"
+msgstr "<b>Echo</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid "<b>General</b>"
+msgstr "<b>一般</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:4
+msgid "<b>Optional</b>"
+msgstr "<b>オプション</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "<b>Security and Compression</b>"
+msgstr "<b>暗号化と圧縮</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "Ad_vanced..."
+msgstr "詳細設定(_V)"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid "Allow _BSD data compression"
+msgstr "BSD データ圧縮を許可する(_B)"
+
+#: ../properties/nm-sstp-dialog.ui.h:8
+msgid "Allow _Deflate data compression"
+msgstr "デフレート圧縮を許可する(_D)"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+msgid "Allow st_ateful encryption"
+msgstr "ステートフル暗号を許可する(_A)"
+
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Allow the following authentication methods:"
+msgstr "次の認証方式を許可します。"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Default"
+msgstr "デフォルト"
+
+#: ../properties/nm-sstp-dialog.ui.h:12
+msgid "NT Domain:"
+msgstr "NT ドメイン:"
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid ""
+"Note: MPPE encryption is only available with MSCHAP authentication methods. "
+"To enable this checkbox, select one or more of the MSCHAP authentication "
+"methods: MSCHAP or MSCHAPv2."
+msgstr ""
+"注: MPPE 暗号は、MSCHAP 認証方式でのみ利用可能です。このチェックボックスを有"
+"効にするには、MSCHAP 認証方式である MSCHAP または MSCHAPv2 のいずれか、または"
+"複数を選択してください。"
+
+#: ../properties/nm-sstp-dialog.ui.h:14
+msgid "SSTP Advanced Options"
+msgstr "SSTP 詳細なオプション"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "Password:"
+msgstr "パスワード:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Send PPP _echo packets"
+msgstr "PPP Echo パケットを送信する(_E)"
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "Show password"
+msgstr "パスワードを表示します。"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "Use TCP _header compression"
+msgstr "TCP ヘッダ圧縮を使用する(_H)"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "MPPE 暗号を使用する(_P)"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid "User name:"
+msgstr "ユーザ名:"
+
+#: ../properties/nm-sstp-dialog.ui.h:21
+msgid "_Gateway:"
+msgstr "ゲートウェイ(_G):"
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "_Security:"
+msgstr "セキュリティ(_S):"
+
+#: ../properties/nm-sstp.c:50
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "Point-to-Point Tunneling Protocol (SSTP)"
+
+#: ../properties/nm-sstp.c:51
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Microsoft と、その他の SSTP VPN サーバとの互換性"
+
+#: ../src/nm-sstp-service.c:160
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr "SSTP VPN ゲートウェイのIPアドレス %s (%d) を変換できません。"
+
+#: ../src/nm-sstp-service.c:178
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr "SSTP VPN ゲートウェイのIPアドレス %s (%d) が参照できません。"
+
+#: ../src/nm-sstp-service.c:202
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr ""
+"SSTP VPN ゲートウェイ %s から使用可能なアドレスがないと返答がありました。"
+
+#: ../src/nm-sstp-service.c:213
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+msgstr ""
+"SSTP VPN ゲートウェイ %s (%d) から使用可能なアドレスがないと返答がありまし"
+"た。"
+
+#: ../src/nm-sstp-service.c:240
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr ""
+"VPN シークレットが見つかりません。(接続が無効か、VPN 設定されていません。)"
+
+#: ../src/nm-sstp-service.c:252
+msgid "Invalid VPN username."
+msgstr "無効な VPN ユーザ名です。"
+
+#: ../src/nm-sstp-service.c:261
+msgid "Missing VPN username."
+msgstr "VPN ユーザ名がありません。"
+
+#: ../src/nm-sstp-service.c:271
+msgid "Missing or invalid VPN password."
+msgstr "VPN パスワードが不足しているか、無効です。"
+
+#: ../src/nm-sstp-service.c:429
+msgid "No cached credentials."
+msgstr "キャッシュされた資格情報がありません。"
+
+#: ../src/nm-sstp-service.c:575
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "無効なゲートウェイ %s"
+
+#: ../src/nm-sstp-service.c:589
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr "数値型パラメータ %s が無効な数値です。"
+
+#: ../src/nm-sstp-service.c:599
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "ブーリアン型パラメータ %s が無効な値です。(値はyes、noではありません)"
+
+#: ../src/nm-sstp-service.c:606
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "対処できない %s 型パラメータの %s"
+
+#: ../src/nm-sstp-service.c:617
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "パラメータ %s は無効かサポートされていません。"
+
+#: ../src/nm-sstp-service.c:635
+msgid "No VPN configuration options."
+msgstr "VPN 構成オプションがありません。"
+
+#: ../src/nm-sstp-service.c:655
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "必須オプション %s が不足しています。"
+
+#: ../src/nm-sstp-service.c:675
+msgid "No VPN secrets!"
+msgstr "VPN シークレットがありません。"
+
+#: ../src/nm-sstp-service.c:816
+msgid "Could not find sstp client binary."
+msgstr "sstp クライアントのバイナリーが見つかりません。"
+
+#: ../src/nm-sstp-service.c:829
+msgid "Missing VPN gateway."
+msgstr "VPN ゲートウェイが不足しています。"
+
+#: ../src/nm-sstp-service.c:982
+msgid "Could not find the pppd binary."
+msgstr "pppd のバイナリーが見つかりません。"
+
+#: ../src/nm-sstp-service.c:1112
+msgid "Invalid or missing SSTP gateway."
+msgstr "SSTP ゲートウェイが無効か不足しています。"
+
+#: ../src/nm-sstp-service.c:1311
+msgid "Don't quit when VPN connection terminates"
+msgstr "VPN 接続が切断された時に終了しないでください。"
+
+#: ../src/nm-sstp-service.c:1312
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "詳細なデバッグ情報の保存を有効にする。(パスワードも含まれます。)"
+
+#: ../src/nm-sstp-service.c:1326
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service は NetworkManager に対して SSTP VPN 互換性 (Microsoft とその"
+"他の実装との互換性) を提供します。"
+
+#~ msgid "Authentication Type:"
+#~ msgstr "認証タイプ:"
+
+#~ msgid "_Remember for this session"
+#~ msgstr "このセッションを記憶する(_R)"
+
+#~ msgid "_Save in keyring"
+#~ msgstr "キーリングに保存する(_S)"
+
+#~ msgid "Authenticate Connection"
+#~ msgstr "接続認証"
+
+#~ msgid ""
+#~ "<span weight=\"bold\" size=\"larger\">Authentication Information</span>\n"
+#~ "\n"
+#~ "The connection '%s' may need some form of authentication.\n"
+#~ "\n"
+#~ "Please select an appropriate authentication type and provide the "
+#~ "necessary credentials below:\n"
+#~ msgstr ""
+#~ "<span weight=\"bold\" size=\"larger\">認証情報</span>\n"
+#~ "\n"
+#~ "接続 '%s' には何らかの形の認証が必要な場合があります。\n"
+#~ "\n"
+#~ "適切な認証タイプを選択し、下の必要な信用証明をご入力ください:\n"
+
+#~ msgid "Authentication Required"
+#~ msgstr "認証が必要です"
+
+#~ msgid "_Authentication Type:"
+#~ msgstr "認証タイプ(_A):"
+
+#~ msgid "_Remote name:"
+#~ msgstr "リモート名(_R):"
+
+#~ msgid "auth-chap-window"
+#~ msgstr "CHAP 認証"
+
+#~ msgid "auth-mschapv2-window"
+#~ msgstr "MS CHAP v2 認証"
+
+#~ msgid "auth-none-window"
+#~ msgstr "認証 (なし)"
+
+#~ msgid "VPN Connection Manager (PPP generic)"
+#~ msgstr "VPN 接続マネージャ (PPP 一般)"
+
+#~ msgid "00:00:00:00"
+#~ msgstr "00:00:00:00"
+
+#~ msgid "<b>Delays &amp; Timeouts</b>"
+#~ msgstr "<b>遅延とタイムアウト</b>"
+
+#~ msgid "<b>Packet Parameters</b>"
+#~ msgstr "<b>パケットパラメータ</b>"
+
+#~ msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
+#~ msgstr "<i>例: 172.16.0.0/16 10.11.12.0/24</i>"
+
+#~ msgid ""
+#~ "A list of extra options to pppd as would be typed on the command line"
+#~ msgstr "コマンド行で入力する ppd へのその他のオプションのリスト"
+
+#~ msgid "Allow B_SD Compression"
+#~ msgstr "BSD 圧縮を有効にする (_S)"
+
+#~ msgid "C_hannel:"
+#~ msgstr "チャンネル(_H):"
+
+#~ msgid "Co_nnect delay:"
+#~ msgstr "接続遅延(_N):"
+
+#~ msgid "Compression & Encryption"
+#~ msgstr "圧縮と暗号"
+
+#~ msgid "Connection"
+#~ msgstr "接続"
+
+#~ msgid "Connection na_me:"
+#~ msgstr "接続名(_M):"
+
+#~ msgid "Context _number:"
+#~ msgstr "コンテキスト番号(_N):"
+
+#~ msgid "Custom _PPP options:"
+#~ msgstr "カスタム PPP オプション(_P):"
+
+#~ msgid "Debug _output"
+#~ msgstr "デバッグ出力(_O)"
+
+#~ msgid "Disconnect after this many LCP echo requests fail"
+#~ msgstr "LCP echo 要求がこの回数だけ失敗すると切断する"
+
+#~ msgid "E_xclusive device access (UUCP-style lock)"
+#~ msgstr "排他的なデバイスアクセス (UUCP スタイルのロック)(_X)"
+
+#~ msgid "Enable stateful _MPPE"
+#~ msgstr "ステートフル MPPE を有効にする (_M)"
+
+#~ msgid "Find Device"
+#~ msgstr "デバイス検索"
+
+#~ msgid ""
+#~ "For security reasons, options entered in the box above are checked "
+#~ "against a list of allowed options before a connection is established.  "
+#~ "Currently there are no options on the list."
+#~ msgstr ""
+#~ "セキュリティ上の理由から、上のボックスに入力したオプションは、接続を確立す"
+#~ "る前に可能なオプションのリストについてチェックされます。"
+
+#~ msgid "GPRS Options"
+#~ msgstr "GPRS オプション"
+
+#~ msgid "Host name or IP address of the SSTP server"
+#~ msgstr "SSTP サーバのホスト名か IP アドレス"
+
+#~ msgid "IP a_ddress:"
+#~ msgstr "IP アドレス(_D):"
+
+#~ msgid ""
+#~ "If BSD compression is not allowed the 'nobsdcomp' option is passed to pppd"
+#~ msgstr ""
+#~ "BSD 圧縮が利用できない場合は 'nobsdcomp' オプションが pppd に渡されます。"
+
+#~ msgid ""
+#~ "If Deflate compression is not allowed the 'nodefate' option is passed to "
+#~ "pppd"
+#~ msgstr ""
+#~ "デフレート圧縮が利用できない場合は 'nobsdcomp' オプションが pppd に渡され"
+#~ "ます。"
+
+#~ msgid "Maximum Receive Unit"
+#~ msgstr "最大受信単位"
+
+#~ msgid "Maximum Transmit Unit"
+#~ msgstr "最大伝送単位"
+
+#~ msgid "Refuse C_HAP"
+#~ msgstr "CHAP を拒否(_H)"
+
+#~ msgid "Refuse _EAP"
+#~ msgstr "EAP を拒否(_E)"
+
+#~ msgid "Refuse _MS CHAP"
+#~ msgstr "MS CHAP を拒否(_M)"
+
+#~ msgid "Require 128 bit M_PPE encryption"
+#~ msgstr "128 bit MPPE 暗号が必要 (_P)"
+
+#~ msgid "Require MPPE _encryption"
+#~ msgstr "MPPE 暗号が必要 (_E)"
+
+#~ msgid "Require explicit IP _address"
+#~ msgstr "明示的な IP アドレスが必要(_A)"
+
+#~ msgid "Requires existing network connection"
+#~ msgstr "既存のネットワーク接続が必要"
+
+#~ msgid "Routing"
+#~ msgstr "ルーティング"
+
+#~ msgid "Serial Options"
+#~ msgstr "シリアルオプション"
+
+#~ msgid "Service providers GPRS access point from device config"
+#~ msgstr "デバイス設定からのサービスプロバイダ GPRS アクセスポイント"
+
+#~ msgid "Service providers IP address"
+#~ msgstr "サービスプロバイダ IP アドレス"
+
+#~ msgid "Telep_hone number:"
+#~ msgstr "電話番号(_H):"
+
+#~ msgid ""
+#~ "This is the friendly name that will be used to identify this network "
+#~ "connection, \n"
+#~ "e.g. \"Campus VPN\" or \"Corporate Network\""
+#~ msgstr ""
+#~ "例えば \"キャンパス VPN\" や \"社内ネットワーク\" といった、このネットワー"
+#~ "ク接続を識別するためのわかりやすい名前です。"
+
+#~ msgid "Time in seconds between echo requests"
+#~ msgstr "echo 要求の時間間隔 (秒)"
+
+#~ msgid "Typ_e:"
+#~ msgstr "タイプ(_E):"
+
+#~ msgid "Use peer _DNS"
+#~ msgstr "ピーア DNS を使用 (_D)"
+
+#~ msgid "When checked the \"refuse-chap\" option is passed to pppd."
+#~ msgstr "チェックすると \"refuse-chap\" オプションが pppd に渡されます"
+
+#~ msgid "When checked the \"refuse-eap\" option is passed to pppd."
+#~ msgstr "チェックすると \"refuse-eap\" オプションが pppd に渡されます"
+
+#~ msgid "When checked the \"refuse-mschap\" option is passed to pppd."
+#~ msgstr "チェックすると \"refuse-mschap\" オプションが pppd に渡されます"
+
+#~ msgid "When checked the 'lock' option is passed to pppd"
+#~ msgstr "チェックすると \"lock\" オプションが pppd に渡されます"
+
+#~ msgid "When checked the 'require-mppc' option is passed to pppd"
+#~ msgstr "チェックすると \"require-mppc\" オプションが pppd に渡されます"
+
+#~ msgid ""
+#~ "When checked this sets the pppd 'debug' option and adds some extra "
+#~ "information from the NetworkManager plugin"
+#~ msgstr ""
+#~ "チェックすると pppd の 'debug' オプションが有効となり、NetworkManager プラ"
+#~ "グインからの詳細な情報が得られます。"
+
+#~ msgid "When checked this sets the pppd 'noipdefault' option"
+#~ msgstr "チェックすると pppd の 'noipdefault' オプションが有効となります"
+
+#~ msgid "When checked this sets the pppd 'usepeerdns' option"
+#~ msgstr "チェックすると pppd の 'usepeerdns' オプションが有効となります"
+
+#~ msgid ""
+#~ "When this check box is cleared the \"noauth\" option is passed to pppd."
+#~ msgstr "チェックすると \"noauth\" オプションが pppd に渡されます"
+
+#~ msgid "_Access point name:"
+#~ msgstr "アクセスポイント名(_A):"
+
+#~ msgid "_Device address:"
+#~ msgstr "デバイスアドレス(_D):"
+
+#~ msgid "_Hardware RTS/CTS"
+#~ msgstr "ハードウェア RTS/CTS (_H)"
+
+#~ msgid "_Import Saved Configuration..."
+#~ msgstr "保存されている設定をインポート(_I)..."
+
+#~ msgid "_Modem connection"
+#~ msgstr "モデム接続(_M)"
+
+#~ msgid "_Only use VPN connection for these addresses:"
+#~ msgstr "これらのアドレスについてのみ VPN 接続を使用(_O):"
+
+#~ msgid "_Packet type:"
+#~ msgstr "パケットタイプ(_P):"
+
+#~ msgid "_Peer DNS through tunnel"
+#~ msgstr "トンネルを介したピーア DNS (_P)"
+
+#~ msgid "_Require MPPC compression"
+#~ msgstr "MPPC 圧縮が必要(_R)"
+
+#~ msgid "pppd tunnel (SSTP, BTGPRS, Dialup)"
+#~ msgstr "pppd トンネル (SSTP, BTGPRS, ダイアルアップ)"
+
+#~ msgid "Name"
+#~ msgstr "名前"
+
+#~ msgid "SSTP Server"
+#~ msgstr "SSTP サーバ"
+
+#~ msgid "Telephone Number"
+#~ msgstr "電話番号"
+
+#~ msgid "Bluetooth Address"
+#~ msgstr "Bluetooth アドレス"
+
+#~ msgid "Bluetooth Channel"
+#~ msgstr "Bluetooth チャンネル"
+
+#~ msgid "GPRS APN"
+#~ msgstr "GPRS APN"
+
+#~ msgid "GPRS IP"
+#~ msgstr "GPRS IP"
+
+#~ msgid "GPRS Context No."
+#~ msgstr "GPRS コンテキスト番号"
+
+#~ msgid "GPRS Packet Type"
+#~ msgstr "GPRS パケットタイプ"
+
+#~ msgid "Use CTS/RTS flow control"
+#~ msgstr "CTS/RTS フロー制御を使用"
+
+#~ msgid "Connect via a modem"
+#~ msgstr "モデム経由で接続"
+
+#~ msgid "Require IP to be provided"
+#~ msgstr "提供される IP が必要"
+
+#~ msgid "Use Peer DNS"
+#~ msgstr "ピーア DNS を使用"
+
+#~ msgid "Use 128 bit MPPE encryption"
+#~ msgstr "128 bit MPPE 暗号を使用"
+
+#~ msgid "Enable stateful MPPE"
+#~ msgstr "ステートフル MPPE を有効にする"
+
+#~ msgid "Do not use deflate compression"
+#~ msgstr "デフレート圧縮を使用しない"
+
+#~ msgid "Do not use BSD compression"
+#~ msgstr "BSD 圧縮を使用しない"
+
+#~ msgid "Exclusive device access by pppd"
+#~ msgstr "pppd による排他的なデバイスアクセス"
+
+#~ msgid "Authenticate remote peer"
+#~ msgstr "リモートピーアを認証"
+
+#~ msgid "Refuse EAP"
+#~ msgstr "EAP を拒否"
+
+#~ msgid "Refuse CHAP"
+#~ msgstr "CHAP を拒否"
+
+#~ msgid "Maximum transmit unit (in bytes)"
+#~ msgstr "最大伝送単位 (Byte)"
+
+#~ msgid "Maximum receive unit (in bytes)"
+#~ msgstr "最大受信単位 (Byte)"
+
+#~ msgid "Number of failed LCP echos to cause disconnect"
+#~ msgstr "切断する、失敗した LCP echo の回数"
+
+#~ msgid "Interval (in seconds) at which to issue LCP echos"
+#~ msgstr "LCP echo を発行する時間間隔 (秒)"
+
+#~ msgid "Interval (in milliseconds) to wait before connecting."
+#~ msgstr "接続までの待ち時間 (ミリ秒)"
+
+#~ msgid "Custom PPP options"
+#~ msgstr "カスタム PPP オプション"
+
+#~ msgid "Use Peer DNS over the Tunnel"
+#~ msgstr "トンネル上でピーア DNS を使用"
+
+#~ msgid "Specific networks available"
+#~ msgstr "利用可能な特定のネットワーク"
+
+#~ msgid "Limit to specific networks"
+#~ msgstr "特定のネットワークに限定"
+
+#~ msgid "The following '%s' connection will be created:"
+#~ msgstr "次の '%s' 接続を作成します:"
+
+#~ msgid "\t%s:  %s\n"
+#~ msgstr "\t%s:  %s\n"
+
+#~ msgid "The connection details can be changed using the \"Back\" button."
+#~ msgstr "接続の詳細は\"戻る\"ボタンで戻って変更できます。"
+
+#~ msgid "Select file to import"
+#~ msgstr "インポートするファイルを選択"
+
+#~ msgid "Save as..."
+#~ msgstr "別名で保存..."
+
+#~ msgid "A file named \"%s\" already exists."
+#~ msgstr "ファイル \"%s\" は既にあります。"
+
+#~ msgid "Do you want to replace it with the one you are saving?"
+#~ msgstr "保存しようとしているファイルで上書きしますか?"
+
+#~ msgid "Tunnel via pppd"
+#~ msgstr "pppd 経由でトンネル"
+
+#~ msgid "<b>Bluetooth options</b>"
+#~ msgstr "<b>Bluetooth オプション</b>"
+
+#~ msgid "<b>Connection Name</b>"
+#~ msgstr "<b>接続名</b>"
+
+#~ msgid "<b>Dial-up options</b>"
+#~ msgstr "<b>ダイアルアップオプション</b>"
+
+#~ msgid "<b>SSTP options</b>"
+#~ msgstr "<b>SSTP オプション</b>"
+
+#~ msgid "<b>Required Information</b>"
+#~ msgstr "<b>必須情報</b>"
+
+#~ msgid "<b>Routing options</b>"
+#~ msgstr "<b>ルーティングオプション</b>"
+
+#~ msgid "MPPC Compression"
+#~ msgstr "MPPC 圧縮"
+
+#~ msgid "MPPE encryption"
+#~ msgstr "MPPE 暗号"
+
+#~ msgid "Numeric Tweaks"
+#~ msgstr "数値微調整"
+
+#~ msgid ""
+#~ "Please enter the information provided by your system administrator below. "
+#~ "Do not enter your password here as you will be prompted when connecting."
+#~ msgstr ""
+#~ "システム管理者が提供した情報を下に入力してください。接続時にきかれるまでは"
+#~ "パスワードは入力しないでください。"
+
+#~ msgid "Show on connection on menu"
+#~ msgstr "メニューの接続に表示"

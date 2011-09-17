@@ -1,0 +1,6 @@
+=======================================================
+network-manager-sstp-0.9.0
+=======================================================
+
+This is the first release of network-manager-sstp.
+- Used the network-manager-pptp as boiler plate copy for sstp handling

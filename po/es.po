@@ -1,0 +1,326 @@
+# translation of NetworkManager-sstp.master.po to Español
+# translation of NetworkManager-openvpn.master.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2006.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NetworkManager-sstp\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2011-07-18 17:35+0000\n"
+"PO-Revision-Date: 2011-07-19 11:02+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../auth-dialog/vpn-password-dialog.c:95
+msgid "_Password:"
+msgstr "_Contraseña:"
+
+#: ../auth-dialog/vpn-password-dialog.c:97
+msgid "_Secondary Password:"
+msgstr "Contraseña _secundaria:"
+
+#: ../auth-dialog/vpn-password-dialog.c:239
+#| msgid "Show password"
+msgid "Sh_ow passwords"
+msgstr "M_ostrar contraseñas"
+
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never be saved.
+#.
+#: ../auth-dialog/main.c:127
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgstr "Necesita autenticarse para acceder a la red privada virtual «%s»"
+
+#: ../auth-dialog/main.c:128
+msgid "Authenticate VPN"
+msgstr "Autenticar VPN"
+
+#: ../nm-sstp.desktop.in.h:1
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "Añadir, eliminar y editar conexiones VPN SSTP"
+
+#: ../nm-sstp.desktop.in.h:2
+msgid "SSTP VPN Connection Manager"
+msgstr "Gestor de conexiones VPN SSTP"
+
+#: ../properties/advanced-dialog.c:187
+msgid "All Available (Default)"
+msgstr "Todas las disponibles (predeterminado)"
+
+#: ../properties/advanced-dialog.c:191
+msgid "128-bit (most secure)"
+msgstr "128-bit (más seguro)"
+
+#: ../properties/advanced-dialog.c:200
+msgid "40-bit (less secure)"
+msgstr "40-bit (menos seguro)"
+
+#: ../properties/advanced-dialog.c:309
+msgid "PAP"
+msgstr "PAP"
+
+#: ../properties/advanced-dialog.c:322
+msgid "CHAP"
+msgstr "CHAP"
+
+#: ../properties/advanced-dialog.c:334
+msgid "MSCHAP"
+msgstr "MSCHAP"
+
+#: ../properties/advanced-dialog.c:346
+msgid "MSCHAPv2"
+msgstr "MSCHAPv2"
+
+#: ../properties/advanced-dialog.c:359
+msgid "EAP"
+msgstr "EAP"
+
+#: ../properties/nm-sstp-dialog.ui.h:1
+msgid "<b>Authentication</b>"
+msgstr "<b>Autenticación</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>Echo</b>"
+msgstr "<b>Eco</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:4
+msgid "<b>Optional</b>"
+msgstr "<b>Opcional</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Seguridad y compresión</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "Ad_vanced..."
+msgstr "A_vanzado..."
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid "Allow _BSD data compression"
+msgstr "Permitir compresión de datos _BSD"
+
+#: ../properties/nm-sstp-dialog.ui.h:8
+msgid "Allow _Deflate data compression"
+msgstr "Permitir compresión de datos _Deflate"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+msgid "Allow st_ateful encryption"
+msgstr "Permitir cifrado de est_ado completo"
+
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Allow the following authentication methods:"
+msgstr "Permitir los siguientes métodos de autenticación:"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Default"
+msgstr "Predeterminado"
+
+#: ../properties/nm-sstp-dialog.ui.h:12
+msgid "NT Domain:"
+msgstr "Dominio de red:"
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid ""
+"Note: MPPE encryption is only available with MSCHAP authentication methods. "
+"To enable this checkbox, select one or more of the MSCHAP authentication "
+"methods: MSCHAP or MSCHAPv2."
+msgstr ""
+"Nota: el cifrado MPPE sólo está disponible con los métodos de autenticación "
+"MSCHAP. Para activar esta casilla de selección seleccione uno o más métodos "
+"de autenticación MSCHAP: MSCHAP o MSCHAPv2."
+
+#: ../properties/nm-sstp-dialog.ui.h:14
+msgid "SSTP Advanced Options"
+msgstr "Opciones avanzadas de SSTP"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "Password:"
+msgstr "Contraseña:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Send PPP _echo packets"
+msgstr "Mandar paquetes _eco PPP"
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "Show password"
+msgstr "Mostrar contraseña"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "Use TCP _header compression"
+msgstr "Usar compresión de _cabeceras TCP"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "Usar cifrado pun_to a punto (MPPE)"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid "User name:"
+msgstr "Usuario:"
+
+#: ../properties/nm-sstp-dialog.ui.h:21
+msgid "_Gateway:"
+msgstr "_Pasarela:"
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "_Security:"
+msgstr "_Seguridad:"
+
+#: ../properties/nm-sstp.c:49
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "Protocolo de túnel punto a punto (SSTP)"
+
+#: ../properties/nm-sstp.c:50
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Compatible con servidores SSTP VPN de Microsoft y otros."
+
+#: ../src/nm-sstp-service.c:160
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr "no se pudo convertir la IP de la puerta de enlace VPN SSTP «%s» (%d)"
+
+#: ../src/nm-sstp-service.c:178
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr "no se pudo encontrar la IP de la puerta de enlace VPN SSTP «%s» (%d)"
+
+#: ../src/nm-sstp-service.c:202
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr "la puerta de enlace VPN SSTP devolvió una dirección no usable «%s»"
+
+#: ../src/nm-sstp-service.c:213
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+msgstr "la puerta de enlace VPN SSTP devolvió una dirección no usable «%s» (%d)"
+
+#: ../src/nm-sstp-service.c:240
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr ""
+"No se pudieron encontrar los secretos (conexión no válida, no existe la "
+"configuración VPN)."
+
+#: ../src/nm-sstp-service.c:252
+msgid "Invalid VPN username."
+msgstr "Nombre de usuario VPN no válido."
+
+#: ../src/nm-sstp-service.c:261
+msgid "Missing VPN username."
+msgstr "Falta el nombre de usuario VPN."
+
+#: ../src/nm-sstp-service.c:271
+msgid "Missing or invalid VPN password."
+msgstr "Falta o no es válida la contraseña de la VPN."
+
+#: ../src/nm-sstp-service.c:429
+msgid "No cached credentials."
+msgstr "No existen credenciales cacheadas."
+
+#: ../src/nm-sstp-service.c:575
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "puerta de enlace «%s» no válida."
+
+#: ../src/nm-sstp-service.c:589
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr "propiedad entera «%s» no válida"
+
+#: ../src/nm-sstp-service.c:599
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "propiedad booleana «%s» no válida (no es «sí» o «no»)"
+
+#: ../src/nm-sstp-service.c:606
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "no se puede manejar la propiedad «%s» tipo %s"
+
+#: ../src/nm-sstp-service.c:617
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "propiedad «%s» no válida o no soportada"
+
+#: ../src/nm-sstp-service.c:635
+msgid "No VPN configuration options."
+msgstr "No existen opciones de configuración VPN."
+
+#: ../src/nm-sstp-service.c:655
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "Falta la opción requerida «%s»."
+
+#: ../src/nm-sstp-service.c:675
+msgid "No VPN secrets!"
+msgstr "No existen secretos VPN"
+
+#: ../src/nm-sstp-service.c:816
+msgid "Could not find sstp client binary."
+msgstr "No se pudo encontrar el binario del cliente sstp"
+
+#: ../src/nm-sstp-service.c:829
+msgid "Missing VPN gateway."
+msgstr "Falta la puerta de enlace VPN."
+
+#: ../src/nm-sstp-service.c:982
+msgid "Could not find the pppd binary."
+msgstr "No se pudo encontrar el binario del cliente sstpd."
+
+#: ../src/nm-sstp-service.c:1112
+msgid "Invalid or missing SSTP gateway."
+msgstr "Falta o no es válida la puerta de enlace SSTP."
+
+#: ../src/nm-sstp-service.c:1311
+msgid "Don't quit when VPN connection terminates"
+msgstr "No salir cuando la conexión VPN finaliza"
+
+#: ../src/nm-sstp-service.c:1312
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Activar registro de depuración detallado (puede exponer contraseñas)"
+
+#: ../src/nm-sstp-service.c:1326
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service proporciona capacidades VPN SSTP integradas con "
+"NetworkManager (compatible con Microsoft y otras implementaciones)."
+
+#~ msgid "_Username:"
+#~ msgstr "_Usuario:"
+
+#~ msgid "_Domain:"
+#~ msgstr "_Dominio:"
+
+#~ msgid "Connect _anonymously"
+#~ msgstr "Conectar como -anónimo"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "Conectar como _usuario:"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "_Recordar las contraseñas para esta sesión"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "_Guardar las contraseña en el depósito de claves"
+
+#~ msgid "gtk-cancel"
+#~ msgstr "gtk-cancel"
+
+#~ msgid "gtk-ok"
+#~ msgstr "gtk-ok"

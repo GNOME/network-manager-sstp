@@ -1,0 +1,198 @@
+# GNOME Korea translation of nm-sstp.
+# Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Young-Ho Cha <ganadist@gmail.com>, 2007.
+# Namhyung Kim <namhyung@gmail.com>, 2007.
+# Changwoo Ryu <cwryu@debian.org>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: nm-sstp\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=NetworkManager&component=VPN: sstp\n"
+"POT-Creation-Date: 2009-10-27 03:34+0000\n"
+"PO-Revision-Date: 2011-03-19 23:03+0900\n"
+"Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
+"Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:129
+msgid "_Secondary Password:"
+msgstr "보조 암호(_S):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:243
+msgid "_Username:"
+msgstr "사용자 이름(_U):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:245
+msgid "_Domain:"
+msgstr "도메인(_D):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:247
+msgid "_Password:"
+msgstr "암호(_P):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:336
+msgid "Connect _anonymously"
+msgstr "익명으로 연결(_A)"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:341
+msgid "Connect as _user:"
+msgstr "사용자로 연결(_U):"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:450
+msgid "_Remember passwords for this session"
+msgstr "이 세션에서 암호 저장(_R)"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:452
+msgid "_Save passwords in keyring"
+msgstr "키 모음에 암호 저장(_S)"
+
+#: ../auth-dialog/main.c:62
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgstr "'%s' VPN에 접근하려면 인증이 필요합니다."
+
+#: ../auth-dialog/main.c:63
+msgid "Authenticate VPN"
+msgstr "VPN 인증"
+
+#: ../nm-sstp.desktop.in.h:1
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "SSTP VPN 연결 추가, 제거, 편집"
+
+#: ../nm-sstp.desktop.in.h:2
+msgid "SSTP VPN Connection Manager"
+msgstr "SSTP VPN 연결 관리"
+
+#: ../properties/advanced-dialog.c:173
+msgid "All Available (Default)"
+msgstr "모두 사용 가능 (기본값)"
+
+#: ../properties/advanced-dialog.c:177
+msgid "128-bit (most secure)"
+msgstr "128비트 (가장 안전)"
+
+#: ../properties/advanced-dialog.c:186
+msgid "40-bit (less secure)"
+msgstr "40비트 (덜 안전)"
+
+#: ../properties/advanced-dialog.c:292
+msgid "PAP"
+msgstr "PAP"
+
+#: ../properties/advanced-dialog.c:305
+msgid "CHAP"
+msgstr "CHAP"
+
+#: ../properties/advanced-dialog.c:317
+msgid "MSCHAP"
+msgstr "MSCHAP"
+
+#: ../properties/advanced-dialog.c:329
+msgid "MSCHAPv2"
+msgstr "MSCHAPv2"
+
+#: ../properties/advanced-dialog.c:342
+msgid "EAP"
+msgstr "EAP"
+
+#: ../properties/nm-sstp-dialog.glade.h:1
+msgid "<b>Authentication</b>"
+msgstr "<b>인증</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:2
+msgid "<b>Echo</b>"
+msgstr "<b>에코</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:3
+msgid "<b>General</b>"
+msgstr "<b>일반</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:4
+msgid "<b>Optional</b>"
+msgstr "<b>옵션</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:5
+msgid "<b>Security and Compression</b>"
+msgstr "<b>보안 및 압축</b>"
+
+#: ../properties/nm-sstp-dialog.glade.h:6
+msgid "Ad_vanced..."
+msgstr "고급(_V)..."
+
+#: ../properties/nm-sstp-dialog.glade.h:7
+msgid "Allow _BSD data compression"
+msgstr "BSD 데이터 압축 허용(_B)"
+
+#: ../properties/nm-sstp-dialog.glade.h:8
+msgid "Allow _Deflate data compression"
+msgstr "Deflate 데이터 압축 허용(_D)"
+
+#: ../properties/nm-sstp-dialog.glade.h:9
+msgid "Allow st_ateful encryption"
+msgstr "스테이트 있는 암호화 사용(_A)"
+
+#: ../properties/nm-sstp-dialog.glade.h:10
+msgid "Allow the following authentication methods:"
+msgstr "다음 인증 방법 허용:"
+
+#: ../properties/nm-sstp-dialog.glade.h:11
+msgid "Default"
+msgstr "기본값"
+
+#: ../properties/nm-sstp-dialog.glade.h:12
+msgid "NT Domain:"
+msgstr "NT 도메인:"
+
+#: ../properties/nm-sstp-dialog.glade.h:13
+msgid ""
+"Note: MPPE encryption is only available with MSCHAP authentication methods. "
+"To enable this checkbox, select one or more of the MSCHAP authentication "
+"methods: MSCHAP or MSCHAPv2."
+msgstr "주의: MPPE 암호화는 MSCHAP 인증 방식에서만 사용할 수 있습니다. 이 확인란을 사용하면 MSCHAP 인증 방식 중 하나 이상을 선택하십시오: MSCHAP 또는 MSCHAPv2."
+
+#: ../properties/nm-sstp-dialog.glade.h:14
+msgid "SSTP Advanced Options"
+msgstr "SSTP 고급 옵션"
+
+#: ../properties/nm-sstp-dialog.glade.h:15
+msgid "Password:"
+msgstr "암호:"
+
+#: ../properties/nm-sstp-dialog.glade.h:16
+msgid "Send PPP _echo packets"
+msgstr "PPP 에코 패킷 보내기(_E)"
+
+#: ../properties/nm-sstp-dialog.glade.h:17
+msgid "Show password"
+msgstr "암호 표시"
+
+#: ../properties/nm-sstp-dialog.glade.h:18
+msgid "Use TCP _header compression"
+msgstr "TCP 헤더 압축 사용(_H)"
+
+#: ../properties/nm-sstp-dialog.glade.h:19
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "포인트투포인트 암호화 (MPPE) 사용(_P)"
+
+#: ../properties/nm-sstp-dialog.glade.h:20
+msgid "User name:"
+msgstr "사용자 이름:"
+
+#: ../properties/nm-sstp-dialog.glade.h:21
+msgid "_Gateway:"
+msgstr "게이트웨이(_G):"
+
+#: ../properties/nm-sstp-dialog.glade.h:22
+msgid "_Security:"
+msgstr "보안(_S):"
+
+#: ../properties/nm-sstp.c:50
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "포인트투포인트 터널링 프로토콜 (SSTP)"
+
+#: ../properties/nm-sstp.c:51
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "마이크로소프트 및 기타 SSTP VPN 서버와 호환됩니다."

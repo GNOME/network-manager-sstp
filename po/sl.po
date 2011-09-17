@@ -1,0 +1,306 @@
+# Slovenian translations for network-manager-sstp.
+# Copyright (C) 2009 network-manager-sstp's COPYRIGHT HOLDER
+# This file is distributed under the same license as the network-manager-sstp package.
+#
+# Matej Urbančič <mateju@svn.gnome.org>, 2009 - 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: network-manager-sstp master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2011-07-18 17:35+0000\n"
+"PO-Revision-Date: 2011-07-19 22:04+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
+"X-Poedit-Country: SLOVENIA\n"
+"X-Poedit-Language: Slovenian\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../auth-dialog/vpn-password-dialog.c:95
+msgid "_Password:"
+msgstr "_Geslo:"
+
+#: ../auth-dialog/vpn-password-dialog.c:97
+msgid "_Secondary Password:"
+msgstr "_Drugotno geslo:"
+
+#: ../auth-dialog/vpn-password-dialog.c:239
+msgid "Sh_ow passwords"
+msgstr "_Pokaži gesla"
+
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never be saved.
+#.
+#: ../auth-dialog/main.c:127
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgstr "Dostop do navideznega zasebnega omrežja '%s' zahteva overitev."
+
+#: ../auth-dialog/main.c:128
+msgid "Authenticate VPN"
+msgstr "Overi VPN"
+
+#: ../nm-sstp.desktop.in.h:1
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "Dodajanje, odstranjevanje in urejanje SSTP VPN povezav"
+
+#: ../nm-sstp.desktop.in.h:2
+msgid "SSTP VPN Connection Manager"
+msgstr "Upravljalnik SSTP VPN povezav"
+
+#: ../properties/advanced-dialog.c:187
+msgid "All Available (Default)"
+msgstr "Vse razpoložljivo (privzeto)"
+
+#: ../properties/advanced-dialog.c:191
+msgid "128-bit (most secure)"
+msgstr "128-bit (bolj varno)"
+
+#: ../properties/advanced-dialog.c:200
+msgid "40-bit (less secure)"
+msgstr "40-bit (manj varno)"
+
+#: ../properties/advanced-dialog.c:309
+msgid "PAP"
+msgstr "PAP"
+
+#: ../properties/advanced-dialog.c:322
+msgid "CHAP"
+msgstr "CHAP"
+
+#: ../properties/advanced-dialog.c:334
+msgid "MSCHAP"
+msgstr "MSCHAP"
+
+#: ../properties/advanced-dialog.c:346
+msgid "MSCHAPv2"
+msgstr "MSCHAPv2"
+
+#: ../properties/advanced-dialog.c:359
+msgid "EAP"
+msgstr "EAP"
+
+#: ../properties/nm-sstp-dialog.ui.h:1
+msgid "<b>Authentication</b>"
+msgstr "<b>Overitev</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>Echo</b>"
+msgstr "<b>Odmev</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid "<b>General</b>"
+msgstr "<b>Splošno</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:4
+msgid "<b>Optional</b>"
+msgstr "<b>Izbirno</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Varnost in stiskanje</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "Ad_vanced..."
+msgstr "_Napredno ..."
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid "Allow _BSD data compression"
+msgstr "Dovoli _BSD stiskanje podatkov"
+
+#: ../properties/nm-sstp-dialog.ui.h:8
+msgid "Allow _Deflate data compression"
+msgstr "Dovoli _Deflate stiskanje podatkov"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+msgid "Allow st_ateful encryption"
+msgstr "Dovoli _namensko šifriranje"
+
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Allow the following authentication methods:"
+msgstr "Dovoli načine overitve:"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Default"
+msgstr "Privzeto"
+
+#: ../properties/nm-sstp-dialog.ui.h:12
+msgid "NT Domain:"
+msgstr "Domena NT:"
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid "Note: MPPE encryption is only available with MSCHAP authentication methods. To enable this checkbox, select one or more of the MSCHAP authentication methods: MSCHAP or MSCHAPv2."
+msgstr "Opomba: Šifriranje MPPE je na voljo le z MSCHAP načinom overitve. Za izbiro te možnosti, je treba najprej izbrati enega ali več načinov overitve MSCHAP: MSCHAP ali MSCHAPv2."
+
+#: ../properties/nm-sstp-dialog.ui.h:14
+msgid "SSTP Advanced Options"
+msgstr "Napredne možnosti SSTP"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "Password:"
+msgstr "Geslo:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Send PPP _echo packets"
+msgstr "Pošlji PPP _echo pakete"
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "Show password"
+msgstr "Pokaži geslo"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "Use TCP _header compression"
+msgstr "Uporabi stiskanje _glave TCP"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "Uporabi šifriranje _točke-do-točke (MPPE)"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid "User name:"
+msgstr "Uporabniško ime:"
+
+#: ../properties/nm-sstp-dialog.ui.h:21
+msgid "_Gateway:"
+msgstr "_Prehod:"
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "_Security:"
+msgstr "_Varnost:"
+
+#: ../properties/nm-sstp.c:49
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "Point-to-Point protokol tuneliranja (SSTP)"
+
+#: ../properties/nm-sstp.c:50
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Združljivo z Microsoftovim in drugimi SSTP VPN strežniki."
+
+#: ../src/nm-sstp-service.c:160
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr "ni mogoče pretvoriti prehoda SSTP VPN naslova IP '%s' (%d)"
+
+#: ../src/nm-sstp-service.c:178
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr "ni mogoče poiskati prehoda SSTP VPN naslova IP '%s' (%d)"
+
+#: ../src/nm-sstp-service.c:202
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr "ni vrnjenega uporabnega naslova za prehod SSTP VPN '%s'"
+
+#: ../src/nm-sstp-service.c:213
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+msgstr "ni vrnjenega uporabnega naslova za prehod SSTP VPN '%s' (%d)"
+
+#: ../src/nm-sstp-service.c:240
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr "No mogoče najti skrivnih podatkov (povezava ni veljavna ali pa ni nastavitev VPN)"
+
+#: ../src/nm-sstp-service.c:252
+msgid "Invalid VPN username."
+msgstr "Neveljavno uporabniško ime."
+
+#: ../src/nm-sstp-service.c:261
+msgid "Missing VPN username."
+msgstr "Manjka uporabniško ime VPN."
+
+#: ../src/nm-sstp-service.c:271
+msgid "Missing or invalid VPN password."
+msgstr "Geslo VPN manjka ali pa ni veljavno."
+
+#: ../src/nm-sstp-service.c:429
+msgid "No cached credentials."
+msgstr "Ni predpomnjenih poveril."
+
+#: ../src/nm-sstp-service.c:575
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "neveljaven prehod '%s'"
+
+#: ../src/nm-sstp-service.c:589
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr "neveljavna lastnost celega števila '%s'"
+
+#: ../src/nm-sstp-service.c:599
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "neveljavna logična lastnost '%s' (ni vrednost da oziroma ne)"
+
+#: ../src/nm-sstp-service.c:606
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "neupravljana lastnost  '%s' vrste %s"
+
+#: ../src/nm-sstp-service.c:617
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "lastnost  '%s' ni veljavna ali pa ni podprta"
+
+#: ../src/nm-sstp-service.c:635
+msgid "No VPN configuration options."
+msgstr "Ni možnosti nastavitev VPN"
+
+#: ../src/nm-sstp-service.c:655
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "Manjka zahtevana možnost '%s'."
+
+#: ../src/nm-sstp-service.c:675
+msgid "No VPN secrets!"
+msgstr "Ni skrivnih podatkov VPN!"
+
+#: ../src/nm-sstp-service.c:816
+msgid "Could not find sstp client binary."
+msgstr "Programa odjemalca sstp ni mogoče najti."
+
+#: ../src/nm-sstp-service.c:829
+msgid "Missing VPN gateway."
+msgstr "Ni določenega prehoda VPN."
+
+#: ../src/nm-sstp-service.c:982
+msgid "Could not find the pppd binary."
+msgstr "Programa pppd ni mogoče najti."
+
+#: ../src/nm-sstp-service.c:1112
+msgid "Invalid or missing SSTP gateway."
+msgstr "Prehod SSTP manjka ali pa ni veljaven."
+
+#: ../src/nm-sstp-service.c:1311
+msgid "Don't quit when VPN connection terminates"
+msgstr "Ne končaj, ko se povezava VPN zaustavi"
+
+#: ../src/nm-sstp-service.c:1312
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Omogoči podrobno beleženje razhroščevanja (lahko razkrije gesla)"
+
+#: ../src/nm-sstp-service.c:1326
+msgid "nm-sstp-service provides integrated SSTP VPN capability (compatible with Microsoft and other implementations) to NetworkManager."
+msgstr "Storitev nm-sstp-service omogoča podporo SSTP VPN (združljivo z Microsoftovimi storitvami) za program NetworkManager."
+
+#~ msgid "_Username:"
+#~ msgstr "_Uporabniško ime:"
+
+#~ msgid "_Domain:"
+#~ msgstr "_Domena:"
+
+#~ msgid "Connect _anonymously"
+#~ msgstr "Poveži se _brezimno"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "Poveži kot _uporabnik:"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "_Zapomni si geslo za to sejo"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "_Shrani geslo v zbirko ključev"

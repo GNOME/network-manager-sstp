@@ -1,0 +1,315 @@
+# Simplified Chinese translation of network-manager-sstp
+# Copyright (C) 2009, 2010 Free software Foundation, Inc.
+# This file is distributed under the same license as the network-manager-sstp package.
+# Wei Mingzhi <whistler@openoffice.org>, 2009.
+# Aron Xu <aronxu@gnome.org>, 2010.
+# YunQiang Su <wzssyqa@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NetworkManager-sstp master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2011-04-09 19:11+0000\n"
+"PO-Revision-Date: 2011-04-11 01:27+0800\n"
+"Last-Translator: YunQiang Su <wzssyqa@gmail.com>\n"
+"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:129
+msgid "_Secondary Password:"
+msgstr "次要密码(_S)："
+
+#: ../auth-dialog/gnome-two-password-dialog.c:243
+msgid "_Username:"
+msgstr "用户名(_U)："
+
+#: ../auth-dialog/gnome-two-password-dialog.c:245
+msgid "_Domain:"
+msgstr "域(_D)："
+
+#: ../auth-dialog/gnome-two-password-dialog.c:247
+msgid "_Password:"
+msgstr "密码(_P)："
+
+#: ../auth-dialog/gnome-two-password-dialog.c:342
+msgid "Connect _anonymously"
+msgstr "匿名连接(_A)"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:347
+msgid "Connect as _user:"
+msgstr "以用户连接(_U)："
+
+#: ../auth-dialog/gnome-two-password-dialog.c:452
+msgid "_Remember passwords for this session"
+msgstr "本次会话记住密码(_R)"
+
+#: ../auth-dialog/gnome-two-password-dialog.c:454
+msgid "_Save passwords in keyring"
+msgstr "在密钥环中保存密码(_S)"
+
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never be saved.
+#.
+#: ../auth-dialog/main.c:92
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgstr "您需要进行身份验证才能访问虚拟专用网络 '%s'。"
+
+#: ../auth-dialog/main.c:93
+msgid "Authenticate VPN"
+msgstr "认证 VPN"
+
+#: ../nm-sstp.desktop.in.h:1
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "添加、删除及编辑 SSTP VPN 连接"
+
+#: ../nm-sstp.desktop.in.h:2
+msgid "SSTP VPN Connection Manager"
+msgstr "SSTP VPN 连接管理器"
+
+#: ../properties/advanced-dialog.c:187
+msgid "All Available (Default)"
+msgstr "全部可用 (默认)"
+
+#: ../properties/advanced-dialog.c:191
+msgid "128-bit (most secure)"
+msgstr "128 位 (最安全的)"
+
+#: ../properties/advanced-dialog.c:200
+msgid "40-bit (less secure)"
+msgstr "40 位 (不太安全)"
+
+#: ../properties/advanced-dialog.c:309
+msgid "PAP"
+msgstr "PAP"
+
+#: ../properties/advanced-dialog.c:322
+msgid "CHAP"
+msgstr "CHAP"
+
+#: ../properties/advanced-dialog.c:334
+msgid "MSCHAP"
+msgstr "MSCHAP"
+
+#: ../properties/advanced-dialog.c:346
+msgid "MSCHAPv2"
+msgstr "MSCHAPv2"
+
+#: ../properties/advanced-dialog.c:359
+msgid "EAP"
+msgstr "EAP"
+
+#: ../properties/nm-sstp-dialog.ui.h:1
+msgid "<b>Authentication</b>"
+msgstr "<b>身份验证</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>Echo</b>"
+msgstr "<b>回响</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid "<b>General</b>"
+msgstr "<b>一般</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:4
+msgid "<b>Optional</b>"
+msgstr "<b>可选项</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "<b>Security and Compression</b>"
+msgstr "<b>安全性及压缩</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "Ad_vanced..."
+msgstr "高级(_V)..."
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid "Allow _BSD data compression"
+msgstr "允许 _BSD 数据压缩"
+
+#: ../properties/nm-sstp-dialog.ui.h:8
+msgid "Allow _Deflate data compression"
+msgstr "允许 _Deflate 数据压缩"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+msgid "Allow st_ateful encryption"
+msgstr "允许有状态的加密(_A)"
+
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Allow the following authentication methods:"
+msgstr "允许以下认证方法:"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Default"
+msgstr "默认"
+
+#: ../properties/nm-sstp-dialog.ui.h:12
+msgid "NT Domain:"
+msgstr "NT 域:"
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid ""
+"Note: MPPE encryption is only available with MSCHAP authentication methods. "
+"To enable this checkbox, select one or more of the MSCHAP authentication "
+"methods: MSCHAP or MSCHAPv2."
+msgstr ""
+"注意：MPPE 加密仅在使用 MSCHAP 认证方式时可用。要启用此选项，请选择 MSCHAP 认"
+"证方式之中的一个或多个：MSCHAP 或 MSCHAPv2"
+
+#: ../properties/nm-sstp-dialog.ui.h:14
+msgid "SSTP Advanced Options"
+msgstr "SSTP 高级选项"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "Password:"
+msgstr "密码:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Send PPP _echo packets"
+msgstr "发送 PPP 回响包(_E)"
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "Show password"
+msgstr "显示密码"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "Use TCP _header compression"
+msgstr "使用 TCP 头压缩(_H)"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "使用点到点加密(MPPE)(_P)"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid "User name:"
+msgstr "用户名(_U)："
+
+#: ../properties/nm-sstp-dialog.ui.h:21
+msgid "_Gateway:"
+msgstr "网关(_G)："
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "_Security:"
+msgstr "安全性(_S)："
+
+#: ../properties/nm-sstp.c:50
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "点到点隧道协议(SSTP)"
+
+#: ../properties/nm-sstp.c:51
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "与微软及其他的 SSTP VPN 服务器兼容。"
+
+#: ../src/nm-sstp-service.c:160
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr "无法转换 SSTP VPN 网关 IP 地址“%s”(%d)"
+
+#: ../src/nm-sstp-service.c:178
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr "无法查找 SSTP VPN 网关 IP 地址“%s”(%d)"
+
+#: ../src/nm-sstp-service.c:202
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr "未返回对应 SSTP VPN 网关“%s”的可用地址"
+
+#: ../src/nm-sstp-service.c:213
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+msgstr "未返回对应 SSTP VPN 网关“%s”的可用地址(%d)"
+
+#: ../src/nm-sstp-service.c:240
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:252
+msgid "Invalid VPN username."
+msgstr "无效的 VPN 用户名。"
+
+#: ../src/nm-sstp-service.c:261
+msgid "Missing VPN username."
+msgstr "缺少 VPN 用户名。"
+
+#: ../src/nm-sstp-service.c:271
+msgid "Missing or invalid VPN password."
+msgstr "VPN 密码缺失或无效。"
+
+#: ../src/nm-sstp-service.c:429
+msgid "No cached credentials."
+msgstr "没有缓存的证书。"
+
+#: ../src/nm-sstp-service.c:575
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "无效的网关“%s”"
+
+#: ../src/nm-sstp-service.c:589
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr "无效的整型属性“%s”"
+
+#: ../src/nm-sstp-service.c:599
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "无效的布尔型属性“%s”(不是 yes 或 no)"
+
+#: ../src/nm-sstp-service.c:606
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "无法处理的属性“%s”类型 %s"
+
+#: ../src/nm-sstp-service.c:617
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "属性“%s”无效或不支持"
+
+#: ../src/nm-sstp-service.c:635
+msgid "No VPN configuration options."
+msgstr "没有 VPN 配置选项。"
+
+#: ../src/nm-sstp-service.c:655
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "缺少需要的选项“%s”。"
+
+#: ../src/nm-sstp-service.c:675
+msgid "No VPN secrets!"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:816
+msgid "Could not find sstp client binary."
+msgstr "无法找到 sstp 客户端二进制文件。"
+
+#: ../src/nm-sstp-service.c:829
+msgid "Missing VPN gateway."
+msgstr "缺少 VPN 网关。"
+
+#: ../src/nm-sstp-service.c:982
+msgid "Could not find the pppd binary."
+msgstr "无法找到 pppd 二进制文件。"
+
+#: ../src/nm-sstp-service.c:1112
+msgid "Invalid or missing SSTP gateway."
+msgstr "SSTP 网关缺失或无效。"
+
+#: ../src/nm-sstp-service.c:1311
+msgid "Don't quit when VPN connection terminates"
+msgstr "在 VPN 连接终止时不退出"
+
+#: ../src/nm-sstp-service.c:1312
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "启用详细的调试记录(可能暴露密码)"
+
+#: ../src/nm-sstp-service.c:1326
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service 为网络管理器提供了集成的 SSTP VPN 功能(与微软和其他实现兼"
+"容)。"

@@ -1,0 +1,20 @@
+SSTP support for NetworkManager
+
+This requires the Linux SSTP client installed 
+http://sstp-client.sourceforge.net/
+
+This project was a clone based on the network-manager-pptp project. Thanks to the 
+authors of network-manager-pptp for their time and dedication.
+
+network-manager-pptp - 0.7.x version:
+(C) 2008 Dan Williams <dcbw@redhat.com>, and Tambet Ingo <tambet@gmail.com>
+
+network-manager-pptp - 0.6.x version:
+(C) 2005 - 2007 Antony Mee   http://www.students.ncl.ac.uk/a.j.mee
+Based entirely on OpenVPN support by Tim Niemueller http://www.niemueller.de
+
+
+Theory of operation
+------------------------------
+
+

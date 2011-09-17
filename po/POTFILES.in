@@ -1,0 +1,9 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+auth-dialog/vpn-password-dialog.c
+auth-dialog/main.c
+nm-sstp.desktop.in
+properties/advanced-dialog.c
+[type: gettext/glade]properties/nm-sstp-dialog.ui
+properties/nm-sstp.c
+src/nm-sstp-service.c
