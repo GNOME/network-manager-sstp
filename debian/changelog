@@ -1,0 +1,6 @@
+network-manager-sstp (0.9.0-0ubuntu2) oneiric; urgency=low
+
+  * Initial release, clone of the network-manager-pptp packaging
+
+ -- Eivind Naess <eivnaes@yahoo.com Sat, 18 Sep 2011 08:00:00 +0900
+
