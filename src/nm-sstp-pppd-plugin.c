@@ -239,7 +239,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     }
     
     /* Create an address request */
-    sstp_api_msg_new((char*)&msg, SSTP_API_MSG_ADDR);
+    sstp_api_msg_new((unsigned char*)&msg, SSTP_API_MSG_ADDR);
 
     /* Send the request */
     ret = send(sock, &msg, sizeof(msg), 0);
@@ -354,7 +354,7 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     }
 
     /* Create a new message */
-    msg = sstp_api_msg_new((char*) buf, SSTP_API_MSG_AUTH);
+    msg = sstp_api_msg_new((unsigned char*) buf, SSTP_API_MSG_AUTH);
     if (!msg)
     {
         g_warning ("nm-sstp-ppp-plugin: (%s): Could not create message to sstpc",
@@ -379,7 +379,7 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     ret = recv(sock, msg, (sizeof(*msg)), 0);
     if (ret <= 0 || ret != (sizeof(*msg)))
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not wait for ack from sstpc (%d/%d)",
+        g_warning ("nm-sstp-ppp-plugin: (%s): Could not wait for ack from sstpc (%d/%u)",
                 __func__, ret, sizeof(*msg));
         goto done;
     }
