@@ -847,7 +847,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 
     /* Prepare the PTY option */
     ipparam = g_strdup_printf ("nm-sstp-service-%d", getpid ());
-    tmp = g_strdup_printf ("%s %s --nolaunchpppd %s --ipparam %s %s",
+    tmp = g_strdup_printf ("%s %s --cert-warn --nolaunchpppd %s --ipparam %s %s",
 	                       sstp_binary, gwaddr,
                            debug ? "--log-level 4" : "",
                            ipparam,

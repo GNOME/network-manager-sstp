@@ -193,7 +193,7 @@ nm_sstp_getsock(void)
 
     /* Setup the address */
     addr.sun_family = AF_UNIX;
-    snprintf(addr.sun_path, sizeof(addr.sun_path), "%s/sstpc-%s", _PATH_TMP, ipparam);
+    snprintf(addr.sun_path, sizeof(addr.sun_path), "/var/run/sstpc/sstpc-%s", ipparam);
 
     /* Connect the socket */
     ret = connect(sock, (struct sockaddr*) &addr, alen);
