@@ -1,8 +1,0 @@
-[VPN Connection]
-name=sstp
-service=org.freedesktop.NetworkManager.sstp
-program=/usr/libexec/nm-sstp-service
-
-[GNOME]
-auth-dialog=nm-sstp-auth-dialog
-properties=libnm-sstp-properties
