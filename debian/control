@@ -25,7 +25,7 @@ Package: network-manager-sstp
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, sstp-client, ppp (>= 2.4.5), ppp (<< 2.4.6)
 Recommends: network-manager-sstp-gnome | plasma-widget-networkmanagement
-Description: network management framework (PPTP plugin core)
+Description: network management framework (SSTP plugin core)
  NetworkManager is a system network service that manages your network devices
  and connections, attempting to keep active network connectivity when
  available. It manages ethernet, WiFi, mobile broadband (WWAN), and PPPoE
@@ -38,7 +38,7 @@ Description: network management framework (PPTP plugin core)
 Package: network-manager-sstp-gnome
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, network-manager-sstp (= ${binary:Version})
-Description: network management framework (PPTP plugin GNOME GUI)
+Description: network management framework (SSTP plugin GNOME GUI)
  NetworkManager is a system network service that manages your network devices
  and connections, attempting to keep active network connectivity when
  available. It manages ethernet, WiFi, mobile broadband (WWAN), and PPPoE
