@@ -379,8 +379,8 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     ret = recv(sock, msg, (sizeof(*msg)), 0);
     if (ret <= 0 || ret != (sizeof(*msg)))
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not wait for ack from sstpc (%d/%u)",
-                __func__, ret, sizeof(*msg));
+        g_warning ("nm-sstp-ppp-plugin: (%s): Could not wait for ack from sstpc (%d)",
+                __func__, ret);
         goto done;
     }
 
@@ -440,9 +440,12 @@ nm_ip_up (void *data, int arg)
     /* Request the address of the server sstpc connected to */
     if (0 == nm_sstp_getaddr(&addr))
     {
-        g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_EXT_GATEWAY,
-                             uint_to_gvalue (addr.sin_addr.s_addr));;
-    }
+		/* This will eliminate the need to have nm-sstp-service
+		 * insert a new entry for "gateway" as we have already set it.
+		 */
+		g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_EXT_GATEWAY,
+							 uint_to_gvalue (addr.sin_addr.s_addr));
+	}
 
 	g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_TUNDEV, 
 					 str_to_gvalue (ifname));

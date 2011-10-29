@@ -113,10 +113,6 @@ typedef struct {
 	char *domain;
 	char *password;
     char *ca_cert;
-
-	/* IP of PPtP gateway in numeric and string format */
-	guint32 naddr;
-	char *saddr;
 } NMSstpPppServicePrivate;
 
 enum {
@@ -127,99 +123,6 @@ enum {
 	LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0 };
-
-static gboolean
-_service_lookup_gateway (NMSstpPppService *self,
-                         const char *src,
-                         GError **error)
-{
-	NMSstpPppServicePrivate *priv = NM_SSTP_PPP_SERVICE_GET_PRIVATE (self);
-	const char *p = src;
-	gboolean is_name = FALSE;
-	struct in_addr naddr;
-	struct addrinfo hints;
-	struct addrinfo *result = NULL, *rp;
-	int err;
-	char buf[INET_ADDRSTRLEN + 1];
-
-	g_return_val_if_fail (src != NULL, FALSE);
-
-	while (*p) {
-		if (*p != '.' && !isdigit (*p)) {
-			is_name = TRUE;
-			break;
-		}
-		p++;
-	}
-
-	if (is_name == FALSE) {
-		errno = 0;
-		if (inet_pton (AF_INET, src, &naddr) <= 0) {
-			g_set_error (error,
-			             NM_VPN_PLUGIN_ERROR,
-			             NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-			             _("couldn't convert SSTP VPN gateway IP address '%s' (%d)"),
-			             src, errno);
-			return FALSE;
-		}
-		priv->naddr = naddr.s_addr;
-		priv->saddr = g_strdup (src);
-		return TRUE;
-	}
-
-	/* It's a hostname, resolve it */
-	memset (&hints, 0, sizeof (hints));
-	hints.ai_family = AF_INET;
-	hints.ai_flags = AI_ADDRCONFIG;
-	err = getaddrinfo (src, NULL, &hints, &result);
-	if (err != 0) {
-		g_set_error (error,
-		             NM_VPN_PLUGIN_ERROR,
-		             NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-		             _("couldn't look up SSTP VPN gateway IP address '%s' (%d)"),
-		             src, err);
-		return FALSE;
-	}
-
-	/* If the hostname resolves to multiple IP addresses, use the first one.
-	 * FIXME: maybe we just want to use a random one instead?
-	 */
-	memset (&naddr, 0, sizeof (naddr));
-	for (rp = result; rp; rp = rp->ai_next) {
-		if (   (rp->ai_family == AF_INET)
-		    && (rp->ai_addrlen == sizeof (struct sockaddr_in))) {
-			struct sockaddr_in *inptr = (struct sockaddr_in *) rp->ai_addr;
-
-			memcpy (&naddr, &(inptr->sin_addr), sizeof (struct in_addr));
-			break;
-		}
-	}
-	freeaddrinfo (result);
-
-	if (naddr.s_addr == 0) {
-		g_set_error (error,
-		             NM_VPN_PLUGIN_ERROR,
-		             NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-		             _("no usable addresses returned for SSTP VPN gateway '%s'"),
-		             src);
-		return FALSE;
-	}
-
-	memset (buf, 0, sizeof (buf));
-	errno = 0;
-	if (inet_ntop (AF_INET, &naddr, buf, sizeof (buf) - 1) == NULL) {
-		g_set_error (error,
-		             NM_VPN_PLUGIN_ERROR,
-		             NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-		             _("no usable addresses returned for SSTP VPN gateway '%s' (%d)"),
-		             src, errno);
-		return FALSE;
-	}
-
-	priv->naddr = naddr.s_addr;
-	priv->saddr = g_strdup (buf);
-	return TRUE;
-}
 
 static gboolean
 _service_cache_credentials (NMSstpPppService *self,
@@ -323,18 +226,6 @@ nm_sstp_ppp_service_new (const char *gwaddr,
 	self = (NMSstpPppService *) g_object_new (NM_TYPE_SSTP_PPP_SERVICE, NULL);
 	g_assert (self);
 
-	/* Look up the IP address of the PPtP server; if the server has multiple
-	 * addresses, because we can't get the actual IP used back from sstp itself,
-	 * we need to do name->addr conversion here and only pass the IP address
-	 * down to pppd/sstp.  If only sstp could somehow return the IP address it's
-	 * using for the connection, we wouldn't need to do this...
-	 */
-	if (!_service_lookup_gateway (self, gwaddr, error)) {
-		g_object_unref (self);
-		self = NULL;
-		goto out;
-	}
-
 	/* Cache the username and password so we can relay the secrets to the pppd
 	 * plugin when it asks for them.
 	 */
@@ -351,11 +242,6 @@ out:
 	return self;
 }
 
-static const char *
-nm_sstp_ppp_service_get_gw_address_string (NMSstpPppService *self)
-{
-	return NM_SSTP_PPP_SERVICE_GET_PRIVATE (self)->saddr;
-}
 
 static void
 nm_sstp_ppp_service_init (NMSstpPppService *self)
@@ -374,7 +260,6 @@ finalize (GObject *object)
 		g_free (priv->password);
 	}
 	g_free (priv->domain);
-	g_free (priv->saddr);
     g_free (priv->ca_cert);
 }
 
@@ -1108,23 +993,17 @@ service_ip4_config_cb (NMSstpPppService *service,
                        GHashTable *config_hash,
                        NMVPNPlugin *plugin)
 {
-	NMSstpPppServicePrivate *priv = NM_SSTP_PPP_SERVICE_GET_PRIVATE (service);
 	GHashTable *hash;
 	GValue *value;
-
-	hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, nm_gvalue_destroy);
-	g_hash_table_foreach (config_hash, copy_hash, hash);
-
-	/* Insert the external VPN gateway into the table, which the pppd plugin
-	 * simply doesn't know about.
+	/*
+	 * The nm-sstp-pppd-plugin.c:441 will get the address from
+	 * sstpc and update the hash table with "gateway" property.
 	 */
-	value = g_slice_new0 (GValue);
-	g_value_init (value, G_TYPE_UINT);
-	g_value_set_uint (value, priv->naddr);
-	g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_GATEWAY), value);
-
+	 
+	hash = g_hash_table_new_full (g_str_hash, g_str_equal, 
+			g_free, nm_gvalue_destroy);
+	g_hash_table_foreach (config_hash, copy_hash, hash);
 	nm_vpn_plugin_set_ip4_config (plugin, hash);
-
 	g_hash_table_destroy (hash);
 }
 
@@ -1179,7 +1058,7 @@ real_connect (NMVPNPlugin   *plugin,
 
 	return nm_sstp_start_pppd_binary (NM_SSTP_PLUGIN (plugin),
 	                                  s_vpn,
-	                                  nm_sstp_ppp_service_get_gw_address_string (priv->service),
+	                                  gwaddr,
 	                                  error);
 }
 
