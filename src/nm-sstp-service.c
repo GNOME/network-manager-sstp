@@ -994,7 +994,7 @@ service_ip4_config_cb (NMSstpPppService *service,
                        NMVPNPlugin *plugin)
 {
 	GHashTable *hash;
-	GValue *value;
+
 	/*
 	 * The nm-sstp-pppd-plugin.c:441 will get the address from
 	 * sstpc and update the hash table with "gateway" property.
