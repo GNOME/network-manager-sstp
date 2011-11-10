@@ -177,7 +177,7 @@ find_tag (const char *tag, const char *buf, gsize len)
 static gboolean
 default_filter (const GtkFileFilterInfo *filter_info, gpointer data)
 {
-    static const char *key_begin = "-----BEGIN CERTIFICATE-----";
+	static const char *key_begin = "-----BEGIN CERTIFICATE-----";
 	int fd;
 	unsigned char buffer[1024];
 	ssize_t bytes_read;
@@ -185,16 +185,16 @@ default_filter (const GtkFileFilterInfo *filter_info, gpointer data)
 	char *p;
 	char *ext;
 
-    /* No nane, bail .. */
+	/* No nane, bail .. */
 	if (!filter_info->filename)
 		return FALSE;
 
-    /* Must have a '.' */
+	/* Must have a '.' */
 	p = strrchr (filter_info->filename, '.');
 	if (!p)
 		return FALSE;
 
-    /* Check extention, make lower case */
+	/* Check extention, make lower case */
 	ext = g_ascii_strdown (p, -1);
 	if (!ext)
 		return FALSE;
@@ -204,12 +204,12 @@ default_filter (const GtkFileFilterInfo *filter_info, gpointer data)
 	}
 	g_free (ext);
 
-    /* Extention is OK, check if file is a certificate */
+	/* Extention is OK, check if file is a certificate */
 	fd = open (filter_info->filename, O_RDONLY);
 	if (fd < 0)
 		return FALSE;
 
-    /* Read the first 400 bytes */
+	/* Read the first 400 bytes */
 	bytes_read = read (fd, buffer, sizeof (buffer) - 1);
 	if (bytes_read < 400)  /* needs to be lower? */
 		goto out;
@@ -234,7 +234,7 @@ file_chooser_filter_new(void)
 
 	filter = gtk_file_filter_new ();
 	gtk_file_filter_add_custom (filter, GTK_FILE_FILTER_FILENAME, 
-                                default_filter, NULL, NULL);
+							    default_filter, NULL, NULL);
 	gtk_file_filter_set_name (filter, _("Certificate in PEM (*.pem)"));
 	return filter;
 }
@@ -313,7 +313,7 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
 	NMSettingVPN *s_vpn;
 	GtkWidget *widget;
-    GtkFileFilter *filter;
+	GtkFileFilter *filter;
 	const char *value;
 	NMSettingSecretFlags pw_flags = NM_SETTING_SECRET_FLAG_NONE;
 
@@ -343,22 +343,23 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	}
 	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (stuff_changed_cb), self);
 
-    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "ca_cert_chooser"));
-    if (!widget)
-        return FALSE;
-    gtk_size_group_add_widget (priv->group, widget);
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "ca_cert_chooser"));
+	if (!widget)
+		return FALSE;
+	gtk_size_group_add_widget (priv->group, widget);
 	filter = file_chooser_filter_new ();
 	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (widget), filter);
 	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (widget), TRUE);
 	gtk_file_chooser_button_set_title (GTK_FILE_CHOOSER_BUTTON (widget),
-                                       _("Choose a CA Certificate"));
-    if (s_vpn) {
-        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CA_CERT);
-        if (value && strlen (value))
-            gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (widget), value);
-    }
-    g_signal_connect (G_OBJECT (widget), "selection-changed", G_CALLBACK (stuff_changed_cb), self);
-
+									  _("Choose a CA Certificate"));
+	if (s_vpn) {
+		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CA_CERT);
+		if (value && strlen (value))
+			gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (widget), value);
+	}
+	
+	g_signal_connect (G_OBJECT (widget), "selection-changed", G_CALLBACK (stuff_changed_cb), self);
+	
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
 	if (!widget)
 		return FALSE;
@@ -397,6 +398,16 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	}
 	g_signal_connect (widget, "changed", G_CALLBACK (stuff_changed_cb), self);
 
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "cert_warn_checkbutton"));
+	g_return_val_if_fail (widget != NULL, FALSE);
+	gtk_size_group_add_widget (priv->group, widget);
+	if (s_vpn) {
+		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_IGN_CERT_WARN);
+		if (value && !strcmp(value, "yes")) {
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+		}
+	}
+
 	return TRUE;
 }
 
@@ -414,19 +425,28 @@ hash_copy_advanced (gpointer key, gpointer data, gpointer user_data)
 {
 	NMSettingVPN *s_vpn = NM_SETTING_VPN (user_data);
 
+	/* Special handling of the secrets */
+	if (!strcmp(NM_SSTP_KEY_PROXY_PASSWORD, (const char *) key))
+	{
+		nm_setting_vpn_add_secret (s_vpn, (const char *) key, 
+								  (const char *) data);
+		return;
+	}
+
 	nm_setting_vpn_add_data_item (s_vpn, (const char *) key, (const char *) data);
 }
 
 static gboolean
 update_connection (NMVpnPluginUiWidgetInterface *iface,
-                   NMConnection *connection,
-                   GError **error)
+				   NMConnection *connection,
+				   GError **error)
 {
 	SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (iface);
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
 	NMSettingVPN *s_vpn;
 	GtkWidget *widget;
 	const char *str;
+	char *tmp;
 	gboolean valid = FALSE;
 	NMSettingSecretFlags pw_flags;
 
@@ -464,16 +484,34 @@ update_connection (NMVpnPluginUiWidgetInterface *iface,
 	if (str && strlen (str))
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_DOMAIN, str);
 
-    /* CA Certificate */
-    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "ca_cert_chooser"));
-    str = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (widget));
-    if (str && strlen(str)) {
-        nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_CA_CERT, str);
-        // g_free (str); // OpenVPN free's this
-    }
+	/* CA Certificate */
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "ca_cert_chooser"));
+	tmp = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (widget));
+	if (tmp && strlen(tmp)) {
+		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_CA_CERT, tmp);
+		g_free (tmp);
+	}
 
+	/* Ignore Certificate Warnings */
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "cert_warn_checkbutton"));
+	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_IGN_CERT_WARN, "yes");
+	}
+
+	/* Update the NM_SETTING object */
 	if (priv->advanced)
 		g_hash_table_foreach (priv->advanced, hash_copy_advanced, s_vpn);
+
+	/* Default to agent owned secret for new connections */
+	// if (priv->new_connection) {
+		if (nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD)) {
+			nm_setting_set_secret_flags (NM_SETTING(s_vpn),
+										 NM_SSTP_KEY_PROXY_PASSWORD,
+										 NM_SETTING_SECRET_FLAG_NONE,
+										 // NM_SETTING_SECRET_FLAG_AGENT_OWNED,
+										 NULL);
+		}
+	//}
 
 	nm_connection_add_setting (connection, NM_SETTING (s_vpn));
 	valid = TRUE;
@@ -651,9 +689,9 @@ out:
 
 static gboolean
 export (NMVpnPluginUiInterface *iface,
-        const char *path,
-        NMConnection *connection,
-        GError **error)
+		const char *path,
+		NMConnection *connection,
+		GError **error)
 {
 	return do_export (path, connection, error);
 }

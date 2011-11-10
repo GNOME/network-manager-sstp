@@ -68,8 +68,27 @@ static const char *advanced_keys[] = {
 	NM_SSTP_KEY_NO_VJ_COMP,
 	NM_SSTP_KEY_LCP_ECHO_FAILURE,
 	NM_SSTP_KEY_LCP_ECHO_INTERVAL,
+	NM_SSTP_KEY_PROXY_SERVER,
+	NM_SSTP_KEY_PROXY_PORT,
+	NM_SSTP_KEY_PROXY_USER,
+	NM_SSTP_KEY_PROXY_PASSWORD,
 	NULL
 };
+
+
+static void
+show_proxy_password_toggled_cb (GtkCheckButton *button, gpointer user_data)
+{
+	GtkBuilder *builder = (GtkBuilder *) user_data;
+	GtkWidget *widget;
+	gboolean visible;
+	
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_password_entry"));
+	g_assert (widget);
+	
+	visible = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button));
+	gtk_entry_set_visibility (GTK_ENTRY (widget), visible);
+}
 
 static void
 copy_values (const char *key, const char *value, gpointer user_data)
@@ -86,15 +105,32 @@ copy_values (const char *key, const char *value, gpointer user_data)
 
 GHashTable *
 advanced_dialog_new_hash_from_connection (NMConnection *connection,
-                                          GError **error)
+										  GError **error)
 {
 	GHashTable *hash;
 	NMSettingVPN *s_vpn;
+	const char *secret = NULL;
+	NMSettingSecretFlags flags;
 
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
 	s_vpn = (NMSettingVPN *) nm_connection_get_setting (connection, NM_TYPE_SETTING_VPN);
 	nm_setting_vpn_foreach_data_item (s_vpn, copy_values, hash);
+
+	/* HTTP Proxy Password is special */
+	secret = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD);
+	if (secret) {
+		g_hash_table_insert (hash,
+							 g_strdup(NM_SSTP_KEY_PROXY_PASSWORD),							   g_strdup(secret));
+	}
+	
+	if (nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PROXY_PASSWORD, &flags, NULL))
+	{
+		g_hash_table_insert (hash,
+							 g_strdup(NM_SSTP_KEY_PROXY_PASSWORD_FLAGS),
+							 g_strdup_printf("%d", flags));
+	}
+
 	return hash;
 }
 
@@ -208,6 +244,7 @@ setup_security_combo (GtkBuilder *builder, GHashTable *hash)
 	g_object_unref (store);
 	gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active < 0 ? SEC_INDEX_DEFAULT : active);
 }
+
 
 static void
 check_toggled_cb (GtkCellRendererToggle *cell, gchar *path_str, gpointer user_data)
@@ -406,6 +443,7 @@ advanced_dialog_new (GHashTable *hash)
 	char *ui_file = NULL;
 	GtkWidget *widget;
 	const char *value;
+	const char *value2;
 	gboolean mppe = FALSE;
 	GError *error = NULL;
 
@@ -491,6 +529,49 @@ advanced_dialog_new (GHashTable *hash)
 	handle_mppe_changed (widget, TRUE, builder);
 	g_signal_connect (G_OBJECT (widget), "toggled", G_CALLBACK (mppe_toggled_cb), builder);
 
+	value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_SERVER);
+	value2 = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_PORT);
+	if (value && strlen(value) && value2 && strlen(value2))
+	{
+		long int tmp;
+		
+		errno = 0;
+		tmp = strtol (value2, NULL, 10);
+		if (errno != 0 || tmp < 0 || tmp > 65535)
+			tmp = 0;
+		
+		widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_port_spinbutton"));
+		gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), (gdouble) tmp);
+		
+		widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_server_entry"));
+		gtk_entry_set_text (GTK_ENTRY (widget), value);
+		
+		value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_USER);
+		if (value && strlen (value)) {
+			widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_username_entry"));
+			gtk_entry_set_text (GTK_ENTRY (widget), value);
+		}
+		
+		value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_PASSWORD);
+		if (value && strlen (value)) {
+			widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_password_entry"));
+			gtk_entry_set_text (GTK_ENTRY (widget), value);
+		}
+		
+		value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_PASSWORD_FLAGS);
+		if (value && strlen (value)) {
+			errno = 0; 
+			tmp = strtol (value, NULL, 10); 
+			if (errno != 0 || tmp < 0 || tmp > 65535)
+				tmp = 0; 
+			widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_password_entry"));
+			g_object_set_data (G_OBJECT (widget), "flags", GUINT_TO_POINTER ((guint32) tmp));
+		}
+	}
+	
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "show_proxy_password"));
+	g_signal_connect (G_OBJECT (widget), "toggled", G_CALLBACK (show_proxy_password_toggled_cb), builder);
+	
 out:
 	g_free (ui_file);
 	return dialog;
@@ -505,6 +586,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	gboolean valid;
+	const char *value;
 
 	g_return_val_if_fail (dialog != NULL, NULL);
 	if (error)
@@ -588,6 +670,46 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 		}
 
 		valid = gtk_tree_model_iter_next (model, &iter);
+	}
+
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_server_entry"));
+	value = (char *) gtk_entry_get_text (GTK_ENTRY (widget));
+	if (value && strlen(value))
+	{
+		guint32 pw_flags;
+		int proxy_port;
+		
+		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_PROXY_SERVER), g_strdup (value));
+		
+		widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_port_spinbutton"));
+		proxy_port = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
+		if (proxy_port > 0) {
+			g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_PROXY_PORT),
+								 g_strdup_printf ("%d", proxy_port));
+		}
+		
+		widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_username_entry"));
+		value = (char *) gtk_entry_get_text (GTK_ENTRY (widget));
+		if (value && strlen (value)) {
+			g_hash_table_insert (hash,
+								 g_strdup (NM_SSTP_KEY_PROXY_USER),
+								 g_strdup (value));
+		}
+		
+		widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_password_entry"));
+		value = (char *) gtk_entry_get_text (GTK_ENTRY (widget));
+		if (value && strlen (value)) {
+			g_hash_table_insert (hash,
+								 g_strdup (NM_SSTP_KEY_PROXY_PASSWORD),
+								 g_strdup (value));
+		}
+		
+		pw_flags = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (widget), "flags"));
+		if (pw_flags != NM_SETTING_SECRET_FLAG_NONE) {
+			g_hash_table_insert (hash,
+								 g_strdup (NM_SSTP_KEY_PROXY_PASSWORD_FLAGS),
+								 g_strdup_printf ("%d", pw_flags));
+		}
 	}
 
 	return hash;
