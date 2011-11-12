@@ -49,6 +49,7 @@
 #define NM_DBUS_PATH_SSTP       "/org/freedesktop/NetworkManager/sstp"
 
 #define NM_SSTP_KEY_GATEWAY           "gateway"
+#define NM_SSTP_KEY_UUID              "uuid"
 #define NM_SSTP_KEY_USER              "user"
 #define NM_SSTP_KEY_PASSWORD          "password"
 #define NM_SSTP_KEY_PASSWORD_FLAGS    "password-flags"

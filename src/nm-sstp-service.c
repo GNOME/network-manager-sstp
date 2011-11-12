@@ -463,6 +463,7 @@ static ValidProperty valid_properties[] = {
 	{ NM_SSTP_KEY_PROXY_PORT,        G_TYPE_UINT, FALSE },
 	{ NM_SSTP_KEY_PROXY_USER,        G_TYPE_STRING, FALSE },
 	{ NM_SSTP_KEY_PROXY_PASSWORD_FLAGS, G_TYPE_STRING, FALSE },
+    { NM_SSTP_KEY_UUID,              G_TYPE_STRING, FALSE },
 	{ NULL,                          G_TYPE_NONE, FALSE }
 };
 
@@ -756,7 +757,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 	NMSstpPppServicePrivate *service_priv = NULL;
 	GPtrArray *args = NULL;
 	const char *value, *sstp_binary;
-	char *ipparam, *tmp, *ca_cert = NULL, *proxy = NULL;
+	char *ipparam, *tmp, *ca_cert = NULL, *proxy = NULL, *uuid = NULL;
 
 	if (priv->service)
 		service_priv = NM_SSTP_PPP_SERVICE_GET_PRIVATE (priv->service);
@@ -801,20 +802,29 @@ construct_pppd_args (NMSstpPlugin *plugin,
 	value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CA_CERT);
 	if (value && strlen (value))
 		ca_cert = g_strdup_printf ("--ca-cert %s", value);
+
+    /*  Set the UUID of the connection */
+    value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_UUID);
+    if (value && strlen(value))
+        uuid = g_strdup_printf ("--uuid %s", value);
 	
 	/* Prepare the PTY option */
 	ipparam = g_strdup_printf ("nm-sstp-service-%d", getpid ());
-	tmp = g_strdup_printf ("%s %s %s --nolaunchpppd %s %s --ipparam %s %s",
+	tmp = g_strdup_printf ("%s %s %s --nolaunchpppd %s %s --ipparam %s %s %s",
 						   sstp_binary, gwaddr,
 						   service_priv->ign_cert == TRUE ? "--cert-warn" : "",
 						   debug ? "--log-level 4" : "",
 						   proxy ? proxy : "",
 						   ipparam,
+                           uuid ? uuid : "",
 						   ca_cert ? ca_cert : ""
 						   );
    
 	g_ptr_array_add (args, (gpointer) tmp);
-	g_free(ca_cert);
+    if (ca_cert)
+    	g_free(ca_cert);
+    if (uuid)
+        g_free(uuid);
  
 	/* Enable debug */
 	if (debug)
@@ -1087,6 +1097,7 @@ real_connect (NMVPNPlugin   *plugin,
 	NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (plugin);
 	NMSettingVPN *s_vpn;
 	const char *gwaddr;
+    const char *value;
 
 	s_vpn = NM_SETTING_VPN (nm_connection_get_setting (connection, NM_TYPE_SETTING_VPN));
 	g_assert (s_vpn);
@@ -1099,6 +1110,11 @@ real_connect (NMVPNPlugin   *plugin,
 		                     _("Invalid or missing SSTP gateway."));
 		return FALSE;
 	}
+
+    /*  Set the UUID of the connection */
+    value = nm_connection_get_uuid(connection);
+    if (value && strlen(value))
+        nm_setting_vpn_add_data_item(s_vpn, NM_SSTP_KEY_UUID, value);
 
 	if (!nm_sstp_properties_validate (s_vpn, error))
 		return FALSE;
