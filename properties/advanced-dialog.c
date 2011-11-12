@@ -51,7 +51,7 @@
 #define TAG_CHAP     1
 #define TAG_MSCHAP   2
 #define TAG_MSCHAPV2 3
-#define TAG_EAP      4
+// #define TAG_EAP      4
 
 static const char *advanced_keys[] = {
 	NM_SSTP_KEY_REFUSE_EAP,
@@ -121,7 +121,8 @@ advanced_dialog_new_hash_from_connection (NMConnection *connection,
 	secret = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD);
 	if (secret) {
 		g_hash_table_insert (hash,
-							 g_strdup(NM_SSTP_KEY_PROXY_PASSWORD),							   g_strdup(secret));
+							 g_strdup(NM_SSTP_KEY_PROXY_PASSWORD),
+							 g_strdup(secret));
 	}
 	
 	if (nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PROXY_PASSWORD, &flags, NULL))
@@ -129,6 +130,22 @@ advanced_dialog_new_hash_from_connection (NMConnection *connection,
 		g_hash_table_insert (hash,
 							 g_strdup(NM_SSTP_KEY_PROXY_PASSWORD_FLAGS),
 							 g_strdup_printf("%d", flags));
+	}
+	
+	/* Default to disable PAP */
+	if (!g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_PAP))
+	{
+		g_hash_table_insert (hash,
+							 g_strdup(NM_SSTP_KEY_REFUSE_PAP),
+							 g_strdup("yes"));
+	}
+
+	/* Default to disable CHAP */
+	if (!g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_CHAP))
+	{
+		g_hash_table_insert (hash,
+							 g_strdup(NM_SSTP_KEY_REFUSE_CHAP),
+							 g_strdup("yes"));
 	}
 
 	return hash;
@@ -180,8 +197,9 @@ handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder *builder)
 		switch (tag) {
 		case TAG_PAP:
 		case TAG_CHAP:
-		case TAG_EAP:
-			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_VALUE, !use_mppe, -1);
+		// case TAG_EAP:
+			// Don't enable these boxes by default
+			// gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_VALUE, !use_mppe, -1);
 			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_SENSITIVE, !use_mppe, -1);
 			break;
 		default:
@@ -386,7 +404,7 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	                    COL_SENSITIVE, TRUE,
 	                    -1);
 
-	/* EAP */
+	/* EAP
 	value = g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_EAP);
 	allowed = (value && !strcmp (value, "yes")) ? FALSE : TRUE;
 	if (use_mppe)
@@ -398,6 +416,7 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	                    COL_TAG, TAG_EAP,
 	                    COL_SENSITIVE, !use_mppe,
 	                    -1);
+	*/
 
 	/* Set up the tree view */
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
@@ -661,10 +680,12 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 			if (!allowed)
 				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAPV2), g_strdup ("yes"));
 			break;
+#if 0
 		case TAG_EAP:
 			if (!allowed)
 				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_EAP), g_strdup ("yes"));
 			break;
+#endif
 		default:
 			break;
 		}
