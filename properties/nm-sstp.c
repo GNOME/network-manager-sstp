@@ -407,6 +407,7 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
 		}
 	}
+	g_signal_connect (widget, "toggled", G_CALLBACK (stuff_changed_cb), self);
 
 	return TRUE;
 }
@@ -494,7 +495,7 @@ update_connection (NMVpnPluginUiWidgetInterface *iface,
 
 	/* Ignore Certificate Warnings */
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "cert_warn_checkbutton"));
-	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_IGN_CERT_WARN, "yes");
 	}
 
