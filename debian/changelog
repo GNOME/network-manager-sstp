@@ -1,3 +1,12 @@
+network-manager-sstp (0.9.1-0ubuntu2) oneiric; urgency=low
+
+  * Added the capability to configure
+    - HTTP Proxy via the Advanced settings dialog
+    - Updated default PPP settings, disabled EAP
+    - Expose checkbox to ignore certificate warnings
+
+ -- Eivind Naess <eivnaes@yahoo.com>  Sun, 13 Nov 2011 20:00:00 -0800
+
 network-manager-sstp (0.9.0-0ubuntu2) oneiric; urgency=low
 
   * Initial release, clone of the network-manager-pptp packaging
