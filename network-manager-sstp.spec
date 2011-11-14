@@ -3,14 +3,15 @@
 %define gtk3_version        3.0
 %define ppp_version         2.4.5
 %define shared_mime_version 0.16-3
+%define sstp_client_version 1.0.3
 
 %define snapshot %{nil}
-%define realversion 0.9.0
+%define realversion 0.9.1
 
 Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
-Version:   0.9.0
+Version:   0.9.1
 Release:   2%{snapshot}%{?dist}
 License:   GPLv2+
 Group:     System Environment/Base
@@ -33,7 +34,7 @@ Requires: dbus             >= %{dbus_version}
 Requires: NetworkManager   >= %{nm_version}
 Requires: ppp              = %{ppp_version}
 Requires: shared-mime-info >= %{shared_mime_version}
-Requires: sstp-client
+Requires: sstp-client      >= %{sstp_client_version}
 Requires: gnome-keyring
 Requires(post):   /sbin/ldconfig desktop-file-utils
 Requires(postun): /sbin/ldconfig desktop-file-utils
