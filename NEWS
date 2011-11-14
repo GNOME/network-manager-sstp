@@ -1,4 +1,13 @@
 =======================================================
+network-manager-sstp-0.9.1
+=======================================================
+
+This is the first release of network-manager-sstp
+- Expose settings for HTTP proxy
+- Expose settings for disable certificate warnings
+- Update the default settings for PPP, disable EAP
+
+=======================================================
 network-manager-sstp-0.9.0
 =======================================================
 
