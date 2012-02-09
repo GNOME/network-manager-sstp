@@ -51,13 +51,21 @@ extern u_char mppe_recv_key[MPPE_MAX_KEY_LEN];
 extern int mppe_keys_set;
 #endif
 
+typedef struct 
+{
+	u_char send_key[MPPE_MAX_KEY_LEN];
+	u_char recv_key[MPPE_MAX_KEY_LEN];
+	int mppe_set;
+
+} nm_sstp_plugin_st;
+
+static nm_sstp_plugin_st nm_sstp_ctx = {};
 
 int plugin_init (void);
 
 char pppd_version[] = VERSION;
 
 static DBusGProxy *proxy = NULL;
-static int nm_sstp_notify_sent = 0;
 
 static void
 nm_phasechange (void *data, int arg)
@@ -388,8 +396,6 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     g_message ("nm-sstp-ppp-plugin: (%s): MPPE keys exchanged with sstpc",
             __func__);
 
-    nm_sstp_notify_sent = 1;
-
     /* Success */
     retval = 0;
 
@@ -426,13 +432,10 @@ nm_ip_up (void *data, int arg)
 	}
 
     /* Send the MPPE keys to the sstpc client */
-    if (!nm_sstp_notify_sent)
-    {
-        g_message ("nm-sstp-ppp-plugin: (%s): sending mppe keys from ip-up", 
-                   __func__);
-        nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key), 
-                mppe_recv_key, sizeof(mppe_recv_key));
-    }
+	g_message ("nm-sstp-ppp-plugin: (%s): sending mppe keys from ip-up", 
+			   __func__);
+	nm_sstp_notify(nm_sstp_ctx.send_key, sizeof(nm_sstp_ctx.send_key), 
+			nm_sstp_ctx.recv_key, sizeof(nm_sstp_ctx.recv_key));
 
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal,
 							NULL, value_destroy);
@@ -573,10 +576,6 @@ nm_snoop_send(unsigned char *buf, int len)
 {
     uint16_t protocol;
 
-    /* Bail here if we have already snooped data */
-    //if (nm_sstp_notify_sent)
-    //    return;
-
     /* Skip the HDLC header */
     buf += 2;
     len -= 2;
@@ -602,12 +601,6 @@ nm_snoop_send(unsigned char *buf, int len)
     if (buf[0] != 0x02)
         return;
     
-    /* We should send sstpc empty keys .. */
-    if (!mppe_keys_set)
-    {
-        return;
-    }
-
     /* ChapMS2/ChapMS sets the MPPE keys as a part of the make_response
      * call, these might not be enabled dependent on negotiated options
      * such as MPPE and compression. If they are enabled, the keys are 
@@ -616,6 +609,11 @@ nm_snoop_send(unsigned char *buf, int len)
      * Let's steal the keys here over implementing all the code to
      * calculate the MPPE keys here.
      */
+    memcpy(nm_sstp_ctx.send_key, mppe_send_key, 
+		sizeof(nm_sstp_ctx.send_key));
+	memcpy(nm_sstp_ctx.recv_key, mppe_recv_key,
+		sizeof(nm_sstp_ctx.recv_key));
+	nm_sstp_ctx.mppe_set = mppe_keys_set;
 
     if (debug)
     {
@@ -635,10 +633,6 @@ nm_snoop_send(unsigned char *buf, int len)
         g_message("nm-sstp-ppp-plugin: (%s): The mppe recv key: %s", 
                   __func__, key);
     }
-
-    /* Send the MPPE keys to the sstpc client */
-    nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key), 
-            mppe_recv_key, sizeof(mppe_recv_key));
 }
 
 
