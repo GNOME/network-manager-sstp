@@ -51,7 +51,7 @@
 #define TAG_CHAP     1
 #define TAG_MSCHAP   2
 #define TAG_MSCHAPV2 3
-// #define TAG_EAP      4
+#define TAG_EAP      4
 
 static const char *advanced_keys[] = {
 	NM_SSTP_KEY_REFUSE_EAP,
@@ -197,10 +197,14 @@ handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder *builder)
 		switch (tag) {
 		case TAG_PAP:
 		case TAG_CHAP:
-		// case TAG_EAP:
 			// Don't enable these boxes by default
 			// gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_VALUE, !use_mppe, -1);
 			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_SENSITIVE, !use_mppe, -1);
+			break;
+		case TAG_EAP:
+			// EAP not supported
+			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_VALUE, FALSE, -1);
+			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_SENSITIVE, FALSE, -1);
 			break;
 		default:
 			break;
@@ -404,19 +408,19 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	                    COL_SENSITIVE, TRUE,
 	                    -1);
 
-	/* EAP
+	/* EAP: Disabled by default, and de-sensiticed.
 	value = g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_EAP);
 	allowed = (value && !strcmp (value, "yes")) ? FALSE : TRUE;
 	if (use_mppe)
 		allowed = FALSE;
+	*/
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter,
 	                    COL_NAME, _("EAP"),
-	                    COL_VALUE, allowed,
+	                    COL_VALUE, FALSE,
 	                    COL_TAG, TAG_EAP,
-	                    COL_SENSITIVE, !use_mppe,
+	                    COL_SENSITIVE, FALSE,
 	                    -1);
-	*/
 
 	/* Set up the tree view */
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
@@ -680,12 +684,10 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 			if (!allowed)
 				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAPV2), g_strdup ("yes"));
 			break;
-#if 0
 		case TAG_EAP:
-			if (!allowed)
-				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_EAP), g_strdup ("yes"));
+			// always refuse-eap
+			g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_EAP), g_strdup ("yes"));
 			break;
-#endif
 		default:
 			break;
 		}
