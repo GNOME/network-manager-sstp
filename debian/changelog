@@ -1,3 +1,9 @@
+network-manager-sstp (0.9.1-0ubuntu4) oneiric; urgency=low
+
+  * Added back the default option of 'refuse-eap' to the configuration.
+
+ -- Eivind Naess <eivnaes@yahoo.com>  Sat, 03 Mar 2012 20:00:00 -0800
+
 network-manager-sstp (0.9.1-0ubuntu3) oneiric; urgency=low
 
   * Changed the pppd plugin to send MPPE keys on ip-up
