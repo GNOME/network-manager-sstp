@@ -1,6 +1,6 @@
 AC_PREREQ(2.59)
 
-AC_INIT(NetworkManager-sstp, 0.9.1, eivnaes@yahoo.com, NetworkManager-sstp)
+AC_INIT(NetworkManager-sstp, 0.9.4, eivnaes@yahoo.com, NetworkManager-sstp)
 AM_INIT_AUTOMAKE([1.9 foreign no-dist-gzip dist-bzip2 subdir-objects])
 AM_MAINTAINER_MODE
 
@@ -74,10 +74,10 @@ AC_SUBST(SSTPC_CFLAGS)
 AC_SUBST(SSTPC_LIBS)
 
 PKG_CHECK_MODULES(NM,
-                  NetworkManager >= 0.8.998
-                  libnm-util >= 0.8.998
-                  libnm-glib >= 0.8.998
-                  libnm-glib-vpn >= 0.8.998)
+                  NetworkManager >= 0.9.4
+                  libnm-util >= 0.9.4
+                  libnm-glib >= 0.9.4
+                  libnm-glib-vpn >= 0.9.4)
 AC_SUBST(NM_CFLAGS)
 AC_SUBST(NM_LIBS)
 

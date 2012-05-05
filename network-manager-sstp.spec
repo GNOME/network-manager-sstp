@@ -107,6 +107,8 @@ fi
 %{_datadir}/gnome-vpn-properties/sstp/nm-sstp-dialog.ui
 
 %changelog
+* Sat May 05 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.4-1
+- Compiled against the latest network manager 0.9.4 sources.
 * Wed Mar 03 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.1-4
 - Added back the 'refuese-eap=yes' by default in the configuration.
 * Wed Feb 08 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.1-3
