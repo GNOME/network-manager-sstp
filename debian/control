@@ -18,7 +18,7 @@ Build-Depends:
  libglib2.0-dev,
  libevent-dev,
  libssl-dev,
- sstp-client
+ libsstp-client-dev
 Standards-Version: 3.9.2
 Vcs-Git: git://github.com/enaess/network-manager-sstp.git
 Vcs-Browser: https://github.com/enaess/network-manager-sstp
@@ -26,7 +26,7 @@ Homepage: http://sstp-client.sourceforge.net
 
 Package: network-manager-sstp
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, sstp-client, ppp (>= 2.4.5), ppp (<< 2.4.6)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libsstp-client0 (>= 1.0.7), ppp (>= 2.4.5), ppp (<< 2.4.6)
 Recommends: network-manager-sstp-gnome | plasma-widget-networkmanagement
 Description: network management framework (SSTP plugin core)
  NetworkManager is a system network service that manages your network devices
