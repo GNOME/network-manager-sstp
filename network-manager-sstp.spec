@@ -6,13 +6,13 @@
 %define sstp_client_version 1.0.3
 
 %define snapshot %{nil}
-%define realversion 0.9.1
+%define realversion 0.9.4
 
 Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
-Version:   0.9.1
-Release:   4%{snapshot}%{?dist}
+Version:   0.9.4
+Release:   1%{snapshot}%{?dist}
 License:   GPLv2+
 Group:     System Environment/Base
 URL:       http://www.gnome.org/projects/NetworkManager/
@@ -107,6 +107,9 @@ fi
 %{_datadir}/gnome-vpn-properties/sstp/nm-sstp-dialog.ui
 
 %changelog
+* Sat Oct 12 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.4-2
+- Fixed a bug that caused connection to be aborted with the message:
+  "Connection was aborted, value of attribute is incorrect"
 * Sat May 05 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.4-1
 - Compiled against the latest network manager 0.9.4 sources.
 * Wed Mar 03 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.1-4
