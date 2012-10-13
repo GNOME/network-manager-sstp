@@ -3,7 +3,7 @@
 %define gtk3_version        3.0
 %define ppp_version         2.4.5
 %define shared_mime_version 0.16-3
-%define sstp_client_version 1.0.3
+%define sstp_client_version 1.0.8
 
 %define snapshot %{nil}
 %define realversion 0.9.4
