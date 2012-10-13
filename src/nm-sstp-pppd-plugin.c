@@ -51,16 +51,6 @@ extern u_char mppe_recv_key[MPPE_MAX_KEY_LEN];
 extern int mppe_keys_set;
 #endif
 
-typedef struct 
-{
-	u_char send_key[MPPE_MAX_KEY_LEN];
-	u_char recv_key[MPPE_MAX_KEY_LEN];
-	int mppe_set;
-
-} nm_sstp_plugin_st;
-
-static nm_sstp_plugin_st nm_sstp_ctx = {};
-
 int plugin_init (void);
 
 char pppd_version[] = VERSION;
@@ -431,12 +421,6 @@ nm_ip_up (void *data, int arg)
 		return;
 	}
 
-    /* Send the MPPE keys to the sstpc client */
-	g_message ("nm-sstp-ppp-plugin: (%s): sending mppe keys from ip-up", 
-			   __func__);
-	nm_sstp_notify(nm_sstp_ctx.send_key, sizeof(nm_sstp_ctx.send_key), 
-			nm_sstp_ctx.recv_key, sizeof(nm_sstp_ctx.recv_key));
-
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal,
 							NULL, value_destroy);
 
@@ -609,12 +593,6 @@ nm_snoop_send(unsigned char *buf, int len)
      * Let's steal the keys here over implementing all the code to
      * calculate the MPPE keys here.
      */
-    memcpy(nm_sstp_ctx.send_key, mppe_send_key, 
-		sizeof(nm_sstp_ctx.send_key));
-	memcpy(nm_sstp_ctx.recv_key, mppe_recv_key,
-		sizeof(nm_sstp_ctx.recv_key));
-	nm_sstp_ctx.mppe_set = mppe_keys_set;
-
     if (debug)
     {
         char key[255];
@@ -633,6 +611,13 @@ nm_snoop_send(unsigned char *buf, int len)
         g_message("nm-sstp-ppp-plugin: (%s): The mppe recv key: %s", 
                   __func__, key);
     }
+
+    /* Send the MPPE keys to the sstpc client */
+	g_message ("nm-sstp-ppp-plugin: (%s): sending mppe keys", 
+			   __func__);
+
+	nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key), 
+			mppe_recv_key, sizeof(mppe_recv_key));
 }
 
 
@@ -681,7 +666,7 @@ plugin_init (void)
     snoop_send_hook = nm_snoop_send;
 
 	add_notifier (&phasechange, nm_phasechange, NULL);
-	add_notifier (&ip_up_notifier, nm_ip_up, NULL);
+    add_notifier (&ip_up_notifier, nm_ip_up, NULL);
 	add_notifier (&exitnotify, nm_exit_notify, proxy);
 
 	return 0;
