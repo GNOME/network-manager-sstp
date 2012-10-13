@@ -148,6 +148,16 @@ advanced_dialog_new_hash_from_connection (NMConnection *connection,
 							 g_strdup("yes"));
 	}
 
+ 	g_message("Refusing EAP");
+
+	/* Default to disable EAP */
+	if (!g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_EAP))
+	{
+ 		g_message("Refusing EAP setting value to 'yes'");
+		g_hash_table_insert (hash,
+							 g_strdup(NM_SSTP_KEY_REFUSE_EAP),
+							 g_strdup("yes"));
+	}
 	return hash;
 }
 
