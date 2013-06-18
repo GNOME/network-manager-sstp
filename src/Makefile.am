@@ -13,7 +13,8 @@ AM_CPPFLAGS =							\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	-DLOCALSTATEDIR=\""$(localstatedir)"\"		 	\
 	-DDATADIR=\"$(datadir)\"				\
-	-DPLUGINDIR=\"$(PPPD_PLUGIN_DIR)\" 
+	-DPLUGINDIR=\"$(PPPD_PLUGIN_DIR)\" 			\
+	-DNM_SSTP_LOCALEDIR=\"$(datadir)/locale\"
 
 libexec_PROGRAMS = nm-sstp-service
 

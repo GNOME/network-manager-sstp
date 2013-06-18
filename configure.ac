@@ -1,6 +1,6 @@
 AC_PREREQ(2.59)
 
-AC_INIT(NetworkManager-sstp, 0.9.4, eivnaes@yahoo.com, NetworkManager-sstp)
+AC_INIT(NetworkManager-sstp, 0.9.6, eivnaes@yahoo.com, NetworkManager-sstp)
 AM_INIT_AUTOMAKE([1.9 foreign no-dist-gzip dist-bzip2 subdir-objects])
 AM_MAINTAINER_MODE
 
@@ -74,17 +74,16 @@ AC_SUBST(SSTPC_CFLAGS)
 AC_SUBST(SSTPC_LIBS)
 
 PKG_CHECK_MODULES(NM,
-                  NetworkManager >= 0.9.4
-                  libnm-util >= 0.9.4
-                  libnm-glib >= 0.9.4
-                  libnm-glib-vpn >= 0.9.4)
+                  NetworkManager >= 0.9.6
+                  libnm-util >= 0.9.6
+                  libnm-glib >= 0.9.6
+                  libnm-glib-vpn >= 0.9.6)
 AC_SUBST(NM_CFLAGS)
 AC_SUBST(NM_LIBS)
 
 if test x"$with_gnome" != xno; then
 	AC_ARG_WITH([gtkver], AS_HELP_STRING([--with-gtkver], [The major version of GTK+ to build with]),
 	            with_gtkver="$withval",with_gtkver=0)
-
 	gtk2_req=2.20
 	gtk3_req=2.91.4
 	case "${with_gtkver}" in
@@ -98,6 +97,7 @@ if test x"$with_gnome" != xno; then
 	       *) AC_MSG_ERROR(unknown GTK+ version $with_gtkver!)
 	          ;;
 	esac
+	GTK_CFLAGS="$GTK_CFLAGS -DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_0"
 	AC_SUBST(GTK_CFLAGS)
 	AC_SUBST(GTK_LIBS)
 

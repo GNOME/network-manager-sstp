@@ -33,6 +33,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <ctype.h>
+#include <locale.h>
 
 #include <errno.h>
 #include <sys/socket.h>
@@ -831,6 +832,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 		g_ptr_array_add (args, (gpointer) g_strdup ("debug"));
 
 	/* PPP options */
+	g_ptr_array_add (args, (gpointer) g_strdup ("noipv6"));
 	g_ptr_array_add (args, (gpointer) g_strdup ("ipparam"));
 	g_ptr_array_add (args, (gpointer) ipparam);
 
@@ -1097,7 +1099,7 @@ real_connect (NMVPNPlugin   *plugin,
 	NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (plugin);
 	NMSettingVPN *s_vpn;
 	const char *gwaddr;
-    const char *value;
+    	const char *value;
 
 	s_vpn = NM_SETTING_VPN (nm_connection_get_setting (connection, NM_TYPE_SETTING_VPN));
 	g_assert (s_vpn);
@@ -1111,10 +1113,10 @@ real_connect (NMVPNPlugin   *plugin,
 		return FALSE;
 	}
 
-    /*  Set the UUID of the connection */
-    value = nm_connection_get_uuid(connection);
-    if (value && strlen(value))
-        nm_setting_vpn_add_data_item(s_vpn, NM_SSTP_KEY_UUID, value);
+	/*  Set the UUID of the connection */
+	value = nm_connection_get_uuid(connection);
+	if (value && strlen(value))
+		nm_setting_vpn_add_data_item(s_vpn, NM_SSTP_KEY_UUID, value);
 
 	if (!nm_sstp_properties_validate (s_vpn, error))
 		return FALSE;
@@ -1316,11 +1318,20 @@ main (int argc, char *argv[])
 		{NULL}
 	};
 
+#if !GLIB_CHECK_VERSION (2, 35, 0)
 	g_type_init ();
+#endif
+
+	/* locale will be set according to environment LC_* variables */
+	setlocale (LC_ALL, "");
+
+	bindtextdomain (GETTEXT_PACKAGE, NM_SSTP_LOCALEDIR);
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+	textdomain (GETTEXT_PACKAGE);
 
 	/* Parse options */
-	opt_ctx = g_option_context_new ("");
-	g_option_context_set_translation_domain (opt_ctx, "UTF-8");
+	opt_ctx = g_option_context_new (NULL);
+	g_option_context_set_translation_domain (opt_ctx, GETTEXT_PACKAGE);
 	g_option_context_set_ignore_unknown_options (opt_ctx, FALSE);
 	g_option_context_set_help_enabled (opt_ctx, TRUE);
 	g_option_context_add_main_entries (opt_ctx, options, NULL);

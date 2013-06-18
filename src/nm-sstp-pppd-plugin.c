@@ -410,7 +410,7 @@ nm_ip_up (void *data, int arg)
 	GHashTable *hash;
 	GArray *array;
 	GValue *val;
-    struct sockaddr_in addr;
+	struct sockaddr_in addr;
 
 	g_return_if_fail (DBUS_IS_G_PROXY (proxy));
 
@@ -424,9 +424,9 @@ nm_ip_up (void *data, int arg)
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal,
 							NULL, value_destroy);
 
-    /* Request the address of the server sstpc connected to */
-    if (0 == nm_sstp_getaddr(&addr))
-    {
+	/* Request the address of the server sstpc connected to */
+	if (0 == nm_sstp_getaddr(&addr))
+	{
 		/* This will eliminate the need to have nm-sstp-service
 		 * insert a new entry for "gateway" as we have already set it.
 		 */
@@ -486,13 +486,13 @@ nm_ip_up (void *data, int arg)
 }
 
 static int
-get_chap_check()
+get_chap_check(void)
 {
 	return 1;
 }
 
 static int
-get_pap_check()
+get_pap_check(void)
 {
 	return 1;
 }
@@ -505,7 +505,7 @@ get_credentials (char *username, char *password)
 	size_t len;
 	GError *err = NULL;
 
-    g_message ("nm-sstp-ppp-plugin: passwd-hook, need credentials...");
+	g_message ("nm-sstp-ppp-plugin: passwd-hook, need credentials...");
 	if (username && !password) {
 		/* pppd is checking pap support; return 1 for supported */
 		return 1;
@@ -638,8 +638,9 @@ plugin_init (void)
 	DBusGConnection *bus;
 	GError *err = NULL;
 
+#if !GLIB_CHECK_VERSION (2, 35, 0)
 	g_type_init ();
-
+#endif
 	g_message ("nm-sstp-ppp-plugin: (%s): initializing", __func__);
 
 	bus = dbus_g_bus_get (DBUS_BUS_SYSTEM, &err);
