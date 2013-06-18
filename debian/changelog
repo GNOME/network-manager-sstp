@@ -1,4 +1,4 @@
-network-manager-sstp (0.9.6-0ubuntu2) precise; urgency=low
+network-manager-sstp (0.9.6-0ubuntu1) precise; urgency=low
 
   * Updated the code to compile against the network-manager 0.9.6 project
 
