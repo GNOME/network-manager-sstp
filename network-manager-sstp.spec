@@ -1,4 +1,4 @@
-%define nm_version          1:0.9.6
+%define nm_version          1:0.9.8
 %define dbus_version        1.1
 %define gtk3_version        3.0
 %define ppp_version         2.4.5
@@ -6,13 +6,13 @@
 %define sstp_client_version 1.0.9
 
 %define snapshot %{nil}
-%define realversion 0.9.6
+%define realversion 0.9.8
 
 Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
-Version:   0.9.6
-Release:   2%{snapshot}%{?dist}
+Version:   0.9.8
+Release:   1%{snapshot}%{?dist}
 License:   GPLv2+
 Group:     System Environment/Base
 URL:       http://www.gnome.org/projects/NetworkManager/
