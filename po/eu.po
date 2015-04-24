@@ -1,202 +1,419 @@
-# translation of eu.po to Basque
+# Basque translation of network-manager-sstp.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2008, 2009, 2010.
+# 
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2008, 2009, 2010, 2014, 2015.
+# Edurne Labaka <elabaka@uzei.com>, 2015.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-20 19:39+0100\n"
-"PO-Revision-Date: 2010-03-20 19:41+0100\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
-"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
+"Project-Id-Version: network-manager-sstp master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2015-02-07 18:05+0100\n"
+"PO-Revision-Date: 2014-11-19 16:39+0100\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
+"Language-Team: Basque <librezale@librezale.org>\n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Poedit 1.6.10\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:129
-msgid "_Secondary Password:"
-msgstr "_Bigarren pasahitza:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:243
-msgid "_Username:"
-msgstr "_Erabiltzaile-izena:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:245
-msgid "_Domain:"
-msgstr "_Domeinua:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:247
-msgid "_Password:"
-msgstr "_Pasahitza:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:336
-msgid "Connect _anonymously"
-msgstr "Konektatu _anonimo gisa"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:341
-msgid "Connect as _user:"
-msgstr "Konektatu _erabiltzaile gisa:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:450
-msgid "_Remember passwords for this session"
-msgstr "_Gogoratu pasahitza saio honetan"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:452
-msgid "_Save passwords in keyring"
-msgstr "_Gorde pasahitza gako-sortan"
-
-#: ../auth-dialog/main.c:62
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never be saved.
+#.
+#: ../auth-dialog/main.c:155
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr "Autentifikatu egin behar zara '%s' VPN-ra sarbidetzeko."
 
-#: ../auth-dialog/main.c:63
+#: ../auth-dialog/main.c:164 ../auth-dialog/main.c:184
 msgid "Authenticate VPN"
 msgstr "Autentifikatu VPN"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "Gehitu, kendu eta editatu SSTP VPN konexioak"
+#: ../auth-dialog/main.c:166 ../properties/nm-sstp-dialog.ui.h:12
+msgid "Password:"
+msgstr "Pasahitza:"
 
-#: ../nm-sstp.desktop.in.h:2
+#: ../nm-sstp.desktop.in.h:1
 msgid "SSTP VPN Connection Manager"
 msgstr "SSTP VPN konexio-kudeatzailea"
 
-#: ../properties/advanced-dialog.c:173
+#: ../nm-sstp.desktop.in.h:2
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "Gehitu, kendu eta editatu SSTP VPN konexioak"
+
+#: ../properties/advanced-dialog.c:184
 msgid "All Available (Default)"
 msgstr "Erabilgarri denak (lehenetsia)"
 
-#: ../properties/advanced-dialog.c:177
+#: ../properties/advanced-dialog.c:188
 msgid "128-bit (most secure)"
 msgstr "128 bit (seguruena)"
 
-#: ../properties/advanced-dialog.c:186
+#: ../properties/advanced-dialog.c:197
 msgid "40-bit (less secure)"
 msgstr "40 bit (ez hain  segurua)"
 
-#: ../properties/advanced-dialog.c:292
+#: ../properties/advanced-dialog.c:301
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:305
+#: ../properties/advanced-dialog.c:314
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:317
+#: ../properties/advanced-dialog.c:326
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:329
+#: ../properties/advanced-dialog.c:338
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:342
+#: ../properties/advanced-dialog.c:351
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Autentifikazioa</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Ohiartzuna</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>Orokorra</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Aukerakoa</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Segurtasuna eta konpresioa</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:6
-msgid "Ad_vanced..."
-msgstr "_Aurreratua..."
-
-#: ../properties/nm-sstp-dialog.glade.h:7
-msgid "Allow _BSD data compression"
-msgstr "Onartu _BSD datu-konpresioa"
-
-#: ../properties/nm-sstp-dialog.glade.h:8
-msgid "Allow _Deflate data compression"
-msgstr "Onartu _Deflate datu-konpresioa"
-
-#: ../properties/nm-sstp-dialog.glade.h:9
-msgid "Allow st_ateful encryption"
-msgstr "Onartu enkripzioa _egoerarekin"
-
-#: ../properties/nm-sstp-dialog.glade.h:10
-msgid "Allow the following authentication methods:"
-msgstr "Onartu honako autentifikazio metodoak:"
-
-#: ../properties/nm-sstp-dialog.glade.h:11
+#: ../properties/nm-sstp-dialog.ui.h:1
 msgid "Default"
 msgstr "Lehenetsia"
 
-#: ../properties/nm-sstp-dialog.glade.h:12
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>General</b>"
+msgstr "<b>Orokorra</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+"SSTP zerbitzariaren IPa edo izena.\n"
+"konfigurazioa: sstp-ren aurreneko parametroa"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "_Gateway:"
+msgstr "_Atebidea:"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "<b>Optional</b>"
+msgstr "<b>Aukerakoa</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+"Erantsi <domeinua> domeinu-izena ostalari lokalaren izenari "
+"autentifikatzeko.\n"
+"konfigurazioa: domain <domeinua>"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
 msgid "NT Domain:"
 msgstr "NT domeinua:"
 
-#: ../properties/nm-sstp-dialog.glade.h:13
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Show password"
+msgstr "Erakutsi pasahitza"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Password passed to SSTP when prompted for it."
+msgstr "SSTPri igorritako pasahitza eskatutakoan."
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+"Ezarri parekoari <izena> (sistema lokalean autentifikatzeko erabilitako "
+"izena).\n"
+"konfigurazioa: user <izena>"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "User name:"
+msgstr "Erabiltzaile-izena:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Ad_vanced..."
+msgstr "_Aurreratua..."
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "SSTP Advanced Options"
+msgstr "SSTP-ren aukera aurreratuak"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "<b>Authentication</b>"
+msgstr "<b>Autentifikazioa</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Allow the following authentication methods:"
+msgstr "Onartu honako autentifikazio metodoak:"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+"Baimendu/desgaitu autentifikazio-metodoak.\n"
+"konfigurazioa: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, "
+"refuse-eap"
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Segurtasuna eta konpresioa</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "Erabili _puntutik punturako enkriptatzea (MPPE)"
+
+#: ../properties/nm-sstp-dialog.ui.h:24
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
 "methods: MSCHAP or MSCHAPv2."
 msgstr ""
-"Oharra: MPPE enkriptazioa soilik erabilgarri dago MSCHAP autentifikazio metodoekin. "
-"Kontrol-koadro hau aktibatzeko, hautatu MSCHAP autentifikazio metodo bat edo gehiago: "
-"MSCHAP edo MSCHAPv2."
+"Oharra: MPPE enkriptazioa soilik erabilgarri dago MSCHAP autentifikazio "
+"metodoekin. Kontrol-koadro hau aktibatzeko, hautatu MSCHAP autentifikazio "
+"metodo bat edo gehiago: MSCHAP edo MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.glade.h:14
-msgid "SSTP Advanced Options"
-msgstr "SSTP-ren aukera aurreratuak"
-
-#: ../properties/nm-sstp-dialog.glade.h:15
-msgid "Password:"
-msgstr "Pasahitza:"
-
-#: ../properties/nm-sstp-dialog.glade.h:16
-msgid "Send PPP _echo packets"
-msgstr "Bidali PPP _oihartzun-paketeak"
-
-#: ../properties/nm-sstp-dialog.glade.h:17
-msgid "Show password"
-msgstr "Erakutsi pasahitza"
-
-#: ../properties/nm-sstp-dialog.glade.h:18
-msgid "Use TCP _header compression"
-msgstr "Erabili TCP _goiburu-konpresioa"
-
-#: ../properties/nm-sstp-dialog.glade.h:19
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "Erabili _puntutik punturako enkriptatzea (MPPE)"
-
-#: ../properties/nm-sstp-dialog.glade.h:20
-msgid "User name:"
-msgstr "Erabiltzaile-izena:"
-
-#: ../properties/nm-sstp-dialog.glade.h:21
-msgid "_Gateway:"
-msgstr "_Atebidea:"
-
-#: ../properties/nm-sstp-dialog.glade.h:22
+#: ../properties/nm-sstp-dialog.ui.h:25
 msgid "_Security:"
 msgstr "_Segurtasuna:"
 
-#: ../properties/nm-sstp.c:50
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
+"MPPE erabiltzea behar du, 40/128 bit-eko enkriptazioarekin edo guztiak.\n"
+"konfigurazioa: require-mppe, require-mppe-128 or require-mppe-40"
+
+#: ../properties/nm-sstp-dialog.ui.h:28
+msgid "Allow st_ateful encryption"
+msgstr "Onartu enkriptazioa _egoerarekin"
+
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
+"Baimendu MPPE-k egoeraren modua erabiltzea. Hala ere, egoerarik gabeko modua "
+"saiatuko da lehendabizi.\n"
+"konfigurazioa: mppe-stateful (aktibatutakoan)"
+
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid "Allow _BSD data compression"
+msgstr "Onartu _BSD datu-konpresioa"
+
+#: ../properties/nm-sstp-dialog.ui.h:32
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+"Baimendu/desgaitu BSD-Compress konpresioa.\n"
+"konfigurazioa: nobsdcomp (desaktibatutakoan)"
+
+#: ../properties/nm-sstp-dialog.ui.h:34
+msgid "Allow _Deflate data compression"
+msgstr "Onartu _Deflate datu-konpresioa"
+
+#: ../properties/nm-sstp-dialog.ui.h:35
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+"Baimendu/desgaitu Deflate konpresioa.\n"
+"konfigurazioa: nodeflate (desaktibatutakoan)"
+
+#: ../properties/nm-sstp-dialog.ui.h:37
+msgid "Use TCP _header compression"
+msgstr "Erabili TCP _goiburu-konpresioa"
+
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
+"Baimendu/desgaitu Van Jacobson estiloa TCP/IParen goiburuaren konpresioan bi "
+"noranzkoetan: jasotzekoa eta bidaltzekoa.\n"
+"konfigurazioa: novj (desaktibatutakoan)"
+
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "<b>Echo</b>"
+msgstr "<b>Oihartzuna</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid "Send PPP _echo packets"
+msgstr "Bidali PPP _oihartzun-paketeak"
+
+#: ../properties/nm-sstp-dialog.ui.h:42
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
+"Bidali LCP oihartzun-eskaerak zer pareko konektatuta dagoen bilatzeko.\n"
+"konfigurazioa: lcp-echo-failure eta lcp-echo-interval"
+
+#: ../properties/nm-sstp.c:49
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
 msgstr "Puntutik punturako tunelaren protokoloa (SSTP)"
 
-#: ../properties/nm-sstp.c:51
+#: ../properties/nm-sstp.c:50
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Microsoft eta beste SSTP VPN zerbitzariekin bateragarria."
 
+#: ../properties/nm-sstp.c:317
+msgid "Saved"
+msgstr "Gordeta"
+
+#: ../properties/nm-sstp.c:325
+msgid "Always Ask"
+msgstr "Galdetu beti"
+
+#: ../properties/nm-sstp.c:330
+msgid "Not Required"
+msgstr "Ez da beharrezkoa"
+
+#: ../src/nm-sstp-service.c:161
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr "ezin izan da  VPN SSTP-aren atebidearen '%s' IP helbidea bihurtu (%d)"
+
+#: ../src/nm-sstp-service.c:179
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr "ezin izan da VPN SSTP-aren atebidearen '%s' IP helbidea aurkitu (%d)"
+
+#: ../src/nm-sstp-service.c:203
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr ""
+"ez da helbide erabilgarririk  itzuli '%s' VPN SSTP-ren atebidearentzako"
+
+#: ../src/nm-sstp-service.c:214
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+msgstr ""
+"ez da helbide erabilgarririk  itzuli '%s' VPN SSTP-ren atebidearentzako (%d)"
+
+#: ../src/nm-sstp-service.c:241
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr ""
+"Ezin izan dira ezkutukorik aurkitu (baliogabeko konexioa, ez dago vpn-en "
+"ezarpenik)."
+
+#: ../src/nm-sstp-service.c:253
+msgid "Invalid VPN username."
+msgstr "Baliogabeko VPN-ren erabiltzaile-izena."
+
+#: ../src/nm-sstp-service.c:262
+msgid "Missing VPN username."
+msgstr "VPN-aren erabiltzaile-izena falta da."
+
+#: ../src/nm-sstp-service.c:272
+msgid "Missing or invalid VPN password."
+msgstr "VPN-aren pasahitza falta da, edo baliogabea da."
+
+#: ../src/nm-sstp-service.c:430
+msgid "No cached credentials."
+msgstr "Ez da kredentzialik gorde cachean."
+
+#: ../src/nm-sstp-service.c:576
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "Baliogabeko '%s' atebidea"
+
+#: ../src/nm-sstp-service.c:590
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr "baliogabeko '%s' propietatearen zenbaki osokoa"
+
+#: ../src/nm-sstp-service.c:600
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "baliogabeko '%s' propietatearen boolearra (ez bai/ez)"
+
+#: ../src/nm-sstp-service.c:607
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "kudeatu gabeko '%s' propietatearen '%s' mota"
+
+#: ../src/nm-sstp-service.c:618
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "'%s' propietatea baliogabea edo ez dago onartuta"
+
+#: ../src/nm-sstp-service.c:636
+msgid "No VPN configuration options."
+msgstr "Ez dago VPNaren konfigurazioaren aukerarik."
+
+#: ../src/nm-sstp-service.c:656
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "Beharrezko '%s' aukera falta da."
+
+#: ../src/nm-sstp-service.c:676
+msgid "No VPN secrets!"
+msgstr "Ez dago VPNaren ezkutukorik."
+
+#: ../src/nm-sstp-service.c:817
+msgid "Could not find sstp client binary."
+msgstr "Ezin izan da sstp-ren bezeroaren bitarrik aurkitu."
+
+#: ../src/nm-sstp-service.c:830
+msgid "Missing VPN gateway."
+msgstr "VPN-aren atebidea falta da."
+
+#: ../src/nm-sstp-service.c:983
+msgid "Could not find the pppd binary."
+msgstr "Ezin izan da pppd-ren bitarrik aurkitu."
+
+#: ../src/nm-sstp-service.c:1113
+msgid "Invalid or missing SSTP gateway."
+msgstr "SSTP-ren atebidea falta da, edo baliogabea da."
+
+#: ../src/nm-sstp-service.c:1292
+msgid "Don't quit when VPN connection terminates"
+msgstr "Ez irten VPNaren konexioa amaitzean"
+
+#: ../src/nm-sstp-service.c:1293
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Gaitu arazketaren erregistro xehea (pasahitzak erakuts ditzake)"
+
+#: ../src/nm-sstp-service.c:1316
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"'nm-sstp-service' zerbitzuak (Microsoft eta beste inplementazioekin "
+"bateragarria den) VPN SSTP gaitasuna erabiltzea baimentzen dio "
+"NetworkManager-i."
+
+#~ msgid "_Secondary Password:"
+#~ msgstr "_Bigarren pasahitza:"
+
+#~ msgid "_Username:"
+#~ msgstr "_Erabiltzaile-izena:"
+
+#~ msgid "_Domain:"
+#~ msgstr "_Domeinua:"
+
+#~ msgid "_Password:"
+#~ msgstr "_Pasahitza:"
+
+#~ msgid "Connect _anonymously"
+#~ msgstr "Konektatu _anonimo gisa"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "Konektatu _erabiltzaile gisa:"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "_Gogoratu pasahitza saio honetan"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "_Gorde pasahitza gako-sortan"

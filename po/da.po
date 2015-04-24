@@ -1,65 +1,56 @@
-# Danish translation of NetworkManager-sstp
-# Copyright (C) 2005-2007
-# This file is distributed under the same license as the NetworkManager-sstp package.
+# Danish translation of network-manager-sstp.
+# Copyright (C) 2012 network-manager-sstp og nedenstående oversættere.
+# This file is distributed under the same license as the network-manager-sstp package.
 # David Zeuthen <davidz@redhat.com>, 2005.
 # Lasse Bang Mikkelsen <lbm@fatalerror.dk>, 2006, 07.
 # Mads Bille Lundby <lundbymads@gmail.com>, 2009.
 # Kim Iskov <kimiskov@gmail.com>, 2010.
+# Joe Hansen <joedalton2@yahoo.dk>, 2011, 2012.
+#
+# bemærk efter Konfig.: er kommandoer uoversat. se f.eks. spansk.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: NetworkManager-sstp\n"
+"Project-Id-Version: network-manager-sstp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 00:48+0200\n"
-"PO-Revision-Date: 2010-09-16 03:20+0200\n"
-"Last-Translator:  Kim Iskov <kimiskov@gmail.com\n"
+"POT-Creation-Date: 2012-04-21 17:29+0200\n"
+"PO-Revision-Date: 2012-04-14 06:54+0200\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:129
-msgid "_Secondary Password:"
-msgstr "_Sekundær adgangskode:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:243
-msgid "_Username:"
-msgstr "_Brugernavn:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:245
-msgid "_Domain:"
-msgstr "_Domæne:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:247
+#: ../auth-dialog/vpn-password-dialog.c:95
 msgid "_Password:"
 msgstr "_Adgangskode:"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:336
-msgid "Connect _anonymously"
-msgstr "Forbind _anonymt"
+#: ../auth-dialog/vpn-password-dialog.c:97
+msgid "_Secondary Password:"
+msgstr "_Sekundær adgangskode:"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:341
-msgid "Connect as _user:"
-msgstr "Forbind som br_uger:"
+#: ../auth-dialog/vpn-password-dialog.c:239
+msgid "Sh_ow passwords"
+msgstr "_Vis adgangskoder"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:450
-msgid "_Remember passwords for this session"
-msgstr "_Husk adgangskoder for denne session"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:452
-msgid "_Save passwords in keyring"
-msgstr "_Gem adgangskoder i nøglering"
-
-#: ../auth-dialog/main.c:62
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never be saved.
+#.
+#: ../auth-dialog/main.c:145
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr ""
 "Du skal opnå godkendelse for at tilgå det virtuelle private netværk '%s'."
 
-#: ../auth-dialog/main.c:63
+#: ../auth-dialog/main.c:154 ../auth-dialog/main.c:174
 msgid "Authenticate VPN"
 msgstr "Godkend VPN"
+
+#: ../auth-dialog/main.c:156 ../properties/nm-sstp-dialog.ui.h:30
+msgid "Password:"
+msgstr "Adgangskode:"
 
 #: ../nm-sstp.desktop.in.h:1
 msgid "Add, Remove, and Edit SSTP VPN Connections"
@@ -70,87 +61,140 @@ msgstr "Tilføj, fjern og redigér SSTP-VPN-forbindelser"
 msgid "SSTP VPN Connection Manager"
 msgstr "Håndtering af SSTP-VPN-forbindelser"
 
-#: ../properties/advanced-dialog.c:186
+#: ../properties/advanced-dialog.c:187
 msgid "All Available (Default)"
 msgstr "Alle tilgængelige (standard)"
 
-#: ../properties/advanced-dialog.c:190
+#: ../properties/advanced-dialog.c:191
 msgid "128-bit (most secure)"
 msgstr "128-bit (mest sikker)"
 
-#: ../properties/advanced-dialog.c:199
+#: ../properties/advanced-dialog.c:200
 msgid "40-bit (less secure)"
 msgstr "40-bit (mindre sikker)"
 
-#: ../properties/advanced-dialog.c:305
+#: ../properties/advanced-dialog.c:309
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:318
+#: ../properties/advanced-dialog.c:322
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:330
+#: ../properties/advanced-dialog.c:334
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:342
+#: ../properties/advanced-dialog.c:346
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:355
+#: ../properties/advanced-dialog.c:359
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/nm-sstp-dialog.glade.h:1
+#: ../properties/nm-sstp-dialog.ui.h:1
 msgid "<b>Authentication</b>"
 msgstr "<b>Godkendelse</b>"
 
-#: ../properties/nm-sstp-dialog.glade.h:2
+#: ../properties/nm-sstp-dialog.ui.h:2
 msgid "<b>Echo</b>"
 msgstr "<b>Ekko</b>"
 
-#: ../properties/nm-sstp-dialog.glade.h:3
+#: ../properties/nm-sstp-dialog.ui.h:3
 msgid "<b>General</b>"
 msgstr "<b>Generelt</b>"
 
-#: ../properties/nm-sstp-dialog.glade.h:4
+#: ../properties/nm-sstp-dialog.ui.h:4
 msgid "<b>Optional</b>"
 msgstr "<b>Valgfri</b>"
 
-#: ../properties/nm-sstp-dialog.glade.h:5
+#: ../properties/nm-sstp-dialog.ui.h:5
 msgid "<b>Security and Compression</b>"
 msgstr "<b>Sikkerhed og komprimering</b>"
 
-#: ../properties/nm-sstp-dialog.glade.h:6
+#: ../properties/nm-sstp-dialog.ui.h:6
 msgid "Ad_vanced..."
 msgstr "A_vanceret..."
 
-#: ../properties/nm-sstp-dialog.glade.h:7
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
+"Tillad at MPPE kører som tilstandsbærende. Tilstandsfri kørsel forsøges "
+"først.\n"
+"Konfig.: mppe-stateful (når afkrydset)"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
 msgid "Allow _BSD data compression"
 msgstr "Tillad _BSD-datakomprimering"
 
-#: ../properties/nm-sstp-dialog.glade.h:8
+#: ../properties/nm-sstp-dialog.ui.h:10
 msgid "Allow _Deflate data compression"
 msgstr "Tillad _Deflate-datakomprimering"
 
-#: ../properties/nm-sstp-dialog.glade.h:9
+#: ../properties/nm-sstp-dialog.ui.h:11
 msgid "Allow st_ateful encryption"
 msgstr "Tillad tilst_andsbaseret kryptering"
 
-#: ../properties/nm-sstp-dialog.glade.h:10
+#: ../properties/nm-sstp-dialog.ui.h:12
 msgid "Allow the following authentication methods:"
 msgstr "Tillad følgende metoder til godkendelse:"
 
-#: ../properties/nm-sstp-dialog.glade.h:11
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+"Tillad/deaktiver komprimering med BSD-Compress.\n"
+"Konfig.: nobsdcomp (når ikke afkrydset)"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+"Tillad/deaktiver komprimering med Deflate.\n"
+"Konfig.: nodeflate (når ikke afkrydset)"
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
+"Tillad/deaktiver TCP/IP-hovedkomprimering i Van Jacobson-stil ved både "
+"afsendelse og modtagelse.\n"
+"Konfig: novj (når ikke afkrydset)"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+"Tillad/deaktiver godkendelsesmetoder.\n"
+"Konfig: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+
+#: ../properties/nm-sstp-dialog.ui.h:21
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+"Tilføj domænenavnet <domæne> til det lokale værtsnavn for "
+"godkendelsesformål.\n"
+"Konfig.: domain <domæne>"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
 msgid "Default"
 msgstr "Standard"
 
-#: ../properties/nm-sstp-dialog.glade.h:12
+#: ../properties/nm-sstp-dialog.ui.h:24
 msgid "NT Domain:"
 msgstr "NT-domæne:"
 
-#: ../properties/nm-sstp-dialog.glade.h:13
+#: ../properties/nm-sstp-dialog.ui.h:25
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
@@ -160,452 +204,203 @@ msgstr ""
 "at tilgå dette tjekboks, vælg en eller flere af MSCHAP-godkendelsesmetoder: "
 "MSCHAP eller MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.glade.h:14
+#: ../properties/nm-sstp-dialog.ui.h:26
 msgid "SSTP Advanced Options"
 msgstr "Avancerede PPP-indstillinger"
 
-#: ../properties/nm-sstp-dialog.glade.h:15
-msgid "Password:"
-msgstr "Adgangskode:"
+#: ../properties/nm-sstp-dialog.ui.h:27
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+"SSTP-server-IP eller -navn.\n"
+"Konfig.: den første parameter for sstp"
 
-#: ../properties/nm-sstp-dialog.glade.h:16
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid "Password passed to SSTP when prompted for it."
+msgstr "Adgangskode sendes til SSTP når der bliver spurgt om adgangskoden."
+
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
+"Kræv brug af MPPE, med 40/128-bit-kryptering eller alle.\n"
+"Konfig.: require-mppe, require-mppe-128 eller require-mppe-40"
+
+#: ../properties/nm-sstp-dialog.ui.h:33
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
+"Send LCP echo-forespørgsler for at undersøge om modparten er i live.\n"
+"Konfig.: lcp-echo-failure og lcp-echo-interval"
+
+#: ../properties/nm-sstp-dialog.ui.h:35
 msgid "Send PPP _echo packets"
 msgstr "Send PPP-_ekko-pakker"
 
-#: ../properties/nm-sstp-dialog.glade.h:17
+#: ../properties/nm-sstp-dialog.ui.h:36
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+"Angiv navnet for godkendelse af det lokale system for modparten til <navn>.\n"
+"Konfig.: user <navn>"
+
+#: ../properties/nm-sstp-dialog.ui.h:38
 msgid "Show password"
 msgstr "Vis adgangskode"
 
-#: ../properties/nm-sstp-dialog.glade.h:18
+#: ../properties/nm-sstp-dialog.ui.h:39
 msgid "Use TCP _header compression"
 msgstr "Anvend TCP-_hovedkomprimering"
 
-#: ../properties/nm-sstp-dialog.glade.h:19
+#: ../properties/nm-sstp-dialog.ui.h:40
 msgid "Use _Point-to-Point encryption (MPPE)"
 msgstr "Anvend _Point-to-Point-kryptering (MPPE)"
 
-#: ../properties/nm-sstp-dialog.glade.h:20
+#: ../properties/nm-sstp-dialog.ui.h:41
 msgid "User name:"
 msgstr "Brugernavn:"
 
-#: ../properties/nm-sstp-dialog.glade.h:21
+#: ../properties/nm-sstp-dialog.ui.h:42
 msgid "_Gateway:"
 msgstr "_Gateway:"
 
-#: ../properties/nm-sstp-dialog.glade.h:22
+#: ../properties/nm-sstp-dialog.ui.h:43
 msgid "_Security:"
 msgstr "_Sikkerhed:"
 
-#: ../properties/nm-sstp.c:50
+#: ../properties/nm-sstp.c:49
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
 msgstr "Point-to-Point Tunneling Protocol (SSTP)"
 
-#: ../properties/nm-sstp.c:51
+#: ../properties/nm-sstp.c:50
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Kompatibel med Microsoft og andre SSTP-VPN-servere."
 
-#~ msgid "Authentication Type:"
-#~ msgstr "Godkendelsestype:"
-
-#~ msgid "_Remember for this session"
-#~ msgstr "_Husk for denne session"
-
-#~ msgid "_Save in keyring"
-#~ msgstr "_Gem i nøglering"
-
-#~ msgid "Authenticate Connection"
-#~ msgstr "Godkend forbindelse"
-
-#~ msgid ""
-#~ "<span weight=\"bold\" size=\"larger\">Authentication Information</span>\n"
-#~ "\n"
-#~ "The connection '%s' may need some form of authentication.\n"
-#~ "\n"
-#~ "Please select an appropriate authentication type and provide the "
-#~ "necessary credentials below:\n"
-#~ msgstr ""
-#~ "<span weight=\"bold\" size=\"larger\">Godkendelsesinformation</span>\n"
-#~ "\n"
-#~ "Forbindelsen \"%s\" kræver muligvis en form for godkendelse.\n"
-#~ "\n"
-#~ "Vælg venligst en passende godkendelsestype og angiv de nødvendige "
-#~ "oplysninger nedenfor:\n"
-
-#~ msgid "Authentication Required"
-#~ msgstr "Godkendelse påkrævet"
-
-#~ msgid "_Authentication Type:"
-#~ msgstr "_Godkendelsestype:"
-
-#~ msgid "_Remote name:"
-#~ msgstr "_Fjernnavn:"
-
-#~ msgid "auth-chap-window"
-#~ msgstr "auth-chap-window"
-
-#~ msgid "auth-mschapv2-window"
-#~ msgstr "auth-mschapv2-window"
-
-#~ msgid "auth-none-window"
-#~ msgstr "auth-none-window"
-
-#~ msgid "VPN Connection Manager (PPP generic)"
-#~ msgstr "VPN-forbindelser (generisk PPP)"
-
-#~ msgid "00:00:00:00"
-#~ msgstr "00:00:00:00"
-
-#~ msgid "<b>Connection Name</b>"
-#~ msgstr "<b>Navn på forbindelse</b>"
-
-#~ msgid "<b>Delays and TImeouts</b>"
-#~ msgstr "<b>Forsinkelser og tidsudløb</b>"
-
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>Pakkeparametre</b>"
-
-#~ msgid "<i>example: 172.16.0.0/16 10.11.12.0/24</i>"
-#~ msgstr "<i>eksempel: 172.16.0.0/16 10.11.12.0/24</i>"
-
-#~ msgid ""
-#~ "A list of extra options to pppd as would be typed on the command line"
-#~ msgstr ""
-#~ "En liste af ekstra tilvalg til pppd, som de ville skrives på "
-#~ "kommandolinjen"
-
-#~ msgid "Compression & Encryption"
-#~ msgstr "Komprimering & kryptering"
-
-#~ msgid "Connection"
-#~ msgstr "Forbindelse"
-
-#~ msgid "Debug Output"
-#~ msgstr "Fejlsøgningsuddata"
-
-#~ msgid "Disconnect after this many LCP echo requests fail"
-#~ msgstr "Afbryd efter dette antal mislykkede LCP ekko-forespørgsler"
-
-#~ msgid "Enable stateful MPPE"
-#~ msgstr "Aktivér tilstandsbevidst MPPE"
-
-#~ msgid "Exclusive device access (UUCP-style lock)"
-#~ msgstr "Eksklusiv enhedsadgang (UUCP-lås)"
-
-#~ msgid "Find Device"
-#~ msgstr "Find enhed"
-
-#~ msgid ""
-#~ "For security reasons, options entered in the box above are checked "
-#~ "against a list of allowed options before a connection is established.  "
-#~ "Currently there are no options on the list."
-#~ msgstr ""
-#~ "Af sikkerhedshensyn vil tilvalg indtastet i dette felt, blive holdt op "
-#~ "imoden liste over tilladte tilvalg, inden en forbindelse etableres. Der "
-#~ "er i  øjeblikket ingen tilvalg på listen."
-
-#~ msgid "GPRS Options"
-#~ msgstr "GPRS-indstillinger"
-
-#~ msgid "Hardware RTS/CTS"
-#~ msgstr "Hardware RTS/CTS"
-
-#~ msgid "Host name or IP address of the SSTP server"
-#~ msgstr "Værtsnavn eller IP-adresse på SSTP-serveren"
-
-#~ msgid ""
-#~ "If BSD compression is not allowed the 'nobsdcomp' option is passed to pppd"
-#~ msgstr ""
-#~ "Hvis BSD-komprimering ikke er tilladt, sættes pppd-tilvalget \"nobsdcomp"
-#~ "\"."
-
-#~ msgid ""
-#~ "If Deflate compression is not allowed the 'nodefate' option is passed to "
-#~ "pppd"
-#~ msgstr ""
-#~ "Hvis Deflate-komprimering ikke er tilladt, sættes pppd-tilvalget "
-#~ "\"nodeflate\"."
-
-#~ msgid "Maximum Receive Unit"
-#~ msgstr "Maksimal enhed for modtagelse (MRU)"
-
-#~ msgid "Maximum Transmit Unit"
-#~ msgstr "Maksimal enhed for afsendelse (MTU)"
-
-#~ msgid "Modem Connection"
-#~ msgstr "Modemforbindelse"
-
-#~ msgid "Peer DNS through tunnel"
-#~ msgstr "Fjernserver-DNS igennem tunnel"
-
-#~ msgid "Refuse CHAP"
-#~ msgstr "Afvis CHAP"
-
-#~ msgid "Refuse EAP"
-#~ msgstr "Afvis EAP"
-
-#~ msgid "Refuse MS CHAP"
-#~ msgstr "Afvis MS CHAP"
-
-#~ msgid "Require 128 bit MPPE encryption"
-#~ msgstr "Påkræv 128-bit MPPE-kryptering"
-
-#~ msgid "Require Explicit IP Addr"
-#~ msgstr "Påkræv fast IP-adresse"
-
-#~ msgid "Require MPPC Compression"
-#~ msgstr "Påkræv MPPC-komprimering"
-
-#~ msgid "Require MPPE encryption"
-#~ msgstr "Påkræv MPPE-kryptering"
-
-#~ msgid "Requires existing network connection"
-#~ msgstr "Kræver eksisterende netværksforbindelse"
-
-#~ msgid "Routing"
-#~ msgstr "Routing"
-
-#~ msgid "Serial Options"
-#~ msgstr "Serielle indstillinger"
-
-#~ msgid "Service providers GPRS access point from device config"
-#~ msgstr "Udbyderens GPRS-adgangspunkt fra enhedens konfiguration"
-
-#~ msgid "Service providers IP address"
-#~ msgstr "Udbyderens IP-adresse"
-
-#~ msgid "Telephone number to dial"
-#~ msgstr "Telefonnummer at ringe til"
-
-#~ msgid ""
-#~ "This is the friendly name that will be used to identify this network "
-#~ "connection, \n"
-#~ "e.g. \"Campus VPN\" or \"Corporate Network\""
-#~ msgstr ""
-#~ "Dette er et brugervenligt navn til at identificere denne forbindelse, \n"
-#~ "f.eks. \"Universitets VPN\" eller \"Virksomhedens netværk\""
-
-#~ msgid "Time in seconds between echo requests"
-#~ msgstr "Tid i sekunder mellem ekko-forespørgsler"
-
-#~ msgid "Type:"
-#~ msgstr "Type:"
-
-#~ msgid "Use Peer DNS"
-#~ msgstr "Brug fjernserver-DNS"
-
-#~ msgid "When checked the \"refuse-chap\" option is passed to pppd."
-#~ msgstr "Hvis afkrydset, sættes pppd-tilvalget \"refuse-chap\"."
-
-#~ msgid "When checked the \"refuse-eap\" option is passed to pppd."
-#~ msgstr "Hvis afkrydset, sættes pppd-tilvalget \"refuse-eap\"."
-
-#~ msgid "When checked the \"refuse-mschap\" option is passed to pppd."
-#~ msgstr "Hvis afkrydset, sættes pppd-tilvalget \"refuse-mschap\"."
-
-#~ msgid "When checked the 'lock' option is passed to pppd"
-#~ msgstr "Hvis afkrydset, sættes pppd-tilvalget \"lock\"."
-
-#~ msgid "When checked the 'require-mppc' option is passed to pppd"
-#~ msgstr "Hvis afkrydset, sættes pppd-tilvalget \"require-mppc\"."
-
-#~ msgid ""
-#~ "When checked this sets the pppd 'debug' option and adds some extra "
-#~ "information from the NetworkManager plugin"
-#~ msgstr ""
-#~ "Hvis afkrydset, sættes pppd-tilvalget \"debug\" og der tilføjes ekstra "
-#~ "information fra NetworkManager-udvidelsesmodulet"
-
-#~ msgid "When checked this sets the pppd 'noipdefault' option"
-#~ msgstr "Hvis afkrydset, sættes pppd-tilvalget \"noipdefault\"."
-
-#~ msgid "When checked this sets the pppd 'usepeerdns' option"
-#~ msgstr "Hvis afkrydset, sættes pppd-tilvalget \"usepeerdns\"."
-
-#~ msgid ""
-#~ "When this check box is cleared the \"noauth\" option is passed to pppd."
-#~ msgstr "Hvis ikke-afkrydset, sættes pppd-tilvalget \"noauth\"."
-
-#~ msgid "_Access Point Name:"
-#~ msgstr "Navn på _adgangspunkt:"
-
-#~ msgid "_Channel:"
-#~ msgstr "_Kanal:"
-
-#~ msgid "_Context Num"
-#~ msgstr "_Kontekstnummer"
-
-#~ msgid "_Custom PPP options:"
-#~ msgstr "_Brugerdefinerede PPP-indstillinger:"
-
-#~ msgid "_Device Address:"
-#~ msgstr "_Enhedsadresse:"
-
-#~ msgid "_IP Address:"
-#~ msgstr "_IP-adresse:"
-
-#~ msgid "_Import Saved Configuration..."
-#~ msgstr "_Importér gemt konfiguration..."
-
-#~ msgid "_Only use VPN connection for these addresses"
-#~ msgstr "_Brug kun VPN-forbindelse til flg. adresser"
-
-#~ msgid "_Packet Type"
-#~ msgstr "_Pakketype"
-
-#~ msgid "_Telephone Number:"
-#~ msgstr "_Telefonnummer:"
-
-#~ msgid "connect-delay"
-#~ msgstr "connect-delay"
-
-#~ msgid "pppd tunnel (SSTP, BTGPRS, Dialup)"
-#~ msgstr "pppd-tunnel (SSTP, BTGPRS, opkald)"
-
-#~ msgid "Name"
-#~ msgstr "Navn"
-
-#~ msgid "SSTP Server"
-#~ msgstr "SSTP-server"
-
-#~ msgid "Telephone Number"
-#~ msgstr "Telefonnummer"
-
-#~ msgid "Bluetooth Address"
-#~ msgstr "Bluetooth-adresse"
-
-#~ msgid "Bluetooth Channel"
-#~ msgstr "Bluetooth-kanal"
-
-#~ msgid "GPRS APN"
-#~ msgstr "GPRS-APN"
-
-#~ msgid "GPRS IP"
-#~ msgstr "GPRS-IP"
-
-#~ msgid "GPRS Context No."
-#~ msgstr "Kontekstnummer for GPRS."
-
-#~ msgid "GPRS Packet Type"
-#~ msgstr "GPRS-pakketype"
-
-#~ msgid "Use CTS/RTS flow control"
-#~ msgstr "Brug CTS/RTS flowkontrol"
-
-#~ msgid "Connect via a modem"
-#~ msgstr "Tilslut via et modem"
-
-#~ msgid "Require IP to be provided"
-#~ msgstr "Påkræv at IP tilbydes"
-
-#~ msgid "Use 128 bit MPPE encryption"
-#~ msgstr "Brug 128-bit MPPE-kryptering"
-
-#~ msgid "Do not use deflate compression"
-#~ msgstr "Brug ikke deflate-komprimering"
-
-#~ msgid "Do not use BSD compression"
-#~ msgstr "Brug ikke BSD-komprimering"
-
-#~ msgid "Exclusive device access by pppd"
-#~ msgstr "Eksklusiv enhedsadgang af pppd"
-
-#~ msgid "Authenticate remote peer"
-#~ msgstr "Godkend fjernserver"
-
-#~ msgid "Maximum transmit unit (in bytes)"
-#~ msgstr "Maksimal enhed for afsendelse (MTU) (i bytes)"
-
-#~ msgid "Maximum receive unit (in bytes)"
-#~ msgstr "Maksimal enhed for modtagelse (MRU) (i bytes)"
-
-#~ msgid "Number of failed LCP echos to cause disconnect"
-#~ msgstr "Antal fejlede LCP ekkoer før der afbrydes"
-
-#~ msgid "Interval (in seconds) at which to issue LCP echos"
-#~ msgstr "Interval (i sekunder) mellem LCP-ekkoer"
-
-#~ msgid "Interval (in milliseconds) to wait before connecting."
-#~ msgstr "Interval (i millisekunder) som ventes inden der tilsluttes."
-
-#~ msgid "Custom PPP options"
-#~ msgstr "Brugerdefinerede PPP-indstillinger"
-
-#~ msgid "Use Peer DNS over the Tunnel"
-#~ msgstr "Brug server-DNS over tunnellen"
-
-#~ msgid "Specific networks available"
-#~ msgstr "Specifikke netværk tilgængelige"
-
-#~ msgid "Limit to specific networks"
-#~ msgstr "Begræns til specifikke netværk"
-
-#~ msgid "The following '%s' connection will be created:"
-#~ msgstr "Følgende \"%s\"-forbindelse vil blive oprettet:"
-
-#~ msgid "\t%s:  %s\n"
-#~ msgstr "\t%s:  %s\n"
-
-#~ msgid "The connection details can be changed using the \"Back\" button."
-#~ msgstr "Forbindelsens detaljer kan ændres ved at bruge knappen \"Tilbage\"."
-
-#~ msgid "Select file to import"
-#~ msgstr "Vælg fil der skal importeres"
-
-#~ msgid "Save as..."
-#~ msgstr "Gem som..."
-
-#~ msgid "A file named \"%s\" already exists."
-#~ msgstr "En fil med navnet \"%s\" eksisterer allerede."
-
-#~ msgid "Do you want to replace it with the one you are saving?"
-#~ msgstr "Vil du erstatte den med den du gemmer?"
-
-#~ msgid "<b>Required Information</b>"
-#~ msgstr "<b>Påkrævede oplysninger</b>"
-
-#~ msgid "<b>Routing options</b>"
-#~ msgstr "<b>Påkrævede oplysninger</b>"
-
-#~ msgid "Connection Type:"
-#~ msgstr "Forbindelsestype"
-
-#~ msgid "MPPE encryption"
-#~ msgstr "MPPE-kryptering"
-
-#~ msgid ""
-#~ "Please enter the information provided by your system administrator below. "
-#~ "Do not enter your password here as you will be prompted when connecting."
-#~ msgstr ""
-#~ "Indtast oplysninger fra din systemadministrator nedenfor. Du skal ikke "
-#~ "indtaste din adgangskode her, da du bliver spurgt om den ved tilslutning."
-
-#~ msgid "SSTP Client"
-#~ msgstr "SSTP-klient"
-
-#~ msgid "Remote:  %s"
-#~ msgstr "Fjern:  %s"
-
-#~ msgid "Username:  %s"
-#~ msgstr "Brugernavn:  %s"
-
-#~ msgid "Use MPPC Compression: %s"
-#~ msgstr "Brug MPPC-komprimering: %s"
-
-#~ msgid "Yes"
-#~ msgstr "Ja"
-
-#~ msgid "No"
-#~ msgstr "Nej"
-
-#~ msgid "Cannot import settings"
-#~ msgstr "Kan ikke importere opsætning"
-
-#~ msgid "The VPN settings file '%s' does not contain valid data."
-#~ msgstr "VPN-opsætningsfilen '%s' indeholder ikke gyldige data."
-
-#~ msgid ""
-#~ "Your password must be defined \n"
-#~ "in /etc/ppp/chap-secrets"
-#~ msgstr ""
-#~ "Din adgangskode skal være defineret \n"
-#~ "i /etc/ppp/chap-secrets"
+#: ../properties/nm-sstp.c:317
+msgid "Saved"
+msgstr "Gemt"
+
+#: ../properties/nm-sstp.c:325
+msgid "Always Ask"
+msgstr "Spørg altid"
+
+#: ../properties/nm-sstp.c:330
+msgid "Not Required"
+msgstr "Ikke krævet"
+
+#: ../src/nm-sstp-service.c:160
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr "kunne ikke konvertere SSTP VPN-adgangspunktets IP-adresse \"%s\" (%d)"
+
+#: ../src/nm-sstp-service.c:178
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr "kunne ikke slå SSTP VPN-adgangspunktets IP-adresse \"%s\" (%d) op"
+
+#: ../src/nm-sstp-service.c:202
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr "ingen brugbare adresser returneret for SSTP VPN-adgangspunkt \"%s\""
+
+#: ../src/nm-sstp-service.c:213
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+msgstr ""
+"ingen brugbare adresser returneret for SSTP VPN-adgangspunkt \"%s\" (%d)"
+
+#: ../src/nm-sstp-service.c:240
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr ""
+"Kunne ikke finde hemmeligheder (forbindelse ugyldig, ingen vpn-indstilling)."
+
+#: ../src/nm-sstp-service.c:252
+msgid "Invalid VPN username."
+msgstr "Ugyldigt VPN-brugernavn."
+
+#: ../src/nm-sstp-service.c:261
+msgid "Missing VPN username."
+msgstr "Manglende VPN-brugernavn."
+
+#: ../src/nm-sstp-service.c:271
+msgid "Missing or invalid VPN password."
+msgstr "Manglende eller ugyldig VPN-adgangskode."
+
+#: ../src/nm-sstp-service.c:429
+msgid "No cached credentials."
+msgstr "Ingen mellemlagrede akkreditiver."
+
+#: ../src/nm-sstp-service.c:575
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "ugyldigt adgangspunkt \"%s\""
+
+#: ../src/nm-sstp-service.c:589
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr "ugyldig heltalsegenskab \"%s\""
+
+#: ../src/nm-sstp-service.c:599
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "ugyldig boolesk egenskab \"%s\" (ikke ja eller nej)"
+
+#: ../src/nm-sstp-service.c:606
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "egenskab \"%s\" type %s er ikke håndteret"
+
+#: ../src/nm-sstp-service.c:617
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "egenskab \"%s\" er ugyldig eller ikke understøttet"
+
+#: ../src/nm-sstp-service.c:635
+msgid "No VPN configuration options."
+msgstr "Ingen indstillinger for VPN-konfiguration."
+
+#: ../src/nm-sstp-service.c:655
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "Mangler krævet indstilling \"%s\"."
+
+#: ../src/nm-sstp-service.c:675
+msgid "No VPN secrets!"
+msgstr "Ingen VPN-hemmeligheder!"
+
+#: ../src/nm-sstp-service.c:816
+msgid "Could not find sstp client binary."
+msgstr "Kunne ikke finde binær fil for sstp-klient."
+
+#: ../src/nm-sstp-service.c:829
+msgid "Missing VPN gateway."
+msgstr "Mangler VPN-adgangspunkt."
+
+#: ../src/nm-sstp-service.c:982
+msgid "Could not find the pppd binary."
+msgstr "Kunne ikke finde den binære fil for pppd."
+
+#: ../src/nm-sstp-service.c:1112
+msgid "Invalid or missing SSTP gateway."
+msgstr "Ugyldigt eller manglende SSTP-adgangspunkt."
+
+#: ../src/nm-sstp-service.c:1311
+msgid "Don't quit when VPN connection terminates"
+msgstr "Afslut ikke når VPN-forbindelse afslutter"
+
+#: ../src/nm-sstp-service.c:1312
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Aktiver uddybende fejlsøgningslog (kan afsløre adgangskoder)"
+
+#: ../src/nm-sstp-service.c:1326
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service tilbyder integreret SSTP VPN-kapacitet (kompatibel med "
+"Microsoft og andre implementeringer) til NetworkManager."

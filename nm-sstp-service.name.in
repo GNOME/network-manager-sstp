@@ -6,3 +6,4 @@ program=@LIBEXECDIR@/nm-sstp-service
 [GNOME]
 auth-dialog=nm-sstp-auth-dialog
 properties=libnm-sstp-properties
+supports-external-ui-mode=true

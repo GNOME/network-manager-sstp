@@ -8,70 +8,55 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2011-05-04 04:23+0000\n"
-"PO-Revision-Date: 2011-06-10 18:37+0400\n"
-"Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2012-04-13 12:37+0000\n"
+"PO-Revision-Date: 2012-12-22 11:30+0300\n"
+"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.0\n"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:129
-msgid "_Secondary Password:"
-msgstr "_Вторичный пароль:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:243
-msgid "_Username:"
-msgstr "П_ользователь:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:245
-msgid "_Domain:"
-msgstr "_Домен:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:247
+#: ../auth-dialog/vpn-password-dialog.c:95
 msgid "_Password:"
 msgstr "_Пароль:"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:342
-msgid "Connect _anonymously"
-msgstr "Подключиться _анонимно"
+#: ../auth-dialog/vpn-password-dialog.c:97
+msgid "_Secondary Password:"
+msgstr "_Вторичный пароль:"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:347
-msgid "Connect as _user:"
-msgstr "Подключиться как _пользователь:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:452
-msgid "_Remember passwords for this session"
-msgstr "_Запомнить пароль для этого сеанса"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:454
-msgid "_Save passwords in keyring"
-msgstr "_Сохранить пароль на брелоке"
+#: ../auth-dialog/vpn-password-dialog.c:239
+#| msgid "Show password"
+msgid "Sh_ow passwords"
+msgstr "По_казать пароли"
 
 #. Otherwise, we have no saved password, or the password flags indicated
 #. * that the password should never be saved.
 #.
-#: ../auth-dialog/main.c:92
+#: ../auth-dialog/main.c:145
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr "Необходима аутентификация для доступа к виртуальной частной сети «%s»."
 
-#: ../auth-dialog/main.c:93
+#: ../auth-dialog/main.c:154
+#: ../auth-dialog/main.c:174
 msgid "Authenticate VPN"
 msgstr "Аутентификация VPN"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "Добавить, удалить или изменить подключения SSTP VPN"
+#: ../auth-dialog/main.c:156
+#: ../properties/nm-sstp-dialog.ui.h:12
+msgid "Password:"
+msgstr "Пароль:"
 
-#: ../nm-sstp.desktop.in.h:2
+#: ../nm-sstp.desktop.in.h:1
 msgid "SSTP VPN Connection Manager"
 msgstr "Менеджер подключений SSTP VPN"
+
+#: ../nm-sstp.desktop.in.h:2
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "Добавить, удалить или изменить подключения SSTP VPN"
 
 #: ../properties/advanced-dialog.c:187
 msgid "All Available (Default)"
@@ -106,106 +91,191 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.ui.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Аутентификация</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Эхо</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>General</b>"
-msgstr "<b>Общие</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Дополнительные</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Шифрование и сжатие</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Ad_vanced..."
-msgstr "_Дополнительно..."
-
-#: ../properties/nm-sstp-dialog.ui.h:7
-msgid "Allow _BSD data compression"
-msgstr "Использовать для данных сжатие _BSD"
-
-#: ../properties/nm-sstp-dialog.ui.h:8
-msgid "Allow _Deflate data compression"
-msgstr "Использовать для данных сжатие _Deflate"
-
-#: ../properties/nm-sstp-dialog.ui.h:9
-msgid "Allow st_ateful encryption"
-msgstr "Включить _Stateful Encryption"
-
-#: ../properties/nm-sstp-dialog.ui.h:10
-msgid "Allow the following authentication methods:"
-msgstr "Разрешить следующие методы аутентификации:"
-
-#: ../properties/nm-sstp-dialog.ui.h:11
 msgid "Default"
 msgstr "По умолчанию"
 
-#: ../properties/nm-sstp-dialog.ui.h:12
-msgid "NT Domain:"
-msgstr "NT-домен:"
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>General</b>"
+msgstr "<b>Общие</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:13
+#: ../properties/nm-sstp-dialog.ui.h:3
 msgid ""
-"Note: MPPE encryption is only available with MSCHAP authentication methods. "
-"To enable this checkbox, select one or more of the MSCHAP authentication "
-"methods: MSCHAP or MSCHAPv2."
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
 msgstr ""
-"Замечание: Шифрование MPPE доступно только с методами аутентификации MSCHAP. "
-"Чтобы включить данный пункт, выберите один или более методов аутентификации "
-"MSCHAP: MSCHAP или MSCHAPv2."
+"IP-адрес или имя SSTP-сервера.\n"
+"config: первый параметр sstp"
 
-#: ../properties/nm-sstp-dialog.ui.h:14
-msgid "SSTP Advanced Options"
-msgstr "Дополнительные параметры SSTP"
-
-#: ../properties/nm-sstp-dialog.ui.h:15
-msgid "Password:"
-msgstr "Пароль:"
-
-#: ../properties/nm-sstp-dialog.ui.h:16
-msgid "Send PPP _echo packets"
-msgstr "Посылать _эхо-пакеты PPP"
-
-#: ../properties/nm-sstp-dialog.ui.h:17
-msgid "Show password"
-msgstr "Показать пароль"
-
-#: ../properties/nm-sstp-dialog.ui.h:18
-msgid "Use TCP _header compression"
-msgstr "Использовать сжатие _заголовков TCP"
-
-#: ../properties/nm-sstp-dialog.ui.h:19
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "Использовать шифрование _MPPE"
-
-#: ../properties/nm-sstp-dialog.ui.h:20
-msgid "User name:"
-msgstr "Имя пользователя:"
-
-#: ../properties/nm-sstp-dialog.ui.h:21
+#: ../properties/nm-sstp-dialog.ui.h:5
 msgid "_Gateway:"
 msgstr "_Шлюз:"
 
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "<b>Optional</b>"
+msgstr "<b>Дополнительные</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid ""
+"Append the domain name <domain> to the local host name for authentication purposes.\n"
+"config: domain <domain>"
+msgstr ""
+"Добавить имя домена <domain> к имени локального узла для аутентификации.\n"
+"config: domain <domain>"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+msgid "NT Domain:"
+msgstr "NT-домен:"
+
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Show password"
+msgstr "Показать пароль"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Password passed to SSTP when prompted for it."
+msgstr "Пароль, передаваемый SSTP по запросу."
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+#, fuzzy
+msgid ""
+"Set the name used for authenticating the local system to the peer to <name>.\n"
+"config: user <name>"
+msgstr "Установить имя, используемое для аутентификации локальной системы"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "User name:"
+msgstr "Имя пользователя:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Ad_vanced..."
+msgstr "_Дополнительно..."
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "SSTP Advanced Options"
+msgstr "Дополнительные параметры SSTP"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "<b>Authentication</b>"
+msgstr "<b>Аутентификация</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Allow the following authentication methods:"
+msgstr "Разрешить следующие методы аутентификации:"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+"Разрешить/запретить методы аутентификации.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+
 #: ../properties/nm-sstp-dialog.ui.h:22
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Шифрование и сжатие</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "Использовать шифрование _MPPE"
+
+#: ../properties/nm-sstp-dialog.ui.h:24
+msgid "Note: MPPE encryption is only available with MSCHAP authentication methods. To enable this checkbox, select one or more of the MSCHAP authentication methods: MSCHAP or MSCHAPv2."
+msgstr "Замечание: Шифрование MPPE доступно только с методами аутентификации MSCHAP. Чтобы включить данный пункт, выберите один или более методов аутентификации MSCHAP: MSCHAP или MSCHAPv2."
+
+#: ../properties/nm-sstp-dialog.ui.h:25
 msgid "_Security:"
 msgstr "_Шифрование:"
 
-#: ../properties/nm-sstp.c:50
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
+"Требуется использовать MPPE с 40- или 128-битным шифрованием.\n"
+"config: require-mppe, require-mppe-128 или require-mppe-40"
+
+#: ../properties/nm-sstp-dialog.ui.h:28
+msgid "Allow st_ateful encryption"
+msgstr "Включить _Stateful Encryption"
+
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
+"Разрешить MPPE использовать контекстный (stateful) режим. Сначала производится попытка использовать простой (stateless) режим.\n"
+"config: mppe-stateful (если не выбрано)"
+
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid "Allow _BSD data compression"
+msgstr "Использовать для данных сжатие _BSD"
+
+#: ../properties/nm-sstp-dialog.ui.h:32
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+"Разрешить/запретить сжатие BSD-Compress.\n"
+"config: nobsdcomp (если не выбрано)"
+
+#: ../properties/nm-sstp-dialog.ui.h:34
+msgid "Allow _Deflate data compression"
+msgstr "Использовать для данных сжатие _Deflate"
+
+#: ../properties/nm-sstp-dialog.ui.h:35
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+"Разрешить/запретить сжатие Deflate.\n"
+"config: nodeflate (если не выбрано)"
+
+#: ../properties/nm-sstp-dialog.ui.h:37
+msgid "Use TCP _header compression"
+msgstr "Использовать сжатие _заголовков TCP"
+
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
+"Разрешить/запретить сжатие заголовков TCP/IP по методу Ван Якобсона в направлениях передачи и приёма.\n"
+"config: novj (если не выбрано)"
+
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "<b>Echo</b>"
+msgstr "<b>Эхо</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid "Send PPP _echo packets"
+msgstr "Посылать _эхо-пакеты PPP"
+
+#: ../properties/nm-sstp-dialog.ui.h:42
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
+"Посылать эхо-запросы LCP, чтобы проверить состояние узла.\n"
+"config: lcp-echo-failure и lcp-echo-interval"
+
+#: ../properties/nm-sstp.c:49
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
 msgstr "Point-to-Point Tunneling Protocol (SSTP)"
 
-#: ../properties/nm-sstp.c:51
+#: ../properties/nm-sstp.c:50
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Совместим с серверами Microsoft и другими серверами SSTP VPN."
+
+#: ../properties/nm-sstp.c:317
+msgid "Saved"
+msgstr "Сохранённый"
+
+#: ../properties/nm-sstp.c:325
+msgid "Always Ask"
+msgstr "Всегда спрашивать"
+
+#: ../properties/nm-sstp.c:330
+msgid "Not Required"
+msgstr "Не требуется"
 
 #: ../src/nm-sstp-service.c:160
 #, c-format
@@ -229,8 +299,7 @@ msgstr "не получен приемлемый IP-адрес шлюза SSTP V
 
 #: ../src/nm-sstp-service.c:240
 msgid "Could not find secrets (connection invalid, no vpn setting)."
-msgstr ""
-"Не удалось найти секретные ключи (некорректное подключение, не настроен vpn)."
+msgstr "Не удалось найти секретные ключи (некорректное подключение, не настроен vpn)."
 
 #: ../src/nm-sstp-service.c:252
 msgid "Invalid VPN username."
@@ -311,9 +380,23 @@ msgid "Enable verbose debug logging (may expose passwords)"
 msgstr "Включить подробный режим отладки (могут отображаться пароли)"
 
 #: ../src/nm-sstp-service.c:1326
-msgid ""
-"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
-"Microsoft and other implementations) to NetworkManager."
-msgstr ""
-"nm-sstp-service позволяет использовать SSTP VPN (совместимые с Microsoft и "
-"другими реализациями) в NetworkManager."
+msgid "nm-sstp-service provides integrated SSTP VPN capability (compatible with Microsoft and other implementations) to NetworkManager."
+msgstr "nm-sstp-service позволяет использовать SSTP VPN (совместимые с Microsoft и другими реализациями) в NetworkManager."
+
+#~ msgid "_Username:"
+#~ msgstr "П_ользователь:"
+
+#~ msgid "_Domain:"
+#~ msgstr "_Домен:"
+
+#~ msgid "Connect _anonymously"
+#~ msgstr "Подключиться _анонимно"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "Подключиться как _пользователь:"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "_Запомнить пароль для этого сеанса"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "_Сохранить пароль на брелоке"

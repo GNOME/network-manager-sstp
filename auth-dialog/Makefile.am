@@ -4,9 +4,10 @@ libexec_PROGRAMS = nm-sstp-auth-dialog
 
 nm_sstp_auth_dialog_CPPFLAGS =			\
 	$(NM_CFLAGS)		\
-	$(GTHREAD_CFLAGS)			\
+	$(GLIB_CFLAGS)				\
 	$(GTK_CFLAGS)				\
-	$(GNOMEKEYRING_CFLAGS)			\
+	$(NMGTK_CFLAGS)				\
+	$(LIBSECRET_CFLAGS)			\
 	-DICONDIR=\""$(datadir)/pixmaps"\"	\
 	-DUIDIR=\""$(uidir)"\"			\
 	-DBINDIR=\""$(bindir)"\"		\
@@ -14,13 +15,12 @@ nm_sstp_auth_dialog_CPPFLAGS =			\
 	-DVERSION=\"$(VERSION)\"
 
 nm_sstp_auth_dialog_SOURCES = \
-	main.c \
-	vpn-password-dialog.c \
-	vpn-password-dialog.h
+	main.c
 
 nm_sstp_auth_dialog_LDADD = \
 	$(NM_LIBS) \
 	$(GTK_LIBS) \
-	$(GNOMEKEYRING_LIBS)
+	$(NMGTK_LIBS) \
+	$(LIBSECRET_LIBS)
 
 CLEANFILES = *~

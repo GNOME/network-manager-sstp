@@ -46,7 +46,7 @@ GQuark sstp_plugin_ui_error_quark (void);
 #define SSTP_PLUGIN_UI(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SSTP_TYPE_PLUGIN_UI, SstpPluginUi))
 #define SSTP_PLUGIN_UI_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), SSTP_TYPE_PLUGIN_UI, SstpPluginUiClass))
 #define SSTP_IS_PLUGIN_UI(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SSTP_TYPE_PLUGIN_UI))
-#define SSTP_IS_PLUGIN_UI_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), SSTP_TYPE_PLUGIN_UI))
+#define SSTP_IS_PLUGIN_UI_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SSTP_TYPE_PLUGIN_UI))
 #define SSTP_PLUGIN_UI_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SSTP_TYPE_PLUGIN_UI, SstpPluginUiClass))
 
 typedef struct _SstpPluginUi SstpPluginUi;
@@ -67,7 +67,7 @@ GType sstp_plugin_ui_get_type (void);
 #define SSTP_PLUGIN_UI_WIDGET(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidget))
 #define SSTP_PLUGIN_UI_WIDGET_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidgetClass))
 #define SSTP_IS_PLUGIN_UI_WIDGET(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET))
-#define SSTP_IS_PLUGIN_UI_WIDGET_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET))
+#define SSTP_IS_PLUGIN_UI_WIDGET_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SSTP_TYPE_PLUGIN_UI_WIDGET))
 #define SSTP_PLUGIN_UI_WIDGET_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidgetClass))
 
 typedef struct _SstpPluginUiWidget SstpPluginUiWidget;

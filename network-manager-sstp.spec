@@ -41,7 +41,7 @@ Requires(postun): /sbin/ldconfig desktop-file-utils
 
 
 %description
-This package contains software for integrating PPTP VPN support with
+This package contains software for integrating SSTP VPN support with
 the NetworkManager and the GNOME desktop.
 
 %prep

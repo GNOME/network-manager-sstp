@@ -11,56 +11,38 @@ msgstr ""
 "Project-Id-Version: NetworkManager-sstp master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2011-04-24 09:29+0000\n"
-"PO-Revision-Date: 2011-04-25 02:53+0900\n"
-"Last-Translator: Hajime Taira <htaira@redhat.com>\n"
+"POT-Creation-Date: 2011-12-14 21:28+0000\n"
+"PO-Revision-Date: 2012-01-01 19:56+0900\n"
+"Last-Translator: Jiro Matsuzawa <jmatsuzawa@src.gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:129
-msgid "_Secondary Password:"
-msgstr "第二パスワード(_S):"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:243
-msgid "_Username:"
-msgstr "ユーザ名(_U):"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:245
-msgid "_Domain:"
-msgstr "ドメイン(_D):"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:247
+#: ../auth-dialog/vpn-password-dialog.c:95
 msgid "_Password:"
 msgstr "パスワード(_P):"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:342
-msgid "Connect _anonymously"
-msgstr "匿名で接続(_A)"
+#: ../auth-dialog/vpn-password-dialog.c:97
+msgid "_Secondary Password:"
+msgstr "第二パスワード(_S):"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:347
-msgid "Connect as _user:"
-msgstr "ユーザで接続(_U):"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:452
-msgid "_Remember passwords for this session"
-msgstr "このセッションのパスワードを記憶する(_R)"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:454
-msgid "_Save passwords in keyring"
-msgstr "パスワードをキーリングに保存する(_S)"
+#: ../auth-dialog/vpn-password-dialog.c:239
+#, fuzzy
+#| msgid "Show password"
+msgid "Sh_ow passwords"
+msgstr "パスワードを表示します。"
 
 #. Otherwise, we have no saved password, or the password flags indicated
 #. * that the password should never be saved.
 #.
-#: ../auth-dialog/main.c:92
+#: ../auth-dialog/main.c:127
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr "仮想プライベートネットワーク %s にアクセスするには認証が必要です。"
 
-#: ../auth-dialog/main.c:93
+#: ../auth-dialog/main.c:128
 msgid "Authenticate VPN"
 msgstr "認証 VPN"
 
@@ -70,7 +52,7 @@ msgstr "SSTP VPN 接続の追加、削除または編集"
 
 #: ../nm-sstp.desktop.in.h:2
 msgid "SSTP VPN Connection Manager"
-msgstr "SSTP VPN 接続マネージャ"
+msgstr "SSTP VPN 接続マネージャー"
 
 #: ../properties/advanced-dialog.c:187
 msgid "All Available (Default)"
@@ -180,7 +162,7 @@ msgstr "パスワードを表示します。"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
 msgid "Use TCP _header compression"
-msgstr "TCP ヘッダ圧縮を使用する(_H)"
+msgstr "TCP ヘッダー圧縮を使用する(_H)"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -188,7 +170,7 @@ msgstr "MPPE 暗号を使用する(_P)"
 
 #: ../properties/nm-sstp-dialog.ui.h:20
 msgid "User name:"
-msgstr "ユーザ名:"
+msgstr "ユーザー名:"
 
 #: ../properties/nm-sstp-dialog.ui.h:21
 msgid "_Gateway:"
@@ -198,13 +180,25 @@ msgstr "ゲートウェイ(_G):"
 msgid "_Security:"
 msgstr "セキュリティ(_S):"
 
-#: ../properties/nm-sstp.c:50
+#: ../properties/nm-sstp.c:49
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
 msgstr "Point-to-Point Tunneling Protocol (SSTP)"
 
-#: ../properties/nm-sstp.c:51
+#: ../properties/nm-sstp.c:50
 msgid "Compatible with Microsoft and other SSTP VPN servers."
-msgstr "Microsoft と、その他の SSTP VPN サーバとの互換性"
+msgstr "Microsoft と、その他の SSTP VPN サーバーとの互換性"
+
+#: ../properties/nm-sstp.c:317
+msgid "Saved"
+msgstr ""
+
+#: ../properties/nm-sstp.c:325
+msgid "Always Ask"
+msgstr ""
+
+#: ../properties/nm-sstp.c:330
+msgid "Not Required"
+msgstr ""
 
 #: ../src/nm-sstp-service.c:160
 #, c-format
@@ -236,11 +230,11 @@ msgstr ""
 
 #: ../src/nm-sstp-service.c:252
 msgid "Invalid VPN username."
-msgstr "無効な VPN ユーザ名です。"
+msgstr "無効な VPN ユーザー名です。"
 
 #: ../src/nm-sstp-service.c:261
 msgid "Missing VPN username."
-msgstr "VPN ユーザ名がありません。"
+msgstr "VPN ユーザー名がありません。"
 
 #: ../src/nm-sstp-service.c:271
 msgid "Missing or invalid VPN password."
@@ -258,22 +252,23 @@ msgstr "無効なゲートウェイ %s"
 #: ../src/nm-sstp-service.c:589
 #, c-format
 msgid "invalid integer property '%s'"
-msgstr "数値型パラメータ %s が無効な数値です。"
+msgstr "数値型パラメーター %s が無効な数値です。"
 
 #: ../src/nm-sstp-service.c:599
 #, c-format
 msgid "invalid boolean property '%s' (not yes or no)"
-msgstr "ブーリアン型パラメータ %s が無効な値です。(値はyes、noではありません)"
+msgstr ""
+"ブーリアン型パラメーター %s が無効な値です。(値はyes、noではありません)"
 
 #: ../src/nm-sstp-service.c:606
 #, c-format
 msgid "unhandled property '%s' type %s"
-msgstr "対処できない %s 型パラメータの %s"
+msgstr "対処できない %s 型パラメーターの %s"
 
 #: ../src/nm-sstp-service.c:617
 #, c-format
 msgid "property '%s' invalid or not supported"
-msgstr "パラメータ %s は無効かサポートされていません。"
+msgstr "パラメーター %s は無効かサポートされていません。"
 
 #: ../src/nm-sstp-service.c:635
 msgid "No VPN configuration options."
@@ -319,6 +314,24 @@ msgid ""
 msgstr ""
 "nm-sstp-service は NetworkManager に対して SSTP VPN 互換性 (Microsoft とその"
 "他の実装との互換性) を提供します。"
+
+#~ msgid "_Username:"
+#~ msgstr "ユーザ名(_U):"
+
+#~ msgid "_Domain:"
+#~ msgstr "ドメイン(_D):"
+
+#~ msgid "Connect _anonymously"
+#~ msgstr "匿名で接続(_A)"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "ユーザで接続(_U):"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "このセッションのパスワードを記憶する(_R)"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "パスワードをキーリングに保存する(_S)"
 
 #~ msgid "Authentication Type:"
 #~ msgstr "認証タイプ:"

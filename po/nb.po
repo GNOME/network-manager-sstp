@@ -1,14 +1,14 @@
 # Norwegian bokmål translation of NetworkManager's sstp support.
 # Copyright (C) 2006-2007 Kjartan Maraas
 # This file is distributed under the same license as the NetworkManager package.
-# Kjartan Maraas <kmaraas@gnome.org>, 2006-2011.
+# Kjartan Maraas <kmaraas@gnome.org>, 2006-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-19 13:23+0200\n"
-"PO-Revision-Date: 2011-07-19 13:25+0200\n"
+"POT-Creation-Date: 2012-11-06 07:31+0100\n"
+"PO-Revision-Date: 2012-11-06 07:32+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -31,105 +31,143 @@ msgstr "Vis pass_ord"
 #. Otherwise, we have no saved password, or the password flags indicated
 #. * that the password should never be saved.
 #.
-#: ../auth-dialog/main.c:127
+#: ../auth-dialog/main.c:145
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr ""
 "Du må autentisere deg for å få tilgang til Virtuelt privat nettverk «%s»."
 
-#: ../auth-dialog/main.c:128
+#: ../auth-dialog/main.c:154 ../auth-dialog/main.c:174
 msgid "Authenticate VPN"
 msgstr "Autentiser VPN"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "Legg til, fjern og rediger VPN-tilkoblinger"
+#: ../auth-dialog/main.c:156 ../properties/nm-sstp-dialog.ui.h:12
+msgid "Password:"
+msgstr "Passord:"
 
-#: ../nm-sstp.desktop.in.h:2
+#: ../nm-sstp.desktop.in.h:1
 msgid "SSTP VPN Connection Manager"
 msgstr "Håndtering av VPN-tilkobling"
 
-#: ../properties/advanced-dialog.c:187
+#: ../nm-sstp.desktop.in.h:2
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "Legg til, fjern og rediger VPN-tilkoblinger"
+
+#: ../properties/advanced-dialog.c:184
 msgid "All Available (Default)"
 msgstr "Alle tilgjengelige (forvalg)"
 
-#: ../properties/advanced-dialog.c:191
+#: ../properties/advanced-dialog.c:188
 msgid "128-bit (most secure)"
 msgstr "128-bit (mest sikker)"
 
-#: ../properties/advanced-dialog.c:200
+#: ../properties/advanced-dialog.c:197
 msgid "40-bit (less secure)"
 msgstr "40-bit (mindre sikker)"
 
-#: ../properties/advanced-dialog.c:309
+#: ../properties/advanced-dialog.c:301
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:322
+#: ../properties/advanced-dialog.c:314
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:334
+#: ../properties/advanced-dialog.c:326
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:346
+#: ../properties/advanced-dialog.c:338
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:359
+#: ../properties/advanced-dialog.c:351
 msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.ui.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Autentisering</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Ekko</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>General</b>"
-msgstr "<b>Generelt</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Valgfritt</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Sikkerhet og komprimering</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Ad_vanced..."
-msgstr "A_vansert …"
-
-#: ../properties/nm-sstp-dialog.ui.h:7
-msgid "Allow _BSD data compression"
-msgstr "Tillat _BSD-datakomprimering"
-
-#: ../properties/nm-sstp-dialog.ui.h:8
-msgid "Allow _Deflate data compression"
-msgstr "Tillat _deflate-datakomprimering"
-
-#: ../properties/nm-sstp-dialog.ui.h:9
-msgid "Allow st_ateful encryption"
-msgstr "Tillat kryptering basert på tilst_and"
-
-#: ../properties/nm-sstp-dialog.ui.h:10
-msgid "Allow the following authentication methods:"
-msgstr "Tillat følgende autentiseringsmetoder:"
-
-#: ../properties/nm-sstp-dialog.ui.h:11
 msgid "Default"
 msgstr "Forvalgt"
 
-#: ../properties/nm-sstp-dialog.ui.h:12
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>General</b>"
+msgstr "<b>Generelt</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "_Gateway:"
+msgstr "_Gateway:"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "<b>Optional</b>"
+msgstr "<b>Valgfritt</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:9
 msgid "NT Domain:"
 msgstr "NT-domene:"
 
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Show password"
+msgstr "Vis passord"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Password passed to SSTP when prompted for it."
+msgstr ""
+
 #: ../properties/nm-sstp-dialog.ui.h:13
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "User name:"
+msgstr "Brukernavn:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Ad_vanced..."
+msgstr "A_vansert …"
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "SSTP Advanced Options"
+msgstr "Avanserte alternativer for SSTP"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "<b>Authentication</b>"
+msgstr "<b>Autentisering</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Allow the following authentication methods:"
+msgstr "Tillat følgende autentiseringsmetoder:"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Sikkerhet og komprimering</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "Bruk _punkt-til-punkt-kryptering (MPPE)"
+
+#: ../properties/nm-sstp-dialog.ui.h:24
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
@@ -138,41 +176,70 @@ msgstr ""
 "Merk: MPPE-kryptering er kun tilgjengelig med MSCHAP autentiseringsmetoder. "
 "For å slå på dette valget må du velge en av disse: MSCHAP eller MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.ui.h:14
-msgid "SSTP Advanced Options"
-msgstr "Avanserte alternativer for SSTP"
+#: ../properties/nm-sstp-dialog.ui.h:25
+msgid "_Security:"
+msgstr "_Sikkerhet:"
 
-#: ../properties/nm-sstp-dialog.ui.h:15
-msgid "Password:"
-msgstr "Passord:"
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.ui.h:16
-msgid "Send PPP _echo packets"
-msgstr "Send _ekkopakker for PPP"
+#: ../properties/nm-sstp-dialog.ui.h:28
+msgid "Allow st_ateful encryption"
+msgstr "Tillat kryptering basert på tilst_and"
 
-#: ../properties/nm-sstp-dialog.ui.h:17
-msgid "Show password"
-msgstr "Vis passord"
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.ui.h:18
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid "Allow _BSD data compression"
+msgstr "Tillat _BSD-datakomprimering"
+
+#: ../properties/nm-sstp-dialog.ui.h:32
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:34
+msgid "Allow _Deflate data compression"
+msgstr "Tillat _deflate-datakomprimering"
+
+#: ../properties/nm-sstp-dialog.ui.h:35
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:37
 msgid "Use TCP _header compression"
 msgstr "Bruk komprimering av TCP-_hoder"
 
-#: ../properties/nm-sstp-dialog.ui.h:19
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "Bruk _punkt-til-punkt-kryptering (MPPE)"
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.ui.h:20
-msgid "User name:"
-msgstr "Brukernavn:"
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "<b>Echo</b>"
+msgstr "<b>Ekko</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:21
-msgid "_Gateway:"
-msgstr "_Gateway:"
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid "Send PPP _echo packets"
+msgstr "Send _ekkopakker for PPP"
 
-#: ../properties/nm-sstp-dialog.ui.h:22
-msgid "_Security:"
-msgstr "_Sikkerhet:"
+#: ../properties/nm-sstp-dialog.ui.h:42
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
 
 #: ../properties/nm-sstp.c:49
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
@@ -181,6 +248,18 @@ msgstr "Point-to-Point Tunneling Protocol (SSTP)"
 #: ../properties/nm-sstp.c:50
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Kompatibel med Microsofts og andres VPN-tjenere basert på SSTP."
+
+#: ../properties/nm-sstp.c:317
+msgid "Saved"
+msgstr "Lagret"
+
+#: ../properties/nm-sstp.c:325
+msgid "Always Ask"
+msgstr "Alltid spør"
+
+#: ../properties/nm-sstp.c:330
+msgid "Not Required"
+msgstr "Ikke krevet"
 
 #: ../src/nm-sstp-service.c:160
 #, c-format
@@ -220,7 +299,7 @@ msgstr "Passord for VPN mangler eller er ugyldig."
 
 #: ../src/nm-sstp-service.c:429
 msgid "No cached credentials."
-msgstr ""
+msgstr "Ingen mellomlagret påloggingsinformasjon."
 
 #: ../src/nm-sstp-service.c:575
 #, c-format
@@ -249,20 +328,20 @@ msgstr ""
 
 #: ../src/nm-sstp-service.c:635
 msgid "No VPN configuration options."
-msgstr ""
+msgstr "Ingen konfigurasjonsvalg for VPN."
 
 #: ../src/nm-sstp-service.c:655
 #, c-format
 msgid "Missing required option '%s'."
-msgstr ""
+msgstr "Mangler obligatorisk valg «%s»."
 
 #: ../src/nm-sstp-service.c:675
 msgid "No VPN secrets!"
-msgstr ""
+msgstr "Ingen hemmeligheter for VPN!"
 
 #: ../src/nm-sstp-service.c:816
 msgid "Could not find sstp client binary."
-msgstr ""
+msgstr "Kunne ikke finne kjørbar fil for sstp-klient."
 
 #: ../src/nm-sstp-service.c:829
 msgid "Missing VPN gateway."
@@ -278,7 +357,7 @@ msgstr "Ugyldig eller manglende SSTP-gateway."
 
 #: ../src/nm-sstp-service.c:1311
 msgid "Don't quit when VPN connection terminates"
-msgstr ""
+msgstr "Ikke avslutt når VPN-forbindelsen termineres"
 
 #: ../src/nm-sstp-service.c:1312
 msgid "Enable verbose debug logging (may expose passwords)"

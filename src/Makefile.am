@@ -2,7 +2,7 @@ INCLUDES = -I${top_srcdir}
 
 AM_CPPFLAGS =							\
 	$(DBUS_GLIB_CFLAGS)						\
-	$(GTHREAD_CFLAGS)					\
+	$(GLIB_CFLAGS)						\
 	$(NM_CFLAGS)				\
 	-DG_DISABLE_DEPRECATED					\
 	-DBINDIR=\"$(bindir)\"					\
@@ -13,21 +13,22 @@ AM_CPPFLAGS =							\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	-DLOCALSTATEDIR=\""$(localstatedir)"\"		 	\
 	-DDATADIR=\"$(datadir)\"				\
-	-DPLUGINDIR=\"$(PPPD_PLUGIN_DIR)\" 			\
-	-DNM_SSTP_LOCALEDIR=\"$(datadir)/locale\"
+	-DNM_SSTP_LOCALEDIR=\"$(datadir)/locale\"		\
+	-DPLUGINDIR=\"$(PPPD_PLUGIN_DIR)\" 
 
 libexec_PROGRAMS = nm-sstp-service
 
 nm_sstp_service_SOURCES = \
-				nm-sstp-service.c \
-				nm-sstp-service.h
+	nm-sstp-service-defines.h \
+	nm-sstp-service.c \
+	nm-sstp-service.h
 
 nm-sstp-pppd-service-glue.h: $(top_srcdir)/src/nm-sstp-pppd-service.xml
 	dbus-binding-tool --prefix=nm_sstp_pppd_service --mode=glib-server --output=$@ $<
 
 nm_sstp_service_LDADD = \
 	$(DBUS_GLIB_LIBS) \
-	$(GTHREAD_LIBS) \
+	$(GLIB_LIBS) \
 	$(NM_LIBS)
 
 pppd_plugindir = $(PPPD_PLUGIN_DIR)

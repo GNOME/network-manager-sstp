@@ -68,6 +68,7 @@ static const char *advanced_keys[] = {
 	NM_SSTP_KEY_NO_VJ_COMP,
 	NM_SSTP_KEY_LCP_ECHO_FAILURE,
 	NM_SSTP_KEY_LCP_ECHO_INTERVAL,
+	NM_SSTP_KEY_UNIT_NUM,
 	NM_SSTP_KEY_PROXY_SERVER,
 	NM_SSTP_KEY_PROXY_PORT,
 	NM_SSTP_KEY_PROXY_USER,
@@ -105,7 +106,7 @@ copy_values (const char *key, const char *value, gpointer user_data)
 
 GHashTable *
 advanced_dialog_new_hash_from_connection (NMConnection *connection,
-										  GError **error)
+                                         GError **error)
 {
 	GHashTable *hash;
 	NMSettingVPN *s_vpn;
@@ -114,7 +115,7 @@ advanced_dialog_new_hash_from_connection (NMConnection *connection,
 
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
-	s_vpn = (NMSettingVPN *) nm_connection_get_setting (connection, NM_TYPE_SETTING_VPN);
+	s_vpn = nm_connection_get_setting_vpn (connection);
 	nm_setting_vpn_foreach_data_item (s_vpn, copy_values, hash);
 
 	/* HTTP Proxy Password is special */
@@ -166,25 +167,23 @@ handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder *builder)
 {
 	GtkWidget *widget;
 	gboolean use_mppe;
+	gboolean mppe_sensitive;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	gboolean valid;
 
+	mppe_sensitive = gtk_widget_get_sensitive (check);
 	use_mppe = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
 
 	/* (De)-sensitize MPPE related stuff */
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mppe_security_label"));
-	gtk_widget_set_sensitive (widget, use_mppe);
+	gtk_widget_set_sensitive (widget, use_mppe && mppe_sensitive);
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mppe_security_combo"));
-	if (!use_mppe)
-		gtk_combo_box_set_active (GTK_COMBO_BOX (widget), 0); /* default */
-	gtk_widget_set_sensitive (widget, use_mppe);
+	gtk_widget_set_sensitive (widget, use_mppe && mppe_sensitive);
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_allow_stateful_mppe"));
-	if (!use_mppe)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
-	gtk_widget_set_sensitive (widget, use_mppe);
+	gtk_widget_set_sensitive (widget, use_mppe && mppe_sensitive);
 
 	/* At dialog-setup time, don't touch the auth methods if MPPE is disabled
 	 * since that could overwrite the user's previously chosen auth methods.
@@ -207,10 +206,8 @@ handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder *builder)
 		switch (tag) {
 		case TAG_PAP:
 		case TAG_CHAP:
-			// Don't enable these boxes by default
-			// gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_VALUE, !use_mppe, -1);
-			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_SENSITIVE, !use_mppe, -1);
-			break;
+			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_SENSITIVE, !(use_mppe && mppe_sensitive), -1);
+            break;
 		case TAG_EAP:
 			// EAP not supported
 			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_VALUE, FALSE, -1);
@@ -277,7 +274,6 @@ setup_security_combo (GtkBuilder *builder, GHashTable *hash)
 	gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active < 0 ? SEC_INDEX_DEFAULT : active);
 }
 
-
 static void
 check_toggled_cb (GtkCellRendererToggle *cell, gchar *path_str, gpointer user_data)
 {
@@ -329,10 +325,11 @@ check_toggled_cb (GtkCellRendererToggle *cell, gchar *path_str, gpointer user_da
 	if (!mschap_state && !mschap2_state) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
 		gtk_widget_set_sensitive (widget, FALSE);
-		/* Make sure also MPPE security combo and stateful checkbox are non-sensitive */
-		mppe_toggled_cb (widget, builder);
 	} else
-		gtk_widget_set_sensitive (widget, TRUE);
+	    gtk_widget_set_sensitive (widget, mschap_state || mschap2_state);
+    }
+	/* Make sure also MPPE security combo and stateful checkbox are non-sensitive */
+	mppe_toggled_cb (widget, builder);
 }
 
 static void
@@ -357,7 +354,7 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	value = g_hash_table_lookup (hash, NM_SSTP_KEY_REQUIRE_MPPE);
 	if (value && !strcmp (value, "yes"))
 		use_mppe = TRUE;
-	
+
 	/* Or MPPE-128 */
 	value = g_hash_table_lookup (hash, NM_SSTP_KEY_REQUIRE_MPPE_128);
 	if (value && !strcmp (value, "yes"))
@@ -468,13 +465,21 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 		gtk_widget_set_sensitive (widget, TRUE);
 }
 
+static void
+checkbox_toggled_update_widget_cb (GtkWidget *check, gpointer user_data)
+{
+	GtkWidget *widget = (GtkWidget*) user_data;
+
+	gtk_widget_set_sensitive (widget, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check)));
+}
+
 GtkWidget *
 advanced_dialog_new (GHashTable *hash)
 {
 	GtkBuilder *builder;
 	GtkWidget *dialog = NULL;
 	char *ui_file = NULL;
-	GtkWidget *widget;
+	GtkWidget *widget, *spin;
 	const char *value;
 	const char *value2;
 	gboolean mppe = FALSE;
@@ -567,7 +572,7 @@ advanced_dialog_new (GHashTable *hash)
 	if (value && strlen(value) && value2 && strlen(value2))
 	{
 		long int tmp;
-		
+
 		errno = 0;
 		tmp = strtol (value2, NULL, 10);
 		if (errno != 0 || tmp < 0 || tmp > 65535)
@@ -605,6 +610,31 @@ advanced_dialog_new (GHashTable *hash)
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "show_proxy_password"));
 	g_signal_connect (G_OBJECT (widget), "toggled", G_CALLBACK (show_proxy_password_toggled_cb), builder);
 	
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_checkbutton"));
+	spin = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
+	g_signal_connect (G_OBJECT (widget), "toggled", G_CALLBACK (checkbox_toggled_update_widget_cb), spin);
+
+	value = g_hash_table_lookup (hash, NM_SSTP_KEY_UNIT_NUM);
+	if (value && *value) {
+		long int tmp;
+
+		errno = 0;
+		tmp = strtol (value, NULL, 10);
+		if (errno == 0 && tmp >= 0 && tmp < 65536) {
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+
+			widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
+			gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), (gdouble) tmp);
+			gtk_widget_set_sensitive (widget, TRUE);
+		}
+	} else {
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
+
+		widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
+		gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), 0.0);
+		gtk_widget_set_sensitive (widget, FALSE);
+	}
+
 out:
 	g_free (ui_file);
 	return dialog;
@@ -743,6 +773,16 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 								 g_strdup (NM_SSTP_KEY_PROXY_PASSWORD_FLAGS),
 								 g_strdup_printf ("%d", pw_flags));
 		}
+	}
+
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_checkbutton"));
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+		int unit_num;
+
+		widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
+		unit_num = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
+		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_UNIT_NUM),
+		                     g_strdup_printf ("%d", unit_num));
 	}
 
 	return hash;

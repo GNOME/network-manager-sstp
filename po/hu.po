@@ -2,156 +2,173 @@
 # Copyright (C) 2006, 2007, 2008, 2010, Free Software Foundation, Inc.
 # This file is distributed under the same license as the network-manager-sstp package.
 #
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2006, 2007, 2008, 2010.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2006, 2007, 2008, 2010, 2012.
 # Mate Ory <orymate at ubuntu dot com>, 2011.
+# Balázs Úr <urbalazs at gmail dot com>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-10 17:21+0200\n"
-"PO-Revision-Date: 2011-04-03 11:23+0200\n"
-"Last-Translator: Mate Ory <orymate at ubuntu dot com>\n"
-"Language-Team: Hungarian <gnome at fsf dot hu>\n"
-"Language: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2015-03-09 09:37+0000\n"
+"PO-Revision-Date: 2015-03-15 11:22+0100\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <openscope at googlegroups dot com>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: VIM - Vi IMproved 7.3\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:129
-msgid "_Secondary Password:"
-msgstr "Jelszó _még egyszer:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:243
-msgid "_Username:"
-msgstr "_Felhasználónév:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:245
-msgid "_Domain:"
-msgstr "_Tartomány:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:247
-msgid "_Password:"
-msgstr "_Jelszó:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:342
-msgid "Connect _anonymously"
-msgstr "Kapcsolódás _névtelenül"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:347
-msgid "Connect as _user:"
-msgstr "Csatlakozás _mint:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:452
-msgid "_Remember passwords for this session"
-msgstr "Jelszó meg_jegyzése erre a munkamenetre"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:454
-msgid "_Save passwords in keyring"
-msgstr "Jelszavak mentése a k_ulcstartóra"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Otherwise, we have no saved password, or the password flags indicated
 #. * that the password should never be saved.
 #.
-#: ../auth-dialog/main.c:92
+#: ../auth-dialog/main.c:155
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr "Azonosítania kell magát a(z) „%s” virtuális magánhálózat eléréséhez."
 
-#: ../auth-dialog/main.c:93
+#: ../auth-dialog/main.c:164 ../auth-dialog/main.c:184
 msgid "Authenticate VPN"
 msgstr "VPN-hitelesítés"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "SSTP VPN-kapcsolatok hozzáadása, szerkesztése és eltávolítása"
+#: ../auth-dialog/main.c:166 ../properties/nm-sstp-dialog.ui.h:12
+msgid "Password:"
+msgstr "Jelszó:"
 
-#: ../nm-sstp.desktop.in.h:2
+#: ../nm-sstp.desktop.in.h:1
 msgid "SSTP VPN Connection Manager"
 msgstr "SSTP VPN-kapcsolatkezelő"
 
-#: ../properties/advanced-dialog.c:187
+#: ../nm-sstp.desktop.in.h:2
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "SSTP VPN-kapcsolatok hozzáadása, szerkesztése és eltávolítása"
+
+#: ../properties/advanced-dialog.c:185
 msgid "All Available (Default)"
 msgstr "Mind elérhető (alapértelmezett)"
 
-#: ../properties/advanced-dialog.c:191
+#: ../properties/advanced-dialog.c:189
 msgid "128-bit (most secure)"
 msgstr "128 bites (legbiztonságosabb)"
 
-#: ../properties/advanced-dialog.c:200
+#: ../properties/advanced-dialog.c:198
 msgid "40-bit (less secure)"
 msgstr "40 bites (kevésbé biztonságos)"
 
-#: ../properties/advanced-dialog.c:309
+#: ../properties/advanced-dialog.c:302
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:322
+#: ../properties/advanced-dialog.c:315
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:334
+#: ../properties/advanced-dialog.c:327
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:346
+#: ../properties/advanced-dialog.c:339
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:359
+#: ../properties/advanced-dialog.c:352
 msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.ui.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Hitelesítés</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Visszhang</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>General</b>"
-msgstr "<b>Általános</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Opcionális</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Biztonság és tömörítés</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Ad_vanced..."
-msgstr "S_peciális…"
-
-#: ../properties/nm-sstp-dialog.ui.h:7
-msgid "Allow _BSD data compression"
-msgstr "B_SD tömörítés engedélyezése"
-
-#: ../properties/nm-sstp-dialog.ui.h:8
-msgid "Allow _Deflate data compression"
-msgstr "_Deflate tömörítés engedélyezése"
-
-#: ../properties/nm-sstp-dialog.ui.h:9
-msgid "Allow st_ateful encryption"
-msgstr "Állap_ottartó tömörítés engedélyezése"
-
-#: ../properties/nm-sstp-dialog.ui.h:10
-msgid "Allow the following authentication methods:"
-msgstr "A következő hitelesítési módszerek engedélyezése:"
-
-#: ../properties/nm-sstp-dialog.ui.h:11
 msgid "Default"
 msgstr "Alapértelmezett"
 
-#: ../properties/nm-sstp-dialog.ui.h:12
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>General</b>"
+msgstr "<b>Általános</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+"SSTP kiszolgáló IP-címe vagy neve.\n"
+"config: a sstp első paramétere"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "_Gateway:"
+msgstr "Á_tjáró:"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "<b>Optional</b>"
+msgstr "<b>Opcionális</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+"A <tartomány> tartománynév hozzáfűzése a helyi gépnévhez hitelesítési "
+"céllal.\n"
+"config: domain <tartomány>"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
 msgid "NT Domain:"
 msgstr "NT tartomány:"
 
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Show password"
+msgstr "Jelszó megjelenítése"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Password passed to SSTP when prompted for it."
+msgstr "A SSTP-nek átadott jelszó, amikor kéri."
+
 #: ../properties/nm-sstp-dialog.ui.h:13
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+"A helyi rendszer partner felé hitelesítéséhez használt <név> megadása.\n"
+"config: user <név>"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "User name:"
+msgstr "Felhasználónév:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Ad_vanced..."
+msgstr "S_peciális…"
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "SSTP Advanced Options"
+msgstr "SSTP speciális beállításai"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "<b>Authentication</b>"
+msgstr "<b>Hitelesítés</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Allow the following authentication methods:"
+msgstr "A következő hitelesítési módszerek engedélyezése:"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+"Hitelesítési módszerek engedélyezése/letiltása.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Biztonság és tömörítés</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "_Ponttól pontig (MPPE) titkosítás használata"
+
+#: ../properties/nm-sstp-dialog.ui.h:24
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
@@ -161,159 +178,259 @@ msgstr ""
 "el. Ezen négyzet engedélyezéséhez válassza ki legalább az egyik MSCHAP "
 "hitelesítési módot: MSCHAP vagy MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.ui.h:14
-msgid "SSTP Advanced Options"
-msgstr "SSTP speciális beállításai"
-
-#: ../properties/nm-sstp-dialog.ui.h:15
-msgid "Password:"
-msgstr "Jelszó:"
-
-#: ../properties/nm-sstp-dialog.ui.h:16
-msgid "Send PPP _echo packets"
-msgstr "PPP _visszhangcsomagok küldése"
-
-#: ../properties/nm-sstp-dialog.ui.h:17
-msgid "Show password"
-msgstr "Jelszó megjelenítése"
-
-#: ../properties/nm-sstp-dialog.ui.h:18
-msgid "Use TCP _header compression"
-msgstr "TPC _fejléctömörítés használata"
-
-#: ../properties/nm-sstp-dialog.ui.h:19
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "_Ponttól pontig (MPPE) titkosítás használata"
-
-#: ../properties/nm-sstp-dialog.ui.h:20
-msgid "User name:"
-msgstr "Felhasználónév:"
-
-#: ../properties/nm-sstp-dialog.ui.h:21
-msgid "_Gateway:"
-msgstr "Á_tjáró:"
-
-#: ../properties/nm-sstp-dialog.ui.h:22
+#: ../properties/nm-sstp-dialog.ui.h:25
 msgid "_Security:"
 msgstr "Bi_ztonság:"
 
-#: ../properties/nm-sstp.c:50
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
+"Az MPPE használatának megkövetelése 40/128 bites titkosítással vagy "
+"minddel.\n"
+"config: require-mppe, require-mppe-128 vagy require-mppe-40"
+
+#: ../properties/nm-sstp-dialog.ui.h:28
+msgid "Allow st_ateful encryption"
+msgstr "Állap_ottartó tömörítés engedélyezése"
+
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
+"Az MPPE használhat állapottartó módot. Az állapot nélküli mód továbbra is "
+"elsőként lesz megpróbálva. \n"
+"config: mppe-stateful (ha be van jelölve)"
+
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid "Allow _BSD data compression"
+msgstr "B_SD tömörítés engedélyezése"
+
+#: ../properties/nm-sstp-dialog.ui.h:32
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+"BSD-Compress tömörítés engedélyezése/letiltása. \n"
+"config: nobsdcomp (ha nincs bejelölve)"
+
+#: ../properties/nm-sstp-dialog.ui.h:34
+msgid "Allow _Deflate data compression"
+msgstr "_Deflate tömörítés engedélyezése"
+
+#: ../properties/nm-sstp-dialog.ui.h:35
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+"Deflate tömörítés engedélyezése/letiltása. \n"
+"config: nodeflate (ha nincs bejelölve)"
+
+#: ../properties/nm-sstp-dialog.ui.h:37
+msgid "Use TCP _header compression"
+msgstr "TPC _fejléctömörítés használata"
+
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
+"Van Jacobson stílusú TCP/IP fejléctömörítés engedélyezése/letiltása a küldés "
+"és fogadás irányokban is. \n"
+"config: novj (ha nincs bejelölve)"
+
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "<b>Echo</b>"
+msgstr "<b>Visszhang</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid "Send PPP _echo packets"
+msgstr "PPP _visszhangcsomagok küldése"
+
+#: ../properties/nm-sstp-dialog.ui.h:42
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
+"LCP echo kérések küldése a partner elérhetőségének megállapításához.\n"
+"config: lcp-echo-failure és lcp-echo-interval"
+
+#: ../properties/nm-sstp-dialog.ui.h:44
+#| msgid "<b>Echo</b>"
+msgid "<b>Misc</b>"
+msgstr "<b>Egyéb</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:45
+msgid "Use custom _unit number:"
+msgstr "Egyéni _egységszám használata:"
+
+#: ../properties/nm-sstp-dialog.ui.h:46
+msgid ""
+"Enable custom index for ppp<n> device name.\n"
+"config: unit <n>"
+msgstr ""
+"Egyéni index engedélyezése a ppp<n> eszköznévhez.\n"
+"beállítás: egység <n>"
+
+#: ../properties/nm-sstp.c:49
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
 msgstr "Ponttól pontig alagutazási protokoll (SSTP)"
 
-#: ../properties/nm-sstp.c:51
+#: ../properties/nm-sstp.c:50
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Kompatibilis a Microsoft és más SSTP VPN-kiszolgálókkal."
 
-#: ../src/nm-sstp-service.c:160
+#: ../properties/nm-sstp.c:317
+msgid "Saved"
+msgstr "Mentett"
+
+#: ../properties/nm-sstp.c:325
+msgid "Always Ask"
+msgstr "Mindig kérdezzen"
+
+#: ../properties/nm-sstp.c:330
+msgid "Not Required"
+msgstr "Nem szükséges"
+
+#: ../src/nm-sstp-service.c:161
 #, c-format
 msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
 msgstr "A SSTP VPN-átjáró IP-címének átalakítása sikertelen: „%s” (%d)"
 
-#: ../src/nm-sstp-service.c:178
+#: ../src/nm-sstp-service.c:179
 #, c-format
 msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
 msgstr "Nem található a SSTP VPN-átjáró IP-címe: „%s” (%d)"
 
-#: ../src/nm-sstp-service.c:202
+#: ../src/nm-sstp-service.c:203
 #, c-format
 msgid "no usable addresses returned for SSTP VPN gateway '%s'"
 msgstr "Nem küldött a SSTP VPN-átjáró használható IP-címet: „%s”"
 
-#: ../src/nm-sstp-service.c:213
+#: ../src/nm-sstp-service.c:214
 #, c-format
 msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
 msgstr "Nem küldött a SSTP VPN-átjáró használható IP-címet: „%s” (%d)"
 
-#: ../src/nm-sstp-service.c:240
+#: ../src/nm-sstp-service.c:241
 msgid "Could not find secrets (connection invalid, no vpn setting)."
 msgstr ""
 "Nem található titok (érvénytelen kapcsolat, nincsenek vpn beállítások)."
 
-#: ../src/nm-sstp-service.c:252
+#: ../src/nm-sstp-service.c:253
 msgid "Invalid VPN username."
 msgstr "Érvénytelen VPN-felhasználónév."
 
-#: ../src/nm-sstp-service.c:261
+#: ../src/nm-sstp-service.c:262
 msgid "Missing VPN username."
 msgstr "Hiányzó VPN-felhasználónév."
 
-#: ../src/nm-sstp-service.c:271
+#: ../src/nm-sstp-service.c:272
 msgid "Missing or invalid VPN password."
 msgstr "Hiányzó vagy érvénytelen VPN-jelszó."
 
-#: ../src/nm-sstp-service.c:429
+#: ../src/nm-sstp-service.c:430
 msgid "No cached credentials."
 msgstr "Nincsenek gyorsítótárazott hitelesítési adatok."
 
-#: ../src/nm-sstp-service.c:575
+#: ../src/nm-sstp-service.c:577
 #, c-format
 msgid "invalid gateway '%s'"
 msgstr "Érvénytelen átjáró: „%s”"
 
-#: ../src/nm-sstp-service.c:589
+#: ../src/nm-sstp-service.c:591
 #, c-format
 msgid "invalid integer property '%s'"
 msgstr "érvénytelen egész érték: „%s”"
 
-#: ../src/nm-sstp-service.c:599
+#: ../src/nm-sstp-service.c:601
 #, c-format
 msgid "invalid boolean property '%s' (not yes or no)"
 msgstr "érvénytelen logikai érték: „%s” (érvényes értékek: yes, no)"
 
-#: ../src/nm-sstp-service.c:606
+#: ../src/nm-sstp-service.c:608
 #, c-format
 msgid "unhandled property '%s' type %s"
 msgstr "kezeletlen %2$s típusú érték: „%1$s”"
 
-#: ../src/nm-sstp-service.c:617
+#: ../src/nm-sstp-service.c:619
 #, c-format
 msgid "property '%s' invalid or not supported"
 msgstr "érvénytelen vagy nem támogatott érték: „%s”"
 
-#: ../src/nm-sstp-service.c:635
+#: ../src/nm-sstp-service.c:637
 msgid "No VPN configuration options."
 msgstr "Nincsenek VPN-beállítások."
 
-#: ../src/nm-sstp-service.c:655
+#: ../src/nm-sstp-service.c:657
 #, c-format
 msgid "Missing required option '%s'."
 msgstr "Hiányzó kötelező argumentum: „%s”."
 
-#: ../src/nm-sstp-service.c:675
+#: ../src/nm-sstp-service.c:677
 msgid "No VPN secrets!"
 msgstr "Nincs VPN-titok!"
 
-#: ../src/nm-sstp-service.c:816
+#: ../src/nm-sstp-service.c:835
 msgid "Could not find sstp client binary."
 msgstr "Nem található a sstp client program."
 
-#: ../src/nm-sstp-service.c:829
+#: ../src/nm-sstp-service.c:848
 msgid "Missing VPN gateway."
 msgstr "Hiányzik a VPN-átjáró."
 
-#: ../src/nm-sstp-service.c:982
+#: ../src/nm-sstp-service.c:1009
 msgid "Could not find the pppd binary."
 msgstr "Nem található a sstp program."
 
-#: ../src/nm-sstp-service.c:1112
+#: ../src/nm-sstp-service.c:1139
 msgid "Invalid or missing SSTP gateway."
 msgstr "Érvénytelen vagy hiányzó SSTP-átjáró."
 
-#: ../src/nm-sstp-service.c:1311
+#: ../src/nm-sstp-service.c:1318
 msgid "Don't quit when VPN connection terminates"
 msgstr "Ne lépjen ki, ha a VPN-kapcsolat megszakad"
 
-#: ../src/nm-sstp-service.c:1312
+#: ../src/nm-sstp-service.c:1319
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr ""
 "Részletes hibakeresési naplózás engedélyezése (jelszavak is  a naplóba "
 "kerülhetnek)"
 
-#: ../src/nm-sstp-service.c:1326
+#: ../src/nm-sstp-service.c:1342
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
 msgstr ""
 "Az nm-sstp-service integrált SSTP VPN-támogatást nyújt a Hálózatkezelőhöz, "
 "amely kompatibilis a Microsoft és mások megvalósításaival."
+
+#~ msgid "_Password:"
+#~ msgstr "_Jelszó:"
+
+#~ msgid "_Secondary Password:"
+#~ msgstr "Jelszó _még egyszer:"
+
+#~ msgid "Sh_ow passwords"
+#~ msgstr "Je_lszavak megjelenítése"
+
+#~ msgid "_Username:"
+#~ msgstr "_Felhasználónév:"
+
+#~ msgid "_Domain:"
+#~ msgstr "_Tartomány:"
+
+#~ msgid "Connect _anonymously"
+#~ msgstr "Kapcsolódás _névtelenül"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "Csatlakozás _mint:"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "Jelszó meg_jegyzése erre a munkamenetre"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "Jelszavak mentése a k_ulcstartóra"

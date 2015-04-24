@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- *
  * 
  */
 
@@ -421,8 +420,7 @@ nm_ip_up (void *data, int arg)
 		return;
 	}
 
-	hash = g_hash_table_new_full (g_str_hash, g_str_equal,
-							NULL, value_destroy);
+	hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, value_destroy);
 
 	/* Request the address of the server sstpc connected to */
 	if (0 == nm_sstp_getaddr(&addr))
@@ -476,7 +474,7 @@ nm_ip_up (void *data, int arg)
 	/* Default MTU to 1400, which is also what Windows XP/Vista use */
 	g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_MTU, uint_to_gvalue (1400));
 
-	g_message ("nm-sstp-ppp-plugin: (%s): sending Ip4Config to network-manager-sstp...", __func__);
+	g_message ("nm-sstp-ppp-plugin: (%s): sending Ip4Config to NetworkManager-sstp...", __func__);
 
 	dbus_g_proxy_call_no_reply (proxy, "SetIp4Config",
 	                            DBUS_TYPE_G_MAP_OF_VARIANT, hash, G_TYPE_INVALID,

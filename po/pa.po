@@ -2,203 +2,396 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# A S Alam <aalam@users.sf.net>, 2007, 2009.
+# A S Alam <aalam@users.sf.net>, 2007, 2009, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp.HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=NetworkManager&component=VPN: sstp\n"
-"POT-Creation-Date: 2009-10-27 03:34+0000\n"
-"PO-Revision-Date: 2009-11-09 08:11+0530\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2012-04-13 12:37+0000\n"
+"PO-Revision-Date: 2012-08-19 16:03+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: pa\n"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:129
-msgid "_Secondary Password:"
-msgstr "ਸੈਕੰਡਰੀ ਪਾਸਵਰਡ(_S):"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:243
-msgid "_Username:"
-msgstr "ਯੂਜ਼ਰ ਨਾਂ(_U):"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:245
-msgid "_Domain:"
-msgstr "ਡੋਮੇਨ(_D):"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:247
+#: ../auth-dialog/vpn-password-dialog.c:95
 msgid "_Password:"
 msgstr "ਪਾਸਵਰਡ(_P):"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:336
-msgid "Connect _anonymously"
-msgstr "ਅਗਿਆਤ ਵਜੋਂ ਕੁਨੈਕਟ(_a)"
+#: ../auth-dialog/vpn-password-dialog.c:97
+msgid "_Secondary Password:"
+msgstr "ਸੈਕੰਡਰੀ ਪਾਸਵਰਡ(_S):"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:341
-msgid "Connect as _user:"
-msgstr "ਯੂਜ਼ਰ ਵਾਂਗ ਕੁਨੈਕਟ(_u):"
+#: ../auth-dialog/vpn-password-dialog.c:239
+#| msgid "Show password"
+msgid "Sh_ow passwords"
+msgstr "ਪਾਸਵਰਡ ਵੇਖੋ(_o)"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:450
-msgid "_Remember passwords for this session"
-msgstr "ਇਹ ਸ਼ੈਸ਼ਨ ਲਈ ਪਾਸਵਰਡ ਯਾਦ ਰੱਖੋ(_R)"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:452
-msgid "_Save passwords in keyring"
-msgstr "ਕੀਰਿੰਗ ਵਿੱਚ ਪਾਸਵਰਡ ਸੰਭਾਲੋ(_S)"
-
-#: ../auth-dialog/main.c:62
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never be saved.
+#.
+#: ../auth-dialog/main.c:145
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
-msgstr "ਤੁਹਾਨੂੰ ਵੁਰਚੁਅਲ ਪ੍ਰਾਈਵੇਟ ਨੈੱਟਵਰਕ (VPN) '%s' ਦੀ ਵਰਤੋਂ ਵਾਸਤੇ ਪਰਮਾਣਿਤ ਹੋਣ ਦੀ ਲੋੜ ਹੈ।"
+msgstr ""
+"ਤੁਹਾਨੂੰ ਵੁਰਚੁਅਲ ਪ੍ਰਾਈਵੇਟ ਨੈੱਟਵਰਕ (VPN) '%s' ਦੀ ਵਰਤੋਂ ਵਾਸਤੇ ਪਰਮਾਣਿਤ ਹੋਣ ਦੀ ਲੋੜ "
+"ਹੈ।"
 
-#: ../auth-dialog/main.c:63
+#: ../auth-dialog/main.c:154 ../auth-dialog/main.c:174
 msgid "Authenticate VPN"
 msgstr "ਪਰਮਾਣਿਤ VPN"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "SSTP VPN ਕੁਨੈਕਸ਼ਨ ਸ਼ਾਮਿਲ, ਹਟਾਓ ਅਤੇ ਸੋਧ"
+#: ../auth-dialog/main.c:156 ../properties/nm-sstp-dialog.ui.h:12
+msgid "Password:"
+msgstr "ਪਾਸਵਰਡ:"
 
-#: ../nm-sstp.desktop.in.h:2
+#: ../nm-sstp.desktop.in.h:1
 msgid "SSTP VPN Connection Manager"
 msgstr "SSTP VPN ਕੁਨੈਕਸ਼ਨ ਮੈਨੇਜਰ"
 
-#: ../properties/advanced-dialog.c:173
+#: ../nm-sstp.desktop.in.h:2
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "SSTP VPN ਕੁਨੈਕਸ਼ਨ ਸ਼ਾਮਿਲ, ਹਟਾਓ ਅਤੇ ਸੋਧ"
+
+#: ../properties/advanced-dialog.c:187
 msgid "All Available (Default)"
 msgstr "ਸਭ ਉਪਲੱਬਧ (ਡਿਫਾਲਟ)"
 
-#: ../properties/advanced-dialog.c:177
+#: ../properties/advanced-dialog.c:191
 msgid "128-bit (most secure)"
 msgstr "128-bit (ਸਭ ਤੋਂ ਸੁਰੱਖਿਅਤ)"
 
-#: ../properties/advanced-dialog.c:186
+#: ../properties/advanced-dialog.c:200
 msgid "40-bit (less secure)"
 msgstr "40-bit (ਘੱਟ ਸੁਰੱਖਿਅਤ)"
 
-#: ../properties/advanced-dialog.c:292
+#: ../properties/advanced-dialog.c:309
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:305
+#: ../properties/advanced-dialog.c:322
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:317
+#: ../properties/advanced-dialog.c:334
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:329
+#: ../properties/advanced-dialog.c:346
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:342
+#: ../properties/advanced-dialog.c:359
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>ਪਰਮਾਣਕਿਤਾ</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>ਈਚੋ</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>ਆਮ</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>ਚੋਣਵਾਂ</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>ਸੁਰੱਖਿਆ ਅਤੇ ਕੰਪਰੈੱਸ਼ਨ</b>"
-
-#: ../properties/nm-sstp-dialog.glade.h:6
-msgid "Ad_vanced..."
-msgstr "ਮਾਹਰ(_v)..."
-
-#: ../properties/nm-sstp-dialog.glade.h:7
-msgid "Allow _BSD data compression"
-msgstr "_BSD ਡਾਟਾ ਕੰਪਰੈਸ਼ਨ ਮਨਜ਼ੂਰ"
-
-#: ../properties/nm-sstp-dialog.glade.h:8
-msgid "Allow _Deflate data compression"
-msgstr "_Deflate  ਡਾਟਾ ਕੰਪਰੈੱਸ਼ਨ ਮਨਜ਼ੂਰ"
-
-#: ../properties/nm-sstp-dialog.glade.h:9
-msgid "Allow st_ateful encryption"
-msgstr "ਸਟੇਟਫੁੱਲ ਇੰਕ੍ਰਸ਼ਨ ਮਨਜ਼ੂਰ(_a)"
-
-#: ../properties/nm-sstp-dialog.glade.h:10
-msgid "Allow the following authentication methods:"
-msgstr "ਹੇਠ ਦਿੱਤੇ ਪਰਮਾਣਕਿਤਾ ਢੰਗ ਮਨਜ਼ੂਰ:"
-
-#: ../properties/nm-sstp-dialog.glade.h:11
+#: ../properties/nm-sstp-dialog.ui.h:1
 msgid "Default"
 msgstr "ਡਿਫਾਲਟ"
 
-#: ../properties/nm-sstp-dialog.glade.h:12
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>General</b>"
+msgstr "<b>ਆਮ</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "_Gateway:"
+msgstr "ਗੇਟਵੇ(_G):"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "<b>Optional</b>"
+msgstr "<b>ਚੋਣਵਾਂ</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:9
 msgid "NT Domain:"
 msgstr "NT ਡੋਮੇਨ:"
 
-#: ../properties/nm-sstp-dialog.glade.h:13
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Show password"
+msgstr "ਪਾਸਵਰਡ ਵੇਖੋ"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Password passed to SSTP when prompted for it."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "User name:"
+msgstr "ਯੂਜ਼ਰ ਨਾਂ:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Ad_vanced..."
+msgstr "ਮਾਹਰ(_v)..."
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "SSTP Advanced Options"
+msgstr "PPP ਮਾਹਰ ਚੋਣਾਂ"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "<b>Authentication</b>"
+msgstr "<b>ਪਰਮਾਣਕਿਤਾ</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Allow the following authentication methods:"
+msgstr "ਹੇਠ ਦਿੱਤੇ ਪਰਮਾਣਕਿਤਾ ਢੰਗ ਮਨਜ਼ੂਰ:"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "<b>Security and Compression</b>"
+msgstr "<b>ਸੁਰੱਖਿਆ ਅਤੇ ਕੰਪਰੈੱਸ਼ਨ</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "ਪੁਆਇੰਟ-ਟੂ-ਪੁਆਇੰਟ ਇੰਕ੍ਰਿਪਸ਼ਨ ਵਰਤੋਂ (M_PPE)"
+
+#: ../properties/nm-sstp-dialog.ui.h:24
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
 "methods: MSCHAP or MSCHAPv2."
 msgstr ""
-"ਨੋਟ: MPPE ਇੰਕ੍ਰਿਪਸ਼ਨ ਕੇਵਲ MSCHAP ਪਰਮਾਣਕਿਤਾ ਢੰਗਾਂ ਨਾਲ ਹੀ ਉਪਲੱਬਧ ਹੈ। ਇਹ ਚੋਣ-ਬਾਕਸ ਯੋਗ ਕਰਨ "
+"ਨੋਟ: MPPE ਇੰਕ੍ਰਿਪਸ਼ਨ ਕੇਵਲ MSCHAP ਪਰਮਾਣਕਿਤਾ ਢੰਗਾਂ ਨਾਲ ਹੀ ਉਪਲੱਬਧ ਹੈ। ਇਹ "
+"ਚੋਣ-ਬਾਕਸ ਯੋਗ ਕਰਨ "
 "ਵਾਸਤੇ, ਇੱਕ ਜਾਂ ਵੱਧ MSCHAP ਪਰਮਾਣਕਿਤਾ ਢੰਗ ਚੁਣੋ: MSCHAP ਜਾਂ MSCHAPv2"
 
-#: ../properties/nm-sstp-dialog.glade.h:14
-msgid "SSTP Advanced Options"
-msgstr "PPP ਮਾਹਰ ਚੋਣਾਂ"
-
-#: ../properties/nm-sstp-dialog.glade.h:15
-msgid "Password:"
-msgstr "ਪਾਸਵਰਡ:"
-
-#: ../properties/nm-sstp-dialog.glade.h:16
-msgid "Send PPP _echo packets"
-msgstr "PPP ਈਚੋ ਪੈਕੇਟ ਭੇਜੋ(_e)"
-
-#: ../properties/nm-sstp-dialog.glade.h:17
-msgid "Show password"
-msgstr "ਪਾਸਵਰਡ ਵੇਖੋ"
-
-#: ../properties/nm-sstp-dialog.glade.h:18
-msgid "Use TCP _header compression"
-msgstr "TPC ਹੈੱਡਰ ਕੰਪਰੈਸ਼ਨ ਵਰਤੋਂ(_h)"
-
-#: ../properties/nm-sstp-dialog.glade.h:19
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "ਪੁਆਇੰਟ-ਟੂ-ਪੁਆਇੰਟ ਇੰਕ੍ਰਿਪਸ਼ਨ ਵਰਤੋਂ (M_PPE)"
-
-#: ../properties/nm-sstp-dialog.glade.h:20
-msgid "User name:"
-msgstr "ਯੂਜ਼ਰ ਨਾਂ:"
-
-#: ../properties/nm-sstp-dialog.glade.h:21
-msgid "_Gateway:"
-msgstr "ਗੇਟਵੇ(_G):"
-
-#: ../properties/nm-sstp-dialog.glade.h:22
+#: ../properties/nm-sstp-dialog.ui.h:25
 msgid "_Security:"
 msgstr "ਸੁਰੱਖਿਆ(_S):"
 
-#: ../properties/nm-sstp.c:50
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:28
+msgid "Allow st_ateful encryption"
+msgstr "ਸਟੇਟਫੁੱਲ ਇੰਕ੍ਰਸ਼ਨ ਮਨਜ਼ੂਰ(_a)"
+
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid "Allow _BSD data compression"
+msgstr "_BSD ਡਾਟਾ ਕੰਪਰੈਸ਼ਨ ਮਨਜ਼ੂਰ"
+
+#: ../properties/nm-sstp-dialog.ui.h:32
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:34
+msgid "Allow _Deflate data compression"
+msgstr "_Deflate  ਡਾਟਾ ਕੰਪਰੈੱਸ਼ਨ ਮਨਜ਼ੂਰ"
+
+#: ../properties/nm-sstp-dialog.ui.h:35
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:37
+msgid "Use TCP _header compression"
+msgstr "TPC ਹੈੱਡਰ ਕੰਪਰੈਸ਼ਨ ਵਰਤੋਂ(_h)"
+
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "<b>Echo</b>"
+msgstr "<b>ਈਚੋ</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid "Send PPP _echo packets"
+msgstr "PPP ਈਚੋ ਪੈਕੇਟ ਭੇਜੋ(_e)"
+
+#: ../properties/nm-sstp-dialog.ui.h:42
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
+
+#: ../properties/nm-sstp.c:49
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
 msgstr "ਪੁਆਇੰਟ-ਟੂ-ਪੁਆਇੰਟ ਟਨਲਿੰਗ ਪਰੋਟੋਕਾਲ (SSTP)"
 
-#: ../properties/nm-sstp.c:51
+#: ../properties/nm-sstp.c:50
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "ਮਾਈਕਰੋਸਾਫਟ ਅਤੇ ਹੋਰ SSTP VPN ਸਰਵਰਾਂ ਨਾਲ ਅਨੁਕੂਲ ਹੈ।"
+
+#: ../properties/nm-sstp.c:317
+msgid "Saved"
+msgstr "ਸੰਭਾਲਿਆ"
+
+#: ../properties/nm-sstp.c:325
+msgid "Always Ask"
+msgstr "ਹਮੇਸ਼ਾ ਪੁੱਛੋ"
+
+#: ../properties/nm-sstp.c:330
+msgid "Not Required"
+msgstr "ਲੋੜੀਦਾ ਨਹੀਂ"
+
+#: ../src/nm-sstp-service.c:160
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:178
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:202
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:213
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:240
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:252
+msgid "Invalid VPN username."
+msgstr "ਗਲਤ VPN ਯੂਜ਼ਰ-ਨਾਂ।"
+
+#: ../src/nm-sstp-service.c:261
+msgid "Missing VPN username."
+msgstr "ਨਾ-ਮੌਜੂਦ VPN ਯੂਜ਼ਰ ਨਾਂ।"
+
+#: ../src/nm-sstp-service.c:271
+msgid "Missing or invalid VPN password."
+msgstr "ਗੁੰਮ ਜਾਂ ਗਲਤ VPN ਪਾਸਵਰਡ।"
+
+#: ../src/nm-sstp-service.c:429
+msgid "No cached credentials."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:575
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "ਗਲਤ ਗੇਟਵੇ '%s'"
+
+#: ../src/nm-sstp-service.c:589
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:599
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "ਗਲਤ ਬੁਲੀਅਨ ਵਿਸ਼ੇਸ਼ਤਾ '%s' (ਹਾਂ ਜਾਂ ਨਹੀਂ ਨਹੀਂ)"
+
+#: ../src/nm-sstp-service.c:606
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "ਨਾ-ਹੈਂਡਲ ਵਿਸ਼ੇਸ਼ਤਾ '%s' ਕਿਸਮ %s"
+
+#: ../src/nm-sstp-service.c:617
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "ਵਿਸ਼ੇਸ਼ਤਾ '%s' ਗਲਤ ਹੈ ਜਾਂ ਸਹਾਇਕ ਨਹੀਂ ਹੈ"
+
+#: ../src/nm-sstp-service.c:635
+msgid "No VPN configuration options."
+msgstr "ਕੋਈ VPN ਸੰਰਚਨਾ ਚੋਣਾਂ ਨਹੀਂ।"
+
+#: ../src/nm-sstp-service.c:655
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "ਲੋੜੀਦੀ ਚੋਣ '%s' ਗੁੰਮ ਹੈ।"
+
+#: ../src/nm-sstp-service.c:675
+msgid "No VPN secrets!"
+msgstr "ਕੋਈ VPN ਭੇਦ ਨਹੀਂ!"
+
+#: ../src/nm-sstp-service.c:816
+msgid "Could not find sstp client binary."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:829
+msgid "Missing VPN gateway."
+msgstr "ਗੁੰਮ VPN ਗੇਟਵੇ।"
+
+#: ../src/nm-sstp-service.c:982
+msgid "Could not find the pppd binary."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1112
+msgid "Invalid or missing SSTP gateway."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1311
+msgid "Don't quit when VPN connection terminates"
+msgstr "ਜਦੋਂ VPN ਕੁਨੈਕਸ਼ਨ ਖਤਮ ਹੋਵੇ ਤਾਂ ਬੰਦ ਨਾ ਕਰੋ"
+
+#: ../src/nm-sstp-service.c:1312
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1326
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+
+#~ msgid "_Username:"
+#~ msgstr "ਯੂਜ਼ਰ ਨਾਂ(_U):"
+
+#~ msgid "_Domain:"
+#~ msgstr "ਡੋਮੇਨ(_D):"
+
+#~ msgid "Connect _anonymously"
+#~ msgstr "ਅਗਿਆਤ ਵਜੋਂ ਕੁਨੈਕਟ(_a)"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "ਯੂਜ਼ਰ ਵਾਂਗ ਕੁਨੈਕਟ(_u):"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "ਇਹ ਸ਼ੈਸ਼ਨ ਲਈ ਪਾਸਵਰਡ ਯਾਦ ਰੱਖੋ(_R)"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "ਕੀਰਿੰਗ ਵਿੱਚ ਪਾਸਵਰਡ ਸੰਭਾਲੋ(_S)"
 
 #~ msgid "Authentication Type:"
 #~ msgstr "ਪਰਮਾਣਕਿਤਾ ਕਿਸਮ:"

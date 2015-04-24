@@ -27,55 +27,18 @@
 #include <glib-object.h>
 #include <nm-vpn-plugin.h>
 
+#include "nm-sstp-service-defines.h"
+
 #define NM_SSTP_MAX_BUFLEN             (255)
 #define NM_TYPE_SSTP_PLUGIN            (nm_sstp_plugin_get_type ())
 #define NM_SSTP_PLUGIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), NM_TYPE_SSTP_PLUGIN, NMSstpPlugin))
 #define NM_SSTP_PLUGIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), NM_TYPE_SSTP_PLUGIN, NMSstpPluginClass))
 #define NM_IS_SSTP_PLUGIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), NM_TYPE_SSTP_PLUGIN))
-#define NM_IS_SSTP_PLUGIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), NM_TYPE_SSTP_PLUGIN))
+#define NM_IS_SSTP_PLUGIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), NM_TYPE_SSTP_PLUGIN))
 #define NM_SSTP_PLUGIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), NM_TYPE_SSTP_PLUGIN, NMSstpPluginClass))
 
 /* For the pppd plugin <-> VPN plugin service */
 #define DBUS_TYPE_G_MAP_OF_VARIANT (dbus_g_type_get_map ("GHashTable", G_TYPE_STRING, G_TYPE_VALUE))
-
-#define NM_DBUS_SERVICE_SSTP_PPP    "org.freedesktop.NetworkManager.sstp-ppp"
-#define NM_DBUS_PATH_SSTP_PPP       "/org/freedesktop/NetworkManager/sstp/ppp"
-#define NM_DBUS_INTERFACE_SSTP_PPP  "org.freedesktop.NetworkManager.sstp.ppp"
-
-
-/* For the NM <-> VPN plugin service */
-#define NM_DBUS_SERVICE_SSTP    "org.freedesktop.NetworkManager.sstp"
-#define NM_DBUS_INTERFACE_SSTP  "org.freedesktop.NetworkManager.sstp"
-#define NM_DBUS_PATH_SSTP       "/org/freedesktop/NetworkManager/sstp"
-
-#define NM_SSTP_KEY_GATEWAY           "gateway"
-#define NM_SSTP_KEY_UUID              "uuid"
-#define NM_SSTP_KEY_USER              "user"
-#define NM_SSTP_KEY_PASSWORD          "password"
-#define NM_SSTP_KEY_PASSWORD_FLAGS    "password-flags"
-#define NM_SSTP_KEY_DOMAIN            "domain"
-#define NM_SSTP_KEY_CA_CERT           "ca-cert"
-#define NM_SSTP_KEY_IGN_CERT_WARN     "ignore-cert-warn"
-#define NM_SSTP_KEY_REFUSE_EAP        "refuse-eap"
-#define NM_SSTP_KEY_REFUSE_PAP        "refuse-pap"
-#define NM_SSTP_KEY_REFUSE_CHAP       "refuse-chap"
-#define NM_SSTP_KEY_REFUSE_MSCHAP     "refuse-mschap"
-#define NM_SSTP_KEY_REFUSE_MSCHAPV2   "refuse-mschapv2"
-#define NM_SSTP_KEY_REQUIRE_MPPE      "require-mppe"
-#define NM_SSTP_KEY_REQUIRE_MPPE_40   "require-mppe-40"
-#define NM_SSTP_KEY_REQUIRE_MPPE_128  "require-mppe-128"
-#define NM_SSTP_KEY_MPPE_STATEFUL     "mppe-stateful"
-#define NM_SSTP_KEY_NOBSDCOMP         "nobsdcomp"
-#define NM_SSTP_KEY_NODEFLATE         "nodeflate"
-#define NM_SSTP_KEY_NO_VJ_COMP        "no-vj-comp"
-#define NM_SSTP_KEY_LCP_ECHO_FAILURE  "lcp-echo-failure"
-#define NM_SSTP_KEY_LCP_ECHO_INTERVAL "lcp-echo-interval"
-#define NM_SSTP_KEY_PROXY_SERVER      "proxy-server"
-#define NM_SSTP_KEY_PROXY_PORT        "proxy-port"
-#define NM_SSTP_KEY_PROXY_USER        "proxy-user"
-#define NM_SSTP_KEY_PROXY_PASSWORD    "proxy-password"
-#define NM_SSTP_KEY_PROXY_PASSWORD_FLAGS "proxy-password-flags"
-
 
 typedef struct {
 	NMVPNPlugin parent;

@@ -8,16 +8,16 @@
   <name xml:lang="en">network-manager-sstp</name>
   <shortdesc xml:lang="en">SSTP support for NetworkManager</shortdesc>
 
-  <homepage rdf:resource="http://projects.gnome.org/NetworkManager/" />
+  <homepage rdf:resource="https://wiki.gnome.org/Projects/NetworkManager" />
   <mailing-list rdf:resource="http://mail.gnome.org/mailman/listinfo/networkmanager-list" />
   <download-page rdf:resource="http://download.gnome.org/sources/NetworkManager-sstp/" />
-  <bug-database rdf:resource="http://bugzilla.gnome.org/browse.cgi?product=NetworkManager&amp;component=VPN:%20sstp" />
+  <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=NetworkManager&amp;component=VPN:%20sstp" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#development" />
 
   <maintainer>
     <foaf:Person>
-      <foaf:name>Dan Williams</foaf:name>
-      <foaf:mbox rdf:resource="mailto:dcbw@redhat.com" />
+      <foaf:name>Eivind Naess</foaf:name>
+      <foaf:mbox rdf:resource="mailto:eivnaes@yahoo.com" />
       <gnome:userid>dcbw</gnome:userid>
     </foaf:Person>
   </maintainer>

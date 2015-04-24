@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2011-07-18 17:35+0000\n"
-"PO-Revision-Date: 2011-07-19 22:04+0100\n"
+"POT-Creation-Date: 2012-02-15 14:38+0000\n"
+"PO-Revision-Date: 2012-02-29 14:27+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -36,22 +36,28 @@ msgstr "_Pokaži gesla"
 #. Otherwise, we have no saved password, or the password flags indicated
 #. * that the password should never be saved.
 #.
-#: ../auth-dialog/main.c:127
+#: ../auth-dialog/main.c:141
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr "Dostop do navideznega zasebnega omrežja '%s' zahteva overitev."
 
-#: ../auth-dialog/main.c:128
+#: ../auth-dialog/main.c:150
+#: ../auth-dialog/main.c:170
 msgid "Authenticate VPN"
 msgstr "Overi VPN"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "Dodajanje, odstranjevanje in urejanje SSTP VPN povezav"
+#: ../auth-dialog/main.c:152
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Password:"
+msgstr "Geslo:"
 
-#: ../nm-sstp.desktop.in.h:2
+#: ../nm-sstp.desktop.in.h:1
 msgid "SSTP VPN Connection Manager"
 msgstr "Upravljalnik SSTP VPN povezav"
+
+#: ../nm-sstp.desktop.in.h:2
+msgid "Add, Remove, and Edit SSTP VPN Connections"
+msgstr "Dodajanje, odstranjevanje in urejanje SSTP VPN povezav"
 
 #: ../properties/advanced-dialog.c:187
 msgid "All Available (Default)"
@@ -86,92 +92,151 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.ui.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Overitev</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Odmev</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>General</b>"
-msgstr "<b>Splošno</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Izbirno</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Varnost in stiskanje</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Ad_vanced..."
-msgstr "_Napredno ..."
-
-#: ../properties/nm-sstp-dialog.ui.h:7
-msgid "Allow _BSD data compression"
-msgstr "Dovoli _BSD stiskanje podatkov"
-
-#: ../properties/nm-sstp-dialog.ui.h:8
-msgid "Allow _Deflate data compression"
-msgstr "Dovoli _Deflate stiskanje podatkov"
-
-#: ../properties/nm-sstp-dialog.ui.h:9
-msgid "Allow st_ateful encryption"
-msgstr "Dovoli _namensko šifriranje"
-
-#: ../properties/nm-sstp-dialog.ui.h:10
-msgid "Allow the following authentication methods:"
-msgstr "Dovoli načine overitve:"
-
-#: ../properties/nm-sstp-dialog.ui.h:11
 msgid "Default"
 msgstr "Privzeto"
 
-#: ../properties/nm-sstp-dialog.ui.h:12
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>General</b>"
+msgstr "<b>Splošno</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid "SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr "Naslov IP ali ime strežnika SSTP. Nastavitev: prvi parameter protokola SSTP"
+
+#: ../properties/nm-sstp-dialog.ui.h:4
+msgid "_Gateway:"
+msgstr "_Prehod:"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "<b>Optional</b>"
+msgstr "<b>Izbirno</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "Append the domain name <domain> to the local host name for authentication purposes.\n"
+"config: domain <domain>"
+msgstr "Pripni ime <domene> k imenu krajevnega gostitelja za overitev.\n"
+"Nastavitev: domena <domena>"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
 msgid "NT Domain:"
 msgstr "Domena NT:"
 
+#: ../properties/nm-sstp-dialog.ui.h:8
+msgid "Show password"
+msgstr "Pokaži geslo"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+msgid "Password passed to SSTP when prompted for it."
+msgstr "Geslo poslano na SSTP ob zahtevi."
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Set the name used for authenticating the local system to the peer to <name>.\n"
+"config: user <name>"
+msgstr "Določitev imena za overjanje krajevnega sistema odjemalcu na <ime>.\n"
+"Nastavitev: uporabnik <ime>"
+
+#: ../properties/nm-sstp-dialog.ui.h:12
+msgid "User name:"
+msgstr "Uporabniško ime:"
+
 #: ../properties/nm-sstp-dialog.ui.h:13
-msgid "Note: MPPE encryption is only available with MSCHAP authentication methods. To enable this checkbox, select one or more of the MSCHAP authentication methods: MSCHAP or MSCHAPv2."
-msgstr "Opomba: Šifriranje MPPE je na voljo le z MSCHAP načinom overitve. Za izbiro te možnosti, je treba najprej izbrati enega ali več načinov overitve MSCHAP: MSCHAP ali MSCHAPv2."
+msgid "Ad_vanced..."
+msgstr "_Napredno ..."
 
 #: ../properties/nm-sstp-dialog.ui.h:14
 msgid "SSTP Advanced Options"
 msgstr "Napredne možnosti SSTP"
 
 #: ../properties/nm-sstp-dialog.ui.h:15
-msgid "Password:"
-msgstr "Geslo:"
+msgid "<b>Authentication</b>"
+msgstr "<b>Overitev</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:16
-msgid "Send PPP _echo packets"
-msgstr "Pošlji PPP _echo pakete"
+msgid "Allow the following authentication methods:"
+msgstr "Dovoli načine overitve:"
 
 #: ../properties/nm-sstp-dialog.ui.h:17
-msgid "Show password"
-msgstr "Pokaži geslo"
+msgid "Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr "Dovoli/Onemogoči način overjanja.\n"
+"Nastavitev: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
-msgid "Use TCP _header compression"
-msgstr "Uporabi stiskanje _glave TCP"
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Varnost in stiskanje</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Use _Point-to-Point encryption (MPPE)"
 msgstr "Uporabi šifriranje _točke-do-točke (MPPE)"
 
 #: ../properties/nm-sstp-dialog.ui.h:20
-msgid "User name:"
-msgstr "Uporabniško ime:"
+msgid "Note: MPPE encryption is only available with MSCHAP authentication methods. To enable this checkbox, select one or more of the MSCHAP authentication methods: MSCHAP or MSCHAPv2."
+msgstr "Opomba: Šifriranje MPPE je na voljo le z MSCHAP načinom overitve. Za izbiro te možnosti, je treba najprej izbrati enega ali več načinov overitve MSCHAP: MSCHAP ali MSCHAPv2."
 
 #: ../properties/nm-sstp-dialog.ui.h:21
-msgid "_Gateway:"
-msgstr "_Prehod:"
-
-#: ../properties/nm-sstp-dialog.ui.h:22
 msgid "_Security:"
 msgstr "_Varnost:"
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr "Zahtevaj uporabo MPPE z 40/128-bitnim šifriranjem za vse.\n"
+"Nastavitev: require-mppe, require-mppe-128 ali require-mppe-40"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid "Allow st_ateful encryption"
+msgstr "Dovoli _namensko šifriranje"
+
+#: ../properties/nm-sstp-dialog.ui.h:24
+msgid "Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr "Dovoli uporabo načina stanja MPPE. Način brez stanja je preizkušen privzeto.\n"
+"Nastavitev: mppe-stateful (izbrano)"
+
+#: ../properties/nm-sstp-dialog.ui.h:25
+msgid "Allow _BSD data compression"
+msgstr "Dovoli _BSD stiskanje podatkov"
+
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid "Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr "Dovoli/Onemogoči stiskanje z BSD-Compress.\n"
+"Nastavitev: nobsdcomp (neizbrano)"
+
+#: ../properties/nm-sstp-dialog.ui.h:27
+msgid "Allow _Deflate data compression"
+msgstr "Dovoli _Deflate stiskanje podatkov"
+
+#: ../properties/nm-sstp-dialog.ui.h:28
+msgid "Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr "Dovoli/Onemogoči stiskanje Deflate.\n"
+"Nastavitev: nodeflate (neizbrano)"
+
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid "Use TCP _header compression"
+msgstr "Uporabi stiskanje _glave TCP"
+
+#: ../properties/nm-sstp-dialog.ui.h:30
+msgid "Allow/disable Van Jacobson style TCP/IP header compression in both the transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr "Dovoli/Onemogoči slog stiskanja glav Van Jacobson v obeh smeren prenosa podatkov.\n"
+"Nastavitev: novj (neizbrano)"
+
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid "<b>Echo</b>"
+msgstr "<b>Odmev</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:32
+msgid "Send PPP _echo packets"
+msgstr "Pošlji PPP _echo pakete"
+
+#: ../properties/nm-sstp-dialog.ui.h:33
+msgid "Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr "Pošlji zahteve echo LCP za ohranjevanje povezave.\n"
+"Nastavitev: lcp-echo-failure in lcp-echo-interval"
 
 #: ../properties/nm-sstp.c:49
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
@@ -180,6 +245,18 @@ msgstr "Point-to-Point protokol tuneliranja (SSTP)"
 #: ../properties/nm-sstp.c:50
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Združljivo z Microsoftovim in drugimi SSTP VPN strežniki."
+
+#: ../properties/nm-sstp.c:317
+msgid "Saved"
+msgstr "Shranjeno"
+
+#: ../properties/nm-sstp.c:325
+msgid "Always Ask"
+msgstr "Vedno vprašaj"
+
+#: ../properties/nm-sstp.c:330
+msgid "Not Required"
+msgstr "Ni zahtevano"
 
 #: ../src/nm-sstp-service.c:160
 #, c-format

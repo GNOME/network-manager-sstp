@@ -17,7 +17,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * (C) Copyright 2008 - 2011 Red Hat, Inc.
+ * (C) Copyright 2008 - 2014 Red Hat, Inc.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -65,13 +65,19 @@ static gboolean debug = FALSE;
 
 /* Have to have a separate objec to handle ppp plugin requests since
  * dbus-glib doesn't allow multiple interfaces registed on one GObject.
+ *
+ * Majority of the differences to nm-sstp-service from the pptp version here
+ * are made to:
+ *   - Add HTTP Proxy Settings
+ *   - SSTP takes the FQDN, but will call back with the correct addresses as
+ *     it resolved it.
  */
 
 #define NM_TYPE_SSTP_PPP_SERVICE            (nm_sstp_ppp_service_get_type ())
 #define NM_SSTP_PPP_SERVICE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), NM_TYPE_SSTP_PPP_SERVICE, NMSstpPppService))
 #define NM_SSTP_PPP_SERVICE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), NM_TYPE_SSTP_PPP_SERVICE, NMSstpPppServiceClass))
 #define NM_IS_SSTP_PPP_SERVICE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), NM_TYPE_SSTP_PPP_SERVICE))
-#define NM_IS_SSTP_PPP_SERVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), NM_TYPE_SSTP_PPP_SERVICE))
+#define NM_IS_SSTP_PPP_SERVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), NM_TYPE_SSTP_PPP_SERVICE))
 #define NM_SSTP_PPP_SERVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), NM_TYPE_SSTP_PPP_SERVICE, NMSstpPppServiceClass))
 
 typedef struct {
@@ -110,10 +116,10 @@ static gboolean impl_sstp_service_set_ip4_config (NMSstpPppService *self,
 #define NM_SSTP_PPP_SERVICE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), NM_TYPE_SSTP_PPP_SERVICE, NMSstpPppServicePrivate))
 
 typedef struct {
-	char *server;
-	char *username;
-	char *password;
-	unsigned short port;
+	char *server;       // Proxy Server
+	char *username;     // Proxy User Name
+	char *password;     // Proxy Password
+	unsigned short port;// Proxy Port
 } NMSstpPluginProxy;
 
 typedef struct {
@@ -133,6 +139,7 @@ enum {
 	LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0 };
+static gboolean str_to_int (const char *str, long int *out);
 
 static gboolean
 _service_cache_credentials (NMSstpPppService *self,
@@ -146,7 +153,7 @@ _service_cache_credentials (NMSstpPppService *self,
 	g_return_val_if_fail (self != NULL, FALSE);
 	g_return_val_if_fail (connection != NULL, FALSE);
 
-	s_vpn = (NMSettingVPN *) nm_connection_get_setting (connection, NM_TYPE_SETTING_VPN);
+	s_vpn = nm_connection_get_setting_vpn (connection);
 	if (!s_vpn) {
 		g_set_error_literal (error,
 		                     NM_VPN_PLUGIN_ERROR,
@@ -212,15 +219,13 @@ _service_cache_credentials (NMSstpPppService *self,
 	port   = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_PORT);
 	if (server && port && strlen(server) && strlen(port))
 	{
-		int tmp = 0;
+		long int tmp_int;
 		
-		errno = 0;
-		tmp = atoi(port);
-		if (errno || tmp < 0 || tmp > 65538)
-			tmp = 0;
+		if (!str_to_int (port, &tmp_int))
+			tmp_int = 0;
 		
 		priv->proxy.server = g_strdup(server);
-		priv->proxy.port   = tmp;
+		priv->proxy.port   = tmp_int;
 		
 		temp = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_USER);
 		if (temp && strlen(temp))
@@ -283,7 +288,6 @@ out:
 	dbus_g_connection_unref (bus);
 	return self;
 }
-
 
 static void
 nm_sstp_ppp_service_init (NMSstpPppService *self)
@@ -459,12 +463,13 @@ static ValidProperty valid_properties[] = {
 	{ NM_SSTP_KEY_NO_VJ_COMP,        G_TYPE_BOOLEAN, FALSE },
 	{ NM_SSTP_KEY_LCP_ECHO_FAILURE,  G_TYPE_UINT, FALSE },
 	{ NM_SSTP_KEY_LCP_ECHO_INTERVAL, G_TYPE_UINT, FALSE },
+	{ NM_SSTP_KEY_UNIT_NUM,          G_TYPE_UINT, FALSE },
 	{ NM_SSTP_KEY_PASSWORD_FLAGS,    G_TYPE_UINT, FALSE },
 	{ NM_SSTP_KEY_PROXY_SERVER,      G_TYPE_STRING, FALSE },
 	{ NM_SSTP_KEY_PROXY_PORT,        G_TYPE_UINT, FALSE },
 	{ NM_SSTP_KEY_PROXY_USER,        G_TYPE_STRING, FALSE },
 	{ NM_SSTP_KEY_PROXY_PASSWORD_FLAGS, G_TYPE_STRING, FALSE },
-    { NM_SSTP_KEY_UUID,              G_TYPE_STRING, FALSE },
+	{ NM_SSTP_KEY_UUID,              G_TYPE_STRING, FALSE },
 	{ NULL,                          G_TYPE_NONE, FALSE }
 };
 
@@ -747,6 +752,23 @@ free_pppd_args (GPtrArray *args)
 	g_ptr_array_free (args, TRUE);
 }
 
+static gboolean
+str_to_int (const char *str, long int *out)
+{
+	long int tmp_int;
+
+	if (!str)
+		return FALSE;
+
+	errno = 0;
+	tmp_int = strtol (str, NULL, 10);
+	if (errno == 0) {
+		*out = tmp_int;
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static GPtrArray *
 construct_pppd_args (NMSstpPlugin *plugin,
                      NMSettingVPN *s_vpn,
@@ -919,9 +941,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 		/* Convert to integer and then back to string for security's sake
 		 * because strtol ignores some leading and trailing characters.
 		 */
-		errno = 0;
-		tmp_int = strtol (value, NULL, 10);
-		if (errno == 0) {
+		if (str_to_int (value, &tmp_int)) {
 			g_ptr_array_add (args, (gpointer) g_strdup ("lcp-echo-failure"));
 			g_ptr_array_add (args, (gpointer) g_strdup_printf ("%ld", tmp_int));
 		} else {
@@ -940,9 +960,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 		/* Convert to integer and then back to string for security's sake
 		 * because strtol ignores some leading and trailing characters.
 		 */
-		errno = 0;
-		tmp_int = strtol (value, NULL, 10);
-		if (errno == 0) {
+		if (str_to_int (value, &tmp_int)) {
 			g_ptr_array_add (args, (gpointer) g_strdup ("lcp-echo-interval"));
 			g_ptr_array_add (args, (gpointer) g_strdup_printf ("%ld", tmp_int));
 		} else {
@@ -951,6 +969,17 @@ construct_pppd_args (NMSstpPlugin *plugin,
 	} else {
 		g_ptr_array_add (args, (gpointer) g_strdup ("lcp-echo-interval"));
 		g_ptr_array_add (args, (gpointer) g_strdup ("0"));
+	}
+
+	/* Unit Number */
+	value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_UNIT_NUM);
+	if (value && *value) {
+		long int tmp_int;
+		if (str_to_int (value, &tmp_int)) {
+			g_ptr_array_add (args, (gpointer) g_strdup ("unit"));
+			g_ptr_array_add (args, (gpointer) g_strdup_printf ("%ld", tmp_int));
+		} else
+			g_warning ("failed to convert unit value '%s'", value);
 	}
 
 	/* Add the SSTP PPP Plugin */
@@ -1078,16 +1107,16 @@ service_ip4_config_cb (NMSstpPppService *service,
                        NMVPNPlugin *plugin)
 {
 	GHashTable *hash;
-
+ 
 	/*
 	 * The nm-sstp-pppd-plugin.c:441 will get the address from
 	 * sstpc and update the hash table with "gateway" property.
 	 */
-	 
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal, 
 			g_free, nm_gvalue_destroy);
 	g_hash_table_foreach (config_hash, copy_hash, hash);
 	nm_vpn_plugin_set_ip4_config (plugin, hash);
+
 	g_hash_table_destroy (hash);
 }
 
@@ -1099,9 +1128,9 @@ real_connect (NMVPNPlugin   *plugin,
 	NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (plugin);
 	NMSettingVPN *s_vpn;
 	const char *gwaddr;
-    	const char *value;
+	const char *value;
 
-	s_vpn = NM_SETTING_VPN (nm_connection_get_setting (connection, NM_TYPE_SETTING_VPN));
+	s_vpn = nm_connection_get_setting_vpn (connection);
 	g_assert (s_vpn);
 
 	gwaddr = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_GATEWAY);
@@ -1159,16 +1188,17 @@ real_need_secrets (NMVPNPlugin *plugin,
                    char **setting_name,
                    GError **error)
 {	
-	NMSetting *s_vpn;
+	NMSettingVPN *s_vpn;
 	NMSettingSecretFlags flags = NM_SETTING_SECRET_FLAG_NONE;
 	
 	g_return_val_if_fail (NM_IS_VPN_PLUGIN (plugin), FALSE);
 	g_return_val_if_fail (NM_IS_CONNECTION (connection), FALSE);
 	
-	s_vpn = nm_connection_get_setting (connection, NM_TYPE_SETTING_VPN);
+	s_vpn = nm_connection_get_setting_vpn (connection);
+
+	nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, &flags, NULL);
 	
 	/* Don't need the password if it's not required */
-	nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, &flags, NULL);
 	if (flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED)
 		return FALSE;
 	

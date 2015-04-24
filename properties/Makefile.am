@@ -15,13 +15,14 @@ uidir = $(datadir)/gnome-vpn-properties/sstp
 ui_DATA = nm-sstp-dialog.ui
 
 libnm_sstp_properties_la_CFLAGS =                       \
+        $(GLIB_CFLAGS)                                  \
         $(GTK_CFLAGS)                                   \
-        $(NM_CFLAGS)                        \
+        $(NM_CFLAGS)                                    \
+	-I$(top_srcdir)/src				\
         -DICONDIR=\""$(datadir)/pixmaps"\"              \
         -DUIDIR=\""$(uidir)"\"                          \
+        -DLOCALEDIR=\""$(datadir)/locale"\"             \
         -DG_DISABLE_DEPRECATED                          \
-        -DGDK_DISABLE_DEPRECATED                        \
-	-DGTK_DISABLE_DEPRECATED                        \
         -DVERSION=\"$(VERSION)\"
 
 libnm_sstp_properties_la_LIBADD = \

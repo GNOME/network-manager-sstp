@@ -35,14 +35,12 @@
 #include <gtk/gtk.h>
 #include <fcntl.h>
 
-#define NM_VPN_API_SUBJECT_TO_CHANGE
-
 #include <nm-vpn-plugin-ui-interface.h>
 #include <nm-setting-vpn.h>
 #include <nm-setting-connection.h>
 #include <nm-setting-ip4-config.h>
 
-#include "src/nm-sstp-service.h"
+#include "nm-sstp-service-defines.h"
 #include "nm-sstp.h"
 #include "import-export.h"
 #include "advanced-dialog.h"
@@ -51,6 +49,9 @@
 #define SSTP_PLUGIN_DESC    _("Compatible with Microsoft and other SSTP VPN servers.")
 #define SSTP_PLUGIN_SERVICE NM_DBUS_SERVICE_SSTP
 
+#define PW_TYPE_SAVE   0
+#define PW_TYPE_ASK    1
+#define PW_TYPE_UNUSED 2
 
 typedef void (*ChangedCallback) (GtkWidget *widget, gpointer user_data);
 
@@ -59,16 +60,16 @@ typedef void (*ChangedCallback) (GtkWidget *widget, gpointer user_data);
 static void sstp_plugin_ui_interface_init (NMVpnPluginUiInterface *iface_class);
 
 G_DEFINE_TYPE_EXTENDED (SstpPluginUi, sstp_plugin_ui, G_TYPE_OBJECT, 0,
-						G_IMPLEMENT_INTERFACE (NM_TYPE_VPN_PLUGIN_UI_INTERFACE,
-											   sstp_plugin_ui_interface_init))
+                        G_IMPLEMENT_INTERFACE (NM_TYPE_VPN_PLUGIN_UI_INTERFACE,
+                                               sstp_plugin_ui_interface_init))
 
 /************** UI widget class **************/
 
 static void sstp_plugin_ui_widget_interface_init (NMVpnPluginUiWidgetInterface *iface_class);
 
 G_DEFINE_TYPE_EXTENDED (SstpPluginUiWidget, sstp_plugin_ui_widget, G_TYPE_OBJECT, 0,
-						G_IMPLEMENT_INTERFACE (NM_TYPE_VPN_PLUGIN_UI_WIDGET_INTERFACE,
-											   sstp_plugin_ui_widget_interface_init))
+                        G_IMPLEMENT_INTERFACE (NM_TYPE_VPN_PLUGIN_UI_WIDGET_INTERFACE,
+                                               sstp_plugin_ui_widget_interface_init))
 
 #define SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidgetPrivate))
 
@@ -173,6 +174,7 @@ find_tag (const char *tag, const char *buf, gsize len)
 	}
 	return NULL;
 }
+
 
 static gboolean
 default_filter (const GtkFileFilterInfo *filter_info, gpointer data)
@@ -294,6 +296,37 @@ advanced_button_clicked_cb (GtkWidget *button, gpointer user_data)
 }
 
 static void
+setup_password_widget (SstpPluginUiWidget *self,
+                       const char *entry_name,
+                       NMSettingVPN *s_vpn,
+                       const char *secret_name,
+                       gboolean new_connection)
+{
+	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	NMSettingSecretFlags secret_flags = NM_SETTING_SECRET_FLAG_NONE;
+	GtkWidget *widget;
+	const char *value;
+
+	/* Default to agent-owned for new connections */
+	if (new_connection)
+		secret_flags = NM_SETTING_SECRET_FLAG_AGENT_OWNED;
+
+	widget = (GtkWidget *) gtk_builder_get_object (priv->builder, entry_name);
+	g_assert (widget);
+	gtk_size_group_add_widget (priv->group, widget);
+
+	if (s_vpn) {
+		value = nm_setting_vpn_get_secret (s_vpn, secret_name);
+		gtk_entry_set_text (GTK_ENTRY (widget), value ? value : "");
+		nm_setting_get_secret_flags (NM_SETTING (s_vpn), secret_name, &secret_flags, NULL);
+	}
+	secret_flags &= ~(NM_SETTING_SECRET_FLAG_NOT_SAVED | NM_SETTING_SECRET_FLAG_NOT_REQUIRED);
+	g_object_set_data (G_OBJECT (widget), "flags", GUINT_TO_POINTER (secret_flags));
+
+	g_signal_connect (widget, "changed", G_CALLBACK (stuff_changed_cb), self);
+}
+
+static void
 show_toggled_cb (GtkCheckButton *button, SstpPluginUiWidget *self)
 {
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
@@ -307,17 +340,100 @@ show_toggled_cb (GtkCheckButton *button, SstpPluginUiWidget *self)
 	gtk_entry_set_visibility (GTK_ENTRY (widget), visible);
 }
 
+static void
+pw_type_combo_changed_cb (GtkWidget *combo, gpointer user_data)
+{
+	SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (user_data);
+	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	GtkWidget *entry;
+
+	entry = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_password_entry"));
+	g_assert (entry);
+
+	/* If the user chose "Not required", desensitize and clear the correct
+	 * password entry.
+	 */
+	switch (gtk_combo_box_get_active (GTK_COMBO_BOX (combo))) {
+	case PW_TYPE_ASK:
+	case PW_TYPE_UNUSED:
+		gtk_entry_set_text (GTK_ENTRY (entry), "");
+		gtk_widget_set_sensitive (entry, FALSE);
+		break;
+	default:
+		gtk_widget_set_sensitive (entry, TRUE);
+		break;
+	}
+
+	stuff_changed_cb (combo, self);
+}
+
+static void
+init_one_pw_combo (SstpPluginUiWidget *self,
+                   NMSettingVPN *s_vpn,
+                   const char *combo_name,
+                   const char *secret_key,
+                   const char *entry_name)
+{
+	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	int active = -1;
+	GtkWidget *widget;
+	GtkListStore *store;
+	GtkTreeIter iter;
+	const char *value = NULL;
+	guint32 default_idx = 1;
+	NMSettingSecretFlags pw_flags = NM_SETTING_SECRET_FLAG_NONE;
+
+	/* If there's already a password and the password type can't be found in
+	 * the VPN settings, default to saving it.  Otherwise, always ask for it.
+	 */
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, entry_name));
+	g_assert (widget);
+	value = gtk_entry_get_text (GTK_ENTRY (widget));
+	if (value && strlen (value))
+		default_idx = 0;
+
+	store = gtk_list_store_new (1, G_TYPE_STRING);
+	if (s_vpn)
+		nm_setting_get_secret_flags (NM_SETTING (s_vpn), secret_key, &pw_flags, NULL);
+
+	gtk_list_store_append (store, &iter);
+	gtk_list_store_set (store, &iter, 0, _("Saved"), -1);
+	if (   (active < 0)
+	    && !(pw_flags & NM_SETTING_SECRET_FLAG_NOT_SAVED)
+	    && !(pw_flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED)) {
+		active = PW_TYPE_SAVE;
+	}
+
+	gtk_list_store_append (store, &iter);
+	gtk_list_store_set (store, &iter, 0, _("Always Ask"), -1);
+	if ((active < 0) && (pw_flags & NM_SETTING_SECRET_FLAG_NOT_SAVED))
+		active = PW_TYPE_ASK;
+
+	gtk_list_store_append (store, &iter);
+	gtk_list_store_set (store, &iter, 0, _("Not Required"), -1);
+	if ((active < 0) && (pw_flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED))
+		active = PW_TYPE_UNUSED;
+
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, combo_name));
+	g_assert (widget);
+	gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
+	g_object_unref (store);
+	gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active < 0 ? default_idx : active);
+
+	pw_type_combo_changed_cb (widget, self);
+	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (pw_type_combo_changed_cb), self);
+}
+
 static gboolean
 init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **error)
 {
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
 	NMSettingVPN *s_vpn;
 	GtkWidget *widget;
-	GtkFileFilter *filter;
+    GtkFileFilter *filter;
 	const char *value;
-	NMSettingSecretFlags pw_flags = NM_SETTING_SECRET_FLAG_NONE;
 
-	s_vpn = (NMSettingVPN *) nm_connection_get_setting (connection, NM_TYPE_SETTING_VPN);
+	s_vpn = nm_connection_get_setting_vpn (connection);
 
 	priv->group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
@@ -359,7 +475,7 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	}
 	
 	g_signal_connect (G_OBJECT (widget), "selection-changed", G_CALLBACK (stuff_changed_cb), self);
-	
+
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
 	if (!widget)
 		return FALSE;
@@ -380,24 +496,6 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	                  (GCallback) show_toggled_cb,
 	                  self);
 
-	widget = (GtkWidget *) gtk_builder_get_object (priv->builder, "user_password_entry");
-	g_assert (widget);
-	gtk_size_group_add_widget (priv->group, widget);
-	if (s_vpn) {
-		value = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PASSWORD);
-		if (value)
-			gtk_entry_set_text (GTK_ENTRY (widget), value);
-
-		/* Default to agent-owned for new connections */
-		if (priv->new_connection)
-			pw_flags = NM_SETTING_SECRET_FLAG_AGENT_OWNED;
-		else
-			nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, &pw_flags, NULL);
-
-		g_object_set_data (G_OBJECT (widget), "flags", GUINT_TO_POINTER (pw_flags));
-	}
-	g_signal_connect (widget, "changed", G_CALLBACK (stuff_changed_cb), self);
-
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "cert_warn_checkbutton"));
 	g_return_val_if_fail (widget != NULL, FALSE);
 	gtk_size_group_add_widget (priv->group, widget);
@@ -408,6 +506,21 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 		}
 	}
 	g_signal_connect (widget, "toggled", G_CALLBACK (stuff_changed_cb), self);
+
+	/* Fill the VPN passwords *before* initializing the PW type combo, since
+	 * knowing if there is a password when initializing the type combo is helpful.
+	 */
+	setup_password_widget (self,
+	                       "user_password_entry",
+	                       s_vpn,
+	                       NM_SSTP_KEY_PASSWORD,
+	                       priv->new_connection);
+
+	init_one_pw_combo (self,
+	                   s_vpn,
+	                   "user_pass_type_combo",
+	                   NM_SSTP_KEY_PASSWORD,
+	                   "user_password_entry");
 
 	return TRUE;
 }
@@ -425,31 +538,67 @@ static void
 hash_copy_advanced (gpointer key, gpointer data, gpointer user_data)
 {
 	NMSettingVPN *s_vpn = NM_SETTING_VPN (user_data);
-
-	/* Special handling of the secrets */
+	
+    /* Special handling of the secrets */
 	if (!strcmp(NM_SSTP_KEY_PROXY_PASSWORD, (const char *) key))
 	{
 		nm_setting_vpn_add_secret (s_vpn, (const char *) key, 
 								  (const char *) data);
 		return;
-	}
+    }
 
 	nm_setting_vpn_add_data_item (s_vpn, (const char *) key, (const char *) data);
 }
 
+static void
+save_password_and_flags (NMSettingVPN *s_vpn,
+                         GtkBuilder *builder,
+                         const char *entry_name,
+                         const char *combo_name,
+                         const char *secret_key)
+{
+	NMSettingSecretFlags flags = NM_SETTING_SECRET_FLAG_NONE;
+	const char *password;
+	GtkWidget *entry;
+	GtkWidget *combo;
+
+	/* Grab original password flags */
+	entry = GTK_WIDGET (gtk_builder_get_object (builder, entry_name));
+	flags = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (entry), "flags"));
+
+	/* And set new ones based on the type combo */
+	combo = GTK_WIDGET (gtk_builder_get_object (builder, combo_name));
+	switch (gtk_combo_box_get_active (GTK_COMBO_BOX (combo))) {
+	case PW_TYPE_SAVE:
+		password = gtk_entry_get_text (GTK_ENTRY (entry));
+		if (password && strlen (password))
+			nm_setting_vpn_add_secret (s_vpn, secret_key, password);
+		break;
+	case PW_TYPE_UNUSED:
+		flags |= NM_SETTING_SECRET_FLAG_NOT_REQUIRED;
+		break;
+	case PW_TYPE_ASK:
+	default:
+		flags |= NM_SETTING_SECRET_FLAG_NOT_SAVED;
+		break;
+	}
+
+	/* Set new secret flags */
+	nm_setting_set_secret_flags (NM_SETTING (s_vpn), secret_key, flags, NULL);
+}
+
 static gboolean
 update_connection (NMVpnPluginUiWidgetInterface *iface,
-				   NMConnection *connection,
-				   GError **error)
+                   NMConnection *connection,
+                   GError **error)
 {
 	SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (iface);
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
 	NMSettingVPN *s_vpn;
 	GtkWidget *widget;
 	const char *str;
-	char *tmp;
+    char *tmp;
 	gboolean valid = FALSE;
-	NMSettingSecretFlags pw_flags;
 
 	if (!check_validity (self, error))
 		return FALSE;
@@ -469,15 +618,12 @@ update_connection (NMVpnPluginUiWidgetInterface *iface,
 	if (str && strlen (str))
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_USER, str);
 
-	/* User password */
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_password_entry"));
-	str = gtk_entry_get_text (GTK_ENTRY (widget));
-	if (str && strlen (str))
-		nm_setting_vpn_add_secret (s_vpn, NM_SSTP_KEY_PASSWORD, str);
-
-	/* And password flags */
-	pw_flags = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (widget), "flags"));
-	nm_setting_set_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, pw_flags, NULL);
+	/* User password and flags */
+	save_password_and_flags (s_vpn,
+	                         priv->builder,
+	                         "user_password_entry",
+	                         "user_pass_type_combo",
+	                         NM_SSTP_KEY_PASSWORD);
 
 	/* Domain */
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
@@ -500,19 +646,17 @@ update_connection (NMVpnPluginUiWidgetInterface *iface,
 	}
 
 	/* Update the NM_SETTING object */
-	if (priv->advanced)
-		g_hash_table_foreach (priv->advanced, hash_copy_advanced, s_vpn);
-
+ 	if (priv->advanced)
+ 		g_hash_table_foreach (priv->advanced, hash_copy_advanced, s_vpn);
+ 
 	/* Default to agent owned secret for new connections */
-	// if (priv->new_connection) {
-		if (nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD)) {
-			nm_setting_set_secret_flags (NM_SETTING(s_vpn),
-										 NM_SSTP_KEY_PROXY_PASSWORD,
-										 NM_SETTING_SECRET_FLAG_NONE,
-										 // NM_SETTING_SECRET_FLAG_AGENT_OWNED,
-										 NULL);
-		}
-	//}
+    if (nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD)) {
+        nm_setting_set_secret_flags (NM_SETTING(s_vpn),
+                                     NM_SSTP_KEY_PROXY_PASSWORD,
+                                     NM_SETTING_SECRET_FLAG_NONE,
+                                     // NM_SETTING_SECRET_FLAG_AGENT_OWNED,
+                                     NULL);
+    }
 
 	nm_connection_add_setting (connection, NM_SETTING (s_vpn));
 	valid = TRUE;
@@ -690,9 +834,9 @@ out:
 
 static gboolean
 export (NMVpnPluginUiInterface *iface,
-		const char *path,
-		NMConnection *connection,
-		GError **error)
+        const char *path,
+        NMConnection *connection,
+        GError **error)
 {
 	return do_export (path, connection, error);
 }
@@ -705,7 +849,7 @@ get_suggested_name (NMVpnPluginUiInterface *iface, NMConnection *connection)
 
 	g_return_val_if_fail (connection != NULL, NULL);
 
-	s_con = NM_SETTING_CONNECTION (nm_connection_get_setting (connection, NM_TYPE_SETTING_CONNECTION));
+	s_con = nm_connection_get_setting_connection (connection);
 	g_return_val_if_fail (s_con != NULL, NULL);
 
 	id = nm_setting_connection_get_id (s_con);
@@ -754,16 +898,16 @@ sstp_plugin_ui_class_init (SstpPluginUiClass *req_class)
 	object_class->get_property = get_property;
 
 	g_object_class_override_property (object_class,
-									  NM_VPN_PLUGIN_UI_INTERFACE_PROP_NAME,
-									  NM_VPN_PLUGIN_UI_INTERFACE_NAME);
+	                                  NM_VPN_PLUGIN_UI_INTERFACE_PROP_NAME,
+	                                  NM_VPN_PLUGIN_UI_INTERFACE_NAME);
 
 	g_object_class_override_property (object_class,
-									  NM_VPN_PLUGIN_UI_INTERFACE_PROP_DESC,
-									  NM_VPN_PLUGIN_UI_INTERFACE_DESC);
+	                                  NM_VPN_PLUGIN_UI_INTERFACE_PROP_DESC,
+	                                  NM_VPN_PLUGIN_UI_INTERFACE_DESC);
 
 	g_object_class_override_property (object_class,
-									  NM_VPN_PLUGIN_UI_INTERFACE_PROP_SERVICE,
-									  NM_VPN_PLUGIN_UI_INTERFACE_SERVICE);
+	                                  NM_VPN_PLUGIN_UI_INTERFACE_PROP_SERVICE,
+	                                  NM_VPN_PLUGIN_UI_INTERFACE_SERVICE);
 }
 
 static void
@@ -788,6 +932,9 @@ nm_vpn_plugin_ui_factory (GError **error)
 {
 	if (error)
 		g_return_val_if_fail (*error == NULL, NULL);
+
+	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 
 	return NM_VPN_PLUGIN_UI_INTERFACE (g_object_new (SSTP_TYPE_PLUGIN_UI, NULL));
 }
