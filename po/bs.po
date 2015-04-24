@@ -1,0 +1,382 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: network-manager-pptp\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=NetworkManager&keywords=I18N+L10N&component=VPN: pptp\n"
+"POT-Creation-Date: 2015-02-26 23:33+0000\n"
+"PO-Revision-Date: 2015-02-04 16:06+0000\n"
+"Last-Translator: Samir Ribić <Unknown>\n"
+"Language-Team: Bosnian <bs@li.org>\n"
+"Language: bs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2015-02-05 06:50+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
+
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never bje saved.
+#.
+#: ../auth-dialog/main.c:155
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgstr ""
+"Trebate provjeriti atutentičnost za pristup virtuelnoj privatnoj mreži '%s'."
+
+#: ../auth-dialog/main.c:164 ../auth-dialog/main.c:184
+msgid "Authenticate VPN"
+msgstr "Autentificiraj VPN"
+
+#: ../auth-dialog/main.c:166 ../properties/nm-pptp-dialog.ui.h:12
+msgid "Password:"
+msgstr "Lozinka:"
+
+#: ../nm-pptp.desktop.in.h:1
+msgid "PPTP VPN Connection Manager"
+msgstr "PPTP VPN upravljač konekcijama"
+
+#: ../nm-pptp.desktop.in.h:2
+msgid "Add, Remove, and Edit PPTP VPN Connections"
+msgstr "Dodaj, ukloni i izmijeni PPTP VPN konekcije"
+
+#: ../properties/advanced-dialog.c:184
+msgid "All Available (Default)"
+msgstr "Sve dostupne (Podrazumijevano)"
+
+#: ../properties/advanced-dialog.c:188
+msgid "128-bit (most secure)"
+msgstr "128-bit (najsigurnija)"
+
+#: ../properties/advanced-dialog.c:197
+msgid "40-bit (less secure)"
+msgstr "40-bit (manje sigurno)"
+
+#: ../properties/advanced-dialog.c:301
+msgid "PAP"
+msgstr "PAP"
+
+#: ../properties/advanced-dialog.c:314
+msgid "CHAP"
+msgstr "CHAP"
+
+#: ../properties/advanced-dialog.c:326
+msgid "MSCHAP"
+msgstr "MSCHAP"
+
+#: ../properties/advanced-dialog.c:338
+msgid "MSCHAPv2"
+msgstr "MSCHAPv2"
+
+#: ../properties/advanced-dialog.c:351
+msgid "EAP"
+msgstr "EAP"
+
+#: ../properties/nm-pptp-dialog.ui.h:1
+msgid "Default"
+msgstr "Podrazumijevano"
+
+#: ../properties/nm-pptp-dialog.ui.h:2
+msgid "<b>General</b>"
+msgstr "<b>Opšte</b>"
+
+#: ../properties/nm-pptp-dialog.ui.h:3
+msgid ""
+"PPTP server IP or name.\n"
+"config: the first parameter of pptp"
+msgstr ""
+"PPTP server IP ili ime.\n"
+"config: prvi parametar za pptp"
+
+#: ../properties/nm-pptp-dialog.ui.h:5
+msgid "_Gateway:"
+msgstr "_Mrežni izlaz:"
+
+#: ../properties/nm-pptp-dialog.ui.h:6
+msgid "<b>Optional</b>"
+msgstr "<b>Opciono</b>"
+
+#: ../properties/nm-pptp-dialog.ui.h:7
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+"Dodaj ime domene <domain> na lokalni ime hosta za svrhu autentifikacije.\n"
+"config: domain <domain>"
+
+#: ../properties/nm-pptp-dialog.ui.h:9
+msgid "NT Domain:"
+msgstr "NT Domena:"
+
+#: ../properties/nm-pptp-dialog.ui.h:10
+msgid "Show password"
+msgstr "Prikaži lozinku"
+
+#: ../properties/nm-pptp-dialog.ui.h:11
+msgid "Password passed to PPTP when prompted for it."
+msgstr "Lozinka proslijeđena na PPTP kada je upitano za nju."
+
+#: ../properties/nm-pptp-dialog.ui.h:13
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+"Postavi ime korišteno za autentificiranje lokalnog sistema korisniku s "
+"imenom <name>.\n"
+"config: user <name>"
+
+#: ../properties/nm-pptp-dialog.ui.h:15
+msgid "User name:"
+msgstr "Korisničko ime:"
+
+#: ../properties/nm-pptp-dialog.ui.h:16
+msgid "Ad_vanced..."
+msgstr "Na_predno..."
+
+#: ../properties/nm-pptp-dialog.ui.h:17
+msgid "PPTP Advanced Options"
+msgstr "PPTP napredne opcije"
+
+#: ../properties/nm-pptp-dialog.ui.h:18
+msgid "<b>Authentication</b>"
+msgstr "<b>Autentifikacija</b>"
+
+#: ../properties/nm-pptp-dialog.ui.h:19
+msgid "Allow the following authentication methods:"
+msgstr "DOpusti sljedeće metode provjere autentičnosti:"
+
+#: ../properties/nm-pptp-dialog.ui.h:20
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+"Dopusti/onemogući metode autentifikacije.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+
+#: ../properties/nm-pptp-dialog.ui.h:22
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Sigurnost i kompresija</b>"
+
+#: ../properties/nm-pptp-dialog.ui.h:23
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "Koriti _Point-to-Point šifrovanje (MPPE)"
+
+#: ../properties/nm-pptp-dialog.ui.h:24
+msgid ""
+"Note: MPPE encryption is only available with MSCHAP authentication methods. "
+"To enable this checkbox, select one or more of the MSCHAP authentication "
+"methods: MSCHAP or MSCHAPv2."
+msgstr ""
+"Napomena: MPPE šifrovanje je dostupno samo sa MSCHAP autentifikacijskim "
+"metodama. Da biste omogućili ovu kućicu, izaberite jednu ili više MSCHAP "
+"metoda potvrde identiteta: MSCHAP ili MSCHAPv2."
+
+#: ../properties/nm-pptp-dialog.ui.h:25
+msgid "_Security:"
+msgstr "_Bezbijednost:"
+
+#: ../properties/nm-pptp-dialog.ui.h:26
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
+"Zahtijevaj upotrebu MPPE, sa 40/128-bit enkripcijom ili sve.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+
+#: ../properties/nm-pptp-dialog.ui.h:28
+msgid "Allow st_ateful encryption"
+msgstr "Dopusti šifrovanje s s_tanjima"
+
+#: ../properties/nm-pptp-dialog.ui.h:29
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
+"Dopusti da MPPE koristi režim s stanjima. Režim bez stanja se i dalje proba "
+"prvi.\n"
+"config: mppe-stateful (kada je izabrano)"
+
+#: ../properties/nm-pptp-dialog.ui.h:31
+msgid "Allow _BSD data compression"
+msgstr "Dozvoli _BSD pakovanje podataka"
+
+#: ../properties/nm-pptp-dialog.ui.h:32
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+"Dopusti/onemogući BSD-Compress kompresiju.\n"
+"config: nobsdcomp (kada nije izabrano)"
+
+#: ../properties/nm-pptp-dialog.ui.h:34
+msgid "Allow _Deflate data compression"
+msgstr "Dozvoli _Deflate pakovanje podataka"
+
+#: ../properties/nm-pptp-dialog.ui.h:35
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+"Dopusti/onemogući Deflate kompresiju.\n"
+"config: nodeflate (kada nije izabrano)"
+
+#: ../properties/nm-pptp-dialog.ui.h:37
+msgid "Use TCP _header compression"
+msgstr "Koristi _komprimovanje TCP zaglavlja"
+
+#: ../properties/nm-pptp-dialog.ui.h:38
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
+"Dopusti/onemogući Van Jacobson TCP/IP kompresiju zaglavlja u pravcima slanja "
+"i prijema.\n"
+"config: novj (kada nije izabrano)"
+
+#: ../properties/nm-pptp-dialog.ui.h:40
+msgid "<b>Echo</b>"
+msgstr "<b>Eho</b>"
+
+#: ../properties/nm-pptp-dialog.ui.h:41
+msgid "Send PPP _echo packets"
+msgstr "Šalji PPP _eho pakete"
+
+#: ../properties/nm-pptp-dialog.ui.h:42
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
+"Pošalji LCP echo-requests da se vidi da li je saradnik aktivan.\n"
+"config: lcp-echo-failure i lcp-echo-interval"
+
+#: ../properties/nm-pptp.c:49
+msgid "Point-to-Point Tunneling Protocol (PPTP)"
+msgstr "Point-to-Point tunelski protokol (PPTP)"
+
+#: ../properties/nm-pptp.c:50
+msgid "Compatible with Microsoft and other PPTP VPN servers."
+msgstr "Kompatibilno ss Microsoft i drugim PPTP VPN serverima."
+
+#: ../properties/nm-pptp.c:317
+msgid "Saved"
+msgstr "Snimljeno"
+
+#: ../properties/nm-pptp.c:325
+msgid "Always Ask"
+msgstr "Uvijek pitaj"
+
+#: ../properties/nm-pptp.c:330
+msgid "Not Required"
+msgstr "Nije potrebno"
+
+#: ../src/nm-pptp-service.c:161
+#, c-format
+msgid "couldn't convert PPTP VPN gateway IP address '%s' (%d)"
+msgstr "ne mogu konvrtovati PPTP VPN izlaznu IP adresu '%s' (%d)"
+
+#: ../src/nm-pptp-service.c:179
+#, c-format
+msgid "couldn't look up PPTP VPN gateway IP address '%s' (%d)"
+msgstr "ne mogu pogledati PPTP VPN izlaznu IP adresu '%s' (%d)"
+
+#: ../src/nm-pptp-service.c:203
+#, c-format
+msgid "no usable addresses returned for PPTP VPN gateway '%s'"
+msgstr "nema upotrebljivih adresa vraćenih za PPTP VPN izlaz '%s'"
+
+#: ../src/nm-pptp-service.c:214
+#, c-format
+msgid "no usable addresses returned for PPTP VPN gateway '%s' (%d)"
+msgstr "nema upotrebljivih adresa vraćenih za PPTP VPN izlaz '%s' (%d)"
+
+#: ../src/nm-pptp-service.c:241
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr "Ne mogu da nađem tajne (konekcija neispravna, nema vpn postavki)."
+
+#: ../src/nm-pptp-service.c:253
+msgid "Invalid VPN username."
+msgstr "Nevažeće VPN korisničko ime."
+
+#: ../src/nm-pptp-service.c:262
+msgid "Missing VPN username."
+msgstr "Nedostaje VPN korisničko ime."
+
+#: ../src/nm-pptp-service.c:272
+msgid "Missing or invalid VPN password."
+msgstr "Neodstaje ili ne važi VPN lozinka."
+
+#: ../src/nm-pptp-service.c:430
+msgid "No cached credentials."
+msgstr "Nema keširanih povjerenja."
+
+#: ../src/nm-pptp-service.c:576
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "nevažeći mrežni izlaz '%s'"
+
+#: ../src/nm-pptp-service.c:590
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr "nevažeće cjelobrojno svojstvo'%s'"
+
+#: ../src/nm-pptp-service.c:600
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "nevažeće bulovo svojstvo '%s' (nije da ili ne)"
+
+#: ../src/nm-pptp-service.c:607
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "neobrađeno svojstvo '%s' tipa %s"
+
+#: ../src/nm-pptp-service.c:618
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "svojstvo '%s' nevažeće ili nije podržano"
+
+#: ../src/nm-pptp-service.c:636
+msgid "No VPN configuration options."
+msgstr "Nema VPN konfiguracijskih opcija."
+
+#: ../src/nm-pptp-service.c:656
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "Nedostaje potebna opcija '%s'."
+
+#: ../src/nm-pptp-service.c:676
+msgid "No VPN secrets!"
+msgstr "Nema VPN tajni!"
+
+#: ../src/nm-pptp-service.c:817
+msgid "Could not find pptp client binary."
+msgstr "Ne mogu naći pptp klijentski program."
+
+#: ../src/nm-pptp-service.c:830
+msgid "Missing VPN gateway."
+msgstr "Nedostaje VPN izlaz."
+
+#: ../src/nm-pptp-service.c:983
+msgid "Could not find the pppd binary."
+msgstr "Ne mogu naći pppd program."
+
+#: ../src/nm-pptp-service.c:1113
+msgid "Invalid or missing PPTP gateway."
+msgstr "Nevažeći ili nedostaje PPTP izlaz."
+
+#: ../src/nm-pptp-service.c:1292
+msgid "Don't quit when VPN connection terminates"
+msgstr "Ne izlazi kada se VPN konekcija prekida"
+
+#: ../src/nm-pptp-service.c:1293
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Omogući detaljno praćenje grešaka (može otkriti lozinke)"
+
+#: ../src/nm-pptp-service.c:1316
+msgid ""
+"nm-pptp-service provides integrated PPTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nM-PPTP-servis pruža integrisane PPTP VPN mogućnosti (kompatibilan sa "
+"Microsoft i drugim implementacijama) za NetvorkManager."
