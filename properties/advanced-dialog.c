@@ -325,9 +325,9 @@ check_toggled_cb (GtkCellRendererToggle *cell, gchar *path_str, gpointer user_da
 	if (!mschap_state && !mschap2_state) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
 		gtk_widget_set_sensitive (widget, FALSE);
-	} else
+	} else {
 	    gtk_widget_set_sensitive (widget, mschap_state || mschap2_state);
-    }
+	}
 	/* Make sure also MPPE security combo and stateful checkbox are non-sensitive */
 	mppe_toggled_cb (widget, builder);
 }
