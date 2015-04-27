@@ -430,7 +430,7 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
 	NMSettingVPN *s_vpn;
 	GtkWidget *widget;
-    GtkFileFilter *filter;
+	GtkFileFilter *filter;
 	const char *value;
 
 	s_vpn = nm_connection_get_setting_vpn (connection);
@@ -597,7 +597,7 @@ update_connection (NMVpnPluginUiWidgetInterface *iface,
 	NMSettingVPN *s_vpn;
 	GtkWidget *widget;
 	const char *str;
-    char *tmp;
+	char *tmp;
 	gboolean valid = FALSE;
 
 	if (!check_validity (self, error))
