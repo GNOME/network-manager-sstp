@@ -1,3 +1,8 @@
+network-manager-sstp (0.9.10.0-0ubuntu1) vivid; urgency=low
+
+  * Updated the code to compile against the network-manager 1.0 project
+
+ -- Eivind Naess <eivnaes@yahoo.com>  Tue, 01 Jun 2015 10:00:00 -0800
 network-manager-sstp (0.9.6-0ubuntu1) precise; urgency=low
 
   * Updated the code to compile against the network-manager 0.9.6 project

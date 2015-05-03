@@ -1,13 +1,18 @@
 #!/usr/bin/make -f
 
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
 %:
-	dh $@
+	dh $@ --with autoreconf
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		--libexecdir=/usr/lib/NetworkManager \
 		--disable-static \
-		--with-pppd-plugin-dir=/usr/lib/pppd/2.4.5
+		--with-pppd-plugin-dir=/usr/lib/pppd/2.4.6
 
 override_dh_makeshlibs:
-	dh_makeshlibs -X/usr/lib/NetworkManager/ -X/usr/lib/pppd/
+	dh_makeshlibs -X/usr/lib/$(DEB_HOST_MULTIARCH)/NetworkManager/ -X/usr/lib/pppd/
+
+override_dh_install:
+	dh_install -X.la --list-missing
