@@ -9,8 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-25 21:57+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2015-03-25 17:23+0000\n"
 "PO-Revision-Date: 2010-11-26 12:43+0100\n"
 "Last-Translator: Jordi Estrada <jordi.estrada@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -20,137 +21,158 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:129
-msgid "_Secondary Password:"
-msgstr "Contrasenya _secundària:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:243
-msgid "_Username:"
-msgstr "Nom d'_usuari:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:245
-msgid "_Domain:"
-msgstr "_Domini:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:247
-msgid "_Password:"
-msgstr "_Contrasenya:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:336
-msgid "Connect _anonymously"
-msgstr "Connecta _anònimament"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:341
-msgid "Connect as _user:"
-msgstr "Connecta com a _usuari:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:450
-msgid "_Remember passwords for this session"
-msgstr "_Recorda les contrasenyes durant aquesta sessió"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:452
-msgid "_Save passwords in keyring"
-msgstr "_Desa les contrasenyes a l'anell de claus"
-
-#: ../auth-dialog/main.c:62
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never be saved.
+#.
+#: ../auth-dialog/main.c:155
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr ""
 "Cal que us autentiqueu per a poder accedir a la xarxa privada virtual «%s»."
 
-#: ../auth-dialog/main.c:63
+#: ../auth-dialog/main.c:164 ../auth-dialog/main.c:184
 msgid "Authenticate VPN"
 msgstr "Autentica la VPN"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "Afegiu, suprimiu i editeu connexions VPN SSTP"
+#: ../auth-dialog/main.c:166 ../properties/nm-sstp-dialog.ui.h:12
+msgid "Password:"
+msgstr "Contrasenya:"
 
-#: ../nm-sstp.desktop.in.h:2
-msgid "SSTP VPN Connection Manager"
-msgstr "Gestor de connexions VPN SSTP"
-
-#: ../properties/advanced-dialog.c:186
+#: ../properties/advanced-dialog.c:185
 msgid "All Available (Default)"
 msgstr "Tots els disponibles (predeterminat)"
 
-#: ../properties/advanced-dialog.c:190
+#: ../properties/advanced-dialog.c:189
 msgid "128-bit (most secure)"
 msgstr "128-bits (el més segur)"
 
-#: ../properties/advanced-dialog.c:199
+#: ../properties/advanced-dialog.c:198
 msgid "40-bit (less secure)"
 msgstr "40-bits (menys segur)"
 
-#: ../properties/advanced-dialog.c:305
+#: ../properties/advanced-dialog.c:302
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:318
+#: ../properties/advanced-dialog.c:315
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:330
+#: ../properties/advanced-dialog.c:327
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:342
+#: ../properties/advanced-dialog.c:339
 msgid "MSCHAPv2"
 msgstr "MSCHAP v2"
 
-#: ../properties/advanced-dialog.c:355
+#: ../properties/advanced-dialog.c:352
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Autenticació</b>"
+#: ../properties/nm-sstp.c:47
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "Protocol de túnel punt a punt (SSTP)"
 
-#: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Eco</b>"
+#: ../properties/nm-sstp.c:48
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Compatible amb els servidors SSTP VPN de Microsoft i d'altres."
 
-#: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>General</b>"
+#: ../properties/nm-sstp.c:315
+msgid "Saved"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Opcional</b>"
+#: ../properties/nm-sstp.c:323
+msgid "Always Ask"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Seguretat i compressió</b>"
+#: ../properties/nm-sstp.c:328
+msgid "Not Required"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.glade.h:6
-msgid "Ad_vanced..."
-msgstr "A_vançat..."
-
-#: ../properties/nm-sstp-dialog.glade.h:7
-msgid "Allow _BSD data compression"
-msgstr "Permet la compressió de dades _BSD"
-
-#: ../properties/nm-sstp-dialog.glade.h:8
-msgid "Allow _Deflate data compression"
-msgstr "Permet la compressió de dades _deflate"
-
-#: ../properties/nm-sstp-dialog.glade.h:9
-msgid "Allow st_ateful encryption"
-msgstr "Permet el xifratge d'_estats"
-
-#: ../properties/nm-sstp-dialog.glade.h:10
-msgid "Allow the following authentication methods:"
-msgstr "Permet els mètodes d'autenticació següents:"
-
-#: ../properties/nm-sstp-dialog.glade.h:11
+#: ../properties/nm-sstp-dialog.ui.h:1
 msgid "Default"
 msgstr "Predeterminat"
 
-#: ../properties/nm-sstp-dialog.glade.h:12
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "_Gateway:"
+msgstr "_Passarel·la:"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "<b>Optional</b>"
+msgstr "<b>Opcional</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:9
 msgid "NT Domain:"
 msgstr "Domini NT:"
 
-#: ../properties/nm-sstp-dialog.glade.h:13
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "Show password"
+msgstr "Mostra la contrasenya"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid "Password passed to SSTP when prompted for it."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "User name:"
+msgstr "Nom d'usuari:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Ad_vanced..."
+msgstr "A_vançat..."
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid "SSTP Advanced Options"
+msgstr "Opcions SSTP avançades"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "<b>Authentication</b>"
+msgstr "<b>Autenticació</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Allow the following authentication methods:"
+msgstr "Permet els mètodes d'autenticació següents:"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Seguretat i compressió</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "Utilitza el xifratge _punt a punt (MPPE)"
+
+#: ../properties/nm-sstp-dialog.ui.h:24
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
@@ -160,49 +182,224 @@ msgstr ""
 "d'autenticació MSCHAP. Per habilitar aquesta opció, seleccioneu un o més "
 "dels mètodes d'autenticació MSCHAP: MSCHAP o MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.glade.h:14
-msgid "SSTP Advanced Options"
-msgstr "Opcions SSTP avançades"
+#: ../properties/nm-sstp-dialog.ui.h:25
+msgid "_Security:"
+msgstr "_Seguretat:"
 
-#: ../properties/nm-sstp-dialog.glade.h:15
-msgid "Password:"
-msgstr "Contrasenya:"
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.glade.h:16
-msgid "Send PPP _echo packets"
-msgstr "Envia paquets d'_eco PPP"
+#: ../properties/nm-sstp-dialog.ui.h:28
+msgid "Allow st_ateful encryption"
+msgstr "Permet el xifratge d'_estats"
 
-#: ../properties/nm-sstp-dialog.glade.h:17
-msgid "Show password"
-msgstr "Mostra la contrasenya"
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.glade.h:18
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid "Allow _BSD data compression"
+msgstr "Permet la compressió de dades _BSD"
+
+#: ../properties/nm-sstp-dialog.ui.h:32
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:34
+msgid "Allow _Deflate data compression"
+msgstr "Permet la compressió de dades _deflate"
+
+#: ../properties/nm-sstp-dialog.ui.h:35
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:37
 msgid "Use TCP _header compression"
 msgstr "Utilitza compressió de les capçaleres _TCP"
 
-#: ../properties/nm-sstp-dialog.glade.h:19
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "Utilitza el xifratge _punt a punt (MPPE)"
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.glade.h:20
-msgid "User name:"
-msgstr "Nom d'usuari:"
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "<b>Echo</b>"
+msgstr "<b>Eco</b>"
 
-#: ../properties/nm-sstp-dialog.glade.h:21
-msgid "_Gateway:"
-msgstr "_Passarel·la:"
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid "Send PPP _echo packets"
+msgstr "Envia paquets d'_eco PPP"
 
-#: ../properties/nm-sstp-dialog.glade.h:22
-msgid "_Security:"
-msgstr "_Seguretat"
+#: ../properties/nm-sstp-dialog.ui.h:42
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
 
-#: ../properties/nm-sstp.c:50
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Protocol de túnel punt a punt (SSTP)"
+#: ../properties/nm-sstp-dialog.ui.h:44
+#, fuzzy
+#| msgid "<b>Echo</b>"
+msgid "<b>Misc</b>"
+msgstr "<b>Eco</b>"
 
-#: ../properties/nm-sstp.c:51
-msgid "Compatible with Microsoft and other SSTP VPN servers."
-msgstr "Compatible amb els servidors SSTP VPN de Microsoft i d'altres."
+#: ../properties/nm-sstp-dialog.ui.h:45
+msgid "Use custom _unit number:"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:46
+msgid ""
+"Enable custom index for ppp<n> device name.\n"
+"config: unit <n>"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:161
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:179
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:203
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:214
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:241
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:253
+msgid "Invalid VPN username."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:262
+msgid "Missing VPN username."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:272
+msgid "Missing or invalid VPN password."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:430
+msgid "No cached credentials."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:577
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:591
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:601
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:608
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:619
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:637
+msgid "No VPN configuration options."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:657
+#, c-format
+msgid "Missing required option '%s'."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:677
+msgid "No VPN secrets!"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:835
+msgid "Could not find sstp client binary."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:848
+msgid "Missing VPN gateway."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1009
+msgid "Could not find the pppd binary."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1139
+msgid "Invalid or missing SSTP gateway."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1318
+msgid "Don't quit when VPN connection terminates"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1319
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1342
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+
+#~ msgid "_Secondary Password:"
+#~ msgstr "Contrasenya _secundària:"
+
+#~ msgid "_Username:"
+#~ msgstr "Nom d'_usuari:"
+
+#~ msgid "_Domain:"
+#~ msgstr "_Domini:"
+
+#~ msgid "_Password:"
+#~ msgstr "_Contrasenya:"
+
+#~ msgid "Connect _anonymously"
+#~ msgstr "Connecta _anònimament"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "Connecta com a _usuari:"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "_Recorda les contrasenyes durant aquesta sessió"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "_Desa les contrasenyes a l'anell de claus"
+
+#~ msgid "Add, Remove, and Edit SSTP VPN Connections"
+#~ msgstr "Afegiu, suprimiu i editeu connexions VPN SSTP"
+
+#~ msgid "SSTP VPN Connection Manager"
+#~ msgstr "Gestor de connexions VPN SSTP"
 
 #~ msgid "Authentication Type:"
 #~ msgstr "Tipus d'autenticació:"
