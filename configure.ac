@@ -69,16 +69,16 @@ PKG_CHECK_MODULES(DBUS, dbus-glib-1 >= 0.74)
 PKG_CHECK_MODULES(SSTPC, sstp-client-1.0)
 
 PKG_CHECK_MODULES(NM,
-                  NetworkManager >= 0.9.8.8
-                  libnm-util >= 0.9.8.8
-                  libnm-glib >= 0.9.8.8
-                  libnm-glib-vpn >= 0.9.8.8)
+                  NetworkManager >= 0.9.10
+                  libnm-util >= 0.9.10
+                  libnm-glib >= 0.9.10
+                  libnm-glib-vpn >= 0.9.10)
 
 if test x"$with_gnome" != xno; then
 	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.4)
 	GTK_CFLAGS="$GTK_CFLAGS -DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4"
 
-	PKG_CHECK_MODULES(NMGTK, libnm-gtk >= 0.9.8.8)
+	PKG_CHECK_MODULES(NMGTK, libnm-gtk >= 0.9.10)
 
 	PKG_CHECK_MODULES(LIBSECRET, libsecret-unstable)
 fi
