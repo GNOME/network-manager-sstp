@@ -19,7 +19,7 @@ Build-Depends:
 	libgtk-3-dev (>= 3.4),
 	libglib2.0-dev (>= 2.32),
 	libsstp-client-dev
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Vcs-Git: git://github.com/enaess/network-manager-sstp.git
 Vcs-Browser: https://github.com/enaess/network-manager-sstp
 Homepage: http://sstp-client.sourceforge.net
