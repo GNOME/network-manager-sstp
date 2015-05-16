@@ -2,32 +2,37 @@ Source: network-manager-sstp
 Section: net
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Utopia Maintenance Team <pkg-utopia-maintainers@lists.alioth.debian.org>
 Uploaders: Eivind Naess <eivnaes@yahoo.com>
-Build-Depends:
- debhelper (>= 8),
- network-manager-dev (>= 0.8.998),
- libnm-util-dev (>= 0.8.998),
- libnm-glib-dev (>= 0.8.998),
- libnm-glib-vpn-dev (>= 0.8.998),
- ppp-dev (>= 2.4.5),
- intltool,
- libdbus-glib-1-dev (>= 0.74),
- libgnome-keyring-dev,
- libgtk-3-dev (>= 3.0),
- libgconf2-dev,
- libglib2.0-dev,
- libevent-dev,
- libssl-dev,
- libsstp-client-dev
-Standards-Version: 3.9.2
+Build-Depends: 
+	debhelper (>= 9),
+	dh-autoreconf, 
+	intltool,
+	network-manager-dev (>= 0.9.10),
+	libnm-util-dev (>= 0.9.10),
+	libnm-glib-dev (>= 0.9.10),
+	libnm-glib-vpn-dev (>= 0.9.10),
+	libnm-gtk-dev (>= 0.9.10),
+	ppp-dev (>= 2.4.6),
+	libdbus-glib-1-dev (>= 0.74),
+	libsecret-1-dev,
+	libgtk-3-dev (>= 3.4),
+	libglib2.0-dev (>= 2.32),
+	libsstp-client-dev
+Standards-Version: 3.9.5
 Vcs-Git: git://github.com/enaess/network-manager-sstp.git
 Vcs-Browser: https://github.com/enaess/network-manager-sstp
 Homepage: http://sstp-client.sourceforge.net
 
 Package: network-manager-sstp
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libsstp-client0 (>= 1.0.7), ppp (>= 2.4.5), ppp (<< 2.4.6)
-Recommends: network-manager-sstp-gnome | plasma-widget-networkmanagement
+Depends: 
+	${shlibs:Depends}, 
+	${misc:Depends}, 
+	libsstp-client0 (>= 1.0.9), 
+	ppp (>= 2.4.6), 
+	ppp (<< 2.4.7)
+Recommends: network-manager-sstp-gnome | plasma-nm
 Description: network management framework (SSTP plugin core)
  NetworkManager is a system network service that manages your network devices
  and connections, attempting to keep active network connectivity when
@@ -40,7 +45,10 @@ Description: network management framework (SSTP plugin core)
 
 Package: network-manager-sstp-gnome
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, network-manager-sstp (= ${binary:Version})
+Depends: 
+	${shlibs:Depends}, 
+	${misc:Depends}, 
+	network-manager-sstp (= ${binary:Version})
 Description: network management framework (SSTP plugin GNOME GUI)
  NetworkManager is a system network service that manages your network devices
  and connections, attempting to keep active network connectivity when
