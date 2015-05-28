@@ -490,7 +490,7 @@ validate_gateway (const char *gateway)
 	/* Ensure it's a valid DNS name or IP address */
 	p = gateway;
 	while (*p) {
-		if (!isalnum (*p) && (*p != '-') && (*p != '.'))
+		if (!isalnum (*p) && (*p != '-') && (*p != '.') && (*p != ':'))
 			return FALSE;
 		p++;
 	}
@@ -533,7 +533,7 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 				             NM_VPN_PLUGIN_ERROR,
 				             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
 				             _("invalid gateway '%s'"),
-				             key);
+				             value);
 				return;
 			}
 			return; /* valid */
