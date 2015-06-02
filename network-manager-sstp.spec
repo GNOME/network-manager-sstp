@@ -4,7 +4,7 @@
 Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
-Version:   1.1.0
+Version:   0.9.10
 Release:   1%{snapshot}%{?dist}
 License:   GPLv2+
 URL:       http://www.gnome.org/projects/NetworkManager/
