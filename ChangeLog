@@ -1,5 +1,8 @@
+2015-06-02  Eivind Naess <eivnaes@yahoo.com>
+	* Fixed a few bugs regarding Gateway validation code.
+
 2015-04-05  Eivind Naess <eivnaes@yahoo.com>
-    * Updated the network-manager-sstp plugin to be comparable to the pptp plugin.
+	* Updated the network-manager-sstp plugin to be comparable to the pptp plugin.
 
 2011-16-09  Eivind Naess <eivnaes@yahoo.com>
 

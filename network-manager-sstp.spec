@@ -5,7 +5,7 @@ Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
 Version:   0.9.10
-Release:   1%{snapshot}%{?dist}
+Release:   2%{snapshot}%{?dist}
 License:   GPLv2+
 URL:       http://www.gnome.org/projects/NetworkManager/
 Group:     System Environment/Base
@@ -94,7 +94,9 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %{_datadir}/gnome-vpn-properties/sstp/nm-sstp-dialog.ui
 
 %changelog
-* Fri May 29 2015 Eivind Naess <eivnaes@yahoo.com> - 1:1.1.0-1
+* Tue Jun 02 2015 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.10-2
+- Taking suggested changes for Gateway validation from George Joseph
+* Fri May 29 2015 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.10-1
 - Upgraded the network-manager-sstp package to reflect mainstream 
   changes made to the network-manager-pptp counter part.
 * Sat Oct 12 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.4-2
