@@ -5,11 +5,11 @@ Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
 Version:   0.9.10
-Release:   2%{snapshot}%{?dist}
+Release:   3%{snapshot}%{?dist}
 License:   GPLv2+
 URL:       http://www.gnome.org/projects/NetworkManager/
 Group:     System Environment/Base
-Source:    %{name}-%{version}%{snapshot}.tar.bz2
+Source:    https://downloads.sourceforge.net/sstp-client/%{name}-%{version}%{snapshot}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 BuildRequires: gtk3-devel
@@ -30,8 +30,6 @@ Requires: sstp-client
 Requires: ppp
 Requires: shared-mime-info
 Requires: gnome-keyring
-Requires: libnm-gtk
-Obsoletes: NetworkManager-sstp < 1:0.9.8.2-3
 
 %global _privatelibs libnm-sstp-properties[.]so.*
 %global __provides_exclude ^(%{_privatelibs})$
@@ -51,7 +49,6 @@ Requires: nm-connection-editor
 %else
 Requires: NetworkManager-gnome
 %endif
-Obsoletes: NetworkManager-sstp < 1:0.9.8.2-3
 
 %description -n NetworkManager-sstp-gnome
 This package contains software for integrating VPN capabilities with
@@ -65,9 +62,9 @@ if [ ! -f configure ]; then
   ./autogen.sh
 fi
 %configure \
-	--disable-static \
-	--enable-more-warnings=yes \
-	--with-pppd-plugin-dir=%{_libdir}/pppd/%{ppp_version}
+    --disable-static \
+    --enable-more-warnings=yes \
+    --with-pppd-plugin-dir=%{_libdir}/pppd/%{ppp_version}
 make %{?_smp_mflags}
 
 %install
@@ -81,8 +78,8 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 
 %files -f %{name}.lang
 %doc COPYING AUTHORS README ChangeLog
-%{_sysconfdir}/dbus-1/system.d/nm-sstp-service.conf
-%{_sysconfdir}/NetworkManager/VPN/nm-sstp-service.name
+%config(noreplace) %{_sysconfdir}/dbus-1/system.d/nm-sstp-service.conf
+%config(noreplace) %{_sysconfdir}/NetworkManager/VPN/nm-sstp-service.name
 %{_libexecdir}/nm-sstp-service
 %{_libexecdir}/nm-sstp-auth-dialog
 %{_libdir}/pppd/%{ppp_version}/nm-sstp-pppd-plugin.so
@@ -94,17 +91,20 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %{_datadir}/gnome-vpn-properties/sstp/nm-sstp-dialog.ui
 
 %changelog
+* Mon Jun 08 2015 Marcin Zajaczkowski <mszpak ATT wp DOTT pl> - 1:0.9.10-3
+- Minor changes to adjust configuration to Fedora requirements
+- Remove redundant Obsoletes tag 
 * Tue Jun 02 2015 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.10-2
 - Taking suggested changes for Gateway validation from George Joseph
 * Fri May 29 2015 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.10-1
 - Upgraded the network-manager-sstp package to reflect mainstream 
   changes made to the network-manager-pptp counter part.
-* Sat Oct 12 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.4-2
+* Fri Oct 12 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.4-2
 - Fixed a bug that caused connection to be aborted with the message:
   "Connection was aborted, value of attribute is incorrect"
 * Sat May 05 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.4-1
 - Compiled against the latest network manager 0.9.4 sources.
-* Wed Mar 03 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.1-4
+* Sat Mar 03 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.1-4
 - Added back the 'refuese-eap=yes' by default in the configuration.
 * Wed Feb 08 2012 Eivind Naess <eivnaes@yahoo.com> - 1:0.9.1-3
 - Changed the pppd plugin to send MPPE keys on ip-up
