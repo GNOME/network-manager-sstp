@@ -5,7 +5,7 @@ Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
 Version:   0.9.10
-Release:   3%{snapshot}%{?dist}
+Release:   4%{snapshot}%{?dist}
 License:   GPLv2+
 URL:       http://www.gnome.org/projects/NetworkManager/
 Group:     System Environment/Base
@@ -14,7 +14,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 BuildRequires: gtk3-devel
 BuildRequires: dbus-devel
-BuildRequires: NetworkManager-devel
+BuildRequires: NetworkManager-devel >= 0.9.10
 BuildRequires: NetworkManager-glib-devel
 BuildRequires: sstp-client-devel
 BuildRequires: glib2-devel
@@ -25,7 +25,7 @@ BuildRequires: libnm-gtk-devel
 
 Requires: gtk3
 Requires: dbus
-Requires: NetworkManager
+Requires: NetworkManager >= 0.9.10
 Requires: sstp-client
 Requires: ppp
 Requires: shared-mime-info
@@ -91,6 +91,8 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %{_datadir}/gnome-vpn-properties/sstp/nm-sstp-dialog.ui
 
 %changelog
+* Thu Jun 11 2015 Marcin Zajaczkowski <mszpak ATT wp DOTT pl> - 1:0.9.10-4
+- Specify minimum required NetworkManager version - 0.9.10
 * Mon Jun 08 2015 Marcin Zajaczkowski <mszpak ATT wp DOTT pl> - 1:0.9.10-3
 - Minor changes to adjust configuration to Fedora requirements
 - Remove redundant Obsoletes tag 
