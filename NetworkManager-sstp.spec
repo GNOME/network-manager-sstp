@@ -5,9 +5,9 @@ Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
 Version:   0.9.10
-Release:   4%{snapshot}%{?dist}
+Release:   5%{snapshot}%{?dist}
 License:   GPLv2+
-URL:       http://www.gnome.org/projects/NetworkManager/
+URL:       https://github.com/enaess/network-manager-sstp/
 Group:     System Environment/Base
 Source:    https://downloads.sourceforge.net/sstp-client/%{name}-%{version}%{snapshot}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -77,7 +77,8 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %find_lang %{name}
 
 %files -f %{name}.lang
-%doc COPYING AUTHORS README ChangeLog
+%doc AUTHORS README ChangeLog
+%license COPYING
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/nm-sstp-service.conf
 %config(noreplace) %{_sysconfdir}/NetworkManager/VPN/nm-sstp-service.name
 %{_libexecdir}/nm-sstp-service
@@ -85,12 +86,16 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %{_libdir}/pppd/%{ppp_version}/nm-sstp-pppd-plugin.so
 
 %files -n NetworkManager-sstp-gnome
-%doc COPYING AUTHORS README ChangeLog
+%doc AUTHORS README ChangeLog
+%license COPYING
 %{_libdir}/NetworkManager/lib*.so*
 %dir %{_datadir}/gnome-vpn-properties/sstp
 %{_datadir}/gnome-vpn-properties/sstp/nm-sstp-dialog.ui
 
 %changelog
+* Wed Jun 24 2015 Marcin Zajaczkowski <mszpak ATT wp DOTT pl> - 1:0.9.10-5
+- Change doc macro to license macro for COPYING file
+- Change URL to plugin project page instead if NetworkManager itself
 * Thu Jun 11 2015 Marcin Zajaczkowski <mszpak ATT wp DOTT pl> - 1:0.9.10-4
 - Specify minimum required NetworkManager version - 0.9.10
 * Mon Jun 08 2015 Marcin Zajaczkowski <mszpak ATT wp DOTT pl> - 1:0.9.10-3
