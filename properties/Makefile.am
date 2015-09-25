@@ -1,8 +1,9 @@
 plugindir = $(libdir)/NetworkManager
 
-plugin_LTLIBRARIES = \
-	libnm-vpn-plugin-sstp.la \
-	libnm-sstp-properties.la
+plugin_LTLIBRARIES = libnm-vpn-plugin-sstp.la
+if WITH_LIBNM_GLIB
+plugin_LTLIBRARIES += libnm-sstp-properties.la
+endif
 
 INCLUDES = -I${top_srcdir}
 
