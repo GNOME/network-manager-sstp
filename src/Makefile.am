@@ -3,7 +3,7 @@ INCLUDES = -I${top_srcdir}
 AM_CPPFLAGS =							\
 	$(DBUS_GLIB_CFLAGS)						\
 	$(GLIB_CFLAGS)						\
-	$(NM_CFLAGS)				\
+	$(LIBNM_GLIB_CFLAGS)					\
 	-DG_DISABLE_DEPRECATED					\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPREFIX=\""$(prefix)"\"				\
@@ -29,7 +29,7 @@ nm-sstp-pppd-service-glue.h: $(top_srcdir)/src/nm-sstp-pppd-service.xml
 nm_sstp_service_LDADD = \
 	$(DBUS_GLIB_LIBS) \
 	$(GLIB_LIBS) \
-	$(NM_LIBS)
+	$(LIBNM_GLIB_LIBS)
 
 pppd_plugindir = $(PPPD_PLUGIN_DIR)
 pppd_plugin_LTLIBRARIES = nm-sstp-pppd-plugin.la
@@ -41,7 +41,7 @@ nm_sstp_pppd_plugin_la_SOURCES = \
 nm_sstp_pppd_plugin_la_CPPFLAGS = \
 	$(DBUS_GLIB_CFLAGS) \
 	$(GLIB_CFLAGS) \
-	$(NM_CFLAGS) \
+	$(LIBNM_GLIB_CFLAGS) \
     $(SSTPC_CFLAGS)
 
 nm_sstp_pppd_plugin_la_LDFLAGS = -module -avoid-version
@@ -49,7 +49,7 @@ nm_sstp_pppd_plugin_la_LDFLAGS = -module -avoid-version
 nm_sstp_pppd_plugin_la_LIBADD = \
 	$(DBUS_GLIB_LIBS) \
 	$(GLIB_LIBS) \
-	$(NM_LIBS) \
+	$(LIBNM_GLIB_LIBS) \
     $(SSTPC_LIBS)
 
 BUILT_SOURCES = nm-sstp-pppd-service-glue.h

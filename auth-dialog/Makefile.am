@@ -3,10 +3,10 @@ INCLUDES = -I${top_srcdir}
 libexec_PROGRAMS = nm-sstp-auth-dialog
 
 nm_sstp_auth_dialog_CPPFLAGS =			\
-	$(NM_CFLAGS)		\
+	$(LIBNM_GLIB_CFLAGS)			\
 	$(GLIB_CFLAGS)				\
 	$(GTK_CFLAGS)				\
-	$(NMGTK_CFLAGS)				\
+	$(LIBNM_GTK_CFLAGS)			\
 	$(LIBSECRET_CFLAGS)			\
 	-DICONDIR=\""$(datadir)/pixmaps"\"	\
 	-DUIDIR=\""$(uidir)"\"			\
@@ -18,9 +18,9 @@ nm_sstp_auth_dialog_SOURCES = \
 	main.c
 
 nm_sstp_auth_dialog_LDADD = \
-	$(NM_LIBS) \
+	$(LIBNM_GLIB_LIBS) \
 	$(GTK_LIBS) \
-	$(NMGTK_LIBS) \
+	$(LIBNM_GTK_LIBS) \
 	$(LIBSECRET_LIBS)
 
 CLEANFILES = *~
