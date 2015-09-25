@@ -34,14 +34,13 @@
 #include <paths.h>
 #include <unistd.h>
 #include <glib.h>
-#include <glib-object.h>
-#include <dbus/dbus-glib.h>
 #include <sstp-api.h>
+#include "nm-sstp-pppd-service-dbus.h"
 
-#include "nm-sstp-service.h"
+#include "nm-sstp-service-defines.h"
 #include "nm-ppp-status.h"
 
-#include <nm-utils.h>
+#include <NetworkManager.h>
 
 #ifndef MPPE
 #define MPPE_MAX_KEY_LEN 16
@@ -54,7 +53,7 @@ int plugin_init (void);
 
 char pppd_version[] = VERSION;
 
-static DBusGProxy *proxy = NULL;
+static NMDBusSstpPpp *proxy = NULL;
 
 static void
 nm_phasechange (void *data, int arg)
@@ -62,7 +61,7 @@ nm_phasechange (void *data, int arg)
 	NMPPPStatus ppp_status = NM_PPP_STATUS_UNKNOWN;
 	char *ppp_phase;
 
-	g_return_if_fail (DBUS_IS_G_PROXY (proxy));
+	g_return_if_fail (NMDBUS_IS_SSTP_PPP_PROXY (proxy));
 
 	switch (arg) {
 	case PHASE_DEAD:
@@ -129,46 +128,12 @@ nm_phasechange (void *data, int arg)
 	           ppp_phase);
 
 	if (ppp_status != NM_PPP_STATUS_UNKNOWN) {
-		dbus_g_proxy_call_no_reply (proxy, "SetState",
-		                            G_TYPE_UINT, ppp_status,
-		                            G_TYPE_INVALID,
-		                            G_TYPE_INVALID);
+		nmdbus_sstp_ppp_call_set_state (proxy,
+	                                        ppp_status,
+	                                        NULL,
+	                                        NULL, NULL);
 	}
 }
-
-static GValue *
-str_to_gvalue (const char *str)
-{
-	GValue *val;
-
-	val = g_slice_new0 (GValue);
-	g_value_init (val, G_TYPE_STRING);
-	g_value_set_string (val, str);
-
-	return val;
-}
-
-static GValue *
-uint_to_gvalue (guint32 i)
-{
-	GValue *val;
-
-	val = g_slice_new0 (GValue);
-	g_value_init (val, G_TYPE_UINT);
-	g_value_set_uint (val, i);
-
-	return val;
-}
-
-static void
-value_destroy (gpointer data)
-{
-	GValue *val = (GValue *) data;
-
-	g_value_unset (val);
-	g_slice_free (GValue, val);
-}
-
 
 static int 
 nm_sstp_getsock(void)
@@ -406,12 +371,10 @@ nm_ip_up (void *data, int arg)
 	guint32 pppd_made_up_address = htonl (0x0a404040 + ifunit);
 	ipcp_options opts = ipcp_gotoptions[0];
 	ipcp_options peer_opts = ipcp_hisoptions[0];
-	GHashTable *hash;
-	GArray *array;
-	GValue *val;
+	GVariantBuilder builder;
 	struct sockaddr_in addr;
 
-	g_return_if_fail (DBUS_IS_G_PROXY (proxy));
+	g_return_if_fail (NMDBUS_IS_SSTP_PPP_PROXY (proxy));
 
 	g_message ("nm-sstp-ppp-plugin: (%s): ip-up event", __func__);
 
@@ -420,7 +383,7 @@ nm_ip_up (void *data, int arg)
 		return;
 	}
 
-	hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, value_destroy);
+	g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
 
 	/* Request the address of the server sstpc connected to */
 	if (0 == nm_sstp_getaddr(&addr))
@@ -428,59 +391,68 @@ nm_ip_up (void *data, int arg)
 		/* This will eliminate the need to have nm-sstp-service
 		 * insert a new entry for "gateway" as we have already set it.
 		 */
-		g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_EXT_GATEWAY,
-							 uint_to_gvalue (addr.sin_addr.s_addr));
+		g_variant_builder_add (&builder, "{sv}",
+		                       NM_VPN_PLUGIN_IP4_CONFIG_EXT_GATEWAY,
+		                       g_variant_new_uint32 (addr.sin_addr.s_addr));
 	}
 
-	g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_TUNDEV, 
-					 str_to_gvalue (ifname));
+	g_variant_builder_add (&builder, "{sv}",
+	                       NM_VPN_PLUGIN_IP4_CONFIG_TUNDEV,
+	                       g_variant_new_string (ifname));
 
 	/* Prefer the peer options remote address first, _unless_ pppd made the
 	 * address up, at which point prefer the local options remote address,
 	 * and if that's not right, use the made-up address as a last resort.
 	 */
 	if (peer_opts.hisaddr && (peer_opts.hisaddr != pppd_made_up_address)) {
-		g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_PTP,
-		                     uint_to_gvalue (peer_opts.hisaddr));
+		g_variant_builder_add (&builder, "{sv}",
+		                       NM_VPN_PLUGIN_IP4_CONFIG_PTP,
+		                       g_variant_new_uint32 (peer_opts.hisaddr));
 	} else if (opts.hisaddr) {
-		g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_PTP,
-		                     uint_to_gvalue (opts.hisaddr));
+		g_variant_builder_add (&builder, "{sv}",
+		                       NM_VPN_PLUGIN_IP4_CONFIG_PTP,
+		                       g_variant_new_uint32 (opts.hisaddr));
 	} else if (peer_opts.hisaddr == pppd_made_up_address) {
 		/* As a last resort, use the made-up address */
-		g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_PTP,
-		                     uint_to_gvalue (peer_opts.hisaddr));
+		g_variant_builder_add (&builder, "{sv}",
+		                       NM_VPN_PLUGIN_IP4_CONFIG_PTP,
+		                       g_variant_new_uint32 (peer_opts.hisaddr));
 	}
 
-	g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_ADDRESS, 
-					 uint_to_gvalue (opts.ouraddr));
+	g_variant_builder_add (&builder, "{sv}",
+	                       NM_VPN_PLUGIN_IP4_CONFIG_ADDRESS,
+	                       g_variant_new_uint32 (opts.ouraddr));
 
-	g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_PREFIX, uint_to_gvalue (32));
+	g_variant_builder_add (&builder, "{sv}",
+	                       NM_VPN_PLUGIN_IP4_CONFIG_PREFIX,
+	                       g_variant_new_uint32 (32));
 
 	if (opts.dnsaddr[0] || opts.dnsaddr[1]) {
-		array = g_array_new (FALSE, FALSE, sizeof (guint32));
+		guint32 dns[2];
+		int len = 0;
 
 		if (opts.dnsaddr[0])
-			g_array_append_val (array, opts.dnsaddr[0]);
+			dns[len++] = opts.dnsaddr[0];
 		if (opts.dnsaddr[1])
-			g_array_append_val (array, opts.dnsaddr[1]);
+			dns[len++] = opts.dnsaddr[1];
 
-		val = g_slice_new0 (GValue);
-		g_value_init (val, DBUS_TYPE_G_UINT_ARRAY);
-		g_value_set_boxed (val, array);
-
-		g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_DNS, val);
+		g_variant_builder_add (&builder, "{sv}",
+		                       NM_VPN_PLUGIN_IP4_CONFIG_DNS,
+		                       g_variant_new_fixed_array (G_VARIANT_TYPE_UINT32,
+		                                                  dns, len, sizeof (guint32)));
 	}
 
 	/* Default MTU to 1400, which is also what Windows XP/Vista use */
-	g_hash_table_insert (hash, NM_VPN_PLUGIN_IP4_CONFIG_MTU, uint_to_gvalue (1400));
+	g_variant_builder_add (&builder, "{sv}",
+	                       NM_VPN_PLUGIN_IP4_CONFIG_MTU,
+	                        g_variant_new_uint32 (1400));
 
 	g_message ("nm-sstp-ppp-plugin: (%s): sending Ip4Config to NetworkManager-sstp...", __func__);
 
-	dbus_g_proxy_call_no_reply (proxy, "SetIp4Config",
-	                            DBUS_TYPE_G_MAP_OF_VARIANT, hash, G_TYPE_INVALID,
-	                            G_TYPE_INVALID);
-
-	g_hash_table_destroy (hash);
+	nmdbus_sstp_ppp_call_set_ip4_config (proxy,
+	                                     g_variant_builder_end (&builder),
+	                                     NULL,
+	                                     NULL, NULL);
 }
 
 static int
@@ -509,15 +481,11 @@ get_credentials (char *username, char *password)
 		return 1;
 	}
 
-	g_return_val_if_fail (DBUS_IS_G_PROXY (proxy), -1);
+	g_return_val_if_fail (NMDBUS_IS_SSTP_PPP_PROXY (proxy), -1);
 
 	g_message ("nm-sstp-ppp-plugin: (%s): passwd-hook, requesting credentials...", __func__);
 
-	dbus_g_proxy_call (proxy, "NeedSecrets", &err,
-	                   G_TYPE_INVALID,
-	                   G_TYPE_STRING, &my_username,
-	                   G_TYPE_STRING, &my_password,
-	                   G_TYPE_INVALID);
+        nmdbus_sstp_ppp_call_need_secrets_sync (proxy, &my_username, &my_password, NULL, &err);
 
 	if (err) {
 		g_warning ("nm-sstp-ppp-plugin: (%s): could not get secrets: (%d) %s",
@@ -622,7 +590,7 @@ nm_snoop_send(unsigned char *buf, int len)
 static void
 nm_exit_notify (void *data, int arg)
 {
-	g_return_if_fail (DBUS_IS_G_PROXY (proxy));
+	g_return_if_fail (NMDBUS_IS_SSTP_PPP_PROXY (proxy));
 
 	g_message ("nm-sstp-ppp-plugin: (%s): cleaning up", __func__);
 
@@ -633,7 +601,6 @@ nm_exit_notify (void *data, int arg)
 int
 plugin_init (void)
 {
-	DBusGConnection *bus;
 	GError *err = NULL;
 
 #if !GLIB_CHECK_VERSION (2, 35, 0)
@@ -641,22 +608,19 @@ plugin_init (void)
 #endif
 	g_message ("nm-sstp-ppp-plugin: (%s): initializing", __func__);
 
-	bus = dbus_g_bus_get (DBUS_BUS_SYSTEM, &err);
-	if (!bus) {
-		g_warning ("nm-sstp-pppd-plugin: (%s): couldn't connect to system bus: (%d) %s",
+	proxy = nmdbus_sstp_ppp_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+	                                                 G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+	                                                 NM_DBUS_SERVICE_SSTP_PPP,
+	                                                 NM_DBUS_PATH_SSTP_PPP,
+	                                                 NULL, &err);
+	if (!proxy) {
+	        g_warning ("nm-sstp-pppd-plugin: (%s): couldn't create D-Bus proxy: (%d) %s",
 		           __func__,
 		           err ? err->code : -1,
 		           err && err->message ? err->message : "(unknown)");
 		g_error_free (err);
 		return -1;
 	}
-
-	proxy = dbus_g_proxy_new_for_name (bus,
-								NM_DBUS_SERVICE_SSTP_PPP,
-								NM_DBUS_PATH_SSTP_PPP,
-								NM_DBUS_INTERFACE_SSTP_PPP);
-
-	dbus_g_connection_unref (bus);
 
 	chap_passwd_hook = get_credentials;
 	chap_check_hook = get_chap_check;

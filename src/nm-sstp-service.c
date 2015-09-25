@@ -44,14 +44,13 @@
 #include <netdb.h>
 
 #include <glib/gi18n.h>
-#include <dbus/dbus.h>
-#include <dbus/dbus-glib.h>
 
-#include <nm-setting-vpn.h>
-#include <nm-utils.h>
+//#include <nm-setting-vpn.h>
+//#include <nm-utils.h>
 
 #include "nm-sstp-service.h"
 #include "nm-ppp-status.h"
+#include "nm-sstp-pppd-service-dbus.h"
 
 #if !defined(DIST_VERSION)
 # define DIST_VERSION VERSION
@@ -63,8 +62,9 @@ static gboolean debug = FALSE;
 /* ppp plugin <-> sstp-service object                   */
 /********************************************************/
 
-/* Have to have a separate objec to handle ppp plugin requests since
- * dbus-glib doesn't allow multiple interfaces registed on one GObject.
+/* We have a separate object to handle ppp plugin requests from
+ * historical reason, because dbus-glib didn't allow multiple
+ * interfaces registed on one GObject.
  *
  * Majority of the differences to nm-sstp-service from the pptp version here
  * are made to:
@@ -90,28 +90,26 @@ typedef struct {
 	/* Signals */
 	void (*plugin_alive) (NMSstpPppService *self);
 	void (*ppp_state) (NMSstpPppService *self, guint32 state);
-	void (*ip4_config) (NMSstpPppService *self, GHashTable *config_hash);
+	void (*ip4_config) (NMSstpPppService *self, GVariant *config);
 } NMSstpPppServiceClass;
 
 GType nm_sstp_ppp_service_get_type (void);
 
 G_DEFINE_TYPE (NMSstpPppService, nm_sstp_ppp_service, G_TYPE_OBJECT)
 
-static gboolean impl_sstp_service_need_secrets (NMSstpPppService *self,
-                                                char **out_username,
-                                                char **out_password,
-                                                GError **err);
+static gboolean handle_need_secrets (NMDBusSstpPpp *object,
+                                     GDBusMethodInvocation *invocation,
+                                     gpointer user_data);
 
-static gboolean impl_sstp_service_set_state (NMSstpPppService *self,
-                                             guint32 state,
-                                             GError **err);
+static gboolean handle_set_state (NMDBusSstpPpp *object,
+                                  GDBusMethodInvocation *invocation,
+                                  guint arg_state,
+                                  gpointer user_data);
 
-static gboolean impl_sstp_service_set_ip4_config (NMSstpPppService *self,
-                                                  GHashTable *config,
-                                                  GError **err);
-
-#include "nm-sstp-pppd-service-glue.h"
-
+static gboolean handle_set_ip4_config (NMDBusSstpPpp *object,
+                                       GDBusMethodInvocation *invocation,
+                                       GVariant *arg_config,
+                                       gpointer user_data);
 
 #define NM_SSTP_PPP_SERVICE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), NM_TYPE_SSTP_PPP_SERVICE, NMSstpPppServicePrivate))
 
@@ -129,6 +127,7 @@ typedef struct {
 	char *ca_cert;
 	gboolean ign_cert;
 	NMSstpPluginProxy proxy;
+	NMDBusSstpPpp *dbus_skeleton;
 } NMSstpPppServicePrivate;
 
 enum {
@@ -147,7 +146,7 @@ _service_cache_credentials (NMSstpPppService *self,
                             GError **error)
 {
 	NMSstpPppServicePrivate *priv = NM_SSTP_PPP_SERVICE_GET_PRIVATE (self);
-	NMSettingVPN *s_vpn;
+	NMSettingVpn *s_vpn;
 	const char *username, *password, *domain, *ca_cert, *server, *port, *temp;
 
 	g_return_val_if_fail (self != NULL, FALSE);
@@ -157,7 +156,7 @@ _service_cache_credentials (NMSstpPppService *self,
 	if (!s_vpn) {
 		g_set_error_literal (error,
 		                     NM_VPN_PLUGIN_ERROR,
-		                     NM_VPN_PLUGIN_ERROR_CONNECTION_INVALID,
+		                     NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
 		                     _("Could not find secrets (connection invalid, no vpn setting)."));
 		return FALSE;
 	}
@@ -169,7 +168,7 @@ _service_cache_credentials (NMSstpPppService *self,
 		if (!username || !strlen (username)) {
 			g_set_error_literal (error,
 			                     NM_VPN_PLUGIN_ERROR,
-			                     NM_VPN_PLUGIN_ERROR_CONNECTION_INVALID,
+			                     NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
 			                    _("Invalid VPN username."));
 			return FALSE;
 		}
@@ -178,7 +177,7 @@ _service_cache_credentials (NMSstpPppService *self,
 		if (!username || !strlen (username)) {
 			g_set_error_literal (error,
 			                     NM_VPN_PLUGIN_ERROR,
-			                     NM_VPN_PLUGIN_ERROR_CONNECTION_INVALID,
+			                     NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
 			                     _("Missing VPN username."));
 			return FALSE;
 		}
@@ -189,7 +188,7 @@ _service_cache_credentials (NMSstpPppService *self,
 	if (!password || !strlen (password)) {
 		g_set_error_literal (error,
 		                     NM_VPN_PLUGIN_ERROR,
-		                     NM_VPN_PLUGIN_ERROR_CONNECTION_INVALID,
+		                     NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
 		                     _("Missing or invalid VPN password."));
 		return FALSE;
 	}
@@ -244,34 +243,41 @@ nm_sstp_ppp_service_new (const char *gwaddr,
                          NMConnection *connection,
                          GError **error)
 {
-	NMSstpPppService *self = NULL;
-	DBusGConnection *bus;
-	DBusGProxy *proxy;
-	gboolean success = FALSE;
-	guint result;
 
-	bus = dbus_g_bus_get (DBUS_BUS_SYSTEM, error);
+	NMSstpPppService *self = NULL;
+	NMSstpPppServicePrivate *priv;
+	GDBusConnection *bus;
+	GDBusProxy *proxy;
+	GVariant *ret;
+
+	bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, error);
 	if (!bus)
 		return NULL;
-	dbus_connection_set_change_sigpipe (TRUE);
-
-	proxy = dbus_g_proxy_new_for_name (bus,
-	                                   "org.freedesktop.DBus",
-	                                   "/org/freedesktop/DBus",
-	                                   "org.freedesktop.DBus");
+	proxy = g_dbus_proxy_new_sync (bus,
+				       G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+				       G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS,
+				       NULL,
+				       "org.freedesktop.DBus",
+				       "/org/freedesktop/DBus",
+				       "org.freedesktop.DBus",
+				       NULL, error);
 	g_assert (proxy);
-	success = dbus_g_proxy_call (proxy, "RequestName", error,
-	                             G_TYPE_STRING, NM_DBUS_SERVICE_SSTP_PPP,
-	                             G_TYPE_UINT, 0,
-	                             G_TYPE_INVALID,
-	                             G_TYPE_UINT, &result,
-	                             G_TYPE_INVALID);
+	ret = g_dbus_proxy_call_sync (proxy,
+				      "RequestName",
+				      g_variant_new ("(su)", NM_DBUS_SERVICE_SSTP_PPP, 0),
+				      G_DBUS_CALL_FLAGS_NONE, -1,
+				      NULL, error);
 	g_object_unref (proxy);
-	if (success == FALSE)
+	if (!ret) {
+		if (error && *error)
+			g_dbus_error_strip_remote_error (*error);
 		goto out;
+	}
+	g_variant_unref (ret);
 
 	self = (NMSstpPppService *) g_object_new (NM_TYPE_SSTP_PPP_SERVICE, NULL);
 	g_assert (self);
+	priv = NM_SSTP_PPP_SERVICE_GET_PRIVATE (self);
 
 	/* Cache the username and password so we can relay the secrets to the pppd
 	 * plugin when it asks for them.
@@ -282,10 +288,23 @@ nm_sstp_ppp_service_new (const char *gwaddr,
 		goto out;
 	}
 
-	dbus_g_connection_register_g_object (bus, NM_DBUS_PATH_SSTP_PPP, G_OBJECT (self));
+	priv->dbus_skeleton = nmdbus_sstp_ppp_skeleton_new ();
+	if (!g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (priv->dbus_skeleton),
+	                                       bus,
+	                                       NM_DBUS_PATH_SSTP_PPP,
+	                                       error))
+		goto out;
+
+	g_dbus_connection_register_object (bus, NM_DBUS_PATH_SSTP_PPP,
+	                                   nmdbus_sstp_ppp_interface_info (),
+	                                   NULL, NULL, NULL, NULL);
+
+	g_signal_connect (priv->dbus_skeleton, "handle-need-secrets", G_CALLBACK (handle_need_secrets), self);
+	g_signal_connect (priv->dbus_skeleton, "handle-set-state", G_CALLBACK (handle_set_state), self);
+	g_signal_connect (priv->dbus_skeleton, "handle-set-ip4-config", G_CALLBACK (handle_set_ip4_config), self);
 
 out:
-	dbus_g_connection_unref (bus);
+	g_clear_object (&bus);
 	return self;
 }
 
@@ -295,7 +314,19 @@ nm_sstp_ppp_service_init (NMSstpPppService *self)
 }
 
 static void
-finalize (GObject *object)
+nm_sstp_ppp_service_dispose (GObject *object)
+{
+	NMSstpPppServicePrivate *priv = NM_SSTP_PPP_SERVICE_GET_PRIVATE (object);
+
+	g_signal_handlers_disconnect_by_func (priv->dbus_skeleton, handle_need_secrets, object);
+	g_signal_handlers_disconnect_by_func (priv->dbus_skeleton, handle_set_state, object);
+	g_signal_handlers_disconnect_by_func (priv->dbus_skeleton, handle_set_ip4_config, object);
+
+	G_OBJECT_CLASS (nm_sstp_ppp_service_parent_class)->dispose (object);
+}
+
+static void
+nm_sstp_ppp_service_finalize (GObject *object)
 {
 	NMSstpPppServicePrivate *priv = NM_SSTP_PPP_SERVICE_GET_PRIVATE (object);
 
@@ -318,6 +349,8 @@ finalize (GObject *object)
 		memset (priv->proxy.password, 0, strlen(priv->proxy.password));
 		g_free(priv->proxy.password);
 	}
+
+	G_OBJECT_CLASS (nm_sstp_ppp_service_parent_class)->finalize (object);
 }
 
 static void
@@ -328,7 +361,8 @@ nm_sstp_ppp_service_class_init (NMSstpPppServiceClass *service_class)
 	g_type_class_add_private (service_class, sizeof (NMSstpPppServicePrivate));
 
 	/* virtual methods */
-	object_class->finalize = finalize;
+	object_class->dispose = nm_sstp_ppp_service_dispose;
+	object_class->finalize = nm_sstp_ppp_service_finalize;
 
 	/* Signals */
 	signals[PLUGIN_ALIVE] = 
@@ -355,64 +389,68 @@ nm_sstp_ppp_service_class_init (NMSstpPppServiceClass *service_class)
 		              G_SIGNAL_RUN_FIRST,
 		              G_STRUCT_OFFSET (NMSstpPppServiceClass, ip4_config),
 		              NULL, NULL,
-		              g_cclosure_marshal_VOID__POINTER,
+		              NULL,
 		              G_TYPE_NONE, 1, G_TYPE_POINTER);
-
-	dbus_g_object_type_install_info (G_TYPE_FROM_CLASS (service_class),
-									 &dbus_glib_nm_sstp_pppd_service_object_info);
 }
 
 static gboolean
-impl_sstp_service_need_secrets (NMSstpPppService *self,
-                                char **out_username,
-                                char **out_password,
-                                GError **error)
+handle_need_secrets (NMDBusSstpPpp *object,
+                     GDBusMethodInvocation *invocation,
+                     gpointer user_data)
 {
+	NMSstpPppService *self = NM_SSTP_PPP_SERVICE (user_data);
 	NMSstpPppServicePrivate *priv = NM_SSTP_PPP_SERVICE_GET_PRIVATE (self);
+	gchar *username;
 
 	g_signal_emit (G_OBJECT (self), signals[PLUGIN_ALIVE], 0);
 
 	if (!strlen (priv->username) || !strlen (priv->password)) {
-		g_set_error (error,
-		             NM_VPN_PLUGIN_ERROR,
-		             NM_VPN_PLUGIN_ERROR_CONNECTION_INVALID,
-		             "%s",
-		             _("No cached credentials."));
-		goto error;
+		g_dbus_method_invocation_return_error_literal (invocation,
+		                                               NM_VPN_PLUGIN_ERROR,
+		                                               NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
+		                                               _("No cached credentials."));
+		return FALSE;;
 	}
 
 	/* Success */
 	if (priv->domain && strlen (priv->domain))
-		*out_username = g_strdup_printf ("%s\\%s", priv->domain, priv->username);
+		username = g_strdup_printf ("%s\\%s", priv->domain, priv->username);
 	else
-		*out_username = g_strdup (priv->username);
-	*out_password = g_strdup (priv->password);
-	return TRUE;
+		username = g_strdup (priv->username);
 
-error:
-	return FALSE;
+	nmdbus_sstp_ppp_complete_need_secrets (object, invocation, username, priv->password);
+	g_free (username);
+
+	return TRUE;
 }
 
 static gboolean
-impl_sstp_service_set_state (NMSstpPppService *self,
-                             guint32 pppd_state,
-                             GError **err)
+handle_set_state (NMDBusSstpPpp *object,
+                  GDBusMethodInvocation *invocation,
+                  guint arg_state,
+                  gpointer user_data)
 {
+	NMSstpPppService *self = NM_SSTP_PPP_SERVICE (user_data);
+
 	g_signal_emit (G_OBJECT (self), signals[PLUGIN_ALIVE], 0);
-	g_signal_emit (G_OBJECT (self), signals[PPP_STATE], 0, pppd_state);
+	g_signal_emit (G_OBJECT (self), signals[PPP_STATE], 0, arg_state);
+	g_dbus_method_invocation_return_value (invocation, NULL);
 	return TRUE;
 }
 
 static gboolean
-impl_sstp_service_set_ip4_config (NMSstpPppService *self,
-                                  GHashTable *config_hash,
-                                  GError **err)
+handle_set_ip4_config (NMDBusSstpPpp *object,
+                       GDBusMethodInvocation *invocation,
+                       GVariant *arg_config,
+                       gpointer user_data)
 {
+	NMSstpPppService *self = NM_SSTP_PPP_SERVICE (user_data);
+
 	g_message ("SSTP service (IP Config Get) reply received.");
 	g_signal_emit (G_OBJECT (self), signals[PLUGIN_ALIVE], 0);
 
 	/* Just forward the pppd plugin config up to our superclass; no need to modify it */
-	g_signal_emit (G_OBJECT (self), signals[IP4_CONFIG], 0, config_hash);
+	g_signal_emit (G_OBJECT (self), signals[IP4_CONFIG], 0, arg_config);
 
 	return TRUE;
 }
@@ -422,7 +460,7 @@ impl_sstp_service_set_ip4_config (NMSstpPppService *self,
 /* The VPN plugin service                               */
 /********************************************************/
 
-G_DEFINE_TYPE (NMSstpPlugin, nm_sstp_plugin, NM_TYPE_VPN_PLUGIN)
+G_DEFINE_TYPE (NMSstpPlugin, nm_sstp_plugin, NM_TYPE_VPN_SERVICE_PLUGIN)
 
 typedef struct {
 	GPid pid;
@@ -580,7 +618,7 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 }
 
 static gboolean
-nm_sstp_properties_validate (NMSettingVPN *s_vpn,
+nm_sstp_properties_validate (NMSettingVpn *s_vpn,
                              GError **error)
 {
 	ValidateInfo info = { &valid_properties[0], error, FALSE };
@@ -622,7 +660,7 @@ nm_sstp_properties_validate (NMSettingVPN *s_vpn,
 }
 
 static gboolean
-nm_sstp_secrets_validate (NMSettingVPN *s_vpn, GError **error)
+nm_sstp_secrets_validate (NMSettingVpn *s_vpn, GError **error)
 {
 	ValidateInfo info = { &valid_secrets[0], error, FALSE };
 
@@ -667,21 +705,20 @@ pppd_watch_cb (GPid pid, gint status, gpointer user_data)
 	case 16:
 		/* hangup */
 		// FIXME: better failure reason
-		nm_vpn_plugin_failure (NM_VPN_PLUGIN (plugin), NM_VPN_PLUGIN_FAILURE_CONNECT_FAILED);
+		nm_vpn_service_plugin_failure (NM_VPN_SERVICE_PLUGIN (plugin), NM_VPN_PLUGIN_FAILURE_CONNECT_FAILED);
 		break;
 	case 2:
 		/* Couldn't log in due to bad user/pass */
-		nm_vpn_plugin_failure (NM_VPN_PLUGIN (plugin), NM_VPN_PLUGIN_FAILURE_LOGIN_FAILED);
+		nm_vpn_service_plugin_failure (NM_VPN_SERVICE_PLUGIN (plugin), NM_VPN_PLUGIN_FAILURE_LOGIN_FAILED);
 		break;
 	case 1:
 		/* Other error (couldn't bind to address, etc) */
-		nm_vpn_plugin_failure (NM_VPN_PLUGIN (plugin), NM_VPN_PLUGIN_FAILURE_CONNECT_FAILED);
+		nm_vpn_service_plugin_failure (NM_VPN_SERVICE_PLUGIN (plugin), NM_VPN_PLUGIN_FAILURE_CONNECT_FAILED);
 		break;
 	default:
+		nm_vpn_service_plugin_disconnect (NM_VPN_SERVICE_PLUGIN (plugin), NULL);
 		break;
 	}
-
-	nm_vpn_plugin_set_state (NM_VPN_PLUGIN (plugin), NM_VPN_SERVICE_STATE_STOPPED);
 }
 
 static inline const char *
@@ -734,7 +771,7 @@ pppd_timed_out (gpointer user_data)
 	NMSstpPlugin *plugin = NM_SSTP_PLUGIN (user_data);
 
 	g_warning ("Looks like pppd didn't initialize our dbus module");
-	nm_vpn_plugin_failure (NM_VPN_PLUGIN (plugin), NM_VPN_CONNECTION_STATE_REASON_SERVICE_START_TIMEOUT);
+	nm_vpn_service_plugin_failure (NM_VPN_SERVICE_PLUGIN (plugin), NM_VPN_CONNECTION_STATE_REASON_SERVICE_START_TIMEOUT);
 
 	return FALSE;
 }
@@ -771,7 +808,7 @@ str_to_int (const char *str, long int *out)
 
 static GPtrArray *
 construct_pppd_args (NMSstpPlugin *plugin,
-                     NMSettingVPN *s_vpn,
+                     NMSettingVpn *s_vpn,
                      const char *pppd,
                      const char *gwaddr,
                      GError **error)
@@ -810,7 +847,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 	if (!gwaddr || !strlen (gwaddr)) {
 		g_set_error (error,
 		             NM_VPN_PLUGIN_ERROR,
-		             NM_VPN_PLUGIN_ERROR_CONNECTION_INVALID,
+		             NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
 		             "%s",
 		             _("Missing VPN gateway."));
 		goto error;
@@ -998,7 +1035,7 @@ error:
 
 static gboolean
 nm_sstp_start_pppd_binary (NMSstpPlugin *plugin,
-                           NMSettingVPN *s_vpn,
+                           NMSettingVpn *s_vpn,
                            const char *gwaddr,
                            GError **error)
 {
@@ -1061,72 +1098,25 @@ service_ppp_state_cb (NMSstpPppService *service,
                       guint32 ppp_state,
                       NMSstpPlugin *plugin)
 {
-	NMVPNServiceState plugin_state = nm_vpn_plugin_get_state (NM_VPN_PLUGIN (plugin));
-
-	switch (ppp_state) {
-	case NM_PPP_STATUS_DEAD:
-	case NM_PPP_STATUS_DISCONNECT:
-		if (plugin_state == NM_VPN_SERVICE_STATE_STARTED)
-			nm_vpn_plugin_disconnect (NM_VPN_PLUGIN (plugin), NULL);
-		else if (plugin_state == NM_VPN_SERVICE_STATE_STARTING)
-			nm_vpn_plugin_failure (NM_VPN_PLUGIN (plugin), NM_VPN_PLUGIN_FAILURE_CONNECT_FAILED);
-		break;
-	default:
-		break;
-	}
-}
-
-static void
-nm_gvalue_destroy (gpointer data)
-{
-	g_value_unset ((GValue *) data);
-	g_slice_free (GValue, data);
-}
-
-static GValue *
-nm_gvalue_dup (const GValue *value)
-{
-	GValue *value_dup;
-
-	value_dup = g_slice_new0 (GValue);
-	g_value_init (value_dup, G_VALUE_TYPE (value));
-	g_value_copy (value, value_dup);
-
-	return value_dup;
-}
-
-static void
-copy_hash (gpointer key, gpointer value, gpointer user_data)
-{
-	g_hash_table_insert ((GHashTable *) user_data, g_strdup (key), nm_gvalue_dup ((GValue *) value));
+	if (ppp_state == NM_PPP_STATUS_DEAD || ppp_state == NM_PPP_STATUS_DISCONNECT)
+		nm_vpn_service_plugin_disconnect (NM_VPN_SERVICE_PLUGIN (plugin), NULL);
 }
 
 static void
 service_ip4_config_cb (NMSstpPppService *service,
-                       GHashTable *config_hash,
-                       NMVPNPlugin *plugin)
+                       GVariant *config,
+                       NMVpnServicePlugin *plugin)
 {
-	GHashTable *hash;
- 
-	/*
-	 * The nm-sstp-pppd-plugin.c:441 will get the address from
-	 * sstpc and update the hash table with "gateway" property.
-	 */
-	hash = g_hash_table_new_full (g_str_hash, g_str_equal, 
-			g_free, nm_gvalue_destroy);
-	g_hash_table_foreach (config_hash, copy_hash, hash);
-	nm_vpn_plugin_set_ip4_config (plugin, hash);
-
-	g_hash_table_destroy (hash);
+	nm_vpn_service_plugin_set_ip4_config (plugin, config);
 }
 
 static gboolean
-real_connect (NMVPNPlugin   *plugin,
-              NMConnection  *connection,
-              GError       **error)
+real_connect (NMVpnServicePlugin   *plugin,
+              NMConnection         *connection,
+              GError              **error)
 {
 	NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (plugin);
-	NMSettingVPN *s_vpn;
+	NMSettingVpn *s_vpn;
 	const char *gwaddr;
 	const char *value;
 
@@ -1183,15 +1173,15 @@ real_connect (NMVPNPlugin   *plugin,
 
 
 static gboolean
-real_need_secrets (NMVPNPlugin *plugin,
+real_need_secrets (NMVpnServicePlugin *plugin,
                    NMConnection *connection,
-                   char **setting_name,
+                   const char **setting_name,
                    GError **error)
 {	
-	NMSettingVPN *s_vpn;
+	NMSettingVpn *s_vpn;
 	NMSettingSecretFlags flags = NM_SETTING_SECRET_FLAG_NONE;
 	
-	g_return_val_if_fail (NM_IS_VPN_PLUGIN (plugin), FALSE);
+	g_return_val_if_fail (NM_IS_VPN_SERVICE_PLUGIN (plugin), FALSE);
 	g_return_val_if_fail (NM_IS_CONNECTION (connection), FALSE);
 	
 	s_vpn = nm_connection_get_setting_vpn (connection);
@@ -1223,8 +1213,8 @@ ensure_killed (gpointer data)
 }
 
 static gboolean
-real_disconnect (NMVPNPlugin   *plugin,
-			  GError       **err)
+real_disconnect (NMVpnServicePlugin   *plugin,
+                 GError              **err)
 {
 	NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (plugin);
 
@@ -1252,7 +1242,7 @@ real_disconnect (NMVPNPlugin   *plugin,
 }
 
 static void
-state_changed_cb (GObject *object, NMVPNServiceState state, gpointer user_data)
+state_changed_cb (GObject *object, NMVpnServiceState state, gpointer user_data)
 {
 	NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (object);
 
@@ -1303,7 +1293,7 @@ static void
 nm_sstp_plugin_class_init (NMSstpPluginClass *sstp_class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (sstp_class);
-	NMVPNPluginClass *parent_class = NM_VPN_PLUGIN_CLASS (sstp_class);
+	NMVpnServicePluginClass *parent_class = NM_VPN_SERVICE_PLUGIN_CLASS (sstp_class);
 
 	g_type_class_add_private (object_class, sizeof (NMSstpPluginPrivate));
 
@@ -1318,13 +1308,19 @@ NMSstpPlugin *
 nm_sstp_plugin_new (void)
 {
 	NMSstpPlugin *plugin;
+	GError *error = NULL;
 
-	plugin = g_object_new (NM_TYPE_SSTP_PLUGIN,
-	                       NM_VPN_PLUGIN_DBUS_SERVICE_NAME,
-	                       NM_DBUS_SERVICE_SSTP,
-	                       NULL);
-	if (plugin)
+	plugin = (NMSstpPlugin *) g_initable_new (NM_TYPE_SSTP_PLUGIN, NULL, &error,
+	                                          NM_VPN_SERVICE_PLUGIN_DBUS_SERVICE_NAME,
+	                                          NM_DBUS_SERVICE_SSTP,
+	                                          NULL);
+	if (plugin) {
 		g_signal_connect (G_OBJECT (plugin), "state-changed", G_CALLBACK (state_changed_cb), NULL);
+	} else {
+		g_warning ("Failed to initialize a plugin instance: %s", error->message);
+		g_error_free (error);
+	}
+
 	return plugin;
 }
 

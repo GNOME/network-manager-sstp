@@ -23,6 +23,8 @@
 #ifndef NM_SSTP_SERVICE_DEFINES_H
 #define NM_SSTP_SERVICE_DEFINES_H
 
+#define NM_SSTP_MAX_BUFLEN             (255)
+
 #define NM_DBUS_SERVICE_SSTP_PPP    "org.freedesktop.NetworkManager.sstp-ppp"
 #define NM_DBUS_PATH_SSTP_PPP       "/org/freedesktop/NetworkManager/sstp/ppp"
 #define NM_DBUS_INTERFACE_SSTP_PPP  "org.freedesktop.NetworkManager.sstp.ppp"

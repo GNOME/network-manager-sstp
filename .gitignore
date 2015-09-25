@@ -30,5 +30,6 @@ m4/lt*.m4
 auth-dialog/nm-sstp-auth-dialog
 nm-sstp-service.name
 nm-sstp.desktop
-src/nm-sstp-pppd-service-glue.h
+src/nm-sstp-pppd-service-dbus.c
+src/nm-sstp-pppd-service-dbus.h
 src/nm-sstp-service

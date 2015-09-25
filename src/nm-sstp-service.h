@@ -25,11 +25,12 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <nm-vpn-plugin.h>
+
+#include <NetworkManager.h>
+#include <nm-vpn-service-plugin.h>
 
 #include "nm-sstp-service-defines.h"
 
-#define NM_SSTP_MAX_BUFLEN             (255)
 #define NM_TYPE_SSTP_PLUGIN            (nm_sstp_plugin_get_type ())
 #define NM_SSTP_PLUGIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), NM_TYPE_SSTP_PLUGIN, NMSstpPlugin))
 #define NM_SSTP_PLUGIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), NM_TYPE_SSTP_PLUGIN, NMSstpPluginClass))
@@ -41,11 +42,11 @@
 #define DBUS_TYPE_G_MAP_OF_VARIANT (dbus_g_type_get_map ("GHashTable", G_TYPE_STRING, G_TYPE_VALUE))
 
 typedef struct {
-	NMVPNPlugin parent;
+	NMVpnServicePlugin parent;
 } NMSstpPlugin;
 
 typedef struct {
-	NMVPNPluginClass parent;
+	NMVpnServicePluginClass parent;
 } NMSstpPluginClass;
 
 GType nm_sstp_plugin_get_type (void);

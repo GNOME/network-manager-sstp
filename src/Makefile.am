@@ -1,9 +1,8 @@
 INCLUDES = -I${top_srcdir}
 
 AM_CPPFLAGS =							\
-	$(DBUS_GLIB_CFLAGS)						\
 	$(GLIB_CFLAGS)						\
-	$(LIBNM_GLIB_CFLAGS)					\
+	$(LIBNM_CFLAGS)						\
 	-DG_DISABLE_DEPRECATED					\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPREFIX=\""$(prefix)"\"				\
@@ -23,13 +22,29 @@ nm_sstp_service_SOURCES = \
 	nm-sstp-service.c \
 	nm-sstp-service.h
 
-nm-sstp-pppd-service-glue.h: $(top_srcdir)/src/nm-sstp-pppd-service.xml
-	dbus-binding-tool --prefix=nm_sstp_pppd_service --mode=glib-server --output=$@ $<
+# D-Bus stuff
+noinst_LTLIBRARIES = libnm-sstp-pppd-service-dbus.la
+
+nodist_libnm_sstp_pppd_service_dbus_la_SOURCES =		\
+	nm-sstp-pppd-service-dbus.c			\
+	nm-sstp-pppd-service-dbus.h
+
+libnm_sstp_pppd_service_dbus_la_CPPFLAGS = $(filter-out -DGLIB_VERSION_MAX_ALLOWED%,$(AM_CPPFLAGS))
+
+nm-sstp-pppd-service-dbus.h: $(top_srcdir)/src/nm-sstp-pppd-service.xml
+	$(AM_V_GEN) gdbus-codegen \
+		--generate-c-code $(basename $@) \
+		--c-namespace NMDBus \
+		--interface-prefix org.freedesktop.NetworkManager \
+		$<
+
+nm-sstp-pppd-service-dbus.c:
+	@true
 
 nm_sstp_service_LDADD = \
-	$(DBUS_GLIB_LIBS) \
 	$(GLIB_LIBS) \
-	$(LIBNM_GLIB_LIBS)
+	$(LIBNM_LIBS) \
+	libnm-sstp-pppd-service-dbus.la
 
 pppd_plugindir = $(PPPD_PLUGIN_DIR)
 pppd_plugin_LTLIBRARIES = nm-sstp-pppd-plugin.la
@@ -39,20 +54,20 @@ nm_sstp_pppd_plugin_la_SOURCES = \
 	nm-ppp-status.h
 
 nm_sstp_pppd_plugin_la_CPPFLAGS = \
-	$(DBUS_GLIB_CFLAGS) \
 	$(GLIB_CFLAGS) \
-	$(LIBNM_GLIB_CFLAGS) \
+	$(LIBNM_CFLAGS) \
     $(SSTPC_CFLAGS)
 
 nm_sstp_pppd_plugin_la_LDFLAGS = -module -avoid-version
 
 nm_sstp_pppd_plugin_la_LIBADD = \
-	$(DBUS_GLIB_LIBS) \
 	$(GLIB_LIBS) \
-	$(LIBNM_GLIB_LIBS) \
+	$(LIBNM_LIBS) \
     $(SSTPC_LIBS)
 
-BUILT_SOURCES = nm-sstp-pppd-service-glue.h
+BUILT_SOURCES = \
+	nm-sstp-pppd-service-dbus.h \
+	nm-sstp-pppd-service-dbus.c
 
 CLEANFILES = $(BUILT_SOURCES)
 
