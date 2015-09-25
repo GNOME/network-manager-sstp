@@ -9,8 +9,13 @@ endif
 dbusservicedir = $(sysconfdir)/dbus-1/system.d
 dbusservice_DATA = nm-sstp-service.conf
 
-nmvpnservicedir = $(sysconfdir)/NetworkManager/VPN
+nmvpnservicedir = $(NM_VPN_SERVICE_DIR)
 nmvpnservice_DATA = nm-sstp-service.name
+
+if WITH_LIBNM_GLIB
+nmvpnoldservicedir = $(sysconfdir)/NetworkManager/VPN
+nmvpnoldservice_DATA = nm-sstp-service.name
+endif
 
 nm-sstp-service.name: $(srcdir)/nm-sstp-service.name.in
 	sed -e 's|[@]LIBEXECDIR[@]|$(libexecdir)|g' \

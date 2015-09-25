@@ -93,6 +93,9 @@ if test x"$with_gnome" != xno; then
 	fi
 fi
 
+NM_VPN_SERVICE_DIR=`$PKG_CONFIG --define-variable prefix='\${prefix}' --variable vpnservicedir libnm`
+AC_SUBST(NM_VPN_SERVICE_DIR)
+
 NM_COMPILER_WARNINGS
 
 dnl
