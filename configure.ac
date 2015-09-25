@@ -69,12 +69,16 @@ PKG_CHECK_MODULES(DBUS, dbus-glib-1 >= 0.74)
 PKG_CHECK_MODULES(SSTPC, sstp-client-1.0)
 
 PKG_CHECK_MODULES(LIBNM_GLIB,
-                  NetworkManager >= 0.9.10
-                  libnm-util >= 0.9.10
-                  libnm-glib >= 0.9.10
-                  libnm-glib-vpn >= 0.9.10)
+                  NetworkManager >= 1.1.0
+                  libnm-util >= 1.1.0
+                  libnm-glib >= 1.1.0
+                  libnm-glib-vpn >= 1.1.0)
+LIBNM_GLIB_CFLAGS="$LIBNM_GLIB_CFLAGS -DNM_VERSION_MIN_REQUIRED=NM_VERSION_1_2"
+LIBNM_GLIB_CFLAGS="$LIBNM_GLIB_CFLAGS -DNM_VERSION_MAX_ALLOWED=NM_VERSION_1_2"
 
-PKG_CHECK_MODULES(LIBNM, libnm)
+PKG_CHECK_MODULES(LIBNM, libnm >= 1.1.0)
+LIBNM_CFLAGS="$LIBNM_CFLAGS -DNM_VERSION_MIN_REQUIRED=NM_VERSION_1_2"
+LIBNM_CFLAGS="$LIBNM_CFLAGS -DNM_VERSION_MAX_ALLOWED=NM_VERSION_1_2"
 
 if test x"$with_gnome" != xno; then
 	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.4)

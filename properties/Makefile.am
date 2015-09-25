@@ -31,7 +31,7 @@ common_cflags =                                         \
         -DVERSION=\"$(VERSION)\"
 
 libnm_vpn_plugin_sstp_la_CFLAGS = \
-        $(LIBNM_GLIB_CFLAGS) \
+        $(LIBNM_CFLAGS) \
 	$(common_cflags)
 
 libnm_sstp_properties_la_CFLAGS = \
@@ -41,7 +41,7 @@ libnm_sstp_properties_la_CFLAGS = \
 
 libnm_vpn_plugin_sstp_la_LIBADD = \
         $(GTK_LIBS) \
-        $(LIBNM_GLIB_LIBS)
+        $(LIBNM_LIBS)
 
 libnm_sstp_properties_la_LIBADD = \
         $(GTK_LIBS) \
