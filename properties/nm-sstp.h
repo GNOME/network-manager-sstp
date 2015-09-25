@@ -25,23 +25,6 @@
 
 #include <glib-object.h>
 
-typedef enum
-{
-	SSTP_PLUGIN_UI_ERROR_UNKNOWN = 0,
-	SSTP_PLUGIN_UI_ERROR_INVALID_CONNECTION,
-	SSTP_PLUGIN_UI_ERROR_INVALID_PROPERTY,
-	SSTP_PLUGIN_UI_ERROR_MISSING_PROPERTY,
-	SSTP_PLUGIN_UI_ERROR_FILE_NOT_READABLE,
-	SSTP_PLUGIN_UI_ERROR_FILE_NOT_SSTP
-} SstpPluginUiError;
-
-#define SSTP_TYPE_PLUGIN_UI_ERROR (sstp_plugin_ui_error_get_type ()) 
-GType sstp_plugin_ui_error_get_type (void);
-
-#define SSTP_PLUGIN_UI_ERROR (sstp_plugin_ui_error_quark ())
-GQuark sstp_plugin_ui_error_quark (void);
-
-
 #define SSTP_TYPE_PLUGIN_UI            (sstp_plugin_ui_get_type ())
 #define SSTP_PLUGIN_UI(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SSTP_TYPE_PLUGIN_UI, SstpPluginUi))
 #define SSTP_PLUGIN_UI_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), SSTP_TYPE_PLUGIN_UI, SstpPluginUiClass))

@@ -35,9 +35,9 @@
 #include <gtk/gtk.h>
 #include <fcntl.h>
 
-#define NM_VPN_API_SUBJECT_TO_CHANGE
 #ifdef NM_SSTP_OLD
 
+#define NM_VPN_LIBNM_COMPAT
 #include <nm-vpn-plugin-ui-interface.h>
 #include <nm-setting-vpn.h>
 #include <nm-setting-connection.h>
@@ -45,9 +45,21 @@
 
 #define nm_simple_connection_new nm_connection_new
 
+#define SSTP_PLUGIN_UI_ERROR                   NM_SETTING_VPN_ERROR
+#define SSTP_PLUGIN_UI_ERROR_FAILED            NM_SETTING_VPN_ERROR_UNKNOWN
+#define SSTP_PLUGIN_UI_ERROR_INVALID_PROPERTY  NM_SETTING_VPN_ERROR_INVALID_PROPERTY
+#define SSTP_PLUGIN_UI_ERROR_FILE_NOT_SSTP     NM_SETTING_VPN_ERROR_UNKNOWN
+#define SSTP_PLUGIN_UI_ERROR_FILE_NOT_READABLE NM_SETTING_VPN_ERROR_UNKNOWN
+
 #else /* !NM_SSTP_OLD */
 
 #include <NetworkManager.h>
+
+#define SSTP_PLUGIN_UI_ERROR                   NM_CONNECTION_ERROR
+#define SSTP_PLUGIN_UI_ERROR_FAILED            NM_CONNECTION_ERROR_FAILED
+#define SSTP_PLUGIN_UI_ERROR_INVALID_PROPERTY  NM_CONNECTION_ERROR_INVALID_PROPERTY
+#define SSTP_PLUGIN_UI_ERROR_FILE_NOT_SSTP     NM_CONNECTION_ERROR_FAILED
+#define SSTP_PLUGIN_UI_ERROR_FILE_NOT_READABLE NM_CONNECTION_ERROR_FAILED
 
 #endif
 
@@ -101,46 +113,6 @@ typedef struct {
 	gboolean new_connection;
 } SstpPluginUiWidgetPrivate;
 
-
-GQuark
-sstp_plugin_ui_error_quark (void)
-{
-	static GQuark error_quark = 0;
-
-	if (G_UNLIKELY (error_quark == 0))
-		error_quark = g_quark_from_static_string ("sstp-plugin-ui-error-quark");
-
-	return error_quark;
-}
-
-/* This should really be standard. */
-#define ENUM_ENTRY(NAME, DESC) { NAME, "" #NAME "", DESC }
-
-GType
-sstp_plugin_ui_error_get_type (void)
-{
-	static GType etype = 0;
-
-	if (etype == 0) {
-		static const GEnumValue values[] = {
-			/* Unknown error. */
-			ENUM_ENTRY (SSTP_PLUGIN_UI_ERROR_UNKNOWN, "UnknownError"),
-			/* The connection was missing invalid. */
-			ENUM_ENTRY (SSTP_PLUGIN_UI_ERROR_INVALID_CONNECTION, "InvalidConnection"),
-			/* The specified property was invalid. */
-			ENUM_ENTRY (SSTP_PLUGIN_UI_ERROR_INVALID_PROPERTY, "InvalidProperty"),
-			/* The specified property was missing and is required. */
-			ENUM_ENTRY (SSTP_PLUGIN_UI_ERROR_MISSING_PROPERTY, "MissingProperty"),
-			/* The file to import could not be read. */
-			ENUM_ENTRY (SSTP_PLUGIN_UI_ERROR_FILE_NOT_READABLE, "FileNotReadable"),
-			/* The file to import could was not an SSTP client file. */
-			ENUM_ENTRY (SSTP_PLUGIN_UI_ERROR_FILE_NOT_SSTP, "FileNotSSTP"),
-			{ 0, 0, 0 }
-		};
-		etype = g_enum_register_static ("SstpPluginUiError", values);
-	}
-	return etype;
-}
 
 static gboolean
 check_validity (SstpPluginUiWidget *self, GError **error)
