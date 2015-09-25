@@ -45,21 +45,21 @@
 
 #define nm_simple_connection_new nm_connection_new
 
-#define SSTP_PLUGIN_UI_ERROR                   NM_SETTING_VPN_ERROR
-#define SSTP_PLUGIN_UI_ERROR_FAILED            NM_SETTING_VPN_ERROR_UNKNOWN
-#define SSTP_PLUGIN_UI_ERROR_INVALID_PROPERTY  NM_SETTING_VPN_ERROR_INVALID_PROPERTY
-#define SSTP_PLUGIN_UI_ERROR_FILE_NOT_SSTP     NM_SETTING_VPN_ERROR_UNKNOWN
-#define SSTP_PLUGIN_UI_ERROR_FILE_NOT_READABLE NM_SETTING_VPN_ERROR_UNKNOWN
+#define SSTP_EDITOR_PLUGIN_ERROR                   NM_SETTING_VPN_ERROR
+#define SSTP_EDITOR_PLUGIN_ERROR_FAILED            NM_SETTING_VPN_ERROR_UNKNOWN
+#define SSTP_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY  NM_SETTING_VPN_ERROR_INVALID_PROPERTY
+#define SSTP_EDITOR_PLUGIN_ERROR_FILE_NOT_SSTP     NM_SETTING_VPN_ERROR_UNKNOWN
+#define SSTP_EDITOR_PLUGIN_ERROR_FILE_NOT_READABLE NM_SETTING_VPN_ERROR_UNKNOWN
 
 #else /* !NM_SSTP_OLD */
 
 #include <NetworkManager.h>
 
-#define SSTP_PLUGIN_UI_ERROR                   NM_CONNECTION_ERROR
-#define SSTP_PLUGIN_UI_ERROR_FAILED            NM_CONNECTION_ERROR_FAILED
-#define SSTP_PLUGIN_UI_ERROR_INVALID_PROPERTY  NM_CONNECTION_ERROR_INVALID_PROPERTY
-#define SSTP_PLUGIN_UI_ERROR_FILE_NOT_SSTP     NM_CONNECTION_ERROR_FAILED
-#define SSTP_PLUGIN_UI_ERROR_FILE_NOT_READABLE NM_CONNECTION_ERROR_FAILED
+#define SSTP_EDITOR_PLUGIN_ERROR                   NM_CONNECTION_ERROR
+#define SSTP_EDITOR_PLUGIN_ERROR_FAILED            NM_CONNECTION_ERROR_FAILED
+#define SSTP_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY  NM_CONNECTION_ERROR_INVALID_PROPERTY
+#define SSTP_EDITOR_PLUGIN_ERROR_FILE_NOT_SSTP     NM_CONNECTION_ERROR_FAILED
+#define SSTP_EDITOR_PLUGIN_ERROR_FILE_NOT_READABLE NM_CONNECTION_ERROR_FAILED
 
 #endif
 
@@ -87,21 +87,21 @@ enum {
 	PROP_SERVICE
 };
 
-static void sstp_plugin_ui_interface_init (NMVpnEditorPluginInterface *iface_class);
+static void sstp_editor_plugin_interface_init (NMVpnEditorPluginInterface *iface_class);
 
-G_DEFINE_TYPE_EXTENDED (SstpPluginUi, sstp_plugin_ui, G_TYPE_OBJECT, 0,
+G_DEFINE_TYPE_EXTENDED (SstpEditorPlugin, sstp_editor_plugin, G_TYPE_OBJECT, 0,
                         G_IMPLEMENT_INTERFACE (NM_TYPE_VPN_EDITOR_PLUGIN,
-                                               sstp_plugin_ui_interface_init))
+                                               sstp_editor_plugin_interface_init))
 
 /************** UI widget class **************/
 
-static void sstp_plugin_ui_widget_interface_init (NMVpnEditorInterface *iface_class);
+static void sstp_editor_interface_init (NMVpnEditorInterface *iface_class);
 
-G_DEFINE_TYPE_EXTENDED (SstpPluginUiWidget, sstp_plugin_ui_widget, G_TYPE_OBJECT, 0,
+G_DEFINE_TYPE_EXTENDED (SstpEditor, sstp_editor, G_TYPE_OBJECT, 0,
                         G_IMPLEMENT_INTERFACE (NM_TYPE_VPN_EDITOR,
-                                               sstp_plugin_ui_widget_interface_init))
+                                               sstp_editor_interface_init))
 
-#define SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidgetPrivate))
+#define SSTP_EDITOR_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), SSTP_TYPE_EDITOR, SstpEditorPrivate))
 
 typedef struct {
 	GtkBuilder *builder;
@@ -111,13 +111,13 @@ typedef struct {
 	gboolean window_added;
 	GHashTable *advanced;
 	gboolean new_connection;
-} SstpPluginUiWidgetPrivate;
+} SstpEditorPrivate;
 
 
 static gboolean
-check_validity (SstpPluginUiWidget *self, GError **error)
+check_validity (SstpEditor *self, GError **error)
 {
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 	GtkWidget *widget;
 	const char *str;
 
@@ -125,8 +125,8 @@ check_validity (SstpPluginUiWidget *self, GError **error)
 	str = gtk_entry_get_text (GTK_ENTRY (widget));
 	if (!str || !strlen (str)) {
 		g_set_error (error,
-		             SSTP_PLUGIN_UI_ERROR,
-		             SSTP_PLUGIN_UI_ERROR_INVALID_PROPERTY,
+		             SSTP_EDITOR_PLUGIN_ERROR,
+		             SSTP_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY,
 		             NM_SSTP_KEY_GATEWAY);
 		return FALSE;
 	}
@@ -137,7 +137,7 @@ check_validity (SstpPluginUiWidget *self, GError **error)
 static void
 stuff_changed_cb (GtkWidget *widget, gpointer user_data)
 {
-	g_signal_emit_by_name (SSTP_PLUGIN_UI_WIDGET (user_data), "changed");
+	g_signal_emit_by_name (SSTP_EDITOR (user_data), "changed");
 }
 
 static void
@@ -235,8 +235,8 @@ file_chooser_filter_new(void)
 static void
 advanced_dialog_response_cb (GtkWidget *dialog, gint response, gpointer user_data)
 {
-	SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (user_data);
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditor *self = SSTP_EDITOR (user_data);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 	GError *error = NULL;
 
 	if (response != GTK_RESPONSE_OK) {
@@ -259,8 +259,8 @@ advanced_dialog_response_cb (GtkWidget *dialog, gint response, gpointer user_dat
 static void
 advanced_button_clicked_cb (GtkWidget *button, gpointer user_data)
 {
-	SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (user_data);
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditor *self = SSTP_EDITOR (user_data);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 	GtkWidget *dialog, *toplevel;
 
 	toplevel = gtk_widget_get_toplevel (priv->widget);
@@ -286,13 +286,13 @@ advanced_button_clicked_cb (GtkWidget *button, gpointer user_data)
 }
 
 static void
-setup_password_widget (SstpPluginUiWidget *self,
+setup_password_widget (SstpEditor *self,
                        const char *entry_name,
                        NMSettingVpn *s_vpn,
                        const char *secret_name,
                        gboolean new_connection)
 {
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 	NMSettingSecretFlags secret_flags = NM_SETTING_SECRET_FLAG_NONE;
 	GtkWidget *widget;
 	const char *value;
@@ -317,9 +317,9 @@ setup_password_widget (SstpPluginUiWidget *self,
 }
 
 static void
-show_toggled_cb (GtkCheckButton *button, SstpPluginUiWidget *self)
+show_toggled_cb (GtkCheckButton *button, SstpEditor *self)
 {
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 	GtkWidget *widget;
 	gboolean visible;
 
@@ -333,8 +333,8 @@ show_toggled_cb (GtkCheckButton *button, SstpPluginUiWidget *self)
 static void
 pw_type_combo_changed_cb (GtkWidget *combo, gpointer user_data)
 {
-	SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (user_data);
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditor *self = SSTP_EDITOR (user_data);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 	GtkWidget *entry;
 
 	entry = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_password_entry"));
@@ -358,13 +358,13 @@ pw_type_combo_changed_cb (GtkWidget *combo, gpointer user_data)
 }
 
 static void
-init_one_pw_combo (SstpPluginUiWidget *self,
+init_one_pw_combo (SstpEditor *self,
                    NMSettingVpn *s_vpn,
                    const char *combo_name,
                    const char *secret_key,
                    const char *entry_name)
 {
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 	int active = -1;
 	GtkWidget *widget;
 	GtkListStore *store;
@@ -415,9 +415,9 @@ init_one_pw_combo (SstpPluginUiWidget *self,
 }
 
 static gboolean
-init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **error)
+init_editor_plugin (SstpEditor *self, NMConnection *connection, GError **error)
 {
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 	NMSettingVpn *s_vpn;
 	GtkWidget *widget;
 	GtkFileFilter *filter;
@@ -518,8 +518,8 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 static GObject *
 get_widget (NMVpnEditor *iface)
 {
-	SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (iface);
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditor *self = SSTP_EDITOR (iface);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 
 	return G_OBJECT (priv->widget);
 }
@@ -582,8 +582,8 @@ update_connection (NMVpnEditor *iface,
                    NMConnection *connection,
                    GError **error)
 {
-	SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (iface);
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	SstpEditor *self = SSTP_EDITOR (iface);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
 	NMSettingVpn *s_vpn;
 	GtkWidget *widget;
 	const char *str;
@@ -664,10 +664,10 @@ is_new_func (const char *key, const char *value, gpointer user_data)
 }
 
 static NMVpnEditor *
-nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
+nm_vpn_editor_interface_new (NMConnection *connection, GError **error)
 {
 	NMVpnEditor *object;
-	SstpPluginUiWidgetPrivate *priv;
+	SstpEditorPrivate *priv;
 	char *ui_file;
 	gboolean new = TRUE;
 	NMSettingVpn *s_vpn;
@@ -675,13 +675,13 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 	if (error)
 		g_return_val_if_fail (*error == NULL, NULL);
 
-	object = g_object_new (SSTP_TYPE_PLUGIN_UI_WIDGET, NULL);
+	object = g_object_new (SSTP_TYPE_EDITOR, NULL);
 	if (!object) {
-		g_set_error (error, SSTP_PLUGIN_UI_ERROR, 0, "could not create sstp object");
+		g_set_error (error, SSTP_EDITOR_PLUGIN_ERROR, 0, "could not create sstp object");
 		return NULL;
 	}
 
-	priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (object);
+	priv = SSTP_EDITOR_GET_PRIVATE (object);
 
 	ui_file = g_strdup_printf ("%s/%s", UIDIR, "nm-sstp-dialog.ui");
 	priv->builder = gtk_builder_new ();
@@ -692,7 +692,7 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 		g_warning ("Couldn't load builder file: %s",
 		           error && *error ? (*error)->message : "(unknown)");
 		g_clear_error (error);
-		g_set_error (error, SSTP_PLUGIN_UI_ERROR, 0,
+		g_set_error (error, SSTP_EDITOR_PLUGIN_ERROR, 0,
 		             "could not load required resources at %s", ui_file);
 		g_free (ui_file);
 		g_object_unref (object);
@@ -702,7 +702,7 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 
 	priv->widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "sstp-vbox"));
 	if (!priv->widget) {
-		g_set_error (error, SSTP_PLUGIN_UI_ERROR, 0, "could not load UI widget");
+		g_set_error (error, SSTP_EDITOR_PLUGIN_ERROR, 0, "could not load UI widget");
 		g_object_unref (object);
 		return NULL;
 	}
@@ -715,7 +715,7 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 		nm_setting_vpn_foreach_data_item (s_vpn, is_new_func, &new);
 	priv->new_connection = new;
 
-	if (!init_plugin_ui (SSTP_PLUGIN_UI_WIDGET (object), connection, error)) {
+	if (!init_editor_plugin (SSTP_EDITOR (object), connection, error)) {
 		g_object_unref (object);
 		return NULL;
 	}
@@ -732,8 +732,8 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 static void
 dispose (GObject *object)
 {
-	SstpPluginUiWidget *plugin = SSTP_PLUGIN_UI_WIDGET (object);
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (plugin);
+	SstpEditor *plugin = SSTP_EDITOR (object);
+	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (plugin);
 
 	if (priv->group)
 		g_object_unref (priv->group);
@@ -750,26 +750,26 @@ dispose (GObject *object)
 	if (priv->advanced)
 		g_hash_table_destroy (priv->advanced);
 
-	G_OBJECT_CLASS (sstp_plugin_ui_widget_parent_class)->dispose (object);
+	G_OBJECT_CLASS (sstp_editor_parent_class)->dispose (object);
 }
 
 static void
-sstp_plugin_ui_widget_class_init (SstpPluginUiWidgetClass *req_class)
+sstp_editor_class_init (SstpEditorClass *req_class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (req_class);
 
-	g_type_class_add_private (req_class, sizeof (SstpPluginUiWidgetPrivate));
+	g_type_class_add_private (req_class, sizeof (SstpEditorPrivate));
 
 	object_class->dispose = dispose;
 }
 
 static void
-sstp_plugin_ui_widget_init (SstpPluginUiWidget *plugin)
+sstp_editor_init (SstpEditor *plugin)
 {
 }
 
 static void
-sstp_plugin_ui_widget_interface_init (NMVpnEditorInterface *iface_class)
+sstp_editor_interface_init (NMVpnEditorInterface *iface_class)
 {
 	/* interface implementation */
 	iface_class->get_widget = get_widget;
@@ -787,16 +787,16 @@ import (NMVpnEditorPlugin *iface, const char *path, GError **error)
 	ext = strrchr (path, '.');
 	if (!ext) {
 		g_set_error (error,
-		             SSTP_PLUGIN_UI_ERROR,
-		             SSTP_PLUGIN_UI_ERROR_FILE_NOT_SSTP,
+		             SSTP_EDITOR_PLUGIN_ERROR,
+		             SSTP_EDITOR_PLUGIN_ERROR_FILE_NOT_SSTP,
 		             "unknown SSTP file extension");
 		goto out;
 	}
 
 	if (strcmp (ext, ".conf") && strcmp (ext, ".cnf")) {
 		g_set_error (error,
-		             SSTP_PLUGIN_UI_ERROR,
-		             SSTP_PLUGIN_UI_ERROR_FILE_NOT_SSTP,
+		             SSTP_EDITOR_PLUGIN_ERROR,
+		             SSTP_EDITOR_PLUGIN_ERROR_FILE_NOT_SSTP,
 		             "unknown SSTP file extension");
 		goto out;
 	}
@@ -807,8 +807,8 @@ import (NMVpnEditorPlugin *iface, const char *path, GError **error)
 	lines = g_strsplit_set (contents, "\r\n", 0);
 	if (g_strv_length (lines) <= 1) {
 		g_set_error (error,
-		             SSTP_PLUGIN_UI_ERROR,
-		             SSTP_PLUGIN_UI_ERROR_FILE_NOT_READABLE,
+		             SSTP_EDITOR_PLUGIN_ERROR,
+		             SSTP_EDITOR_PLUGIN_ERROR_FILE_NOT_READABLE,
 		             "not a valid SSTP configuration file");
 		goto out;
 	}
@@ -857,7 +857,7 @@ get_capabilities (NMVpnEditorPlugin *iface)
 static NMVpnEditor *
 get_editor (NMVpnEditorPlugin *iface, NMConnection *connection, GError **error)
 {
-	return nm_vpn_plugin_ui_widget_interface_new (connection, error);
+	return nm_vpn_editor_interface_new (connection, error);
 }
 
 static void
@@ -881,7 +881,7 @@ get_property (GObject *object, guint prop_id,
 }
 
 static void
-sstp_plugin_ui_class_init (SstpPluginUiClass *req_class)
+sstp_editor_plugin_class_init (SstpEditorPluginClass *req_class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (req_class);
 
@@ -901,12 +901,12 @@ sstp_plugin_ui_class_init (SstpPluginUiClass *req_class)
 }
 
 static void
-sstp_plugin_ui_init (SstpPluginUi *plugin)
+sstp_editor_plugin_init (SstpEditorPlugin *plugin)
 {
 }
 
 static void
-sstp_plugin_ui_interface_init (NMVpnEditorPluginInterface *iface_class)
+sstp_editor_plugin_interface_init (NMVpnEditorPluginInterface *iface_class)
 {
 	/* interface implementation */
 	iface_class->get_editor = get_editor;
@@ -926,6 +926,6 @@ nm_vpn_editor_plugin_factory (GError **error)
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 
-	return g_object_new (SSTP_TYPE_PLUGIN_UI, NULL);
+	return g_object_new (SSTP_TYPE_EDITOR_PLUGIN, NULL);
 }
 

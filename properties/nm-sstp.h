@@ -25,46 +25,46 @@
 
 #include <glib-object.h>
 
-#define SSTP_TYPE_PLUGIN_UI            (sstp_plugin_ui_get_type ())
-#define SSTP_PLUGIN_UI(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SSTP_TYPE_PLUGIN_UI, SstpPluginUi))
-#define SSTP_PLUGIN_UI_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), SSTP_TYPE_PLUGIN_UI, SstpPluginUiClass))
-#define SSTP_IS_PLUGIN_UI(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SSTP_TYPE_PLUGIN_UI))
-#define SSTP_IS_PLUGIN_UI_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SSTP_TYPE_PLUGIN_UI))
-#define SSTP_PLUGIN_UI_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SSTP_TYPE_PLUGIN_UI, SstpPluginUiClass))
+#define SSTP_TYPE_EDITOR_PLUGIN            (sstp_editor_plugin_get_type ())
+#define SSTP_EDITOR_PLUGIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SSTP_TYPE_EDITOR_PLUGIN, SstpEditorPlugin))
+#define SSTP_EDITOR_PLUGIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), SSTP_TYPE_EDITOR_PLUGIN, SstpEditorPluginClass))
+#define SSTP_IS_EDITOR_PLUGIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SSTP_TYPE_EDITOR_PLUGIN))
+#define SSTP_IS_EDITOR_PLUGIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SSTP_TYPE_EDITOR_PLUGIN))
+#define SSTP_EDITOR_PLUGIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SSTP_TYPE_EDITOR_PLUGIN, SstpEditorPluginClass))
 
-typedef struct _SstpPluginUi SstpPluginUi;
-typedef struct _SstpPluginUiClass SstpPluginUiClass;
+typedef struct _SstpEditorPlugin SstpEditorPlugin;
+typedef struct _SstpEditorPluginClass SstpEditorPluginClass;
 
-struct _SstpPluginUi {
+struct _SstpEditorPlugin {
 	GObject parent;
 };
 
-struct _SstpPluginUiClass {
+struct _SstpEditorPluginClass {
 	GObjectClass parent;
 };
 
-GType sstp_plugin_ui_get_type (void);
+GType sstp_editor_plugin_get_type (void);
 
 
-#define SSTP_TYPE_PLUGIN_UI_WIDGET            (sstp_plugin_ui_widget_get_type ())
-#define SSTP_PLUGIN_UI_WIDGET(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidget))
-#define SSTP_PLUGIN_UI_WIDGET_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidgetClass))
-#define SSTP_IS_PLUGIN_UI_WIDGET(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET))
-#define SSTP_IS_PLUGIN_UI_WIDGET_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SSTP_TYPE_PLUGIN_UI_WIDGET))
-#define SSTP_PLUGIN_UI_WIDGET_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidgetClass))
+#define SSTP_TYPE_EDITOR            (sstp_editor_get_type ())
+#define SSTP_EDITOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SSTP_TYPE_EDITOR, SstpEditor))
+#define SSTP_EDITOR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), SSTP_TYPE_EDITOR, SstpEditorClass))
+#define SSTP_IS_EDITOR(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SSTP_TYPE_EDITOR))
+#define SSTP_IS_EDITOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SSTP_TYPE_EDITOR))
+#define SSTP_EDITOR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SSTP_TYPE_EDITOR, SstpEditorClass))
 
-typedef struct _SstpPluginUiWidget SstpPluginUiWidget;
-typedef struct _SstpPluginUiWidgetClass SstpPluginUiWidgetClass;
+typedef struct _SstpEditor SstpEditor;
+typedef struct _SstpEditorClass SstpEditorClass;
 
-struct _SstpPluginUiWidget {
+struct _SstpEditor {
 	GObject parent;
 };
 
-struct _SstpPluginUiWidgetClass {
+struct _SstpEditorClass {
 	GObjectClass parent;
 };
 
-GType sstp_plugin_ui_widget_get_type (void);
+GType sstp_editor_get_type (void);
 
 #endif	/* _NM_SSTP_H_ */
 
