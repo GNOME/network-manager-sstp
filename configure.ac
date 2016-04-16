@@ -1,6 +1,6 @@
 AC_PREREQ(2.59)
 
-AC_INIT(NetworkManager-sstp, 0.9.10, dcbw@redhat.com, NetworkManager-sstp)
+AC_INIT(NetworkManager-sstp, 0.9.10, eivnaes@yahoo.com, NetworkManager-sstp)
 AM_INIT_AUTOMAKE([1.9 foreign no-dist-gzip dist-bzip2 subdir-objects])
 AM_MAINTAINER_MODE
 
