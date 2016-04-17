@@ -971,23 +971,6 @@ config: domain &lt;domain&gt;</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="user_pass_type_combo">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="model">model2</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="renderer2"/>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="left_attach">2</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkEntry" id="user_password_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -1089,15 +1072,6 @@ config: user &lt;name&gt;</property>
                     <property name="top_attach">5</property>
                     <property name="width">2</property>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
                 <child>
                   <placeholder/>

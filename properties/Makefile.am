@@ -33,20 +33,24 @@ common_cflags =                                         \
 
 libnm_vpn_plugin_sstp_la_CFLAGS = \
         $(LIBNM_CFLAGS) \
+        $(LIBNMA_CFLAGS) \
 	$(common_cflags)
 
 libnm_sstp_properties_la_CFLAGS = \
 	-DNM_SSTP_OLD \
         $(LIBNM_GLIB_CFLAGS) \
+        $(LIBNM_GTK_CFLAGS) \
 	$(common_cflags)
 
 libnm_vpn_plugin_sstp_la_LIBADD = \
         $(GTK_LIBS) \
-        $(LIBNM_LIBS)
+        $(LIBNM_LIBS) \
+        $(LIBNMA_LIBS)
 
 libnm_sstp_properties_la_LIBADD = \
         $(GTK_LIBS) \
-        $(LIBNM_GLIB_LIBS)
+        $(LIBNM_GLIB_LIBS) \
+        $(LIBNM_GTK_LIBS)
 
 libnm_vpn_plugin_sstp_la_LDFLAGS = \
         -avoid-version

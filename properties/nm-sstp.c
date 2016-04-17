@@ -42,6 +42,7 @@
 #include <nm-setting-vpn.h>
 #include <nm-setting-connection.h>
 #include <nm-setting-ip4-config.h>
+#include <nm-ui-utils.h>
 
 #define nm_simple_connection_new nm_connection_new
 
@@ -54,6 +55,7 @@
 #else /* !NM_SSTP_OLD */
 
 #include <NetworkManager.h>
+#include <nma-ui-utils.h>
 
 #define SSTP_EDITOR_PLUGIN_ERROR                   NM_CONNECTION_ERROR
 #define SSTP_EDITOR_PLUGIN_ERROR_FAILED            NM_CONNECTION_ERROR_FAILED
@@ -71,10 +73,6 @@
 #define SSTP_PLUGIN_NAME    _("Secure Socket Tunneling Protocol (SSTP)")
 #define SSTP_PLUGIN_DESC    _("Compatible with Microsoft and other SSTP VPN servers.")
 #define SSTP_PLUGIN_SERVICE NM_DBUS_SERVICE_SSTP
-
-#define PW_TYPE_SAVE   0
-#define PW_TYPE_ASK    1
-#define PW_TYPE_UNUSED 2
 
 typedef void (*ChangedCallback) (GtkWidget *widget, gpointer user_data);
 
@@ -293,13 +291,8 @@ setup_password_widget (SstpEditor *self,
                        gboolean new_connection)
 {
 	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
-	NMSettingSecretFlags secret_flags = NM_SETTING_SECRET_FLAG_NONE;
 	GtkWidget *widget;
 	const char *value;
-
-	/* Default to agent-owned for new connections */
-	if (new_connection)
-		secret_flags = NM_SETTING_SECRET_FLAG_AGENT_OWNED;
 
 	widget = (GtkWidget *) gtk_builder_get_object (priv->builder, entry_name);
 	g_assert (widget);
@@ -308,10 +301,7 @@ setup_password_widget (SstpEditor *self,
 	if (s_vpn) {
 		value = nm_setting_vpn_get_secret (s_vpn, secret_name);
 		gtk_entry_set_text (GTK_ENTRY (widget), value ? value : "");
-		nm_setting_get_secret_flags (NM_SETTING (s_vpn), secret_name, &secret_flags, NULL);
 	}
-	secret_flags &= ~(NM_SETTING_SECRET_FLAG_NOT_SAVED | NM_SETTING_SECRET_FLAG_NOT_REQUIRED);
-	g_object_set_data (G_OBJECT (widget), "flags", GUINT_TO_POINTER (secret_flags));
 
 	g_signal_connect (widget, "changed", G_CALLBACK (stuff_changed_cb), self);
 }
@@ -331,87 +321,47 @@ show_toggled_cb (GtkCheckButton *button, SstpEditor *self)
 }
 
 static void
-pw_type_combo_changed_cb (GtkWidget *combo, gpointer user_data)
+password_storage_changed_cb (GObject *entry,
+                             GParamSpec *pspec,
+                             gpointer user_data)
 {
 	SstpEditor *self = SSTP_EDITOR (user_data);
-	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
-	GtkWidget *entry;
 
-	entry = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_password_entry"));
-	g_assert (entry);
-
-	/* If the user chose "Not required", desensitize and clear the correct
-	 * password entry.
-	 */
-	switch (gtk_combo_box_get_active (GTK_COMBO_BOX (combo))) {
-	case PW_TYPE_ASK:
-	case PW_TYPE_UNUSED:
-		gtk_entry_set_text (GTK_ENTRY (entry), "");
-		gtk_widget_set_sensitive (entry, FALSE);
-		break;
-	default:
-		gtk_widget_set_sensitive (entry, TRUE);
-		break;
-	}
-
-	stuff_changed_cb (combo, self);
+	stuff_changed_cb (NULL, self);
 }
 
 static void
-init_one_pw_combo (SstpEditor *self,
-                   NMSettingVpn *s_vpn,
-                   const char *combo_name,
-                   const char *secret_key,
-                   const char *entry_name)
+init_password_icon (SstpEditor *self,
+                    NMSettingVpn *s_vpn,
+                    const char *secret_key,
+		    const char *entry_name)
 {
 	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (self);
-	int active = -1;
-	GtkWidget *widget;
-	GtkListStore *store;
-	GtkTreeIter iter;
+	GtkWidget *entry;
 	const char *value = NULL;
-	guint32 default_idx = 1;
 	NMSettingSecretFlags pw_flags = NM_SETTING_SECRET_FLAG_NONE;
 
 	/* If there's already a password and the password type can't be found in
 	 * the VPN settings, default to saving it.  Otherwise, always ask for it.
 	 */
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, entry_name));
-	g_assert (widget);
-	value = gtk_entry_get_text (GTK_ENTRY (widget));
-	if (value && strlen (value))
-		default_idx = 0;
+	entry = GTK_WIDGET (gtk_builder_get_object (priv->builder, entry_name));
+	g_assert (entry);
 
-	store = gtk_list_store_new (1, G_TYPE_STRING);
+	nma_utils_setup_password_storage (entry, 0, (NMSetting *) s_vpn, secret_key,
+	                                  TRUE, FALSE);
+
+	/* If there's no password and no flags in the setting,
+	 * initialize flags as "always-ask".
+	 */
 	if (s_vpn)
 		nm_setting_get_secret_flags (NM_SETTING (s_vpn), secret_key, &pw_flags, NULL);
+	value = gtk_entry_get_text (GTK_ENTRY (entry));
+	if ((!value || !*value) && (pw_flags == NM_SETTING_SECRET_FLAG_NONE))
+		nma_utils_update_password_storage (entry, NM_SETTING_SECRET_FLAG_NOT_SAVED,
+						   (NMSetting *) s_vpn, secret_key);
 
-	gtk_list_store_append (store, &iter);
-	gtk_list_store_set (store, &iter, 0, _("Saved"), -1);
-	if (   (active < 0)
-	    && !(pw_flags & NM_SETTING_SECRET_FLAG_NOT_SAVED)
-	    && !(pw_flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED)) {
-		active = PW_TYPE_SAVE;
-	}
-
-	gtk_list_store_append (store, &iter);
-	gtk_list_store_set (store, &iter, 0, _("Always Ask"), -1);
-	if ((active < 0) && (pw_flags & NM_SETTING_SECRET_FLAG_NOT_SAVED))
-		active = PW_TYPE_ASK;
-
-	gtk_list_store_append (store, &iter);
-	gtk_list_store_set (store, &iter, 0, _("Not Required"), -1);
-	if ((active < 0) && (pw_flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED))
-		active = PW_TYPE_UNUSED;
-
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, combo_name));
-	g_assert (widget);
-	gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
-	g_object_unref (store);
-	gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active < 0 ? default_idx : active);
-
-	pw_type_combo_changed_cb (widget, self);
-	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (pw_type_combo_changed_cb), self);
+	g_signal_connect (entry, "notify::secondary-icon-name",
+	                  G_CALLBACK (password_storage_changed_cb), self);
 }
 
 static gboolean
@@ -506,11 +456,10 @@ init_editor_plugin (SstpEditor *self, NMConnection *connection, GError **error)
 	                       NM_SSTP_KEY_PASSWORD,
 	                       priv->new_connection);
 
-	init_one_pw_combo (self,
-	                   s_vpn,
-	                   "user_pass_type_combo",
-	                   NM_SSTP_KEY_PASSWORD,
-	                   "user_password_entry");
+	init_password_icon (self,
+	                    s_vpn,
+	                    NM_SSTP_KEY_PASSWORD,
+	                    "user_password_entry");
 
 	return TRUE;
 }
@@ -544,32 +493,25 @@ static void
 save_password_and_flags (NMSettingVpn *s_vpn,
                          GtkBuilder *builder,
                          const char *entry_name,
-                         const char *combo_name,
                          const char *secret_key)
 {
-	NMSettingSecretFlags flags = NM_SETTING_SECRET_FLAG_NONE;
+	NMSettingSecretFlags flags;
 	const char *password;
 	GtkWidget *entry;
-	GtkWidget *combo;
 
-	/* Grab original password flags */
+	/* Get secret flags */
 	entry = GTK_WIDGET (gtk_builder_get_object (builder, entry_name));
-	flags = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (entry), "flags"));
+	flags = nma_utils_menu_to_secret_flags (entry);
 
-	/* And set new ones based on the type combo */
-	combo = GTK_WIDGET (gtk_builder_get_object (builder, combo_name));
-	switch (gtk_combo_box_get_active (GTK_COMBO_BOX (combo))) {
-	case PW_TYPE_SAVE:
+	/* Save password and convert flags to legacy data items */
+	switch (flags) {
+	case NM_SETTING_SECRET_FLAG_NONE:
+	case NM_SETTING_SECRET_FLAG_AGENT_OWNED:
 		password = gtk_entry_get_text (GTK_ENTRY (entry));
 		if (password && strlen (password))
 			nm_setting_vpn_add_secret (s_vpn, secret_key, password);
 		break;
-	case PW_TYPE_UNUSED:
-		flags |= NM_SETTING_SECRET_FLAG_NOT_REQUIRED;
-		break;
-	case PW_TYPE_ASK:
 	default:
-		flags |= NM_SETTING_SECRET_FLAG_NOT_SAVED;
 		break;
 	}
 
@@ -612,7 +554,6 @@ update_connection (NMVpnEditor *iface,
 	save_password_and_flags (s_vpn,
 	                         priv->builder,
 	                         "user_password_entry",
-	                         "user_pass_type_combo",
 	                         NM_SSTP_KEY_PASSWORD);
 
 	/* Domain */
@@ -734,6 +675,12 @@ dispose (GObject *object)
 {
 	SstpEditor *plugin = SSTP_EDITOR (object);
 	SstpEditorPrivate *priv = SSTP_EDITOR_GET_PRIVATE (plugin);
+	GtkWidget *widget;
+
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_password_entry"));
+	g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
+	                                      (GCallback) password_storage_changed_cb,
+	                                      plugin);
 
 	if (priv->group)
 		g_object_unref (priv->group);
