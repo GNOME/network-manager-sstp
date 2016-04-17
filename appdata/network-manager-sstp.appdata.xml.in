@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright Lubomir Rintel 2016 -->
+<component type="addon">
+  <id>network-manager-sstp</id>
+  <project_license>GPL-2.0+</project_license>
+  <metadata_license>CC0-1.0</metadata_license>
+  <extends>nm-connection-editor.desktop</extends>
+  <extends>gnome-control-center.desktop</extends>
+  <_name>SSTP VPN client</_name>
+  <_summary>Client for SSTP virtual private networks</_summary>
+
+  <keywords>
+    <keyword>network</keyword>
+    <keyword>manager</keyword>
+    <keyword>NetworkManager</keyword>
+    <keyword>connection</keyword>
+    <keyword>VPN</keyword>
+    <keyword>SSTP</keyword>
+  </keywords>
+
+  <description>
+    <_p>Support for configuring SSTP virtual private network connections.</_p>
+    <_p>Compatible with servers following the SSTP specification including the Microsoft servers.</_p>
+  </description>
+
+  <screenshots>
+    <screenshot type="default">
+      <image width="800" height="568">https://raw.githubusercontent.com/enaess/network-manager-sstp/master/appdata/sstp.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The advanced options dialog</caption>
+      <image width="800" height="665">https://raw.githubusercontent.com/enaess/network-manager-sstp/master/appdata/sstp-advanced.png</image>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">http://sstp-client.sourceforge.net/#Network_Manager_Plugin</url>
+  <url type="bugtracker">https://github.com/enaess/network-manager-sstp/issues</url>
+  <update_contact>eivnaes@yahoo.com</update_contact>
+  <translation type="gettext">NetworkManager-sstp</translation>
+  <_developer_name>Eivind Naess</_developer_name>
+</component>
