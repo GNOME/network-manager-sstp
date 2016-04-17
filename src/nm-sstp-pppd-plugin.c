@@ -610,7 +610,7 @@ plugin_init (void)
 
 	proxy = nmdbus_sstp_ppp_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
 	                                                 G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-	                                                 NM_DBUS_SERVICE_SSTP_PPP,
+	                                                 NM_DBUS_SERVICE_SSTP,
 	                                                 NM_DBUS_PATH_SSTP_PPP,
 	                                                 NULL, &err);
 	if (!proxy) {

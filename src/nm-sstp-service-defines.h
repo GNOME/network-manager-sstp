@@ -25,14 +25,15 @@
 
 #define NM_SSTP_MAX_BUFLEN             (255)
 
-#define NM_DBUS_SERVICE_SSTP_PPP    "org.freedesktop.NetworkManager.sstp-ppp"
-#define NM_DBUS_PATH_SSTP_PPP       "/org/freedesktop/NetworkManager/sstp/ppp"
-#define NM_DBUS_INTERFACE_SSTP_PPP  "org.freedesktop.NetworkManager.sstp.ppp"
+#define NM_DBUS_SERVICE_SSTP    "org.freedesktop.NetworkManager.sstp"
 
 /* For the NM <-> VPN plugin service */
-#define NM_DBUS_SERVICE_SSTP    "org.freedesktop.NetworkManager.sstp"
 #define NM_DBUS_INTERFACE_SSTP  "org.freedesktop.NetworkManager.sstp"
 #define NM_DBUS_PATH_SSTP       "/org/freedesktop/NetworkManager/sstp"
+
+/* For the VPN plugin service <-> PPP plugin */
+#define NM_DBUS_INTERFACE_SSTP_PPP  "org.freedesktop.NetworkManager.sstp.ppp"
+#define NM_DBUS_PATH_SSTP_PPP       "/org/freedesktop/NetworkManager/sstp/ppp"
 
 #define NM_SSTP_KEY_GATEWAY           "gateway"
 #define NM_SSTP_KEY_UUID              "uuid"
