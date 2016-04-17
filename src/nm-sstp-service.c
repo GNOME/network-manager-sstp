@@ -964,7 +964,7 @@ nm_sstp_plugin_class_init (NMSstpPluginClass *sstp_class)
 }
 
 NMSstpPlugin *
-nm_sstp_plugin_new (void)
+nm_sstp_plugin_new (const char *bus_name)
 {
 	NMSstpPlugin *plugin;
 	NMSstpPluginPrivate *priv;
@@ -972,8 +972,8 @@ nm_sstp_plugin_new (void)
 	GError *error = NULL;
 
 	plugin = (NMSstpPlugin *) g_initable_new (NM_TYPE_SSTP_PLUGIN, NULL, &error,
-	                                          NM_VPN_SERVICE_PLUGIN_DBUS_SERVICE_NAME,
-	                                          NM_DBUS_SERVICE_SSTP,
+	                                          NM_VPN_SERVICE_PLUGIN_DBUS_SERVICE_NAME, bus_name,
+	                                          NM_VPN_SERVICE_PLUGIN_DBUS_WATCH_PEER, !debug,
 	                                          NULL);
 	if (plugin) {
 		g_signal_connect (G_OBJECT (plugin), "state-changed", G_CALLBACK (state_changed_cb), NULL);
@@ -1021,10 +1021,12 @@ main (int argc, char *argv[])
 	GMainLoop *main_loop;
 	gboolean persist = FALSE;
 	GOptionContext *opt_ctx = NULL;
+	gchar *bus_name = NM_DBUS_SERVICE_SSTP;
 
 	GOptionEntry options[] = {
 		{ "persist", 0, 0, G_OPTION_ARG_NONE, &persist, N_("Don't quit when VPN connection terminates"), NULL },
 		{ "debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable verbose debug logging (may expose passwords)"), NULL },
+		{ "bus-name", 0, 0, G_OPTION_ARG_STRING, &bus_name, N_("D-Bus name to use for this instance"), NULL },
 		{NULL}
 	};
 
@@ -1058,7 +1060,10 @@ main (int argc, char *argv[])
 	if (debug)
 		g_message ("nm-sstp-service (version " DIST_VERSION ") starting...");
 
-	plugin = nm_sstp_plugin_new ();
+	if (bus_name)
+		setenv ("NM_DBUS_SERVICE_SSTP", bus_name, 0);
+
+	plugin = nm_sstp_plugin_new (bus_name);
 	if (!plugin)
 		exit (EXIT_FAILURE);
 

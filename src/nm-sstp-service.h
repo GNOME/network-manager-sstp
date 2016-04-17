@@ -51,6 +51,6 @@ typedef struct {
 
 GType nm_sstp_plugin_get_type (void);
 
-NMSstpPlugin *nm_sstp_plugin_new (void);
+NMSstpPlugin *nm_sstp_plugin_new (const gchar *bus_name);
 
 #endif /* NM_SSTP_PLUGIN_H */

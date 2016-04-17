@@ -2,6 +2,7 @@
 name=sstp
 service=org.freedesktop.NetworkManager.sstp
 program=@LIBEXECDIR@/nm-sstp-service
+supports-multiple-connections=true
 
 [libnm]
 plugin=@PLUGINDIR@/libnm-vpn-plugin-sstp.so

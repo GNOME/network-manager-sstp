@@ -21,6 +21,7 @@
  */
 
 #include <string.h>
+#include <stdlib.h>
 #include <pppd/pppd.h>
 #include <pppd/fsm.h>
 #include <pppd/ccp.h>
@@ -602,15 +603,20 @@ int
 plugin_init (void)
 {
 	GError *err = NULL;
+	const char *bus_name;
 
 #if !GLIB_CHECK_VERSION (2, 35, 0)
 	g_type_init ();
 #endif
 	g_message ("nm-sstp-ppp-plugin: (%s): initializing", __func__);
 
+	bus_name = getenv ("NM_DBUS_SERVICE_SSTP");
+	if (!bus_name)
+		bus_name = NM_DBUS_SERVICE_SSTP;
+
 	proxy = nmdbus_sstp_ppp_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
 	                                                 G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-	                                                 NM_DBUS_SERVICE_SSTP,
+	                                                 bus_name,
 	                                                 NM_DBUS_PATH_SSTP_PPP,
 	                                                 NULL, &err);
 	if (!proxy) {
