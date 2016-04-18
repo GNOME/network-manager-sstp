@@ -34,13 +34,20 @@
 
 #include <glib/gi18n-lib.h>
 
+#ifdef NM_SSTP_OLD
+
 #include <nm-setting-vpn.h>
 #include <nm-setting-connection.h>
 #include <nm-setting-ip4-config.h>
 
+#else /* !NM_SSTP_OLD */
+
+#include <NetworkManager.h>
+
+#endif
 #include "import-export.h"
 #include "nm-sstp.h"
-#include "../src/nm-sstp-service.h"
+#include "../src/nm-sstp-service-defines.h"
 
 NMConnection *
 do_import (const char *path, char **lines, GError **error)
