@@ -56,14 +56,15 @@ nm_sstp_pppd_plugin_la_SOURCES = \
 nm_sstp_pppd_plugin_la_CPPFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(LIBNM_CFLAGS) \
-    $(SSTPC_CFLAGS)
+	$(SSTPC_CFLAGS)
 
 nm_sstp_pppd_plugin_la_LDFLAGS = -module -avoid-version
 
 nm_sstp_pppd_plugin_la_LIBADD = \
 	$(GLIB_LIBS) \
 	$(LIBNM_LIBS) \
-    $(SSTPC_LIBS)
+	$(SSTPC_LIBS) \
+	libnm-sstp-pppd-service-dbus.la
 
 BUILT_SOURCES = \
 	nm-sstp-pppd-service-dbus.h \
