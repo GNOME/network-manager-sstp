@@ -2,14 +2,16 @@
 
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
+PPPD_PLUGIN_DIR := $(shell dh_ppp --plugin-dir)
+
 %:
-	dh $@ --with autoreconf
+	dh $@ --with autoreconf,ppp
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		--libexecdir=/usr/lib/NetworkManager \
 		--disable-static \
-		--with-pppd-plugin-dir=/usr/lib/pppd/2.4.6
+		--with-pppd-plugin-dir=$(PPPD_PLUGIN_DIR)
 
 override_dh_makeshlibs:
 	dh_makeshlibs -X/usr/lib/$(DEB_HOST_MULTIARCH)/NetworkManager/ -X/usr/lib/pppd/
