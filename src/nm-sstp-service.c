@@ -819,6 +819,8 @@ real_connect (NMVpnServicePlugin   *plugin,
 	if (!nm_sstp_secrets_validate (s_vpn, error))
 		return FALSE;
 
+	if (priv->connection)
+		g_object_unref (priv->connection);
 	priv->connection = g_object_ref (connection);
 
 	if (getenv ("NM_PPP_DUMP_CONNECTION") || debug)
