@@ -520,15 +520,10 @@ construct_pppd_args (NMSstpPlugin *plugin,
 	value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_USER);
 	if (!value || !strlen (value))
 		value = nm_setting_vpn_get_user_name (s_vpn);
-	if (!value || !strlen (value)) {
-		g_set_error_literal (error,
-		                     NM_VPN_PLUGIN_ERROR,
-		                     NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
-		                     _("Missing VPN username."));
-		return FALSE;
+	if (value && strlen (value)) {
+		g_ptr_array_add (args, (gpointer) g_strdup ("user"));
+		g_ptr_array_add (args, (gpointer) g_strdup (value));
 	}
-	g_ptr_array_add (args, (gpointer) g_strdup ("user"));
-	g_ptr_array_add (args, (gpointer) g_strdup (value));
 
 	/* Allow EAP (currently not supported */
 	value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_REFUSE_EAP);
@@ -819,6 +814,8 @@ real_connect (NMVpnServicePlugin   *plugin,
 	if (!nm_sstp_secrets_validate (s_vpn, error))
 		return FALSE;
 
+	if (priv->connection)
+		g_object_unref (priv->connection);
 	priv->connection = g_object_ref (connection);
 
 	if (getenv ("NM_PPP_DUMP_CONNECTION") || debug)

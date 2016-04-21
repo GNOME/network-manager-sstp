@@ -13,8 +13,18 @@ nmvpnservicedir = $(NM_VPN_SERVICE_DIR)
 nmvpnservice_DATA = nm-sstp-service.name
 
 if WITH_LIBNM_GLIB
-nmvpnoldservicedir = $(sysconfdir)/NetworkManager/VPN
-nmvpnoldservice_DATA = nm-sstp-service.name
+# Install a file with full path to plugins for an old gnome-shell
+# https://bugzilla.gnome.org/show_bug.cgi?id=693590
+install-data-hook:
+	mkdir -p $(DESTDIR)$(sysconfdir)/NetworkManager/VPN
+	sed -e "1s|^|# This file is obsoleted by a file in $(NM_VPN_SERVICE_DIR)\n\n|" \
+	    -e 's|[@]LIBEXECDIR[@]|$(libexecdir)|g' \
+	    -e 's|[@]PLUGINDIR[@]|$(libdir)/NetworkManager|g' \
+	    <$(srcdir)/nm-sstp-service.name.in \
+	    >$(DESTDIR)$(sysconfdir)/NetworkManager/VPN/nm-sstp-service.name
+
+uninstall-hook:
+	 rm -f $(DESTDIR)$(sysconfdir)/NetworkManager/VPN/nm-sstp-service.name
 endif
 
 appdatadir = $(datadir)/appdata
@@ -24,7 +34,7 @@ appdata_in_files = appdata/network-manager-sstp.appdata.xml.in
 
 nm-sstp-service.name: $(srcdir)/nm-sstp-service.name.in
 	sed -e 's|[@]LIBEXECDIR[@]|$(libexecdir)|g' \
-	    -e 's|[@]PLUGINDIR[@]|$(libdir)/NetworkManager|g' \
+	    -e 's|[@]PLUGINDIR[@]/|@NM_PLUGIN_DIR@|g' \
 	    $< >$@
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-more-warnings=yes
