@@ -8,16 +8,18 @@ Build-Depends:
 	debhelper (>= 9),
 	dh-autoreconf, 
 	intltool,
-	network-manager-dev (>= 0.9.10),
-	libnm-util-dev (>= 0.9.10),
-	libnm-glib-dev (>= 0.9.10),
-	libnm-glib-vpn-dev (>= 0.9.10),
-	libnm-gtk-dev (>= 0.9.10),
-	ppp-dev (>= 2.4.6),
+	network-manager-dev (>= 1.1.0),
+	libnm-util-dev (>= 1.1.0),
+	libnm-glib-dev (>= 1.1.0),
+	libnm-glib-vpn-dev (>= 1.1.0),
+	libnm-gtk-dev (>= 1.1.0),
+	libnm-dev (>= 1.1.0),
+	libnma-dev (>= 1.1.0),
+	ppp-dev (>= 2.4.7-1+1),
 	libdbus-glib-1-dev (>= 0.74),
 	libsecret-1-dev,
 	libgtk-3-dev (>= 3.4),
-	libglib2.0-dev (>= 2.32),
+	libglib2.0-dev (>= 2.32)
 	libsstp-client-dev,
 	quilt
 Standards-Version: 3.9.6
@@ -31,7 +33,7 @@ Depends:
 	${shlibs:Depends}, 
 	${misc:Depends}, 
 	libsstp-client0 (>= 1.0.9), 
-	ppp (>= 2.4.6)
+	ppp (>= 2.4.7-1+1)
 Recommends: network-manager-sstp-gnome | plasma-nm
 Description: network management framework (SSTP plugin core)
  NetworkManager is a system network service that manages your network devices
