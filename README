@@ -27,7 +27,7 @@ You can import the gpg key using the following command:
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 61FF9694161CE595 
 
 Put the following two lines into the following file: /etc/apt/sources.list.d/sstp-client.list 
-	deb http://ppa.launchpad.net/eivnaes/network-manager-sstp/ubuntu vivid main 
-	deb-src http://ppa.launchpad.net/eivnaes/network-manager-sstp/ubuntu vivid main 
+	deb http://ppa.launchpad.net/eivnaes/network-manager-sstp/ubuntu xenial main
+	deb-src http://ppa.launchpad.net/eivnaes/network-manager-sstp/ubuntu xenial main
 
 Then use your apt-get command to get both network-manager-sstp and sstp-client. 
