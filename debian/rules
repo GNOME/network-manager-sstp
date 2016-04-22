@@ -8,6 +8,7 @@ PPPD_PLUGIN_DIR := $(shell dh_ppp --plugin-dir)
 	dh $@ --with autoreconf,ppp
 
 override_dh_auto_configure:
+	intltoolize; \
 	dh_auto_configure -- \
 		--libexecdir=/usr/lib/NetworkManager \
 		--disable-static \
