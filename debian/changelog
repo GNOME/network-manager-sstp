@@ -1,3 +1,8 @@
+network-manager-sstp (1.2.0-0ubuntu1) xenial; urgency=low
+
+  * Upgraded network-manager-sstp to work with libnm version 1.2
+
+ -- Eivind Naess <eivnaes@yahoo.com>  Sat, 23 Apr 2016 10:00:00 -0800
 network-manager-sstp (0.9.10.0-0ubuntu2) vivid; urgency=low
 
   * Gateway validation fixed based on feedback from George Joseph
