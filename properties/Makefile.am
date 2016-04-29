@@ -5,7 +5,7 @@ if WITH_LIBNM_GLIB
 plugin_LTLIBRARIES += libnm-sstp-properties.la
 endif
 
-INCLUDES = -I${top_srcdir}
+AM_CPPFLAGS = -I${top_srcdir}
 
 libnm_vpn_plugin_sstp_la_SOURCES = \
 	nm-sstp.c \
@@ -21,31 +21,29 @@ libnm_sstp_properties_la_SOURCES = \
 uidir = $(datadir)/gnome-vpn-properties/sstp
 ui_DATA = nm-sstp-dialog.ui
 
-common_cflags =                                         \
+common_CFLAGS =                                         \
         $(GLIB_CFLAGS)                                  \
         $(GTK_CFLAGS)                                   \
 	-I$(top_srcdir)/src				\
         -DICONDIR=\""$(datadir)/pixmaps"\"              \
         -DUIDIR=\""$(uidir)"\"                          \
-        -DLOCALEDIR=\""$(datadir)/locale"\"             \
-        -DG_DISABLE_DEPRECATED                          \
-        -DVERSION=\"$(VERSION)\"
+        -DLOCALEDIR=\""$(datadir)/locale"\"
 
 libnm_vpn_plugin_sstp_la_CFLAGS = \
-        $(LIBNM_CFLAGS) \
+	$(common_CFLAGS) \
         $(LIBNMA_CFLAGS) \
-	$(common_cflags)
+        $(LIBNM_CFLAGS)
 
 libnm_sstp_properties_la_CFLAGS = \
 	-DNM_SSTP_OLD \
+	$(common_CFLAGS) \
         $(LIBNM_GLIB_CFLAGS) \
-        $(LIBNM_GTK_CFLAGS) \
-	$(common_cflags)
+        $(LIBNM_GTK_CFLAGS)
 
 libnm_vpn_plugin_sstp_la_LIBADD = \
         $(GTK_LIBS) \
-        $(LIBNM_LIBS) \
-        $(LIBNMA_LIBS)
+        $(LIBNMA_LIBS) \
+        $(LIBNM_LIBS)
 
 libnm_sstp_properties_la_LIBADD = \
         $(GTK_LIBS) \

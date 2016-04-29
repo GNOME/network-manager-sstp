@@ -1,5 +1,3 @@
-INCLUDES = -I${top_srcdir}
-
 libexec_PROGRAMS = nm-sstp-auth-dialog
 
 nm_sstp_auth_dialog_CPPFLAGS =			\
@@ -8,11 +6,10 @@ nm_sstp_auth_dialog_CPPFLAGS =			\
 	$(GTK_CFLAGS)				\
 	$(LIBNMA_CFLAGS)			\
 	$(LIBSECRET_CFLAGS)			\
+	-I${top_srcdir}				\
 	-DICONDIR=\""$(datadir)/pixmaps"\"	\
 	-DUIDIR=\""$(uidir)"\"			\
-	-DBINDIR=\""$(bindir)"\"		\
-	-DG_DISABLE_DEPRECATED			\
-	-DVERSION=\"$(VERSION)\"
+	-DBINDIR=\""$(bindir)"\"
 
 nm_sstp_auth_dialog_SOURCES = \
 	main.c

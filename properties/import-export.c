@@ -34,17 +34,8 @@
 
 #include <glib/gi18n-lib.h>
 
-#ifdef NM_SSTP_OLD
-
-#include <nm-setting-vpn.h>
-#include <nm-setting-connection.h>
-#include <nm-setting-ip4-config.h>
-
-#else /* !NM_SSTP_OLD */
-
 #include <NetworkManager.h>
 
-#endif
 #include "import-export.h"
 #include "nm-sstp.h"
 #include "../src/nm-sstp-service-defines.h"
@@ -52,13 +43,21 @@
 NMConnection *
 do_import (const char *path, char **lines, GError **error)
 {
+	g_set_error_literal (error,
+	                     SSTP_PLUGIN_UI_ERROR,
+	                     SSTP_PLUGIN_UI_ERROR_UNKNOWN,
+	                     "SSTP import is not implemented");
 	return NULL;
 }
 
 gboolean
 do_export (const char *path, NMConnection *connection, GError **error)
 {
-	return FALSE;
+	g_set_error_literal (error,
+	                     SSTP_PLUGIN_UI_ERROR,
+	                     SSTP_PLUGIN_UI_ERROR_UNKNOWN,
+	                     "SSTP export is not implemented");
+ 	return FALSE;
 }
 
 

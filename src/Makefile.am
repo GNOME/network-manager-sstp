@@ -1,13 +1,10 @@
-INCLUDES = -I${top_srcdir}
-
 AM_CPPFLAGS =							\
 	$(GLIB_CFLAGS)						\
 	$(LIBNM_CFLAGS)						\
-	-DG_DISABLE_DEPRECATED					\
+	-I${top_srcdir}						\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPREFIX=\""$(prefix)"\"				\
 	-DSYSCONFDIR=\""$(sysconfdir)"\"			\
-	-DNM_VERSION="\"$(VERSION)\""				\
 	-DLIBDIR=\""$(libdir)"\"				\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	-DLOCALSTATEDIR=\""$(localstatedir)"\"		 	\
