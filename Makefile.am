@@ -29,7 +29,7 @@ endif
 
 appdatadir = $(datadir)/appdata
 appdata_DATA = $(appdata_in_files:.xml.in=.xml)
-appdata_in_files = appdata/network-manager-sstp.appdata.xml.in
+appdata_in_files = appdata/network-manager-sstp.metainfo.xml.in
 @INTLTOOL_XML_RULE@
 
 nm-sstp-service.name: $(srcdir)/nm-sstp-service.name.in
