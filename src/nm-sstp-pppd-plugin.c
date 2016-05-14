@@ -54,7 +54,7 @@ int plugin_init (void);
 
 char pppd_version[] = VERSION;
 
-static NMDBusSstpPpp *proxy = NULL;
+static GDBusProxy *proxy = NULL;
 
 static void
 nm_phasechange (void *data, int arg)
@@ -62,8 +62,7 @@ nm_phasechange (void *data, int arg)
 	NMPPPStatus ppp_status = NM_PPP_STATUS_UNKNOWN;
 	char *ppp_phase;
 
-	g_return_if_fail (NMDBUS_IS_SSTP_PPP_PROXY (proxy));
-
+	g_return_if_fail (G_IS_DBUS_PROXY (proxy));
 	switch (arg) {
 	case PHASE_DEAD:
 		ppp_status = NM_PPP_STATUS_DEAD;
@@ -129,10 +128,12 @@ nm_phasechange (void *data, int arg)
 	           ppp_phase);
 
 	if (ppp_status != NM_PPP_STATUS_UNKNOWN) {
-		nmdbus_sstp_ppp_call_set_state (proxy,
-	                                        ppp_status,
-	                                        NULL,
-	                                        NULL, NULL);
+		g_dbus_proxy_call (proxy,
+		                   "SetState",
+		                   g_variant_new ("(u)", ppp_status),
+		                   G_DBUS_CALL_FLAGS_NONE, -1,
+	                           NULL,
+	                           NULL, NULL);
 	}
 }
 
@@ -375,7 +376,7 @@ nm_ip_up (void *data, int arg)
 	GVariantBuilder builder;
 	struct sockaddr_in addr;
 
-	g_return_if_fail (NMDBUS_IS_SSTP_PPP_PROXY (proxy));
+	g_return_if_fail (G_IS_DBUS_PROXY (proxy));
 
 	g_message ("nm-sstp-ppp-plugin: (%s): ip-up event", __func__);
 
@@ -385,6 +386,14 @@ nm_ip_up (void *data, int arg)
 	}
 
 	g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
+
+	g_variant_builder_add (&builder, "{sv}",
+	                       NM_VPN_PLUGIN_IP4_CONFIG_TUNDEV,
+	                       g_variant_new_string (ifname));
+
+	g_variant_builder_add (&builder, "{sv}",
+	                       NM_VPN_PLUGIN_IP4_CONFIG_ADDRESS,
+	                       g_variant_new_uint32 (opts.ouraddr));
 
 	/* Request the address of the server sstpc connected to */
 	if (0 == nm_sstp_getaddr(&addr))
@@ -396,10 +405,6 @@ nm_ip_up (void *data, int arg)
 		                       NM_VPN_PLUGIN_IP4_CONFIG_EXT_GATEWAY,
 		                       g_variant_new_uint32 (addr.sin_addr.s_addr));
 	}
-
-	g_variant_builder_add (&builder, "{sv}",
-	                       NM_VPN_PLUGIN_IP4_CONFIG_TUNDEV,
-	                       g_variant_new_string (ifname));
 
 	/* Prefer the peer options remote address first, _unless_ pppd made the
 	 * address up, at which point prefer the local options remote address,
@@ -417,12 +422,8 @@ nm_ip_up (void *data, int arg)
 		/* As a last resort, use the made-up address */
 		g_variant_builder_add (&builder, "{sv}",
 		                       NM_VPN_PLUGIN_IP4_CONFIG_PTP,
-		                       g_variant_new_uint32 (peer_opts.hisaddr));
+		                       g_variant_new_uint32 (peer_opts.ouraddr));
 	}
-
-	g_variant_builder_add (&builder, "{sv}",
-	                       NM_VPN_PLUGIN_IP4_CONFIG_ADDRESS,
-	                       g_variant_new_uint32 (opts.ouraddr));
 
 	g_variant_builder_add (&builder, "{sv}",
 	                       NM_VPN_PLUGIN_IP4_CONFIG_PREFIX,
@@ -450,20 +451,22 @@ nm_ip_up (void *data, int arg)
 
 	g_message ("nm-sstp-ppp-plugin: (%s): sending Ip4Config to NetworkManager-sstp...", __func__);
 
-	nmdbus_sstp_ppp_call_set_ip4_config (proxy,
-	                                     g_variant_builder_end (&builder),
-	                                     NULL,
-	                                     NULL, NULL);
+	g_dbus_proxy_call (proxy,
+	                   "SetIp4Config",
+	                   g_variant_new ("(a{sv})", &builder),
+	                   G_DBUS_CALL_FLAGS_NONE, -1,
+	                   NULL,
+	                   NULL, NULL);
 }
 
 static int
-get_chap_check(void)
+get_chap_check (void)
 {
 	return 1;
 }
 
 static int
-get_pap_check(void)
+get_pap_check (void)
 {
 	return 1;
 }
@@ -471,24 +474,29 @@ get_pap_check(void)
 static int
 get_credentials (char *username, char *password)
 {
-	char *my_username = NULL;
-	char *my_password = NULL;
+	const char *my_username = NULL;
+	const char *my_password = NULL;
 	size_t len;
+	GVariant *ret;
 	GError *err = NULL;
 
-	g_message ("nm-sstp-ppp-plugin: passwd-hook, need credentials...");
-	if (username && !password) {
+	if (!password) {
 		/* pppd is checking pap support; return 1 for supported */
+		g_return_val_if_fail (username, -1);
 		return 1;
 	}
 
-	g_return_val_if_fail (NMDBUS_IS_SSTP_PPP_PROXY (proxy), -1);
+	g_return_val_if_fail (username, -1);
+	g_return_val_if_fail (G_IS_DBUS_PROXY (proxy), -1);
 
 	g_message ("nm-sstp-ppp-plugin: (%s): passwd-hook, requesting credentials...", __func__);
 
-        nmdbus_sstp_ppp_call_need_secrets_sync (proxy, &my_username, &my_password, NULL, &err);
-
-	if (err) {
+	ret = g_dbus_proxy_call_sync (proxy,
+	                              "NeedSecrets",
+	                              NULL,
+	                              G_DBUS_CALL_FLAGS_NONE, -1,
+	                              NULL, &err);
+	if (!ret) {
 		g_warning ("nm-sstp-ppp-plugin: (%s): could not get secrets: (%d) %s",
 		           __func__,
 		           err ? err->code : -1,
@@ -498,6 +506,7 @@ get_credentials (char *username, char *password)
 	}
 
 	g_message ("nm-sstp-ppp-plugin: (%s): got credentials from NetworkManager-sstp", __func__);
+	g_variant_get (ret, "(&s&s)", &my_username, &my_password);
 
 	if (my_username) {
 		len = strlen (my_username) + 1;
@@ -505,8 +514,6 @@ get_credentials (char *username, char *password)
 
 		strncpy (username, my_username, len);
 		username[len - 1] = '\0';
-
-		g_free (my_username);
 	}
 
 	if (my_password) {
@@ -515,9 +522,9 @@ get_credentials (char *username, char *password)
 
 		strncpy (password, my_password, len);
 		password[len - 1] = '\0';
-
-		g_free (my_password);
 	}
+
+	g_variant_unref (ret);
 
 	return 1;
 }
@@ -591,7 +598,7 @@ nm_snoop_send(unsigned char *buf, int len)
 static void
 nm_exit_notify (void *data, int arg)
 {
-	g_return_if_fail (NMDBUS_IS_SSTP_PPP_PROXY (proxy));
+	g_return_if_fail (G_IS_DBUS_PROXY (proxy));
 
 	g_message ("nm-sstp-ppp-plugin: (%s): cleaning up", __func__);
 
@@ -602,28 +609,41 @@ nm_exit_notify (void *data, int arg)
 int
 plugin_init (void)
 {
+	GDBusConnection *bus;
 	GError *err = NULL;
 	const char *bus_name;
 
 #if !GLIB_CHECK_VERSION (2, 35, 0)
 	g_type_init ();
 #endif
-	g_message ("nm-sstp-ppp-plugin: (%s): initializing", __func__);
 
 	bus_name = getenv ("NM_DBUS_SERVICE_SSTP");
 	if (!bus_name)
 		bus_name = NM_DBUS_SERVICE_SSTP;
 
-	proxy = nmdbus_sstp_ppp_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-	                                                 G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-	                                                 bus_name,
-	                                                 NM_DBUS_PATH_SSTP_PPP,
-	                                                 NULL, &err);
-	if (!proxy) {
-	        g_warning ("nm-sstp-pppd-plugin: (%s): couldn't create D-Bus proxy: (%d) %s",
+	g_message ("nm-sstp-ppp-plugin: (%s): initializing", __func__);
+
+	bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &err);
+	if (!bus) {
+		g_warning ("nm-sstp-pppd-plugin: (%s): couldn't connect to system bus: (%d) %s",
 		           __func__,
 		           err ? err->code : -1,
 		           err && err->message ? err->message : "(unknown)");
+		g_error_free (err);
+		return -1;
+	}
+
+	proxy = g_dbus_proxy_new_sync (bus,
+				       G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+				       NULL,
+	                               bus_name,
+	                               NM_DBUS_PATH_SSTP_PPP,
+				       NM_DBUS_INTERFACE_SSTP_PPP,
+	                               NULL, &err);
+	g_object_unref (bus);
+	if (!proxy) {
+		g_warning ("nm-sstp-pppd-plugin: (%s): couldn't create D-Bus proxy: %s",
+		           __func__, err->message);
 		g_error_free (err);
 		return -1;
 	}
@@ -632,10 +652,10 @@ plugin_init (void)
 	chap_check_hook = get_chap_check;
 	pap_passwd_hook = get_credentials;
 	pap_check_hook = get_pap_check;
-    snoop_send_hook = nm_snoop_send;
+	snoop_send_hook = nm_snoop_send;
 
 	add_notifier (&phasechange, nm_phasechange, NULL);
-    add_notifier (&ip_up_notifier, nm_ip_up, NULL);
+	add_notifier (&ip_up_notifier, nm_ip_up, NULL);
 	add_notifier (&exitnotify, nm_exit_notify, proxy);
 
 	return 0;

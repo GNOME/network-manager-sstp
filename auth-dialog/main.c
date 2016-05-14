@@ -35,10 +35,9 @@
 #include <libsecret/secret.h>
 
 #include <NetworkManager.h>
-#include <nm-vpn-service-plugin.h>
 #include <nma-vpn-password-dialog.h>
 
-#include "src/nm-sstp-service-defines.h"
+#include "src/nm-sstp-service.h"
 
 #define KEYRING_UUID_TAG "connection-uuid"
 #define KEYRING_SN_TAG "setting-name"

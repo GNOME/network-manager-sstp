@@ -642,7 +642,7 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 	if (error)
 		g_return_val_if_fail (*error == NULL, NULL);
 
-	object = g_object_new (SSTP_TYPE_PLUGIN_UI_WIDGET, NULL);
+	object = NM_VPN_EDITOR (g_object_new (SSTP_TYPE_PLUGIN_UI_WIDGET, NULL));
 	if (!object) {
 		g_set_error (error, SSTP_PLUGIN_UI_ERROR, 0, "could not create sstp object");
 		return NULL;
