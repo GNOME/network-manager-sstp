@@ -4,28 +4,27 @@
 Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
-Version:   0.9.10
-Release:   6%{snapshot}%{?dist}
+Version:   1.2.0
+Release:   0%{snapshot}%{?dist}
 License:   GPLv2+
 URL:       https://github.com/enaess/network-manager-sstp/
 Source:    https://downloads.sourceforge.net/sstp-client/%{name}-%{version}%{snapshot}.tar.bz2
 
 BuildRequires: gtk3-devel
 BuildRequires: dbus-devel
-BuildRequires: NetworkManager-glib-devel >= 0.9.10
+BuildRequires: NetworkManager-glib-devel >= 1.2.0
 BuildRequires: sstp-client-devel
 BuildRequires: glib2-devel
 BuildRequires: ppp-devel >= 2.4.6
 BuildRequires: libtool intltool gettext
 BuildRequires: libsecret-devel
-BuildRequires: libnm-gtk-devel
+BuildRequires: libnma-devel >= 1.2.0
+BuildRequires: libnm-gtk-devel >= 1.2.0
 
 Requires: dbus
-Requires: NetworkManager >= 0.9.10
+Requires: NetworkManager >= 1.2.0
 Requires: sstp-client
-Requires: ppp >= 2.4.6
-Requires: shared-mime-info
-Requires: gnome-keyring
+Requires: ppp = %{ppp_version}
 
 %global _privatelibs libnm-sstp-properties[.]so.*
 %global __provides_exclude ^(%{_privatelibs})$
@@ -39,7 +38,7 @@ the SSTP server with NetworkManager.
 Summary: NetworkManager VPN plugin for SSTP - GNOME files
 Group:   System Environment/Base
 
-Requires: NetworkManager-sstp = %{version}-%{release}
+Requires: NetworkManager-sstp
 Requires: nm-connection-editor
 
 %description -n NetworkManager-sstp-gnome
@@ -60,7 +59,6 @@ make %{?_smp_mflags}
 make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
 
 rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
-rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.a
 rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 
 %find_lang %{name}
@@ -69,19 +67,25 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %doc AUTHORS README ChangeLog
 %license COPYING
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/nm-sstp-service.conf
-%config(noreplace) %{_sysconfdir}/NetworkManager/VPN/nm-sstp-service.name
 %{_libexecdir}/nm-sstp-service
 %{_libexecdir}/nm-sstp-auth-dialog
 %{_libdir}/pppd/%{ppp_version}/nm-sstp-pppd-plugin.so
+%{_prefix}/lib/NetworkManager/VPN/nm-sstp-service.name
 
 %files -n NetworkManager-sstp-gnome
 %doc AUTHORS README ChangeLog
 %license COPYING
+%config(noreplace) %{_sysconfdir}/NetworkManager/VPN/nm-sstp-service.name
 %{_libdir}/NetworkManager/lib*.so*
 %dir %{_datadir}/gnome-vpn-properties/sstp
 %{_datadir}/gnome-vpn-properties/sstp/nm-sstp-dialog.ui
+%{_datadir}/appdata/network-manager-sstp.metainfo.xml
 
 %changelog
+* Fri Jun 24 2016 Marcin Zajaczkowski <mszpak ATT wp DOTT pl> - 1:1.2.0-0
+- Upgrade to version 1.2.0 from v1.2 branch
+- Specification enhancements by Lubomir Rintel
+
 * Thu Feb 04 2016 Marcin Zajaczkowski <mszpak ATT wp DOTT pl> - 1:0.9.10-6
 - Apply remarks after package review by Christopher Meng
 - Specify minimal required ppp version to >= 2.4.6
