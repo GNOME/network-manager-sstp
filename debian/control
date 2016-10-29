@@ -4,17 +4,16 @@ Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Utopia Maintenance Team <pkg-utopia-maintainers@lists.alioth.debian.org>
 Uploaders: Eivind Naess <eivnaes@yahoo.com>
-Build-Depends: 
-	debhelper (>= 9),
+Build-Depends: debhelper (>= 9),
 	dh-autoreconf, 
 	intltool,
-	network-manager-dev (>= 1.1.0),
-	libnm-util-dev (>= 1.1.0),
-	libnm-glib-dev (>= 1.1.0),
-	libnm-glib-vpn-dev (>= 1.1.0),
-	libnm-gtk-dev (>= 1.1.0),
-	libnm-dev (>= 1.1.0),
-	libnma-dev (>= 1.1.0),
+	network-manager-dev (>= 1.2.0),
+	libnm-util-dev (>= 1.2.0),
+	libnm-glib-dev (>= 1.2.0),
+	libnm-glib-vpn-dev (>= 1.2.0),
+	libnm-gtk-dev (>= 1.2.0),
+	libnm-dev (>= 1.2.0),
+	libnma-dev (>= 1.2.0),
 	ppp-dev (>= 2.4.7-1+1),
 	libdbus-glib-1-dev (>= 0.74),
 	libsecret-1-dev,
