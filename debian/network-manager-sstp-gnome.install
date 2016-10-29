@@ -1,4 +1,4 @@
-usr/lib/NetworkManager/*.so*
+usr/lib/*/NetworkManager/*.so*
 usr/lib/NetworkManager/nm-sstp-auth-dialog
 usr/share/gnome-vpn-properties
 usr/share/locale

@@ -1,7 +1,7 @@
 AC_PREREQ(2.59)
 
 AC_INIT(NetworkManager-sstp, 
-	1.3.0, 
+	1.2.2, 
 	eivnaes@yahoo.com, 
 	NetworkManager-sstp)
 AM_INIT_AUTOMAKE([1.9 foreign no-dist-gzip dist-xz subdir-objects])
