@@ -30,4 +30,5 @@ Put the following two lines into the following file: /etc/apt/sources.list.d/sst
 	deb http://ppa.launchpad.net/eivnaes/network-manager-sstp/ubuntu xenial main
 	deb-src http://ppa.launchpad.net/eivnaes/network-manager-sstp/ubuntu xenial main
 
-Then use your apt-get command to get both network-manager-sstp and sstp-client. 
+Then use your apt-get command to get both network-manager-sstp and sstp-client.
+To use SSTP connections in the NetworkManager GUI, also install network-manager-sstp-gnome this way.
