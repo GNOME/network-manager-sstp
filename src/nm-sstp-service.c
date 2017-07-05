@@ -437,10 +437,11 @@ construct_pppd_args (NMSstpPlugin *plugin,
 		proxy_user = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_USER);
 		proxy_password = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD);
 
-		proxy = g_strdup_printf("--proxy http://%s%s%s@%s:%ld",
-		                        proxy_user,
+		proxy = g_strdup_printf("--proxy http://%s%s%s%s%s:%ld",
+		                        proxy_user     ?     : "",
 		                        proxy_password ? ":" : "",
 		                        proxy_password ?     : "",
+					proxy_user     ? "@" : "",
 		                        proxy_server,
 		                        tmp_int);
 	}
