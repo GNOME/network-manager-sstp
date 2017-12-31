@@ -515,7 +515,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 	tmp = g_strdup_printf ("%s %s %s --nolaunchpppd %s %s --ipparam %s %s %s",
 						   sstp_binary, gwaddr,
 						   ign_cert == TRUE ? "--cert-warn" : "",
-						   debug ? "--log-level 4" : "",
+						   gl.debug ? "--log-level 4" : "",
 						   proxy ? proxy : "",
 						   ipparam,
                            uuid ? uuid : "",
@@ -1204,6 +1204,7 @@ main (int argc, char *argv[])
 	GError *error = NULL;
 	gs_free char *bus_name_free = NULL;
 	const char *bus_name;
+	char sbuf[30];
 
 	GOptionEntry options[] = {
 		{ "persist", 0, 0, G_OPTION_ARG_NONE, &persist, N_("Don't quit when VPN connection terminates"), NULL },

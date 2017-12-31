@@ -64,6 +64,7 @@ nm_sstp_pppd_plugin_la_SOURCES = \
 
 nm_sstp_pppd_plugin_la_CPPFLAGS = \
     -I"$(top_srcdir)/shared/" \
+    $(SSTPC_CFLAGS) \
     $(GLIB_CFLAGS) \
     $(LIBNM_CFLAGS)
 

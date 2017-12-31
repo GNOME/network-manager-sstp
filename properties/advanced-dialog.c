@@ -22,6 +22,8 @@
 
 #include "nm-default.h"
 
+#include "advanced-dialog.h"
+
 #include <string.h>
 #include <sys/types.h>
 #include <stdlib.h>

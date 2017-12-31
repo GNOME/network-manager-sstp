@@ -99,8 +99,7 @@ if test x"$with_gnome" != xno; then
 	PKG_CHECK_MODULES(LIBNMA, libnma >= 1.2.0)
 	PKG_CHECK_MODULES(LIBSECRET, libsecret-1 >= 0.18, [], [
 		dnl We use the secret service API that went stable in 0.18
-
-	    PKG_CHECK_MODULES(LIBSECRET, libsecret-unstable)
+		PKG_CHECK_MODULES(LIBSECRET, libsecret-unstable)
 		LIBSECRET_CFLAGS="$LIBSECRET_CFLAGS -DSECRET_API_SUBJECT_TO_CHANGE"
 	])
 
