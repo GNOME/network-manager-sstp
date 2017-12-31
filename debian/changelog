@@ -1,3 +1,8 @@
+network-manager-sstp (1.2.2-0ubuntu2) zesty; urgency=low
+
+  * Recompile for Zesty
+
+ -- Eivind Naess <eivnaes@yahoo.com>  Sat, 30 Dec 2017 10:00:00 -0800
 network-manager-sstp (1.2.2-0ubuntu1) yakkety; urgency=low
 
   * Upgraded network-manager-sstp to work with libnm version 1.2.2
