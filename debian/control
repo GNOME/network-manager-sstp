@@ -19,7 +19,7 @@ Build-Depends: debhelper (>= 9),
 	libsecret-1-dev,
 	libgtk-3-dev (>= 3.4),
 	libglib2.0-dev (>= 2.32),
-	libsstp-client-dev,
+	libsstp-api-0-dev,
 	quilt
 Standards-Version: 3.9.6
 Vcs-Git: git://github.com/enaess/network-manager-sstp.git
@@ -31,7 +31,7 @@ Architecture: any
 Depends: 
 	${shlibs:Depends}, 
 	${misc:Depends}, 
-	libsstp-client0 (>= 1.0.9), 
+	libsstp-api-0 (>= 1.0.9), 
 	ppp (>= 2.4.7-1+1)
 Recommends: network-manager-sstp-gnome | plasma-nm
 Description: network management framework (SSTP plugin core)
