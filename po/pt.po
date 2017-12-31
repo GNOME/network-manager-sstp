@@ -3,100 +3,223 @@
 # This file is distributed under the same license as the NetworkManager-sstp package.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2007.
 # Filipe Gomes <filipefgomes@gmail.com>, 2009, 2010, 2012.
+# Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.26\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2012-04-13 12:37+0000\n"
-"PO-Revision-Date: 2012-08-29 13:11+0100\n"
-"Last-Translator: Filipe Gomes <filipefgomes@gmail.com>\n"
-"Language-Team: Português <>\n"
+"POT-Creation-Date: 2015-10-21 12:05+0000\n"
+"PO-Revision-Date: 2015-11-13 08:44+0000\n"
+"Last-Translator:  <>\n"
+"Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.5\n"
-
-#: ../auth-dialog/vpn-password-dialog.c:95
-msgid "_Password:"
-msgstr "_Senha:"
-
-#: ../auth-dialog/vpn-password-dialog.c:97
-msgid "_Secondary Password:"
-msgstr "Sen_ha Secundária:"
-
-#: ../auth-dialog/vpn-password-dialog.c:239
-#| msgid "Show password"
-msgid "Sh_ow passwords"
-msgstr "A_presentar senhas"
+"X-Generator: Poedit 1.5.4\n"
 
 #. Otherwise, we have no saved password, or the password flags indicated
 #. * that the password should never be saved.
 #.
-#: ../auth-dialog/main.c:145
+#: ../auth-dialog/main.c:154
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
-msgstr "Tem de se autenticar para aceder à Rede Privada Virtual(VPN) '%s'."
+msgstr "Tem de se autenticar para aceder à rede privada virtual(VPN) \"%s\"."
 
-#: ../auth-dialog/main.c:154 ../auth-dialog/main.c:174
+#: ../auth-dialog/main.c:163 ../auth-dialog/main.c:183
 msgid "Authenticate VPN"
-msgstr "Autenticar VPN"
+msgstr "Autenticação VPN"
 
-#: ../auth-dialog/main.c:156 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:165 ../properties/nm-sstp-dialog.ui.h:43
 msgid "Password:"
 msgstr "Senha:"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "SSTP VPN Connection Manager"
-msgstr "Gestor de Ligações VPN SSTP"
-
-#: ../nm-sstp.desktop.in.h:2
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "Adicionar, Remover e Editar Ligações VPN SSTP"
-
-#: ../properties/advanced-dialog.c:187
-msgid "All Available (Default)"
-msgstr "Todas as Disponíveis (Omissão)"
-
 #: ../properties/advanced-dialog.c:191
+msgid "All Available (Default)"
+msgstr "Todas as disponíveis (predefinição)"
+
+#: ../properties/advanced-dialog.c:195
 msgid "128-bit (most secure)"
 msgstr "128-bit (mais segura)"
 
-#: ../properties/advanced-dialog.c:200
+#: ../properties/advanced-dialog.c:204
 msgid "40-bit (less secure)"
 msgstr "40-bit (menos segura)"
 
-#: ../properties/advanced-dialog.c:309
+#: ../properties/advanced-dialog.c:308
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:322
+#: ../properties/advanced-dialog.c:321
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:334
+#: ../properties/advanced-dialog.c:333
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:346
+#: ../properties/advanced-dialog.c:345
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:359
+#: ../properties/advanced-dialog.c:358
 msgid "EAP"
 msgstr "EAP"
 
+#: ../properties/nm-sstp.c:56
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "Protocolo de Tunneling ponto-a-ponto (SSTP)"
+
+#: ../properties/nm-sstp.c:57
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Compatível com servidores VPN SSTP da Microsoft e outros."
+
 #: ../properties/nm-sstp-dialog.ui.h:1
 msgid "Default"
-msgstr "Omissão"
+msgstr "Predefinição"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
+msgid "SSTP Advanced Options"
+msgstr "Opções avançadas SSTP"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid "<b>Authentication</b>"
+msgstr "<b>Autenticação</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:4
+msgid "Allow the following authentication methods:"
+msgstr "Permitir os seguintes métodos de autenticação:"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+"Permite/desativa métodos de autenticação.\n"
+"configuração: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, "
+"refuse-eap"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid "<b>Security and Compression</b>"
+msgstr "<b>Segurança e compressão</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:8
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "Usar encriptação _Ponto-a-Ponto (MPPE)"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+msgid ""
+"Note: MPPE encryption is only available with MSCHAP authentication methods. "
+"To enable this checkbox, select one or more of the MSCHAP authentication "
+"methods: MSCHAP or MSCHAPv2."
+msgstr ""
+"Nota: encriptação MPPE encontra-se apenas disponível com métodos de "
+"autenticação MSCHAP. Para ativar esta caixa de seleção, selecione um ou mais "
+"métodos de autenticação MSCHAP: MSCHAP ou MSCHAPv2."
+
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "_Security:"
+msgstr "_Segurança:"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
+"Requer a utilização de MPPE, com encriptação com 40 ou 128 bits ou os dois.\n"
+"configuração: require-mppe, require-mppe-128 ou require-mppe-40"
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid "Allow st_ateful encryption"
+msgstr "Permitir encriptação com est_Ado"
+
+#: ../properties/nm-sstp-dialog.ui.h:14
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
+"Permite ao MPPE utilizar o modo com estado. O modo sem estado é sempre "
+"tentado primeiro.\n"
+"configuração: mppe-stateful (quando marcado)"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Allow _BSD data compression"
+msgstr "Permitir compressão de dados _BSD"
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+"Permite/desativa a compressão BSD-Compress.\n"
+"configuração: nobsdcomp (quando desmarcado)"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Allow _Deflate data compression"
+msgstr "Permitir compressão de dados _Deflate"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+"Permite/desativa a compressão Deflate.\n"
+"configuração: nodeflate (quando desmarcado)"
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "Use TCP _header compression"
+msgstr "Usar compressão de cabeçal_Ho TCP"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
+"Permite/desativa a compressão de cabeçalho TCP/IP do estilo Van Jacobson em "
+"ambas as direções de transmissão e receção.\n"
+"configuração: novj (quando desmarcado)"
+
+#: ../properties/nm-sstp-dialog.ui.h:25
+msgid "<b>Echo</b>"
+msgstr "<b>Eco</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid "Send PPP _echo packets"
+msgstr "Enviar pacotes de _Eco PPP"
+
+#: ../properties/nm-sstp-dialog.ui.h:27
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
+"Envia os pedidos eco LCP a fim de saber se o cliente está ativo.\n"
+"configuração: lcp-echo-failure e lcp-echo-interval"
+
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid "<b>Misc</b>"
+msgstr "<b>Outros</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:30
+msgid "Use custom _unit number:"
+msgstr "Utilizar um número de  _Unidade personalizado:"
+
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid ""
+"Enable custom index for ppp<n> device name.\n"
+"config: unit <n>"
+msgstr ""
+"Ativar índice personalizado para ppp<n> nome do dispositivo.\n"
+"config:unidade<n>"
+
+#: ../properties/nm-sstp-dialog.ui.h:33
 msgid "<b>General</b>"
 msgstr "<b>Geral</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:3
+#: ../properties/nm-sstp-dialog.ui.h:34
 msgid ""
 "SSTP server IP or name.\n"
 "config: the first parameter of sstp"
@@ -104,37 +227,37 @@ msgstr ""
 "Nome ou IP do servidor SSTP.\n"
 "configuração: o primeiro parâmetro de sstp"
 
-#: ../properties/nm-sstp-dialog.ui.h:5
+#: ../properties/nm-sstp-dialog.ui.h:36
 msgid "_Gateway:"
 msgstr "_Gateway:"
 
-#: ../properties/nm-sstp-dialog.ui.h:6
+#: ../properties/nm-sstp-dialog.ui.h:37
 msgid "<b>Optional</b>"
 msgstr "<b>Opcional</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:7
+#: ../properties/nm-sstp-dialog.ui.h:38
 msgid ""
 "Append the domain name <domain> to the local host name for authentication "
 "purposes.\n"
 "config: domain <domain>"
 msgstr ""
-"Acrescenta o nome de domínio <domínio> ao nome de hospedeiro local para fins "
-"de autenticação.\n"
-"configuração: domínio <domínio>"
+"Acrescenta o nome de domínio <domain> ao nome de máquina local para fins de "
+"autenticação.\n"
+"configuração: domínio <domain>"
 
-#: ../properties/nm-sstp-dialog.ui.h:9
+#: ../properties/nm-sstp-dialog.ui.h:40
 msgid "NT Domain:"
 msgstr "Domínio NT:"
 
-#: ../properties/nm-sstp-dialog.ui.h:10
+#: ../properties/nm-sstp-dialog.ui.h:41
 msgid "Show password"
-msgstr "Apresentar Senha"
+msgstr "Mostrar senha"
 
-#: ../properties/nm-sstp-dialog.ui.h:11
+#: ../properties/nm-sstp-dialog.ui.h:42
 msgid "Password passed to SSTP when prompted for it."
 msgstr "Senha transmitida ao SSTP quando é pedida."
 
-#: ../properties/nm-sstp-dialog.ui.h:13
+#: ../properties/nm-sstp-dialog.ui.h:44
 msgid ""
 "Set the name used for authenticating the local system to the peer to "
 "<name>.\n"
@@ -144,258 +267,115 @@ msgstr ""
 "<nome>.\n"
 "configuração: <nome> de utilizador"
 
-#: ../properties/nm-sstp-dialog.ui.h:15
+#: ../properties/nm-sstp-dialog.ui.h:46
 msgid "User name:"
 msgstr "Utilizador:"
 
-#: ../properties/nm-sstp-dialog.ui.h:16
+#: ../properties/nm-sstp-dialog.ui.h:47
 msgid "Ad_vanced..."
-msgstr "A_vançado..."
+msgstr "A_Vançado..."
 
-#: ../properties/nm-sstp-dialog.ui.h:17
-msgid "SSTP Advanced Options"
-msgstr "Opções Avançadas SSTP"
-
-#: ../properties/nm-sstp-dialog.ui.h:18
-msgid "<b>Authentication</b>"
-msgstr "<b>Autenticação</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:19
-msgid "Allow the following authentication methods:"
-msgstr "Permitir os seguintes métodos de autenticação:"
-
-#: ../properties/nm-sstp-dialog.ui.h:20
-msgid ""
-"Allow/disable authentication methods.\n"
-"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
-msgstr ""
-"Permite/desactiva métodos de autenticação.\n"
-"configuração: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, "
-"refuse-eap"
-
-#: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Segurança e Compressão</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:23
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "Utilizar encriptação _Ponto-a-Ponto (MPPE)"
-
-#: ../properties/nm-sstp-dialog.ui.h:24
-msgid ""
-"Note: MPPE encryption is only available with MSCHAP authentication methods. "
-"To enable this checkbox, select one or more of the MSCHAP authentication "
-"methods: MSCHAP or MSCHAPv2."
-msgstr ""
-"Nota: encriptação MPPE encontra-se apenas disponível com métodos de "
-"autenticação MSCHAP. Para activar esta caixa de selecção, seleccione um ou "
-"mais métodos de autenticação MSCHAP: MSCHAP ou MSCHAPv2."
-
-#: ../properties/nm-sstp-dialog.ui.h:25
-msgid "_Security:"
-msgstr "_Segurança:"
-
-#: ../properties/nm-sstp-dialog.ui.h:26
-msgid ""
-"Require the use of MPPE, with 40/128-bit encryption or all.\n"
-"config: require-mppe, require-mppe-128 or require-mppe-40"
-msgstr ""
-"Requer a utilização de MPPE, com encriptação com 40 ou 128 bits ou os dois.\n"
-"configuração: require-mppe, require-mppe-128 ou require-mppe-40"
-
-#: ../properties/nm-sstp-dialog.ui.h:28
-msgid "Allow st_ateful encryption"
-msgstr "Permitir encriptação com est_ado"
-
-#: ../properties/nm-sstp-dialog.ui.h:29
-msgid ""
-"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
-"config: mppe-stateful (when checked)"
-msgstr ""
-"Permite ao MPPE utilizar o modo com estado. O modo sem estado é sempre "
-"tentado primeiro.\n"
-"configuração: mppe-stateful (quando marcado)"
-
-#: ../properties/nm-sstp-dialog.ui.h:31
-msgid "Allow _BSD data compression"
-msgstr "Permitir Compressão de dados _BSD"
-
-#: ../properties/nm-sstp-dialog.ui.h:32
-msgid ""
-"Allow/disable BSD-Compress compression.\n"
-"config: nobsdcomp (when unchecked)"
-msgstr ""
-"Permite/desactiva a compressão BSD-Compress.\n"
-"configuração: nobsdcomp (quando desmarcado)"
-
-#: ../properties/nm-sstp-dialog.ui.h:34
-msgid "Allow _Deflate data compression"
-msgstr "Permitir Compressão de dados _Deflate"
-
-#: ../properties/nm-sstp-dialog.ui.h:35
-msgid ""
-"Allow/disable Deflate compression.\n"
-"config: nodeflate (when unchecked)"
-msgstr ""
-"Permite/desactiva a compressão Deflate.\n"
-"configuração: nodeflate (quando desmarcado)"
-
-#: ../properties/nm-sstp-dialog.ui.h:37
-msgid "Use TCP _header compression"
-msgstr "Utilizar compressão de _cabeçalho TCP"
-
-#: ../properties/nm-sstp-dialog.ui.h:38
-msgid ""
-"Allow/disable Van Jacobson style TCP/IP header compression in both the "
-"transmit and the receive directions.\n"
-"config: novj (when unchecked)"
-msgstr ""
-"Permite/desactiva a compressão de cabeçalho TCP/IP do estilo Van Jacobson em "
-"ambas as direcções de transmissão e recepção.\n"
-"configuração: novj (quando desmarcado)"
-
-#: ../properties/nm-sstp-dialog.ui.h:40
-msgid "<b>Echo</b>"
-msgstr "<b>Eco</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:41
-msgid "Send PPP _echo packets"
-msgstr "Enviar pacotes de _eco PPP"
-
-#: ../properties/nm-sstp-dialog.ui.h:42
-msgid ""
-"Send LCP echo-requests to find out whether peer is alive.\n"
-"config: lcp-echo-failure and lcp-echo-interval"
-msgstr ""
-"Envia os pedidos-eco LCP a fim de saber se o cliente está activo.\n"
-"configuração: lcp-echo-failure e lcp-echo-interval"
-
-#: ../properties/nm-sstp.c:49
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Protocolo de Tunneling Ponto-a-Ponto (SSTP)"
-
-#: ../properties/nm-sstp.c:50
-msgid "Compatible with Microsoft and other SSTP VPN servers."
-msgstr "Compatível com servidores VPN SSTP da Microsoft e outros."
-
-#: ../properties/nm-sstp.c:317
-msgid "Saved"
-msgstr "Gravado"
-
-#: ../properties/nm-sstp.c:325
-msgid "Always Ask"
-msgstr "Perguntar sempre"
-
-#: ../properties/nm-sstp.c:330
-msgid "Not Required"
-msgstr "Desnecessário"
-
-#: ../src/nm-sstp-service.c:160
+#: ../src/nm-sstp-service.c:166
 #, c-format
 msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
-msgstr "incapaz de converter o endereço IP '%s' (%d) do gateway VPN SSTP"
+msgstr "Impossível converter o endereço IP \"%s\" (%d) do gateway VPN SSTP"
 
-#: ../src/nm-sstp-service.c:178
+#: ../src/nm-sstp-service.c:184
 #, c-format
 msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
-msgstr "incapaz de procurar o endereço IP '%s' (%d) do gateway VPN SSTP"
+msgstr "Impossível procurar o endereço IP \"%s\" (%d) do gateway VPN SSTP"
 
-#: ../src/nm-sstp-service.c:202
+#: ../src/nm-sstp-service.c:208
 #, c-format
 msgid "no usable addresses returned for SSTP VPN gateway '%s'"
-msgstr "nenhum endereço utilizável foi obtido para o gateway VPN SSTP '%s'"
+msgstr "nenhum endereço utilizável obtido para o gateway VPN SSTP \"%s\""
 
-#: ../src/nm-sstp-service.c:213
+#: ../src/nm-sstp-service.c:219
 #, c-format
 msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
-msgstr ""
-"nenhum endereço utilizável foi obtido para o gateway VPN SSTP '%s' (%d)"
+msgstr "nenhum endereço utilizável obtido para o gateway VPN SSTP \"%s\" (%d)"
 
-#: ../src/nm-sstp-service.c:240
+#: ../src/nm-sstp-service.c:246
 msgid "Could not find secrets (connection invalid, no vpn setting)."
 msgstr ""
-"Incapaz de encontrar as informações secretas (ligação inválida, sem "
+"Impossível encontrar as informações secretas (ligação inválida, sem "
 "definições VPN)."
 
-#: ../src/nm-sstp-service.c:252
-msgid "Invalid VPN username."
-msgstr "Nome de utilizador VPN inválido."
+#: ../src/nm-sstp-service.c:258
+msgid "Missing or invalid VPN username."
+msgstr "Nome de utilizador VPN inválido ou em falta."
 
-#: ../src/nm-sstp-service.c:261
-msgid "Missing VPN username."
-msgstr "Nome de utilizador VPN em falta."
-
-#: ../src/nm-sstp-service.c:271
+#: ../src/nm-sstp-service.c:268
 msgid "Missing or invalid VPN password."
 msgstr "Senha VPN inválida ou em falta."
 
-#: ../src/nm-sstp-service.c:429
+#: ../src/nm-sstp-service.c:460
 msgid "No cached credentials."
 msgstr "Sem credenciais em cache."
 
-#: ../src/nm-sstp-service.c:575
+#: ../src/nm-sstp-service.c:616
 #, c-format
 msgid "invalid gateway '%s'"
-msgstr "gateway '%s' inválido"
+msgstr "gateway \"%s\" inválido"
 
-#: ../src/nm-sstp-service.c:589
+#: ../src/nm-sstp-service.c:630
 #, c-format
 msgid "invalid integer property '%s'"
-msgstr "propriedade inteira '%s' inválida"
+msgstr "propriedade inteira \"%s\" inválida"
 
-#: ../src/nm-sstp-service.c:599
+#: ../src/nm-sstp-service.c:640
 #, c-format
 msgid "invalid boolean property '%s' (not yes or no)"
-msgstr "propriedade booleana '%s' inválida (nem sim, nem não)"
+msgstr "propriedade booliana \"%s\" inválida (nem sim, nem não)"
 
-#: ../src/nm-sstp-service.c:606
+#: ../src/nm-sstp-service.c:647
 #, c-format
 msgid "unhandled property '%s' type %s"
-msgstr "propriedade '%s' de tipo %s não tratada"
+msgstr "propriedade \"%s\" de tipo %s não gerida"
 
-#: ../src/nm-sstp-service.c:617
+#: ../src/nm-sstp-service.c:658
 #, c-format
 msgid "property '%s' invalid or not supported"
-msgstr "propriedade '%s' inválida ou não suportada"
+msgstr "propriedade \"%s\" inválida ou não suportada"
 
-#: ../src/nm-sstp-service.c:635
+#: ../src/nm-sstp-service.c:676
 msgid "No VPN configuration options."
 msgstr "Sem opções de configuração VPN."
 
-#: ../src/nm-sstp-service.c:655
+#: ../src/nm-sstp-service.c:696
 #, c-format
 msgid "Missing required option '%s'."
-msgstr "Opção necessária '%s' em falta."
+msgstr "Opção necessária \"%s\" em falta."
 
-#: ../src/nm-sstp-service.c:675
+#: ../src/nm-sstp-service.c:716
 msgid "No VPN secrets!"
-msgstr "Sem informações secretas VPN!"
+msgstr "Sem segredos VPN!"
 
-#: ../src/nm-sstp-service.c:816
+#: ../src/nm-sstp-service.c:873
 msgid "Could not find sstp client binary."
-msgstr "Incapaz de encontrar binário do cliente sstp."
+msgstr "Impossível encontrar binário do cliente sstp."
 
-#: ../src/nm-sstp-service.c:829
+#: ../src/nm-sstp-service.c:886
 msgid "Missing VPN gateway."
 msgstr "Gateway VPN em falta."
 
-#: ../src/nm-sstp-service.c:982
+#: ../src/nm-sstp-service.c:1047
 msgid "Could not find the pppd binary."
-msgstr "Incapaz de encontrar o binário do pppd."
+msgstr "Impossível encontrar o binário do pppd."
 
-#: ../src/nm-sstp-service.c:1112
+#: ../src/nm-sstp-service.c:1149
 msgid "Invalid or missing SSTP gateway."
 msgstr "Gateway SSTP inválido ou em falta."
 
-#: ../src/nm-sstp-service.c:1311
+#: ../src/nm-sstp-service.c:1335
 msgid "Don't quit when VPN connection terminates"
 msgstr "Não sair quando a ligaçãp VPN termina"
 
-#: ../src/nm-sstp-service.c:1312
+#: ../src/nm-sstp-service.c:1336
 msgid "Enable verbose debug logging (may expose passwords)"
-msgstr "Activar depurador descritivo (pode expor senhas)"
+msgstr "Ativar depurador descritivo (pode expor senhas)"
 
-#: ../src/nm-sstp-service.c:1326
+#: ../src/nm-sstp-service.c:1359
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
@@ -403,382 +383,8 @@ msgstr ""
 "nm-sstp-service fornece funcionalidades integradas de VPN SSTP ao "
 "NetworkManager (compatível com Microsoft e outras implementações)."
 
-#~ msgid "_Username:"
-#~ msgstr "_Utilizador:"
-
-#~ msgid "_Domain:"
-#~ msgstr "_Domínio:"
-
-#~ msgid "Connect _anonymously"
-#~ msgstr "Ligar-se _anonimamente"
-
-#~ msgid "Connect as _user:"
-#~ msgstr "Ligar-se como o _utilizador:"
-
-#~ msgid "_Remember passwords for this session"
-#~ msgstr "_Recordar senhas durante esta sessão"
-
-#~ msgid "_Save passwords in keyring"
-#~ msgstr "_Gravar senhas no chaveiro"
-
-#~ msgid "Authentication Type:"
-#~ msgstr "Tipo de Autenticação:"
-
-#~ msgid "_Remember for this session"
-#~ msgstr "_Recordar durante esta sessão"
-
-#~ msgid "_Save in keyring"
-#~ msgstr "_Gravar no chaveiro"
-
-#~ msgid "Authenticate Connection"
-#~ msgstr "Autenticar a Ligação"
-
-#~ msgid ""
-#~ "<span weight=\"bold\" size=\"larger\">Authentication Information</span>\n"
-#~ "\n"
-#~ "The connection '%s' may need some form of authentication.\n"
-#~ "\n"
-#~ "Please select an appropriate authentication type and provide the "
-#~ "necessary credentials below:\n"
-#~ msgstr ""
-#~ "<span weight=\"bold\" size=\"larger\">Informação de Autenticação</span>\n"
-#~ "\n"
-#~ "A ligação '%s' poderá necessitar de alguma forma de autenticação.\n"
-#~ "\n"
-#~ "Seleccione o tipo de autenticação apropriado e forneça abaixo as "
-#~ "credenciais necessárias:\n"
-
-#~ msgid "Authentication Required"
-#~ msgstr "Autenticação Requerida"
-
-#~ msgid "_Authentication Type:"
-#~ msgstr "Tipo de _Autenticação:"
-
-#~ msgid "_Remote name:"
-#~ msgstr "Nome _remoto:"
-
-#~ msgid "auth-chap-window"
-#~ msgstr "auth-chap-window"
-
-#~ msgid "auth-mschapv2-window"
-#~ msgstr "auth-mschapv2-window"
-
-#~ msgid "auth-none-window"
-#~ msgstr "auth-none-window"
-
-#~ msgid "VPN Connection Manager (PPP generic)"
-#~ msgstr "Gestor de Ligações VPN (genérico PPP)"
-
-#~ msgid "00:00:00:00"
-#~ msgstr "00:00:00:00"
-
-#~ msgid "<b>Connection Name</b>"
-#~ msgstr "<b>Nome da Ligação</b>"
-
-#~ msgid "<b>Delays and TImeouts</b>"
-#~ msgstr "<b>Atrasos e Expirações</b>"
-
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>Parâmetros de Pacote</b>"
-
-#~ msgid "<i>example: 172.16.0.0/16 10.11.12.0/24</i>"
-#~ msgstr "<i>exemplo: 172.16.0.0/16 10.11.12.0/24</i>"
-
-#~ msgid ""
-#~ "A list of extra options to pppd as would be typed on the command line"
-#~ msgstr ""
-#~ "Uma lista de opções extra para o pppd tal como seriam introduzidas na "
-#~ "linha de comandos"
-
-#~ msgid "Compression & Encryption"
-#~ msgstr "Compressão & Encriptação"
-
-#~ msgid "Connection"
-#~ msgstr "Ligação"
-
-#~ msgid "Debug Output"
-#~ msgstr "Resultados da Depuração"
-
-#~ msgid "Disconnect after this many LCP echo requests fail"
-#~ msgstr "Desligar após este número de falhas de pedidos LCP echo"
-
-#~ msgid "Enable stateful MPPE"
-#~ msgstr "Activar MPPE com estado"
-
-#~ msgid "Exclusive device access (UUCP-style lock)"
-#~ msgstr "Acesso exclusivo ao dispositivo (exclusividade estilo UUCP)"
-
-#~ msgid "Find Device"
-#~ msgstr "Procurar Dispositivo"
-
-#~ msgid ""
-#~ "For security reasons, options entered in the box above are checked "
-#~ "against a list of allowed options before a connection is established.  "
-#~ "Currently there are no options on the list."
-#~ msgstr ""
-#~ "Por motivos de segurança, as opções introduzidas na caixa acima são "
-#~ "verificadas contra uma lista de opções permitidas antes de se estabelecer "
-#~ "a ligação.  De momento não existem opções nessa lista."
-
-#~ msgid "GPRS Options"
-#~ msgstr "Opções GPRS"
-
-#~ msgid "Hardware RTS/CTS"
-#~ msgstr "RTS/CTS por Equipamento"
-
-#~ msgid "Host name or IP address of the SSTP server"
-#~ msgstr "Nome da máquina ou endereço IP do servidor SSTP"
-
-#~ msgid ""
-#~ "If BSD compression is not allowed the 'nobsdcomp' option is passed to pppd"
-#~ msgstr ""
-#~ "Se compressão BSD não for permitida será passada ao pppd a opção "
-#~ "'nobsdcomp'"
-
-#~ msgid ""
-#~ "If Deflate compression is not allowed the 'nodefate' option is passed to "
-#~ "pppd"
-#~ msgstr ""
-#~ "Se compressão Deflate não for permitida será passada ao pppd a opção "
-#~ "'nodeflate'"
-
-#~ msgid "Maximum Receive Unit"
-#~ msgstr "Unidade Máxima de Recepção"
-
-#~ msgid "Maximum Transmit Unit"
-#~ msgstr "Únidade Máxima de Transferência"
-
-#~ msgid "Modem Connection"
-#~ msgstr "Ligação do Modem"
-
-#~ msgid "Peer DNS through tunnel"
-#~ msgstr "DNS a Parceiro através de túnel"
-
-#~ msgid "Refuse CHAP"
-#~ msgstr "Recusar CHAP"
-
-#~ msgid "Refuse EAP"
-#~ msgstr "Recusar EAP"
-
-#~ msgid "Refuse MS CHAP"
-#~ msgstr "Recusar MS CHAP"
-
-#~ msgid "Require 128 bit MPPE encryption"
-#~ msgstr "Requerer encriptação 128 bit MPPE"
-
-#~ msgid "Require Explicit IP Addr"
-#~ msgstr "Requerer Endereço IP Explícito"
-
-#~ msgid "Require MPPC Compression"
-#~ msgstr "Requerer Compressão MPPC"
-
-#~ msgid "Require MPPE encryption"
-#~ msgstr "Requer encriptação MPPE"
-
-#~ msgid "Requires existing network connection"
-#~ msgstr "Requerer ligação de rede existente"
-
-#~ msgid "Routing"
-#~ msgstr "Routeamento"
-
-#~ msgid "Serial Options"
-#~ msgstr "Opções Série"
-
-#~ msgid "Service providers GPRS access point from device config"
-#~ msgstr ""
-#~ "Ponto de acesso GPRS do fornecedor de serviço pela configuração do "
-#~ "dispositivo"
-
-#~ msgid "Service providers IP address"
-#~ msgstr "Endereço IP do fornecedor de servidor"
-
-#~ msgid "Telephone number to dial"
-#~ msgstr "Número de telefone a marcar"
-
-#~ msgid ""
-#~ "This is the friendly name that will be used to identify this network "
-#~ "connection, \n"
-#~ "e.g. \"Campus VPN\" or \"Corporate Network\""
-#~ msgstr ""
-#~ "Este é o nome utilizado para identificar esta ligação à rede privada, \n"
-#~ "por. ex. \"VPN da Universidade\" ou \"Rede da Empresa\""
-
-#~ msgid "Time in seconds between echo requests"
-#~ msgstr "Tempo em segundos entre pedidos echo"
-
-#~ msgid "Type:"
-#~ msgstr "Tipo:"
-
-#~ msgid "Use Peer DNS"
-#~ msgstr "Utilizar o DNS do Parceiro"
-
-#~ msgid "When checked the \"refuse-chap\" option is passed to pppd."
-#~ msgstr "Quando seleccionada a opção \"refuse-chap\" é passada ao pppd."
-
-#~ msgid "When checked the \"refuse-eap\" option is passed to pppd."
-#~ msgstr "Quando seleccionada a opção \"refuse-eap\" é passada ao pppd."
-
-#~ msgid "When checked the \"refuse-mschap\" option is passed to pppd."
-#~ msgstr "Quando seleccionada a opção \"refuse-mschap\" é passada ao pppd."
-
-#~ msgid "When checked the 'lock' option is passed to pppd"
-#~ msgstr "Quando seleccionada a opção 'lock' é passada ao pppd"
-
-#~ msgid "When checked the 'require-mppc' option is passed to pppd"
-#~ msgstr "Quando seleccionada a opção 'require-mppc' é passada ao pppd"
-
-#~ msgid ""
-#~ "When checked this sets the pppd 'debug' option and adds some extra "
-#~ "information from the NetworkManager plugin"
-#~ msgstr ""
-#~ "Quando seleccionada define a opção 'debug' do pppd e adiciona alguma "
-#~ "informação extra do plugin NetworkManager"
-
-#~ msgid "When checked this sets the pppd 'noipdefault' option"
-#~ msgstr "Quando seleccionada define a opção pppd 'noipdefault'"
-
-#~ msgid "When checked this sets the pppd 'usepeerdns' option"
-#~ msgstr "Quando seleccionada define a opção pppd 'usepeerdns'"
-
-#~ msgid ""
-#~ "When this check box is cleared the \"noauth\" option is passed to pppd."
-#~ msgstr ""
-#~ "Quando esta caixa de selecção está limpa é passada a opção \"noauth\" ao "
-#~ "pppd."
-
-#~ msgid "_Access Point Name:"
-#~ msgstr "Nome do Ponto de _Acesso:"
-
-#~ msgid "_Channel:"
-#~ msgstr "_Canal:"
-
-#~ msgid "_Context Num"
-#~ msgstr "Núm de _Contexto"
-
-#~ msgid "_Custom PPP options:"
-#~ msgstr "_Opções personalizadas PPP:"
-
-#~ msgid "_Device Address:"
-#~ msgstr "Endereço do _Dispositivo:"
-
-#~ msgid "_IP Address:"
-#~ msgstr "Endereço _IP:"
-
-#~ msgid "_Import Saved Configuration..."
-#~ msgstr "_Importar a Configuração Gravada..."
-
-#~ msgid "_Only use VPN connection for these addresses"
-#~ msgstr "_Apenas utilizar a ligação VPN para estes endereços"
-
-#~ msgid "_Packet Type"
-#~ msgstr "Tipo de _Pacote"
-
-#~ msgid "_Telephone Number:"
-#~ msgstr "Número de _Telefone:"
-
-#~ msgid "connect-delay"
-#~ msgstr "atraso-ligação"
-
-#~ msgid "pppd tunnel (SSTP, BTGPRS, Dialup)"
-#~ msgstr "túnel pppd (SSTP, BTGPRS, Dialup)"
-
-#~ msgid "Name"
-#~ msgstr "Nome"
-
-#~ msgid "SSTP Server"
-#~ msgstr "Servidor SSTP"
-
-#~ msgid "Telephone Number"
-#~ msgstr "Número de Telefone"
-
-#~ msgid "Bluetooth Address"
-#~ msgstr "Endereço Bluetooth"
-
-#~ msgid "Bluetooth Channel"
-#~ msgstr "Canal Bluetooth"
-
-#~ msgid "GPRS APN"
-#~ msgstr "APN GPRS"
-
-#~ msgid "GPRS IP"
-#~ msgstr "IP GPRS"
-
-#~ msgid "GPRS Context No."
-#~ msgstr "Nº de Contexto GPRS"
-
-#~ msgid "GPRS Packet Type"
-#~ msgstr "Tipo de Pacote GPRS"
-
-#~ msgid "Use CTS/RTS flow control"
-#~ msgstr "Utilizar controlo de fluxo CTS/RTS"
-
-#~ msgid "Connect via a modem"
-#~ msgstr "Ligar-se através de um modem"
-
-#~ msgid "Require IP to be provided"
-#~ msgstr "Requerer que seja fornecido um IP"
-
-#~ msgid "Use 128 bit MPPE encryption"
-#~ msgstr "Utilizar encriptação 128 bit MPPE"
-
-#~ msgid "Do not use deflate compression"
-#~ msgstr "Não utilizar compressão deflate"
-
-#~ msgid "Do not use BSD compression"
-#~ msgstr "Não utilizar compressão BSD"
-
-#~ msgid "Exclusive device access by pppd"
-#~ msgstr "Acesso exclusivo ao dispositivo pelo pppd"
-
-#~ msgid "Authenticate remote peer"
-#~ msgstr "Autenticar o parceiro remoto"
-
-#~ msgid "Maximum transmit unit (in bytes)"
-#~ msgstr "Unidade máxima de transmissão (em bytes)"
-
-#~ msgid "Maximum receive unit (in bytes)"
-#~ msgstr "Unidade máxima de recepção (em bytes)"
-
-#~ msgid "Number of failed LCP echos to cause disconnect"
-#~ msgstr "Número de LCP echos falhados para terminar a ligação"
-
-#~ msgid "Interval (in seconds) at which to issue LCP echos"
-#~ msgstr "Intervalo (em segundos) entre envios de LCP echos"
-
-#~ msgid "Interval (in milliseconds) to wait before connecting."
-#~ msgstr "Intervalo (em milisegundos) para aguardar antes de se ligar."
-
-#~ msgid "Custom PPP options"
-#~ msgstr "Opções PPP personalizadas"
-
-#~ msgid "Use Peer DNS over the Tunnel"
-#~ msgstr "Utilizar o DNS do Parceiro através do Túnel"
-
-#~ msgid "Specific networks available"
-#~ msgstr "Redes específicas disponíveis"
-
-#~ msgid "Limit to specific networks"
-#~ msgstr "Limitar a redes específicas"
-
-#~ msgid "The following '%s' connection will be created:"
-#~ msgstr "Será criada a seguinte ligação '%s':"
-
-#~ msgid "\t%s:  %s\n"
-#~ msgstr "\t%s:  %s\n"
-
-#~ msgid "The connection details can be changed using the \"Back\" button."
-#~ msgstr ""
-#~ "Os detalhes da ligação podem ser alterados utilizando o botão \"Retroceder"
-#~ "\"."
-
-#~ msgid "Select file to import"
-#~ msgstr "Seleccionar o ficheiro a importar"
-
-#~ msgid "Save as..."
-#~ msgstr "Gravar como..."
-
-#~ msgid "A file named \"%s\" already exists."
-#~ msgstr "Já existe um ficheiro denominado \"%s\"."
-
-#~ msgid "Do you want to replace it with the one you are saving?"
-#~ msgstr "Deseja substituí-lo pelo que está a gravar?"
+#~ msgid "_Password:"
+#~ msgstr "_Senha:"
+
+#~ msgid "_Secondary Password:"
+#~ msgstr "Sen_ha Secundária:"

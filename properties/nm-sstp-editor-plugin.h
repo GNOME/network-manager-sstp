@@ -1,7 +1,5 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*- */
 /***************************************************************************
- * nm-sstp.h : GNOME UI dialogs for configuring sstp VPN connections
- *
  * Copyright (C) 2008 Dan Williams, <dcbw@redhat.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,27 +18,8 @@
  *
  **************************************************************************/
 
-#ifndef _NM_SSTP_H_
-#define _NM_SSTP_H_
-
-#include <glib-object.h>
-
-typedef enum
-{
-	SSTP_PLUGIN_UI_ERROR_UNKNOWN = 0,
-	SSTP_PLUGIN_UI_ERROR_INVALID_CONNECTION,
-	SSTP_PLUGIN_UI_ERROR_INVALID_PROPERTY,
-	SSTP_PLUGIN_UI_ERROR_MISSING_PROPERTY,
-	SSTP_PLUGIN_UI_ERROR_FILE_NOT_READABLE,
-	SSTP_PLUGIN_UI_ERROR_FILE_NOT_SSTP
-} SstpPluginUiError;
-
-#define SSTP_TYPE_PLUGIN_UI_ERROR (sstp_plugin_ui_error_get_type ()) 
-GType sstp_plugin_ui_error_get_type (void);
-
-#define SSTP_PLUGIN_UI_ERROR (sstp_plugin_ui_error_quark ())
-GQuark sstp_plugin_ui_error_quark (void);
-
+#ifndef __NM_SSTP_EDITOR_PLUGIN_H__
+#define __NM_SSTP_EDITOR_PLUGIN_H__
 
 #define SSTP_TYPE_PLUGIN_UI            (sstp_plugin_ui_get_type ())
 #define SSTP_PLUGIN_UI(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SSTP_TYPE_PLUGIN_UI, SstpPluginUi))
@@ -62,26 +41,14 @@ struct _SstpPluginUiClass {
 
 GType sstp_plugin_ui_get_type (void);
 
+typedef NMVpnEditor *(*NMVpnEditorFactory) (NMVpnEditorPlugin *editor_plugin,
+                                            NMConnection *connection,
+                                            GError **error);
 
-#define SSTP_TYPE_PLUGIN_UI_WIDGET            (sstp_plugin_ui_widget_get_type ())
-#define SSTP_PLUGIN_UI_WIDGET(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidget))
-#define SSTP_PLUGIN_UI_WIDGET_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidgetClass))
-#define SSTP_IS_PLUGIN_UI_WIDGET(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET))
-#define SSTP_IS_PLUGIN_UI_WIDGET_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SSTP_TYPE_PLUGIN_UI_WIDGET))
-#define SSTP_PLUGIN_UI_WIDGET_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidgetClass))
+NMVpnEditor *
+nm_vpn_editor_factory_sstp (NMVpnEditorPlugin *editor_plugin,
+                            NMConnection *connection,
+                            GError **error);
 
-typedef struct _SstpPluginUiWidget SstpPluginUiWidget;
-typedef struct _SstpPluginUiWidgetClass SstpPluginUiWidgetClass;
-
-struct _SstpPluginUiWidget {
-	GObject parent;
-};
-
-struct _SstpPluginUiWidgetClass {
-	GObjectClass parent;
-};
-
-GType sstp_plugin_ui_widget_get_type (void);
-
-#endif	/* _NM_SSTP_H_ */
+#endif /* __NM_SSTP_EDITOR_PLUGIN_H__ */
 

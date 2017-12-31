@@ -20,9 +20,9 @@
  * (C) Copyright 2008 - 2014 Red Hat, Inc.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "nm-default.h"
+
+#include "nm-sstp-service.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -43,19 +43,19 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-#include <glib/gi18n.h>
-
-#include <NetworkManager.h>
-
-#include "nm-sstp-service.h"
 #include "nm-ppp-status.h"
 #include "nm-sstp-pppd-service-dbus.h"
+#include "nm-utils/nm-shared-utils.h"
+#include "nm-utils/nm-vpn-plugin-macros.h"
 
 #if !defined(DIST_VERSION)
 # define DIST_VERSION VERSION
 #endif
 
-static gboolean debug = FALSE;
+static struct {
+	gboolean debug;
+	int log_level;
+} gl/*lobal*/;
 
 static void nm_sstp_plugin_initable_iface_init (GInitableIface *iface);
 
@@ -79,13 +79,37 @@ typedef struct {
 #define NM_SSTP_WAIT_PPPD 10000 /* 10 seconds */
 #define SSTP_SERVICE_SECRET_TRIES "sstp-service-secret-tries"
 
+/*****************************************************************************/
+
+#define _NMLOG(level, ...) \
+    G_STMT_START { \
+         if (gl.log_level >= (level)) { \
+              g_print ("nm-sstp[%ld] %-7s " _NM_UTILS_MACRO_FIRST (__VA_ARGS__) "\n", \
+                       (long) getpid (), \
+                       nm_utils_syslog_to_str (level) \
+                       _NM_UTILS_MACRO_REST (__VA_ARGS__)); \
+         } \
+    } G_STMT_END
+
+static gboolean
+_LOGD_enabled (void)
+{
+	return gl.log_level >= LOG_INFO;
+}
+
+#define _LOGD(...) _NMLOG(LOG_INFO,    __VA_ARGS__)
+#define _LOGI(...) _NMLOG(LOG_NOTICE,  __VA_ARGS__)
+#define _LOGW(...) _NMLOG(LOG_WARNING, __VA_ARGS__)
+
+/*****************************************************************************/
+
 typedef struct {
 	const char *name;
 	GType type;
-	gboolean required;
+	bool required:1;
 } ValidProperty;
 
-static ValidProperty valid_properties[] = {
+static const ValidProperty valid_properties[] = {
 	{ NM_SSTP_KEY_GATEWAY,           G_TYPE_STRING, TRUE },
 	{ NM_SSTP_KEY_USER,              G_TYPE_STRING, FALSE },
 	{ NM_SSTP_KEY_DOMAIN,            G_TYPE_STRING, FALSE },
@@ -115,7 +139,7 @@ static ValidProperty valid_properties[] = {
 	{ NULL,                          G_TYPE_NONE, FALSE }
 };
 
-static ValidProperty valid_secrets[] = {
+static const ValidProperty valid_secrets[] = {
 	{ NM_SSTP_KEY_PASSWORD,          G_TYPE_STRING, FALSE },
 	{ NM_SSTP_KEY_PROXY_PASSWORD,    G_TYPE_STRING, FALSE },
 	{ NULL,                          G_TYPE_NONE,   FALSE }
@@ -140,7 +164,7 @@ validate_gateway (const char *gateway)
 }
 
 typedef struct ValidateInfo {
-	ValidProperty *table;
+	const ValidProperty *table;
 	GError **error;
 	gboolean have_items;
 } ValidateInfo;
@@ -161,7 +185,7 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 		return;
 
 	for (i = 0; info->table[i].name; i++) {
-		ValidProperty prop = info->table[i];
+		const ValidProperty prop = info->table[i];
 		long int tmp;
 
 		if (strcmp (prop.name, key))
@@ -175,7 +199,7 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 				             NM_VPN_PLUGIN_ERROR,
 				             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
 				             _("invalid gateway '%s'"),
-				             value);
+				             key);
 				return;
 			}
 			return; /* valid */
@@ -243,7 +267,7 @@ nm_sstp_properties_validate (NMSettingVpn *s_vpn,
 
 	/* Ensure required properties exist */
 	for (i = 0; valid_properties[i].name; i++) {
-		ValidProperty prop = valid_properties[i];
+		const ValidProperty prop = valid_properties[i];
 		const char *value;
 
 		if (!prop.required)
@@ -291,14 +315,14 @@ pppd_watch_cb (GPid pid, gint status, gpointer user_data)
 	if (WIFEXITED (status)) {
 		error = WEXITSTATUS (status);
 		if (error != 0)
-			g_warning ("pppd exited with error code %d", error);
+			_LOGW ("pppd exited with error code %d", error);
 	}
 	else if (WIFSTOPPED (status))
-		g_warning ("pppd stopped unexpectedly with signal %d", WSTOPSIG (status));
+		_LOGW ("pppd stopped unexpectedly with signal %d", WSTOPSIG (status));
 	else if (WIFSIGNALED (status))
-		g_warning ("pppd died with signal %d", WTERMSIG (status));
+		_LOGW ("pppd died with signal %d", WTERMSIG (status));
 	else
-		g_warning ("pppd died from an unknown cause");
+		_LOGW ("pppd died from an unknown cause");
 
 	/* Reap child if needed. */
 	waitpid (priv->pid, NULL, WNOHANG);
@@ -374,8 +398,8 @@ pppd_timed_out (gpointer user_data)
 {
 	NMSstpPlugin *plugin = NM_SSTP_PLUGIN (user_data);
 
-	g_warning ("Looks like pppd didn't initialize our dbus module");
-	nm_vpn_service_plugin_failure (NM_VPN_SERVICE_PLUGIN (plugin), NM_VPN_CONNECTION_STATE_REASON_SERVICE_START_TIMEOUT);
+	_LOGW ("Looks like pppd didn't initialize our dbus module");
+	nm_vpn_service_plugin_failure (NM_VPN_SERVICE_PLUGIN (plugin), NM_VPN_PLUGIN_FAILURE_CONNECT_FAILED);
 
 	return FALSE;
 }
@@ -505,7 +529,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 		g_free(uuid);
 
 	/* Enable debug */
-	if (debug)
+	if (_LOGD_enabled ())
 		g_ptr_array_add (args, (gpointer) g_strdup ("debug"));
 
 	/* PPP options */
@@ -622,7 +646,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 			g_ptr_array_add (args, (gpointer) g_strdup ("lcp-echo-interval"));
 			g_ptr_array_add (args, (gpointer) g_strdup_printf ("%ld", tmp_int));
 		} else {
-			g_warning ("failed to convert lcp-echo-interval value '%s'", value);
+			_LOGW ("failed to convert lcp-echo-interval value '%s'", value);
 		}
 	} else {
 		g_ptr_array_add (args, (gpointer) g_strdup ("lcp-echo-interval"));
@@ -637,7 +661,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 			g_ptr_array_add (args, (gpointer) g_strdup ("unit"));
 			g_ptr_array_add (args, (gpointer) g_strdup_printf ("%ld", tmp_int));
 		} else
-			g_warning ("failed to convert unit value '%s'", value);
+			_LOGW ("failed to convert unit value '%s'", value);
 	}
 
 	/* Add the SSTP PPP Plugin */
@@ -686,7 +710,7 @@ nm_sstp_start_pppd_binary (NMSstpPlugin *plugin,
 	}
 	free_pppd_args (pppd_argv);
 
-	g_message ("pppd started with pid %d", pid);
+	_LOGI ("pppd started with pid %d", pid);
 
 	NM_SSTP_PLUGIN_GET_PRIVATE (plugin)->pid = pid;
 	g_child_watch_add (pid, pppd_watch_cb, plugin);
@@ -811,6 +835,10 @@ handle_set_ip4_config (NMDBusSstpPpp *object,
 }
 
 #if 0
+/* SSTP-NOTE:
+ * We need to pass the real server ip/fqdn for sstpc to validate the server certificate
+ *  though, the nm-sstp-pppd-plugin.c will use sstp-api to get the server adddress before ip-up.
+ */
 static gboolean
 lookup_gateway (NMSstpPlugin *self,
                 const char *src,
@@ -927,6 +955,22 @@ real_connect (NMVpnServicePlugin   *plugin,
 	if (value && strlen(value))
 		nm_setting_vpn_add_data_item(s_vpn, NM_SSTP_KEY_UUID, value);
 
+
+	/* SSTP-NOTE:
+     * We need to pass the real server ip/fqdn for sstpc to validate the server certificate
+     *  though, the nm-sstp-pppd-plugin.c will use sstp-api to get the server adddress before ip-up.
+     *
+     * Look up the IP address of the PPtP server; if the server has multiple
+	 * addresses, because we can't get the actual IP used back from sstp itself,
+	 * we need to do name->addr conversion here and only pass the IP address
+	 * down to pppd/sstp.  If only sstp could somehow return the IP address it's
+	 * using for the connection, we wouldn't need to do this...
+     *
+	if (!lookup_gateway (NM_SSTP_PLUGIN (plugin), gwaddr, error))
+		return FALSE;
+	 */
+
+
 	if (!nm_sstp_properties_validate (s_vpn, error))
 		return FALSE;
 
@@ -936,7 +980,8 @@ real_connect (NMVpnServicePlugin   *plugin,
 	g_clear_object (&priv->connection);
 	priv->connection = g_object_ref (connection);
 
-	if (getenv ("NM_PPP_DUMP_CONNECTION") || debug)
+	if (   getenv ("NM_PPP_DUMP_CONNECTION")
+	    || _LOGD_enabled ())
 		nm_connection_dump (connection);
 
 	return nm_sstp_start_pppd_binary (NM_SSTP_PLUGIN (plugin),
@@ -997,7 +1042,7 @@ real_disconnect (NMVpnServicePlugin *plugin, GError **err)
 		else
 			kill (priv->pid, SIGKILL);
 
-		g_message ("Terminated ppp daemon with PID %d.", priv->pid);
+		_LOGI ("Terminated ppp daemon with PID %d.", priv->pid);
 		priv->pid = 0;
 	}
 
@@ -1133,12 +1178,13 @@ nm_sstp_plugin_new (const char *bus_name)
 
 	plugin = g_initable_new (NM_TYPE_SSTP_PLUGIN, NULL, &error,
 	                                          NM_VPN_SERVICE_PLUGIN_DBUS_SERVICE_NAME, bus_name,
-	                                          NM_VPN_SERVICE_PLUGIN_DBUS_WATCH_PEER, !debug,
+	                                          NM_VPN_SERVICE_PLUGIN_DBUS_WATCH_PEER, !gl.debug,
 	                                          NULL);
 	if (!plugin) {
-		g_warning ("Failed to initialize a plugin instance: %s", error->message);
+		_LOGW ("Failed to initialize a plugin instance: %s", error->message);
 		g_error_free (error);
 	}
+
 	return plugin;
 }
 
@@ -1155,18 +1201,18 @@ main (int argc, char *argv[])
 	GMainLoop *main_loop;
 	gboolean persist = FALSE;
 	GOptionContext *opt_ctx = NULL;
-	gchar *bus_name = NM_DBUS_SERVICE_SSTP;
+	GError *error = NULL;
+	gs_free char *bus_name_free = NULL;
+	const char *bus_name;
 
 	GOptionEntry options[] = {
 		{ "persist", 0, 0, G_OPTION_ARG_NONE, &persist, N_("Don't quit when VPN connection terminates"), NULL },
-		{ "debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable verbose debug logging (may expose passwords)"), NULL },
-		{ "bus-name", 0, 0, G_OPTION_ARG_STRING, &bus_name, N_("D-Bus name to use for this instance"), NULL },
+		{ "debug", 0, 0, G_OPTION_ARG_NONE, &gl.debug, N_("Enable verbose debug logging (may expose passwords)"), NULL },
+		{ "bus-name", 0, 0, G_OPTION_ARG_STRING, &bus_name_free, N_("D-Bus name to use for this instance"), NULL },
 		{NULL}
 	};
 
-#if !GLIB_CHECK_VERSION (2, 35, 0)
-	g_type_init ();
-#endif
+	nm_g_type_init ();
 
 	/* locale will be set according to environment LC_* variables */
 	setlocale (LC_ALL, "");
@@ -1185,17 +1231,29 @@ main (int argc, char *argv[])
 	g_option_context_set_summary (opt_ctx,
 	    _("nm-sstp-service provides integrated SSTP VPN capability (compatible with Microsoft and other implementations) to NetworkManager."));
 
-	g_option_context_parse (opt_ctx, &argc, &argv, NULL);
-	g_option_context_free (opt_ctx);
+	if (!g_option_context_parse (opt_ctx, &argc, &argv, &error)) {
+		g_printerr ("Error parsing the command line options: %s\n", error->message);
+		g_option_context_free (opt_ctx);
+		g_error_free (error);
+		return EXIT_FAILURE;
+	}
+    g_option_context_free (opt_ctx);
+
+	bus_name = bus_name_free ?: NM_DBUS_SERVICE_SSTP;
 
 	if (getenv ("NM_PPP_DEBUG"))
-		debug = TRUE;
+		gl.debug = TRUE;
 
-	if (debug)
-		g_message ("nm-sstp-service (version " DIST_VERSION ") starting...");
-
-	if (bus_name)
-		setenv ("NM_DBUS_SERVICE_SSTP", bus_name, 0);
+	gl.log_level = _nm_utils_ascii_str_to_int64 (getenv ("NM_VPN_LOG_LEVEL"),
+	                                             10, 0, LOG_DEBUG,
+	                                             gl.debug ? LOG_INFO : LOG_NOTICE);
+	
+    _LOGD ("nm-sstp-service (version " DIST_VERSION ") starting...");
+	_LOGD ("   uses%s --bus-name \"%s\"", bus_name_free ? "" : " default", bus_name);
+   	
+    setenv ("NM_VPN_LOG_LEVEL", nm_sprintf_buf (sbuf, "%d", gl.log_level), TRUE);
+	setenv ("NM_VPN_LOG_PREFIX_TOKEN", nm_sprintf_buf (sbuf, "%ld", (long) getpid ()), TRUE);
+	setenv ("NM_DBUS_SERVICE_SSTP", bus_name, 0);
 
 	plugin = nm_sstp_plugin_new (bus_name);
 	if (!plugin)
@@ -1211,5 +1269,5 @@ main (int argc, char *argv[])
 	g_main_loop_unref (main_loop);
 	g_object_unref (plugin);
 
-	exit (EXIT_SUCCESS);
+	return EXIT_SUCCESS;
 }

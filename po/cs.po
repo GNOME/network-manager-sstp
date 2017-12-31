@@ -4,15 +4,15 @@
 #
 # Jakub Friedl <jfriedl@suse.cz>, 2006.
 # Jiří Eischmann <jiri@eischmann.cz>, 2008.
-# Zdeněk Hataš <zdenek.hatas@gmail.com>, 2009 - 2015.
+# Zdeněk Hataš <zdenek.hatas@gmail.com>, 2009 - 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2015-03-09 09:37+0000\n"
-"PO-Revision-Date: 2015-03-12 11:26+0100\n"
+"POT-Creation-Date: 2016-06-16 11:19+0000\n"
+"PO-Revision-Date: 2016-06-30 14:45+0100\n"
 "Last-Translator: Zdeněk Hataš <zdenek.hatas@gmail.com>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -22,138 +22,216 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Poedit 1.5.4\n"
 
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
+msgid "SSTP VPN client"
+msgstr "Klient SSTP VPN"
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
+msgid "Client for SSTP virtual private networks"
+msgstr "Klient pro virtuální privátní sítě SSTP"
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
+msgid "Support for configuring SSTP virtual private network connections."
+msgstr "Podpora konfigurace připojení virtuálních privátních sítí SSTP."
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
+msgid "Compatible with various SSTP servers including Microsoft."
+msgstr "Kompatibilní s různými servery SSTP včetně těch od firmy Microsoft."
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
+msgid "The NetworkManager Developers"
+msgstr "Vývojáři NetworkManageru"
+
 #. Otherwise, we have no saved password, or the password flags indicated
 #. * that the password should never be saved.
 #.
-#: ../auth-dialog/main.c:155
+#: ../auth-dialog/main.c:146
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr "Pro přístup k virtuální privátní síti „%s“ musíte provést autentizaci."
 
-#: ../auth-dialog/main.c:164 ../auth-dialog/main.c:184
+#: ../auth-dialog/main.c:155 ../auth-dialog/main.c:175
 msgid "Authenticate VPN"
 msgstr "Autentizovat VPN"
 
-#: ../auth-dialog/main.c:166 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:157 ../properties/nm-sstp-dialog.ui.h:43
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "SSTP VPN Connection Manager"
-msgstr "Správce spojení SSTP VPN"
-
-#: ../nm-sstp.desktop.in.h:2
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "Přidat, odstranit a upravit spojení SSTP VPN"
-
-#: ../properties/advanced-dialog.c:185
+#: ../properties/advanced-dialog.c:169
 msgid "All Available (Default)"
 msgstr "Vše dostupné (výchozí)"
 
-#: ../properties/advanced-dialog.c:189
+#: ../properties/advanced-dialog.c:173
 msgid "128-bit (most secure)"
 msgstr "128 bitů (nejbezpečnější)"
 
-#: ../properties/advanced-dialog.c:198
+#: ../properties/advanced-dialog.c:182
 msgid "40-bit (less secure)"
 msgstr "40 bitů (méně bezpečné)"
 
-#: ../properties/advanced-dialog.c:302
+#: ../properties/advanced-dialog.c:286
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:315
+#: ../properties/advanced-dialog.c:299
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:327
+#: ../properties/advanced-dialog.c:311
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:339
+#: ../properties/advanced-dialog.c:323
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:352
+#: ../properties/advanced-dialog.c:336
 msgid "EAP"
 msgstr "EAP"
+
+#: ../properties/nm-sstp-editor-plugin.c:34
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "Point-to-Point Tunneling Protocol (SSTP)"
+
+#: ../properties/nm-sstp-editor-plugin.c:35
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Kompatibilní s SSTP VPN servery od Microsoftu a ostatních."
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:80
+#, c-format
+msgid "missing plugin file \"%s\""
+msgstr "chybějící soubor zásuvného modulu „%s“"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:86
+#, c-format
+msgid "cannot load editor plugin: %s"
+msgstr "nelze nahrát editor zásuvného modulu: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:95
+#, c-format
+msgid "cannot load factory %s from plugin: %s"
+msgstr "nelze nahrát generátor %s ze zásuvného modulu: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:121
+msgid "unknown error creating editor instance"
+msgstr "neznámá chyba vytváření instance editoru"
+
+#: ../src/nm-sstp-service.c:164
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "neplatná brána „%s“"
+
+#: ../src/nm-sstp-service.c:178
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr "neplatná číselná vlastnost „%s“"
+
+#: ../src/nm-sstp-service.c:188
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "neplatná pravdivostní vlastnost „%s“ (není ano či ne)"
+
+#: ../src/nm-sstp-service.c:195
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "neošetřená vlastnost „%s“ typu %s"
+
+#: ../src/nm-sstp-service.c:206
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "vlastnost „%s“ není platná nebo podporovaná"
+
+#: ../src/nm-sstp-service.c:224
+msgid "No VPN configuration options."
+msgstr "Žádné volby nastavení VPN."
+
+#: ../src/nm-sstp-service.c:244
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "Chybí požadovaná volba „%s“."
+
+#: ../src/nm-sstp-service.c:264
+msgid "No VPN secrets!"
+msgstr "Žádná hesla VPN!"
+
+#: ../src/nm-sstp-service.c:419
+msgid "Could not find sstp client binary."
+msgstr "Nelze najít program klienta sstp."
+
+#: ../src/nm-sstp-service.c:432
+msgid "Missing VPN gateway."
+msgstr "Chybí brána VPN."
+
+#: ../src/nm-sstp-service.c:594
+msgid "Could not find the pppd binary."
+msgstr "Nelze nalézt program sstp."
+
+#: ../src/nm-sstp-service.c:654
+#| msgid "Missing or invalid VPN username."
+msgid "Missing VPN username."
+msgstr "Chybí jméno uživatele VPN."
+
+#: ../src/nm-sstp-service.c:663
+msgid "Missing or invalid VPN password."
+msgstr "Chybějící nebo neplatné heslo pro VPN."
+
+#: ../src/nm-sstp-service.c:769
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr "nelze převést adresu IP „%s“ (%d) brány SSTP VPN"
+
+#: ../src/nm-sstp-service.c:787
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr "nelze nalézt adresu IP „%s“ (%d) brány SSTP VPN"
+
+#: ../src/nm-sstp-service.c:811
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr "nebyla vrácena žádná použitelná adresa brány SSTP VPN „%s“"
+
+#: ../src/nm-sstp-service.c:840
+msgid "Invalid or missing SSTP gateway."
+msgstr "Neplatná nebo chybějící brána SSTP."
+
+#: ../src/nm-sstp-service.c:1085
+msgid "Don't quit when VPN connection terminates"
+msgstr "Neukončovat při uzavření spojení VPN"
+
+#: ../src/nm-sstp-service.c:1086
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Povolit podrobný ladicí výpis (může prozradit hesla)"
+
+#: ../src/nm-sstp-service.c:1087
+msgid "D-Bus name to use for this instance"
+msgstr "Název použitý v D-Bus pro tuto instanci"
+
+#: ../src/nm-sstp-service.c:1110
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service umožňuje NetworkManageru poskytovat služby pro připojování k "
+"serverům VPN s protokolem SSTP (Microsoftu a dalších)."
 
 #: ../properties/nm-sstp-dialog.ui.h:1
 msgid "Default"
 msgstr "Výchozí"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Obecné</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid ""
-"SSTP server IP or name.\n"
-"config: the first parameter of sstp"
-msgstr ""
-"Název nebo IP SSTP serveru.\n"
-"config: první parametr sstp"
-
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "_Gateway:"
-msgstr "_Brána:"
-
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "<b>Optional</b>"
-msgstr "<b>Volitelné</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:7
-msgid ""
-"Append the domain name <domain> to the local host name for authentication "
-"purposes.\n"
-"config: domain <domain>"
-msgstr ""
-"Připojit název domény <domain> k lokálnímu názvu stroje pro účely ověření.\n"
-"config: domain <domain>"
-
-#: ../properties/nm-sstp-dialog.ui.h:9
-msgid "NT Domain:"
-msgstr "Doména NT:"
-
-#: ../properties/nm-sstp-dialog.ui.h:10
-msgid "Show password"
-msgstr "Zobrazit heslo"
-
-#: ../properties/nm-sstp-dialog.ui.h:11
-msgid "Password passed to SSTP when prompted for it."
-msgstr "Heslo poskytnuté SSTP pokud o něj požádá."
-
-#: ../properties/nm-sstp-dialog.ui.h:13
-msgid ""
-"Set the name used for authenticating the local system to the peer to "
-"<name>.\n"
-"config: user <name>"
-msgstr ""
-"Nastavit jméno použité pro ověření lokálního systému vůči protějšku na "
-"<název>.\n"
-"config: user <název>"
-
-#: ../properties/nm-sstp-dialog.ui.h:15
-msgid "User name:"
-msgstr "Uživatelské jméno:"
-
-#: ../properties/nm-sstp-dialog.ui.h:16
-msgid "Ad_vanced..."
-msgstr "P_okročilé…"
-
-#: ../properties/nm-sstp-dialog.ui.h:17
 msgid "SSTP Advanced Options"
 msgstr "Rozšířené volby SSTP"
 
-#: ../properties/nm-sstp-dialog.ui.h:18
+#: ../properties/nm-sstp-dialog.ui.h:3
 msgid "<b>Authentication</b>"
 msgstr "<b>Autentizace</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:19
+#: ../properties/nm-sstp-dialog.ui.h:4
 msgid "Allow the following authentication methods:"
 msgstr "Povolit následující metody autentizace:"
 
-#: ../properties/nm-sstp-dialog.ui.h:20
+#: ../properties/nm-sstp-dialog.ui.h:5
 msgid ""
 "Allow/disable authentication methods.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
@@ -161,15 +239,15 @@ msgstr ""
 "Povolit/zakázat metody ověření.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
-#: ../properties/nm-sstp-dialog.ui.h:22
+#: ../properties/nm-sstp-dialog.ui.h:7
 msgid "<b>Security and Compression</b>"
 msgstr "<b>Bezpečnost a komprimace</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:23
+#: ../properties/nm-sstp-dialog.ui.h:8
 msgid "Use _Point-to-Point encryption (MPPE)"
 msgstr "Použít _Point-to-Point šifrování (MPPE)"
 
-#: ../properties/nm-sstp-dialog.ui.h:24
+#: ../properties/nm-sstp-dialog.ui.h:9
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
@@ -179,11 +257,11 @@ msgstr ""
 "MSCHAP. Tento přepínač povolíte vybráním jedné nebo více autentizačních "
 "metod (MSCHAP nebo MSCHAPv2)."
 
-#: ../properties/nm-sstp-dialog.ui.h:25
+#: ../properties/nm-sstp-dialog.ui.h:10
 msgid "_Security:"
 msgstr "_Bezpečnost:"
 
-#: ../properties/nm-sstp-dialog.ui.h:26
+#: ../properties/nm-sstp-dialog.ui.h:11
 msgid ""
 "Require the use of MPPE, with 40/128-bit encryption or all.\n"
 "config: require-mppe, require-mppe-128 or require-mppe-40"
@@ -191,11 +269,11 @@ msgstr ""
 "Vyžaduje použití MPPE se 40/128bitovým šifrovnáním nebo vše.\n"
 "config: require-mppe, require-mppe-128 nebo require-mppe-40"
 
-#: ../properties/nm-sstp-dialog.ui.h:28
+#: ../properties/nm-sstp-dialog.ui.h:13
 msgid "Allow st_ateful encryption"
 msgstr "Povolit st_avové šifrování"
 
-#: ../properties/nm-sstp-dialog.ui.h:29
+#: ../properties/nm-sstp-dialog.ui.h:14
 msgid ""
 "Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
 "config: mppe-stateful (when checked)"
@@ -204,11 +282,11 @@ msgstr ""
 "první.\n"
 "config: mppe-stateful (pokud je zaškrtnuto)"
 
-#: ../properties/nm-sstp-dialog.ui.h:31
+#: ../properties/nm-sstp-dialog.ui.h:16
 msgid "Allow _BSD data compression"
 msgstr "Povolit komprimaci _BSD dat"
 
-#: ../properties/nm-sstp-dialog.ui.h:32
+#: ../properties/nm-sstp-dialog.ui.h:17
 msgid ""
 "Allow/disable BSD-Compress compression.\n"
 "config: nobsdcomp (when unchecked)"
@@ -216,11 +294,11 @@ msgstr ""
 "Povolit/zakázat komprimaci BSD.\n"
 "config: nobsdcomp (pokud není zaškrtnuto)"
 
-#: ../properties/nm-sstp-dialog.ui.h:34
+#: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Allow _Deflate data compression"
 msgstr "Povolit komprimaci dat _Deflate"
 
-#: ../properties/nm-sstp-dialog.ui.h:35
+#: ../properties/nm-sstp-dialog.ui.h:20
 msgid ""
 "Allow/disable Deflate compression.\n"
 "config: nodeflate (when unchecked)"
@@ -228,11 +306,11 @@ msgstr ""
 "Povolit/zakázat komprimaci Deflate.\n"
 "config: nodeflate (pokud není zaškrtnuto)"
 
-#: ../properties/nm-sstp-dialog.ui.h:37
+#: ../properties/nm-sstp-dialog.ui.h:22
 msgid "Use TCP _header compression"
 msgstr "Použít kompresi TCP _záhlaví"
 
-#: ../properties/nm-sstp-dialog.ui.h:38
+#: ../properties/nm-sstp-dialog.ui.h:23
 msgid ""
 "Allow/disable Van Jacobson style TCP/IP header compression in both the "
 "transmit and the receive directions.\n"
@@ -242,15 +320,15 @@ msgstr ""
 "(odesílání a příjem).\n"
 "config: novj (pokud není zaškrtnuto)"
 
-#: ../properties/nm-sstp-dialog.ui.h:40
+#: ../properties/nm-sstp-dialog.ui.h:25
 msgid "<b>Echo</b>"
 msgstr "<b>Echo</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:41
+#: ../properties/nm-sstp-dialog.ui.h:26
 msgid "Send PPP _echo packets"
 msgstr "Poslat PPP _echo pakety"
 
-#: ../properties/nm-sstp-dialog.ui.h:42
+#: ../properties/nm-sstp-dialog.ui.h:27
 msgid ""
 "Send LCP echo-requests to find out whether peer is alive.\n"
 "config: lcp-echo-failure and lcp-echo-interval"
@@ -258,16 +336,15 @@ msgstr ""
 "Zjišťovat pomocí LCP echo-request zda protějšek žije.\n"
 "config: lcp-echo-failure a lcp-echo-interval"
 
-#: ../properties/nm-sstp-dialog.ui.h:44
-#| msgid "<b>Echo</b>"
+#: ../properties/nm-sstp-dialog.ui.h:29
 msgid "<b>Misc</b>"
 msgstr "<b>Různé</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:45
+#: ../properties/nm-sstp-dialog.ui.h:30
 msgid "Use custom _unit number:"
 msgstr "Po_užít vlastní číslo zařízení:"
 
-#: ../properties/nm-sstp-dialog.ui.h:46
+#: ../properties/nm-sstp-dialog.ui.h:31
 msgid ""
 "Enable custom index for ppp<n> device name.\n"
 "config: unit <n>"
@@ -275,132 +352,70 @@ msgstr ""
 "Povolit vlastní index pro název zařízení ppp<n>.\n"
 "config: unit <n>"
 
-#: ../properties/nm-sstp.c:49
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Point-to-Point Tunneling Protocol (SSTP)"
+#: ../properties/nm-sstp-dialog.ui.h:33
+msgid "<b>General</b>"
+msgstr "<b>Obecné</b>"
 
-#: ../properties/nm-sstp.c:50
-msgid "Compatible with Microsoft and other SSTP VPN servers."
-msgstr "Kompatibilní s SSTP VPN servery od Microsoftu a ostatních."
-
-#: ../properties/nm-sstp.c:317
-msgid "Saved"
-msgstr "Uloženo"
-
-#: ../properties/nm-sstp.c:325
-msgid "Always Ask"
-msgstr "Vždy se ptát"
-
-#: ../properties/nm-sstp.c:330
-msgid "Not Required"
-msgstr "Není vyžadováno"
-
-#: ../src/nm-sstp-service.c:161
-#, c-format
-msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
-msgstr "nelze převést adresu IP „%s“ (%d) brány SSTP VPN"
-
-#: ../src/nm-sstp-service.c:179
-#, c-format
-msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
-msgstr "nelze nalézt adresu IP „%s“ (%d) brány SSTP VPN"
-
-#: ../src/nm-sstp-service.c:203
-#, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s'"
-msgstr "nebyla vrácena žádná použitelná adresa brány SSTP VPN „%s“"
-
-#: ../src/nm-sstp-service.c:214
-#, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
-msgstr "nebyla vrácena žádná použitelná adresa brány SSTP VPN „%s“ (%d)"
-
-#: ../src/nm-sstp-service.c:241
-msgid "Could not find secrets (connection invalid, no vpn setting)."
-msgstr "Nelze nalézt hesla (neplatné připojení, žádná nastavení vpn)."
-
-#: ../src/nm-sstp-service.c:253
-msgid "Invalid VPN username."
-msgstr "Neplatné jméno uživatele VPN."
-
-#: ../src/nm-sstp-service.c:262
-msgid "Missing VPN username."
-msgstr "Chybí jméno uživatele VPN."
-
-#: ../src/nm-sstp-service.c:272
-msgid "Missing or invalid VPN password."
-msgstr "Chybějící nebo neplatné heslo VPN."
-
-#: ../src/nm-sstp-service.c:430
-msgid "No cached credentials."
-msgstr "Žádné přihlašovací údaje v mezipaměti."
-
-#: ../src/nm-sstp-service.c:577
-#, c-format
-msgid "invalid gateway '%s'"
-msgstr "neplatná brána „%s“"
-
-#: ../src/nm-sstp-service.c:591
-#, c-format
-msgid "invalid integer property '%s'"
-msgstr "neplatná číselná volba „%s“"
-
-#: ../src/nm-sstp-service.c:601
-#, c-format
-msgid "invalid boolean property '%s' (not yes or no)"
-msgstr "neplatná pravdivostní volba „%s“ (není ano či ne)"
-
-#: ../src/nm-sstp-service.c:608
-#, c-format
-msgid "unhandled property '%s' type %s"
-msgstr "neošetřená volba „%s“ typu %s"
-
-#: ../src/nm-sstp-service.c:619
-#, c-format
-msgid "property '%s' invalid or not supported"
-msgstr "volba „%s“ není platná nebo podporovaná"
-
-#: ../src/nm-sstp-service.c:637
-msgid "No VPN configuration options."
-msgstr "Žádné volby nastavení VPN."
-
-#: ../src/nm-sstp-service.c:657
-#, c-format
-msgid "Missing required option '%s'."
-msgstr "Chybí požadovaná volba „%s“."
-
-#: ../src/nm-sstp-service.c:677
-msgid "No VPN secrets!"
-msgstr "Žádná hesla VPN!"
-
-#: ../src/nm-sstp-service.c:835
-msgid "Could not find sstp client binary."
-msgstr "Nelze najít program klienta sstp."
-
-#: ../src/nm-sstp-service.c:848
-msgid "Missing VPN gateway."
-msgstr "Chybí brána VPN."
-
-#: ../src/nm-sstp-service.c:1009
-msgid "Could not find the pppd binary."
-msgstr "Nelze nalézt program sstp."
-
-#: ../src/nm-sstp-service.c:1139
-msgid "Invalid or missing SSTP gateway."
-msgstr "Neplatná nebo chybějící brána SSTP."
-
-#: ../src/nm-sstp-service.c:1318
-msgid "Don't quit when VPN connection terminates"
-msgstr "Neukončovat při uzavření spojení VPN"
-
-#: ../src/nm-sstp-service.c:1319
-msgid "Enable verbose debug logging (may expose passwords)"
-msgstr "Povolit podrobný ladicí výpis (může prozradit hesla)"
-
-#: ../src/nm-sstp-service.c:1342
+#: ../properties/nm-sstp-dialog.ui.h:34
 msgid ""
-"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
-"Microsoft and other implementations) to NetworkManager."
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
 msgstr ""
-"nm-sstp-service umožňuje NetworkManageru poskytovat služby pro připojování k "
-"SSTP VPN serverům (Microsoftu a dalších)."
+"Název nebo IP SSTP serveru.\n"
+"config: první parametr sstp"
+
+#: ../properties/nm-sstp-dialog.ui.h:36
+msgid "_Gateway:"
+msgstr "_Brána:"
+
+#: ../properties/nm-sstp-dialog.ui.h:37
+msgid "<b>Optional</b>"
+msgstr "<b>Volitelné</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+"Připojit název domény <domain> k lokálnímu názvu stroje pro účely ověření.\n"
+"config: domain <domain>"
+
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "NT Domain:"
+msgstr "Doména NT:"
+
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid "Show password"
+msgstr "Zobrazit heslo"
+
+#: ../properties/nm-sstp-dialog.ui.h:42
+msgid "Password passed to SSTP when prompted for it."
+msgstr "Heslo poskytnuté SSTP pokud o něj požádá."
+
+#: ../properties/nm-sstp-dialog.ui.h:44
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+"Nastavit jméno použité pro ověření lokálního systému vůči protějšku na "
+"<název>.\n"
+"config: user <název>"
+
+#: ../properties/nm-sstp-dialog.ui.h:46
+msgid "User name:"
+msgstr "Uživatelské jméno:"
+
+#: ../properties/nm-sstp-dialog.ui.h:47
+msgid "Ad_vanced..."
+msgstr "P_okročilé…"
+
+#~ msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+#~ msgstr "nebyla vrácena žádná použitelná adresa brány SSTP VPN „%s“ (%d)"
+
+#~ msgid "Could not find secrets (connection invalid, no vpn setting)."
+#~ msgstr "Nelze nalézt hesla (neplatné připojení, žádná nastavení vpn)."
+
+#~ msgid "No cached credentials."
+#~ msgstr "Nejsou žádné přihlašovací údaje v mezipaměti."

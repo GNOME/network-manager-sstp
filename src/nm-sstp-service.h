@@ -23,14 +23,6 @@
 #ifndef NM_SSTP_PLUGIN_H
 #define NM_SSTP_PLUGIN_H
 
-#include <glib.h>
-#include <glib-object.h>
-
-#include <NetworkManager.h>
-#include <nm-vpn-service-plugin.h>
-
-#include "nm-sstp-service-defines.h"
-
 #define NM_TYPE_SSTP_PLUGIN            (nm_sstp_plugin_get_type ())
 #define NM_SSTP_PLUGIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), NM_TYPE_SSTP_PLUGIN, NMSstpPlugin))
 #define NM_SSTP_PLUGIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), NM_TYPE_SSTP_PLUGIN, NMSstpPluginClass))

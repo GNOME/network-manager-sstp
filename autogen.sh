@@ -14,7 +14,7 @@ PKG_NAME=NetworkManager-sstp
 }
 
 (cd $srcdir;
-    autoreconf --install &&
+    autoreconf --install --symlink &&
     intltoolize --force &&
     autoreconf &&
     ./configure --enable-maintainer-mode $@

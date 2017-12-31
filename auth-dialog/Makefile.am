@@ -1,12 +1,13 @@
 libexec_PROGRAMS = nm-sstp-auth-dialog
 
-nm_sstp_auth_dialog_CPPFLAGS =			\
-	$(LIBNM_CFLAGS)			\
+nm_sstp_auth_dialog_CPPFLAGS =	\
+	$(LIBNM_CFLAGS)				\
 	$(GLIB_CFLAGS)				\
 	$(GTK_CFLAGS)				\
 	$(LIBNMA_CFLAGS)			\
 	$(LIBSECRET_CFLAGS)			\
-	-I${top_srcdir}				\
+	-I"${top_srcdir}/shared/" 	\
+	-I"${top_srcdir}/src/" 		\
 	-DICONDIR=\""$(datadir)/pixmaps"\"	\
 	-DUIDIR=\""$(uidir)"\"			\
 	-DBINDIR=\""$(bindir)"\"

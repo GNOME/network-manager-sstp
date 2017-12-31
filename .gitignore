@@ -15,6 +15,8 @@ ltmain.sh
 missing
 mkinstalldirs
 POTFILES
+*.pot
+.dirstamp
 stamp-*
 .deps
 .libs
@@ -26,6 +28,8 @@ m4/gtk-doc.m4
 m4/intltool.m4
 m4/libtool.m4
 m4/lt*.m4
+appdata/network-manager-sstp.metainfo.xml
+/cscope.*
 
 auth-dialog/nm-sstp-auth-dialog
 nm-sstp-service.name
@@ -33,3 +37,5 @@ nm-sstp.desktop
 src/nm-sstp-pppd-service-dbus.c
 src/nm-sstp-pppd-service-dbus.h
 src/nm-sstp-service
+
+/NetworkManager-sstp*.tar*

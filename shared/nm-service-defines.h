@@ -20,8 +20,8 @@
  * Copyright 2008, 2014 Red Hat, Inc.
  */
 
-#ifndef NM_SSTP_SERVICE_DEFINES_H
-#define NM_SSTP_SERVICE_DEFINES_H
+#ifndef __NM_SERVICE_DEFINES_H__
+#define __NM_SERVICE_DEFINES_H__
 
 #define NM_SSTP_MAX_BUFLEN             (255)
 
@@ -66,4 +66,4 @@
 
 // TODO: We need to eliminate the password-flags and proxy-password-flags
 
-#endif /* NM_SSTP_SERVICE_DEFINES_H */
+#endif /* __NM_SERVICE_DEFINES_H__ */

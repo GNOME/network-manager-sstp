@@ -11,168 +11,241 @@ msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2014-09-14 22:05+0000\n"
-"PO-Revision-Date: 2014-09-11 11:59+0100\n"
-"Last-Translator: Josef Andersson <josef.andersson@fripost.org>\n"
+"POT-Creation-Date: 2016-04-14 10:36+0000\n"
+"PO-Revision-Date: 2016-04-17 14:50+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: ../appdata/network-manager-sstp.appdata.xml.in.h:1
+msgid "SSTP VPN client"
+msgstr "SSTP VPN-klient"
+
+#: ../appdata/network-manager-sstp.appdata.xml.in.h:2
+msgid "Client for SSTP virtual private networks"
+msgstr "Klient för SSTP virtuella privata nätverk"
+
+#: ../appdata/network-manager-sstp.appdata.xml.in.h:3
+msgid "Support for configuring SSTP virtual private network connections."
+msgstr "Stöd för att konfigurera SSTP virtuella privata nätverksanslutningar."
+
+#: ../appdata/network-manager-sstp.appdata.xml.in.h:4
+msgid "Compatible with various SSTP servers including Microsoft."
+msgstr "Kompatibel med diverse SSTP-servrar inklusive Microsoft."
+
+#: ../appdata/network-manager-sstp.appdata.xml.in.h:5
+msgid "The NetworkManager Developers"
+msgstr "Utvecklarna av Nätverkshanteraren"
 
 #. Otherwise, we have no saved password, or the password flags indicated
 #. * that the password should never be saved.
 #.
-#: ../auth-dialog/main.c:155
+#: ../auth-dialog/main.c:154
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgstr ""
-"Du måsta autentisera dig för att komma åt det virtuella privata nätverket "
+"Du måste autentisera dig för att komma åt det virtuella privata nätverket "
 "”%s”."
 
-#: ../auth-dialog/main.c:164 ../auth-dialog/main.c:184
+#: ../auth-dialog/main.c:163 ../auth-dialog/main.c:183
 msgid "Authenticate VPN"
 msgstr "Autentisera VPN"
 
-#: ../auth-dialog/main.c:166 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:165 ../properties/nm-sstp-dialog.ui.h:43
 msgid "Password:"
 msgstr "Lösenord:"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "SSTP VPN Connection Manager"
-msgstr "SSTP VPN-anslutningshanterare"
-
-#: ../nm-sstp.desktop.in.h:2
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "Lägg till, ta bort och redigera SSTP VPN-anslutningar"
-
-#: ../properties/advanced-dialog.c:184
+#: ../properties/advanced-dialog.c:191
 msgid "All Available (Default)"
 msgstr "Alla tillgängliga (Standard)"
 
-#: ../properties/advanced-dialog.c:188
+#: ../properties/advanced-dialog.c:195
 msgid "128-bit (most secure)"
 msgstr "128-bitar (säkrast)"
 
-#: ../properties/advanced-dialog.c:197
+#: ../properties/advanced-dialog.c:204
 msgid "40-bit (less secure)"
 msgstr "40-bitar (mindre säkert)"
 
-#: ../properties/advanced-dialog.c:301
+#: ../properties/advanced-dialog.c:308
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:314
+#: ../properties/advanced-dialog.c:321
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:326
+#: ../properties/advanced-dialog.c:333
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:338
+#: ../properties/advanced-dialog.c:345
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:351
+#: ../properties/advanced-dialog.c:358
 msgid "EAP"
 msgstr "EAP"
+
+#: ../properties/nm-sstp.c:56
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "Point-to-Point Tunneling Protocol (SSTP)"
+
+#: ../properties/nm-sstp.c:57
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Kompatibel med Microsoft och andra SSTP VPN-servrar."
+
+#: ../src/nm-sstp-service.c:166
+#, c-format
+msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgstr "kunde inte konvertera IP-adress ”%s” för SSTP VPN-gateway (%d)"
+
+#: ../src/nm-sstp-service.c:184
+#, c-format
+msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgstr "kunde inte slå upp IP-adress ”%s” för SSTP VPN-gateway (%d)"
+
+#: ../src/nm-sstp-service.c:208
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgstr "inga användbara adresser returnerades för SSTP VPN-gatewayen ”%s”"
+
+#: ../src/nm-sstp-service.c:219
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+msgstr "inga användbara adresser returnerades för SSTP VPN-gatewayen ”%s” (%d)"
+
+#: ../src/nm-sstp-service.c:246
+msgid "Could not find secrets (connection invalid, no vpn setting)."
+msgstr ""
+"Kunde inte hitta hemligheter (anslutningen är ogiltig, ingen vpn-"
+"inställning)."
+
+#: ../src/nm-sstp-service.c:258
+msgid "Missing or invalid VPN username."
+msgstr "Saknat eller ogiltigt VPN-användarnamn."
+
+#: ../src/nm-sstp-service.c:268
+msgid "Missing or invalid VPN password."
+msgstr "Saknat eller ogiltigt VPN-lösenord."
+
+#: ../src/nm-sstp-service.c:462
+msgid "No cached credentials."
+msgstr "Inga mellanlagrade inloggningsuppgifter."
+
+#: ../src/nm-sstp-service.c:618
+#, c-format
+msgid "invalid gateway '%s'"
+msgstr "ogiltig gateway ”%s”"
+
+#: ../src/nm-sstp-service.c:632
+#, c-format
+msgid "invalid integer property '%s'"
+msgstr "ogiltig heltalsegenskap ”%s”"
+
+#: ../src/nm-sstp-service.c:642
+#, c-format
+msgid "invalid boolean property '%s' (not yes or no)"
+msgstr "ogiltig boolesk egenskap ”%s” (inte yes eller no)"
+
+#: ../src/nm-sstp-service.c:649
+#, c-format
+msgid "unhandled property '%s' type %s"
+msgstr "ohanterad egenskap ”%s” typ %s"
+
+#: ../src/nm-sstp-service.c:660
+#, c-format
+msgid "property '%s' invalid or not supported"
+msgstr "egenskapen ”%s” är ogiltig eller stöds inte"
+
+#: ../src/nm-sstp-service.c:678
+msgid "No VPN configuration options."
+msgstr "Inga VPN-konfigurationsalternativ."
+
+#: ../src/nm-sstp-service.c:698
+#, c-format
+msgid "Missing required option '%s'."
+msgstr "Saknar nödvändiga flaggan ”%s”."
+
+#: ../src/nm-sstp-service.c:718
+msgid "No VPN secrets!"
+msgstr "Inga VPN-hemligheter!"
+
+#: ../src/nm-sstp-service.c:875
+msgid "Could not find sstp client binary."
+msgstr "Kunde inte hitta binärfilen för sstp-klienten."
+
+#: ../src/nm-sstp-service.c:888
+msgid "Missing VPN gateway."
+msgstr "Saknar VPN-gateway."
+
+#: ../src/nm-sstp-service.c:1049
+msgid "Could not find the pppd binary."
+msgstr "Kunde inte hitta binärfilen pppd."
+
+#: ../src/nm-sstp-service.c:1151
+msgid "Invalid or missing SSTP gateway."
+msgstr "Ogiltig eller saknad SSTP-gateway."
+
+#: ../src/nm-sstp-service.c:1338
+msgid "Don't quit when VPN connection terminates"
+msgstr "Avsluta inte när VPN-anslutningen termineras"
+
+#: ../src/nm-sstp-service.c:1339
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Aktivera informativ felsökningsloggning (kan exponera lösenord)"
+
+#: ../src/nm-sstp-service.c:1340
+msgid "D-Bus name to use for this instance"
+msgstr "D-Bus-namn att använda för denna instans"
+
+#: ../src/nm-sstp-service.c:1363
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service tillhandahåller integrerade SSTP VPN-förmågor (kompatibla "
+"med Microsoft och andra implementationer) till Nätverkshanterare."
 
 #: ../properties/nm-sstp-dialog.ui.h:1
 msgid "Default"
 msgstr "Standard"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Allmänt</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid ""
-"SSTP server IP or name.\n"
-"config: the first parameter of sstp"
-msgstr ""
-"IP eller namn på SSTP-server.\n"
-"config: första parametern för sstp"
-
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "_Gateway:"
-msgstr "_Gateway:"
-
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "<b>Optional</b>"
-msgstr "<b>Valfritt</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:7
-msgid ""
-"Append the domain name <domain> to the local host name for authentication "
-"purposes.\n"
-"config: domain <domain>"
-msgstr ""
-"Lägg till domännamnet <domän> till det lokala värdnamnet för "
-"autentiseringssyften.\n"
-"config: domain <domän>"
-
-#: ../properties/nm-sstp-dialog.ui.h:9
-msgid "NT Domain:"
-msgstr "NT-domän:"
-
-#: ../properties/nm-sstp-dialog.ui.h:10
-msgid "Show password"
-msgstr "Visa lösenordet"
-
-#: ../properties/nm-sstp-dialog.ui.h:11
-msgid "Password passed to SSTP when prompted for it."
-msgstr "Lösenord att skicka till SSTP när det efterfrågas."
-
-#: ../properties/nm-sstp-dialog.ui.h:13
-msgid ""
-"Set the name used for authenticating the local system to the peer to "
-"<name>.\n"
-"config: user <name>"
-msgstr ""
-"Ange namnet att använda för autentisering av det lokala systemet till "
-"peer till <namn>.\n"
-"config: user <namn>"
-
-#: ../properties/nm-sstp-dialog.ui.h:15
-msgid "User name:"
-msgstr "Användarnamn:"
-
-#: ../properties/nm-sstp-dialog.ui.h:16
-msgid "Ad_vanced..."
-msgstr "A_vancerat…"
-
-#: ../properties/nm-sstp-dialog.ui.h:17
 msgid "SSTP Advanced Options"
 msgstr "Avancerade SSTP-alternativ"
 
-#: ../properties/nm-sstp-dialog.ui.h:18
+#: ../properties/nm-sstp-dialog.ui.h:3
 msgid "<b>Authentication</b>"
 msgstr "<b>Autentisering</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:19
+#: ../properties/nm-sstp-dialog.ui.h:4
 msgid "Allow the following authentication methods:"
 msgstr "Tillåt följande autentiseringsmetoder:"
 
-#: ../properties/nm-sstp-dialog.ui.h:20
+#: ../properties/nm-sstp-dialog.ui.h:5
 msgid ""
 "Allow/disable authentication methods.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 msgstr ""
 "Tillåt/inaktivera autentiseringsmetoder.\n"
-"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+"konfiguration: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, "
+"refuse-eap"
 
-#: ../properties/nm-sstp-dialog.ui.h:22
+#: ../properties/nm-sstp-dialog.ui.h:7
 msgid "<b>Security and Compression</b>"
 msgstr "<b>Säkerhet och komprimering</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:23
+#: ../properties/nm-sstp-dialog.ui.h:8
 msgid "Use _Point-to-Point encryption (MPPE)"
 msgstr "Använd _Point-to-Point-kryptering (MPPE)"
 
-#: ../properties/nm-sstp-dialog.ui.h:24
+#: ../properties/nm-sstp-dialog.ui.h:9
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
@@ -182,60 +255,60 @@ msgstr ""
 "autentiseringsmetoder. För att aktivera denna kryssruta så välj en eller "
 "flera av MSCHAP-autentiseringsmetoderna: MSCHAP eller MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.ui.h:25
+#: ../properties/nm-sstp-dialog.ui.h:10
 msgid "_Security:"
 msgstr "_Säkerhet:"
 
-#: ../properties/nm-sstp-dialog.ui.h:26
+#: ../properties/nm-sstp-dialog.ui.h:11
 msgid ""
 "Require the use of MPPE, with 40/128-bit encryption or all.\n"
 "config: require-mppe, require-mppe-128 or require-mppe-40"
 msgstr ""
 "Krävs användning av MPPE, med 40/128-bitars kryptering eller alla.\n"
-"config: require-mppe, require-mppe-128 eller require-mppe-40"
+"konfiguration: require-mppe, require-mppe-128 eller require-mppe-40"
 
-#: ../properties/nm-sstp-dialog.ui.h:28
+#: ../properties/nm-sstp-dialog.ui.h:13
 msgid "Allow st_ateful encryption"
 msgstr "Tillåt t_illståndsbaserad kryptering"
 
-#: ../properties/nm-sstp-dialog.ui.h:29
+#: ../properties/nm-sstp-dialog.ui.h:14
 msgid ""
 "Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
 "config: mppe-stateful (when checked)"
 msgstr ""
 "Tillåt MPPE att använda tillståndsbaserat läge. Tillståndslöst läge provas "
 "fortfarande först.\n"
-"config: mppe-stateful (när ikryssad)"
+"konfiguration: mppe-stateful (när ikryssad)"
 
-#: ../properties/nm-sstp-dialog.ui.h:31
+#: ../properties/nm-sstp-dialog.ui.h:16
 msgid "Allow _BSD data compression"
 msgstr "Tillåt _BSD-datakomprimering"
 
-#: ../properties/nm-sstp-dialog.ui.h:32
+#: ../properties/nm-sstp-dialog.ui.h:17
 msgid ""
 "Allow/disable BSD-Compress compression.\n"
 "config: nobsdcomp (when unchecked)"
 msgstr ""
 "Tillåt/inaktivera BSD-Compress-kompression.\n"
-"config: nobsdcomp (när inte kryssad)"
+"konfiguration: nobsdcomp (när ej ikryssad)"
 
-#: ../properties/nm-sstp-dialog.ui.h:34
+#: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Allow _Deflate data compression"
 msgstr "Tillåt _Deflate-datakomprimering"
 
-#: ../properties/nm-sstp-dialog.ui.h:35
+#: ../properties/nm-sstp-dialog.ui.h:20
 msgid ""
 "Allow/disable Deflate compression.\n"
 "config: nodeflate (when unchecked)"
 msgstr ""
 "Tillåt/inaktivera Deflate-kompression.\n"
-"config: nodeflate (när inte kryssad)"
+"konfiguration: nodeflate (när ej ikryssad)"
 
-#: ../properties/nm-sstp-dialog.ui.h:37
+#: ../properties/nm-sstp-dialog.ui.h:22
 msgid "Use TCP _header compression"
 msgstr "Använd komprimering av TCP-_huvud"
 
-#: ../properties/nm-sstp-dialog.ui.h:38
+#: ../properties/nm-sstp-dialog.ui.h:23
 msgid ""
 "Allow/disable Van Jacobson style TCP/IP header compression in both the "
 "transmit and the receive directions.\n"
@@ -243,154 +316,117 @@ msgid ""
 msgstr ""
 "Tillåt/inaktivera Van Jacobson-stil TCP/IP-huvudkompression i både sändar- "
 "och mottagarriktningarna.\n"
-"config: novj (när ej ikryssad)"
+"konfiguration: novj (när ej ikryssad)"
 
-#: ../properties/nm-sstp-dialog.ui.h:40
+#: ../properties/nm-sstp-dialog.ui.h:25
 msgid "<b>Echo</b>"
 msgstr "<b>Eko</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:41
+#: ../properties/nm-sstp-dialog.ui.h:26
 msgid "Send PPP _echo packets"
 msgstr "Skicka PPP-_ekopaket"
 
-#: ../properties/nm-sstp-dialog.ui.h:42
+#: ../properties/nm-sstp-dialog.ui.h:27
 msgid ""
 "Send LCP echo-requests to find out whether peer is alive.\n"
 "config: lcp-echo-failure and lcp-echo-interval"
 msgstr ""
 "Skicka LCP ekobegäran för att ta reda på huruvida peer lever.\n"
-"config: lcp-echo-failure och lcp-echo-interval"
+"konfiguration: lcp-echo-failure och lcp-echo-interval"
 
-#: ../properties/nm-sstp.c:49
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Point-to-Point Tunneling Protocol (SSTP)"
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid "<b>Misc</b>"
+msgstr "<b>Övrigt</b>"
 
-#: ../properties/nm-sstp.c:50
-msgid "Compatible with Microsoft and other SSTP VPN servers."
-msgstr "Kompatibel med Microsoft och andra SSTP VPN-servrar."
+#: ../properties/nm-sstp-dialog.ui.h:30
+msgid "Use custom _unit number:"
+msgstr "Använd anpassat _enhetsnummer:"
 
-#: ../properties/nm-sstp.c:317
-msgid "Saved"
-msgstr "Sparad"
-
-#: ../properties/nm-sstp.c:325
-msgid "Always Ask"
-msgstr "Fråga alltid"
-
-#: ../properties/nm-sstp.c:330
-msgid "Not Required"
-msgstr "Krävs inte"
-
-#: ../src/nm-sstp-service.c:161
-#, c-format
-msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
-msgstr "kunde inte konvertera IP-adress ”%s” för SSTP VPN-gateway (%d)"
-
-#: ../src/nm-sstp-service.c:179
-#, c-format
-msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
-msgstr "kunde inte slå upp IP-adress ”%s” för SSTP VPN-gateway (%d)"
-
-#: ../src/nm-sstp-service.c:203
-#, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s'"
-msgstr "inga användbara adresser returnerades för SSTP VPN-gatewayen ”%s”"
-
-#: ../src/nm-sstp-service.c:214
-#, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
-msgstr "inga användbara adresser returnerades för SSTP VPN-gatewayen ”%s” (%d)"
-
-#: ../src/nm-sstp-service.c:241
-msgid "Could not find secrets (connection invalid, no vpn setting)."
-msgstr ""
-"Kunde inte hitta hemligheter (anslutningen är ogiltig, ingen vpn-"
-"inställning)."
-
-#: ../src/nm-sstp-service.c:253
-msgid "Invalid VPN username."
-msgstr "Ogiltigt VPN-användarnamn."
-
-#: ../src/nm-sstp-service.c:262
-msgid "Missing VPN username."
-msgstr "Saknar VPN-användarnamn."
-
-#: ../src/nm-sstp-service.c:272
-msgid "Missing or invalid VPN password."
-msgstr "Saknat eller ogiltigt VPN-lösenord."
-
-#: ../src/nm-sstp-service.c:430
-msgid "No cached credentials."
-msgstr "Inga mellanlagrade inloggningsuppgifter."
-
-#: ../src/nm-sstp-service.c:576
-#, c-format
-msgid "invalid gateway '%s'"
-msgstr "ogiltig gateway ”%s”"
-
-#: ../src/nm-sstp-service.c:590
-#, c-format
-msgid "invalid integer property '%s'"
-msgstr "ogiltig heltalsegenskap ”%s”"
-
-#: ../src/nm-sstp-service.c:600
-#, c-format
-msgid "invalid boolean property '%s' (not yes or no)"
-msgstr "ogiltig boolesk egenskap ”%s” (inte yes eller no)"
-
-#: ../src/nm-sstp-service.c:607
-#, c-format
-msgid "unhandled property '%s' type %s"
-msgstr "ohanterad egenskap ”%s” typ %s"
-
-#: ../src/nm-sstp-service.c:618
-#, c-format
-msgid "property '%s' invalid or not supported"
-msgstr "egenskapen ”%s” är ogiltig eller stöds inte"
-
-#: ../src/nm-sstp-service.c:636
-msgid "No VPN configuration options."
-msgstr "Inga VPN-konfigurationsalternativ."
-
-#: ../src/nm-sstp-service.c:656
-#, c-format
-msgid "Missing required option '%s'."
-msgstr "Saknar nödvändiga flaggan ”%s”."
-
-#: ../src/nm-sstp-service.c:676
-msgid "No VPN secrets!"
-msgstr "Inga VPN-hemligheter!"
-
-#: ../src/nm-sstp-service.c:817
-msgid "Could not find sstp client binary."
-msgstr "Kunde inte hitta binärfilen för sstp-klienten."
-
-#: ../src/nm-sstp-service.c:830
-msgid "Missing VPN gateway."
-msgstr "Saknar VPN-gateway."
-
-#: ../src/nm-sstp-service.c:983
-msgid "Could not find the pppd binary."
-msgstr "Kunde inte hitta binärfilen pppd."
-
-#: ../src/nm-sstp-service.c:1113
-msgid "Invalid or missing SSTP gateway."
-msgstr "Ogiltig eller saknad SSTP-gateway."
-
-#: ../src/nm-sstp-service.c:1292
-msgid "Don't quit when VPN connection terminates"
-msgstr "Avsluta inte när VPN-anslutningen termineras"
-
-#: ../src/nm-sstp-service.c:1293
-msgid "Enable verbose debug logging (may expose passwords)"
-msgstr "Aktivera informativ felsökningsloggning (kan exponera lösenord)"
-
-#: ../src/nm-sstp-service.c:1316
+#: ../properties/nm-sstp-dialog.ui.h:31
 msgid ""
-"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
-"Microsoft and other implementations) to NetworkManager."
+"Enable custom index for ppp<n> device name.\n"
+"config: unit <n>"
 msgstr ""
-"nm-sstp-service tillhandahåller integrerade SSTP VPN-förmågor (kompatibla "
-"med Microsoft och andra implementationer) till Nätverkshanterare."
- 
+"Aktivera anpassat index för ppp<n>-enhetsnamn.\n"
+"konfiguration: unit <n>"
 
+#: ../properties/nm-sstp-dialog.ui.h:33
+msgid "<b>General</b>"
+msgstr "<b>Allmänt</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:34
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+"IP eller namn på SSTP-server.\n"
+"konfiguration: första parametern för sstp"
+
+#: ../properties/nm-sstp-dialog.ui.h:36
+msgid "_Gateway:"
+msgstr "_Gateway:"
+
+#: ../properties/nm-sstp-dialog.ui.h:37
+msgid "<b>Optional</b>"
+msgstr "<b>Valfritt</b>"
+
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+"Lägg till domännamnet <domän> till det lokala värdnamnet för "
+"autentiseringssyften.\n"
+"konfiguration: domain <domän>"
+
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "NT Domain:"
+msgstr "NT-domän:"
+
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid "Show password"
+msgstr "Visa lösenordet"
+
+#: ../properties/nm-sstp-dialog.ui.h:42
+msgid "Password passed to SSTP when prompted for it."
+msgstr "Lösenord att skicka till SSTP när det efterfrågas."
+
+#: ../properties/nm-sstp-dialog.ui.h:44
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+"Ange namnet att använda för autentisering av det lokala systemet till peer "
+"till <namn>.\n"
+"konfiguration: user <namn>"
+
+#: ../properties/nm-sstp-dialog.ui.h:46
+msgid "User name:"
+msgstr "Användarnamn:"
+
+#: ../properties/nm-sstp-dialog.ui.h:47
+msgid "Ad_vanced..."
+msgstr "A_vancerat…"
+
+#~ msgid "Invalid VPN username."
+#~ msgstr "Ogiltigt VPN-användarnamn."
+
+#~ msgid "Missing VPN username."
+#~ msgstr "Saknar VPN-användarnamn."
+
+#~ msgid "SSTP VPN Connection Manager"
+#~ msgstr "SSTP VPN-anslutningshanterare"
+
+#~ msgid "Add, Remove, and Edit SSTP VPN Connections"
+#~ msgstr "Lägg till, ta bort och redigera SSTP VPN-anslutningar"
+
+#~ msgid "Saved"
+#~ msgstr "Sparad"
+
+#~ msgid "Always Ask"
+#~ msgstr "Fråga alltid"
+
+#~ msgid "Not Required"
+#~ msgstr "Krävs inte"

@@ -20,9 +20,7 @@
  *
  **************************************************************************/
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "nm-default.h"
 
 #include <string.h>
 #include <sys/types.h>
@@ -31,22 +29,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
-
-#include <glib.h>
-#include <glib/gi18n-lib.h>
-
-#ifdef NM_SSTP_OLD
-#define NM_VPN_LIBNM_COMPAT
-#include <nm-connection.h>
-#include <nm-setting-vpn.h>
-
-#else /* !NM_SSTP_OLD */
-#include <NetworkManager.h>
-#endif
-
-#include "advanced-dialog.h"
-#include "nm-sstp.h"
-#include "../src/nm-sstp-service-defines.h"
 
 #define COL_NAME  0
 #define COL_VALUE 1

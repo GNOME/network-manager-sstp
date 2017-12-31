@@ -20,28 +20,35 @@
  * 
  */
 
-#include <string.h>
-#include <stdlib.h>
+#include <config.h>
+#define ___CONFIG_H__
+
+/* pppd headers *sigh* */
 #include <pppd/pppd.h>
 #include <pppd/fsm.h>
 #include <pppd/ccp.h>
 #include <pppd/ipcp.h>
 #include <pppd/chap-new.h>
 #include <pppd/chap_ms.h>
+
+#include "nm-default.h"
+
+#include <string.h>
+#include <stdlib.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <dlfcn.h>
 #include <sys/un.h>
 #include <paths.h>
 #include <unistd.h>
-#include <glib.h>
 #include <sstp-api.h>
-#include "nm-sstp-pppd-service-dbus.h"
 
-#include "nm-sstp-service-defines.h"
+#include "nm-sstp-service.h"
 #include "nm-ppp-status.h"
 
-#include <NetworkManager.h>
+#include "nm-utils/nm-shared-utils.h"
+#include "nm-utils/nm-vpn-plugin-macros.h"
 
 #ifndef MPPE
 #define MPPE_MAX_KEY_LEN 16
@@ -54,7 +61,33 @@ int plugin_init (void);
 
 char pppd_version[] = VERSION;
 
-static GDBusProxy *proxy = NULL;
+/*****************************************************************************/
+
+struct {
+	int log_level;
+	const char *log_prefix_token;
+	GDBusProxy *proxy;
+} gl/*lobal*/;
+
+/*****************************************************************************/
+
+#define _NMLOG(level, ...) \
+    G_STMT_START { \
+         if (gl.log_level >= (level)) { \
+             syslog (nm_utils_syslog_coerce_from_nm (level), \
+                     "nm-sstp[%s] %-7s [helper-%ld] " _NM_UTILS_MACRO_FIRST (__VA_ARGS__) "\n", \
+                     gl.log_prefix_token, \
+                     nm_utils_syslog_to_str (level), \
+                     (long) getpid () \
+                     _NM_UTILS_MACRO_REST (__VA_ARGS__)); \
+         } \
+    } G_STMT_END
+
+#define _LOGI(...) _NMLOG(LOG_NOTICE,  __VA_ARGS__)
+#define _LOGW(...) _NMLOG(LOG_WARNING, __VA_ARGS__)
+#define _LOGE(...) _NMLOG(LOG_ERR, __VA_ARGS__)
+
+/*****************************************************************************/
 
 static void
 nm_phasechange (void *data, int arg)
@@ -62,7 +95,7 @@ nm_phasechange (void *data, int arg)
 	NMPPPStatus ppp_status = NM_PPP_STATUS_UNKNOWN;
 	char *ppp_phase;
 
-	g_return_if_fail (G_IS_DBUS_PROXY (proxy));
+	g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
 	switch (arg) {
 	case PHASE_DEAD:
 		ppp_status = NM_PPP_STATUS_DEAD;
@@ -122,13 +155,11 @@ nm_phasechange (void *data, int arg)
 		break;
 	}
 
-	g_message ("nm-sstp-ppp-plugin: (%s): status %d / phase '%s'",
-	           __func__,
-	           ppp_status,
-	           ppp_phase);
+	_LOGI ("phasechange: status %d / phase '%s'",
+	       ppp_status, ppp_phase);
 
 	if (ppp_status != NM_PPP_STATUS_UNKNOWN) {
-		g_dbus_proxy_call (proxy,
+		g_dbus_proxy_call (gl.proxy,
 		                   "SetState",
 		                   g_variant_new ("(u)", ppp_status),
 		                   G_DBUS_CALL_FLAGS_NONE, -1,
@@ -150,8 +181,7 @@ nm_sstp_getsock(void)
     sock = socket(AF_UNIX, SOCK_STREAM, 0);
     if (sock < 0)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): could not create a socket to sstpc",
-                   __func__);
+        _LOGE ("sstp-plugin: could not create a socket to sstpc");
         goto done;
     }
 
@@ -163,8 +193,7 @@ nm_sstp_getsock(void)
     ret = connect(sock, (struct sockaddr*) &addr, alen);
     if (ret < 0)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not connect to sstpc (%s), %m",
-                   __func__, addr.sun_path);
+        _LOGE ("sstp-plugin: Could not connect to sstpc (%s), %m", addr.sun_path);
         goto done;
     }
 
@@ -209,8 +238,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     ret = send(sock, &msg, sizeof(msg), 0);
     if (ret < 0)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not send data to sstpc",
-                   __func__);
+        _LOGE ("sstp-plugin: Could not send data to sstpc");
         goto done;
     }
     
@@ -218,8 +246,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     ret = recv(sock, &msg, (sizeof(msg)), 0);
     if (ret < 0 || ret != (sizeof(msg)))
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Failed to receive ack from sstpc",
-                   __func__);
+        _LOGE ("sstp-plugin: Failed to receive ack from sstpc");
         goto done;
     }
 
@@ -227,8 +254,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     if (sstp_api_msg_type(&msg, &type) && 
         SSTP_API_MSG_ACK != type)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Received invalid response from sstpc",
-                   __func__);
+        _LOGE ("sstp-plugin: Received invalid response from sstpc");
         goto done;
     }
 
@@ -236,8 +262,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     buff = alloca(msg.msg_len);
     if (!buff)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not allocate space for response",
-                   __func__);
+        _LOGE ("sstp-plugin: Could not allocate space for response");
         goto done;
     }
 
@@ -245,8 +270,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     ret = read(sock, buff, msg.msg_len);
     if (ret < 0 || ret != msg.msg_len)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not read the response",
-                   __func__);
+        _LOGE ("sstp-plugin: Could not read the response");
         goto done;
     }
 
@@ -254,8 +278,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     ret = sstp_api_attr_parse(buff, msg.msg_len, list, cnt);
     if (ret != 0)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not parse attributes", 
-                   __func__);
+        _LOGE ("sstp-plugin: Could not parse attributes");
         goto done;
     }
 
@@ -263,8 +286,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     attr = list[SSTP_API_ATTR_ADDR];
     if (!attr)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not get resolved address",
-                   __func__);
+        _LOGE ("sstp-plugin: Could not get resolved address");
         goto done;
     }
 
@@ -275,16 +297,15 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     attr = list[SSTP_API_ATTR_GATEWAY];
     if (!attr)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not get resolved name",
-                   __func__);
+        _LOGE ("sstp-plugin: Could not get resolved name");
         goto done;
     }
 
     /* Copy the name */
     memcpy(name, attr->attr_data, attr->attr_len);
 
-    g_message ("nm-sstp-ppp-plugin: (%s): sstpc is connected to %s using %s", 
-               __func__, name, inet_ntoa(addr->sin_addr));
+    _LOGI ("sstp-plugin: sstpc is connected to %s using %s", 
+           name, inet_ntoa(addr->sin_addr));
 
     /* Success */
     retval = 0;
@@ -321,8 +342,7 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     msg = sstp_api_msg_new((unsigned char*) buf, SSTP_API_MSG_AUTH);
     if (!msg)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not create message to sstpc",
-                __func__);
+        _LOGE ("sstp-plugin: Could not create message to sstpc");
         goto done;
     }
 
@@ -334,8 +354,7 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     ret = send(sock, msg, sstp_api_msg_len(msg), 0);
     if (ret < 0)
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not send data to sstpc",
-                __func__);
+        _LOGE ("sstp-plugin: Could not send data to sstpc");
         goto done;
     }
     
@@ -343,14 +362,12 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     ret = recv(sock, msg, (sizeof(*msg)), 0);
     if (ret <= 0 || ret != (sizeof(*msg)))
     {
-        g_warning ("nm-sstp-ppp-plugin: (%s): Could not wait for ack from sstpc (%d)",
-                __func__, ret);
+        _LOGE ("sstp-plugin: Could not wait for ack from sstpc (%d)", ret);
         goto done;
     }
 
     /* Sent credentials to sstpc */
-    g_message ("nm-sstp-ppp-plugin: (%s): MPPE keys exchanged with sstpc",
-            __func__);
+    _LOGI ("sstp-plugin: MPPE keys exchanged with sstpc");
 
     /* Success */
     retval = 0;
@@ -376,12 +393,13 @@ nm_ip_up (void *data, int arg)
 	GVariantBuilder builder;
 	struct sockaddr_in addr;
 
-	g_return_if_fail (G_IS_DBUS_PROXY (proxy));
+	g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
 
-	g_message ("nm-sstp-ppp-plugin: (%s): ip-up event", __func__);
+	_LOGI ("ip-up: event");
 
 	if (!opts.ouraddr) {
-		g_warning ("nm-sstp-ppp-plugin: (%s): didn't receive an internal IP from pppd!", __func__);
+		_LOGW ("ip-up: didn't receive an internal IP from pppd!");
+        nm_phasechange (NULL, PHASE_DEAD);
 		return;
 	}
 
@@ -449,9 +467,9 @@ nm_ip_up (void *data, int arg)
 	                       NM_VPN_PLUGIN_IP4_CONFIG_MTU,
 	                        g_variant_new_uint32 (1400));
 
-	g_message ("nm-sstp-ppp-plugin: (%s): sending Ip4Config to NetworkManager-sstp...", __func__);
+	_LOGI ("ip-up: sending Ip4Config to NetworkManager-sstp...");
 
-	g_dbus_proxy_call (proxy,
+	g_dbus_proxy_call (gl.proxy,
 	                   "SetIp4Config",
 	                   g_variant_new ("(a{sv})", &builder),
 	                   G_DBUS_CALL_FLAGS_NONE, -1,
@@ -478,7 +496,7 @@ get_credentials (char *username, char *password)
 	const char *my_password = NULL;
 	size_t len;
 	GVariant *ret;
-	GError *err = NULL;
+	GError *error = NULL;
 
 	if (!password) {
 		/* pppd is checking pap support; return 1 for supported */
@@ -487,26 +505,25 @@ get_credentials (char *username, char *password)
 	}
 
 	g_return_val_if_fail (username, -1);
-	g_return_val_if_fail (G_IS_DBUS_PROXY (proxy), -1);
+	g_return_val_if_fail (G_IS_DBUS_PROXY (gl.proxy), -1);
 
-	g_message ("nm-sstp-ppp-plugin: (%s): passwd-hook, requesting credentials...", __func__);
+	_LOGI ("passwd-hook: requesting credentials...");
 
-	ret = g_dbus_proxy_call_sync (proxy,
+	ret = g_dbus_proxy_call_sync (gl.proxy,
 	                              "NeedSecrets",
 	                              NULL,
 	                              G_DBUS_CALL_FLAGS_NONE, -1,
-	                              NULL, &err);
+	                              NULL, &error);
 	if (!ret) {
-		g_warning ("nm-sstp-ppp-plugin: (%s): could not get secrets: (%d) %s",
-		           __func__,
-		           err ? err->code : -1,
-		           err->message ? err->message : "(unknown)");
-		g_error_free (err);
+        _LOGW ("passwd-hook: could not get secrets: %s",
+                   error->message);
+		g_error_free (error);
 		return -1;
 	}
-
-	g_message ("nm-sstp-ppp-plugin: (%s): got credentials from NetworkManager-sstp", __func__);
-	g_variant_get (ret, "(&s&s)", &my_username, &my_password);
+	
+    _LOGI ("passwd-hook: got credentials from NetworkManager-sstp");
+	
+    g_variant_get (ret, "(&s&s)", &my_username, &my_password);
 
 	if (my_username) {
 		len = strlen (my_username) + 1;
@@ -570,81 +587,78 @@ nm_snoop_send(unsigned char *buf, int len)
     if (debug)
     {
         char key[255];
-        g_message ("nm-sstp-ppp-plugin: (%s): mppe keys are set", 
-                   __func__);
+        _LOGI ("sstp-plugin: mppe keys are set");
 
         /* Add the MPPE Send Key */
         slprintf(key, sizeof(key)-1, "S:%0.*B", sizeof(mppe_send_key),
                  mppe_send_key);
-        g_message("nm-sstp-ppp-plugin: (%s): The mppe send key: %s", 
-                  __func__, key);
+        _LOGI ("sstp-plugin: The mppe send key: %s", key);
 
         /* Add the MPPE Recv Key */
         slprintf(key, sizeof(key)-1, "S:%0.*B", sizeof(mppe_recv_key),
                  mppe_recv_key);
-        g_message("nm-sstp-ppp-plugin: (%s): The mppe recv key: %s", 
-                  __func__, key);
+        _LOGI ("sstp-plugin: The mppe recv key: %s", key);
     }
 
     /* Send the MPPE keys to the sstpc client */
-	g_message ("nm-sstp-ppp-plugin: (%s): sending mppe keys", 
-			   __func__);
+	_LOGI ("sstp-plugin: sending mppe keys");
 
 	nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key), 
 			mppe_recv_key, sizeof(mppe_recv_key));
 }
 
-
 static void
 nm_exit_notify (void *data, int arg)
 {
-	g_return_if_fail (G_IS_DBUS_PROXY (proxy));
+	g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
 
-	g_message ("nm-sstp-ppp-plugin: (%s): cleaning up", __func__);
-
-	g_object_unref (proxy);
-	proxy = NULL;
+	_LOGI ("exit: cleaning up");
+	g_clear_object (&gl.proxy);
 }
 
 int
 plugin_init (void)
 {
 	GDBusConnection *bus;
-	GError *err = NULL;
+	GError *error = NULL;
 	const char *bus_name;
 
-#if !GLIB_CHECK_VERSION (2, 35, 0)
-	g_type_init ();
-#endif
+	nm_g_type_init ();
+
+	g_return_val_if_fail (!gl.proxy, -1);
 
 	bus_name = getenv ("NM_DBUS_SERVICE_SSTP");
 	if (!bus_name)
 		bus_name = NM_DBUS_SERVICE_SSTP;
 
-	g_message ("nm-sstp-ppp-plugin: (%s): initializing", __func__);
+	gl.log_level = _nm_utils_ascii_str_to_int64 (getenv ("NM_VPN_LOG_LEVEL"),
+	                                             10, 0, LOG_DEBUG,
+	                                             LOG_NOTICE);
 
-	bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &err);
+	gl.log_prefix_token = getenv ("NM_VPN_LOG_PREFIX_TOKEN") ?: "???";
+
+	_LOGI ("initializing");
+
+	bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
 	if (!bus) {
-		g_warning ("nm-sstp-pppd-plugin: (%s): couldn't connect to system bus: (%d) %s",
-		           __func__,
-		           err ? err->code : -1,
-		           err && err->message ? err->message : "(unknown)");
-		g_error_free (err);
+        _LOGE ("couldn't connect to system bus: %s",
+               error->message);
+		g_error_free (error);
 		return -1;
 	}
 
-	proxy = g_dbus_proxy_new_sync (bus,
+	gl.proxy = g_dbus_proxy_new_sync (bus,
 				       G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
 				       NULL,
 	                               bus_name,
 	                               NM_DBUS_PATH_SSTP_PPP,
 				       NM_DBUS_INTERFACE_SSTP_PPP,
-	                               NULL, &err);
+	                               NULL, &error);
 	g_object_unref (bus);
-	if (!proxy) {
-		g_warning ("nm-sstp-pppd-plugin: (%s): couldn't create D-Bus proxy: %s",
-		           __func__, err->message);
-		g_error_free (err);
+	if (!gl.proxy) {
+		_LOGE ("couldn't create D-Bus proxy: %s",
+		       error->message);
+		g_error_free (error);
 		return -1;
 	}
 
@@ -656,7 +670,7 @@ plugin_init (void)
 
 	add_notifier (&phasechange, nm_phasechange, NULL);
 	add_notifier (&ip_up_notifier, nm_ip_up, NULL);
-	add_notifier (&exitnotify, nm_exit_notify, proxy);
+	add_notifier (&exitnotify, nm_exit_notify, NULL);
 
 	return 0;
 }
