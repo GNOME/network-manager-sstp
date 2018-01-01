@@ -64,15 +64,16 @@ nm_sstp_pppd_plugin_la_SOURCES = \
 
 nm_sstp_pppd_plugin_la_CPPFLAGS = \
     -I"$(top_srcdir)/shared/" \
-    $(SSTPC_CFLAGS) \
     $(GLIB_CFLAGS) \
-    $(LIBNM_CFLAGS)
+    $(LIBNM_CFLAGS)\
+    $(SSTPC_CFLAGS)
 
 nm_sstp_pppd_plugin_la_LDFLAGS = -module -avoid-version
 
 nm_sstp_pppd_plugin_la_LIBADD = \
     $(GLIB_LIBS) \
-    $(LIBNM_LIBS)
+    $(LIBNM_LIBS)\
+    $(SSTPC_LIBS)
 
 ###############################################################################
 
