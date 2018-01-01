@@ -1,3 +1,13 @@
+network-manager-sstp (1.2.4-0ubuntu3) bionic; urgency=low
+
+  * Re-build for Bionic
+
+ -- Eivind Naess <eivnaes@yahoo.com>  Sun, 31 Dec 2017 10:00:01 -0800
+network-manager-sstp (1.2.4-0ubuntu2) artful; urgency=low
+
+  * Re-build for Artful Aandverk
+
+ -- Eivind Naess <eivnaes@yahoo.com>  Sun, 31 Dec 2017 10:00:01 -0800
 network-manager-sstp (1.2.4-0ubuntu1) zesty; urgency=low
 
   * Ported current network-manager-pptp 1.2.4 to network-manager-sstp
