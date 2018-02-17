@@ -436,6 +436,17 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	}
 	g_signal_connect (widget, "toggled", G_CALLBACK (stuff_changed_cb), self);
 
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_enable_checkbutton"));
+	g_return_val_if_fail (widget != NULL, FALSE);
+	gtk_size_group_add_widget (priv->group, widget);
+	if (s_vpn) {
+		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_EXT_ENABLE);
+		if (value && !strcmp(value, "yes")) {
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+		}
+	}
+	g_signal_connect (widget, "toggled", G_CALLBACK (stuff_changed_cb), self);
+
 	/* Fill the VPN passwords *before* initializing the PW type combo, since
 	 * knowing if there is a password when initializing the type combo is helpful.
 	 */
@@ -467,13 +478,13 @@ hash_copy_advanced (gpointer key, gpointer data, gpointer user_data)
 {
 	NMSettingVpn *s_vpn = NM_SETTING_VPN (user_data);
 	
-    /* Special handling of the secrets */
+	/* Special handling of the secrets */
 	if (!strcmp(NM_SSTP_KEY_PROXY_PASSWORD, (const char *) key))
 	{
 		nm_setting_vpn_add_secret (s_vpn, (const char *) key, 
-								  (const char *) data);
+						  (const char *) data);
 		return;
-    }
+	}
 
 	nm_setting_vpn_add_data_item (s_vpn, (const char *) key, (const char *) data);
 }
@@ -563,6 +574,12 @@ update_connection (NMVpnEditor *iface,
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "cert_warn_checkbutton"));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_IGN_CERT_WARN, "yes");
+	}
+
+	/* Enable TLS hostname extentions */
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_enable_checkbutton"));
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_EXT_ENABLE, "yes");
 	}
 
 	/* Update the NM_SETTING object */

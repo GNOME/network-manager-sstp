@@ -115,6 +115,7 @@ static const ValidProperty valid_properties[] = {
 	{ NM_SSTP_KEY_DOMAIN,            G_TYPE_STRING, FALSE },
 	{ NM_SSTP_KEY_CA_CERT,           G_TYPE_STRING, FALSE },
 	{ NM_SSTP_KEY_IGN_CERT_WARN,     G_TYPE_BOOLEAN, FALSE },
+	{ NM_SSTP_KEY_TLS_EXT_ENABLE,    G_TYPE_BOOLEAN, FALSE },
 	{ NM_SSTP_KEY_REFUSE_EAP,        G_TYPE_BOOLEAN, FALSE },
 	{ NM_SSTP_KEY_REFUSE_PAP,        G_TYPE_BOOLEAN, FALSE },
 	{ NM_SSTP_KEY_REFUSE_CHAP,       G_TYPE_BOOLEAN, FALSE },
@@ -446,6 +447,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 	char *ipparam, *tmp, *ca_cert = NULL, *proxy = NULL, *uuid = NULL;
 	const char *proxy_server, *proxy_port;
 	gboolean ign_cert;
+	gboolean tls_ext;
 
 
 	/* Get the proxy settings */
@@ -510,11 +512,18 @@ construct_pppd_args (NMSstpPlugin *plugin,
 		ign_cert = TRUE;
 	}
 
+	/* Enable TLS hostname extentions */
+	value = nm_setting_vpn_get_data_item(s_vpn, NM_SSTP_KEY_TLS_EXT_ENABLE);
+	if (value && !strcmp(value, "yes")) {
+		tls_ext = TRUE;
+	}
+
 	/* Prepare the PTY option */
 	ipparam = g_strdup_printf ("nm-sstp-service-%d", getpid ());
-	tmp = g_strdup_printf ("%s %s %s --nolaunchpppd %s %s --ipparam %s %s %s",
+	tmp = g_strdup_printf ("%s %s %s %s --nolaunchpppd %s %s --ipparam %s %s %s",
 						   sstp_binary, gwaddr,
 						   ign_cert == TRUE ? "--cert-warn" : "",
+						   tls_ext == TRUE ? "--tls-ext" : "",
 						   gl.debug ? "--log-level 4" : "",
 						   proxy ? proxy : "",
 						   ipparam,
