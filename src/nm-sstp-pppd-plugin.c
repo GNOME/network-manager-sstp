@@ -56,6 +56,7 @@ extern u_char mppe_send_key[MPPE_MAX_KEY_LEN];
 extern u_char mppe_recv_key[MPPE_MAX_KEY_LEN];
 extern int mppe_keys_set;
 #endif
+static int sstp_notify_sent = 1;
 
 int plugin_init (void);
 
@@ -371,6 +372,9 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
 
     /* Success */
     retval = 0;
+    
+    /* We have communicated the keys */
+    sstp_notify_sent = 1;
 
 done:
 
@@ -396,6 +400,21 @@ nm_ip_up (void *data, int arg)
 	g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
 
 	_LOGI ("ip-up: event");
+
+	/* Auth-Type is not MSCHAPv2, reset the keys and send blank keys */
+	if (!sstp_notify_sent) {
+		if (!mppe_keys_set)
+		{
+			memset(&mppe_send_key, 0, sizeof(mppe_send_key));
+			memset(&mppe_recv_key, 0, sizeof(mppe_recv_key));
+		}
+
+		/* Send the MPPE keys to the sstpc client */
+		nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key),
+			       mppe_recv_key, sizeof(mppe_recv_key));
+	}
+
+
 
 	if (!opts.ouraddr) {
 		_LOGW ("ip-up: didn't receive an internal IP from pppd!");
@@ -575,7 +594,11 @@ nm_snoop_send(unsigned char *buf, int len)
     /* Check if packet is a CHAP response */
     if (buf[0] != 0x02)
         return;
-    
+ 
+    /* Don't bother if the keys aren't set yet */   
+    if (!mppe_keys_set)
+        return;
+
     /* ChapMS2/ChapMS sets the MPPE keys as a part of the make_response
      * call, these might not be enabled dependent on negotiated options
      * such as MPPE and compression. If they are enabled, the keys are 
@@ -601,10 +624,11 @@ nm_snoop_send(unsigned char *buf, int len)
     }
 
     /* Send the MPPE keys to the sstpc client */
-	_LOGI ("sstp-plugin: sending mppe keys");
+    _LOGI ("sstp-plugin: sending mppe keys");
 
-	nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key), 
-			mppe_recv_key, sizeof(mppe_recv_key));
+    nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key), 
+                   mppe_recv_key, sizeof(mppe_recv_key));
+    snoop_send_hook = NULL;
 }
 
 static void
