@@ -34,7 +34,7 @@ Depends:
         sstp-client (>= 1.0.11),
 	libsstp-api-0 (>= 1.0.11), 
 	ppp (>= 2.4.7-1+1)
-Recommends: network-manager-sstp-gnome | plasma-nm
+Recommends: sstp-client | network-manager-sstp-gnome | plasma-nm
 Description: network management framework (SSTP plugin core)
  NetworkManager is a system network service that manages your network devices
  and connections, attempting to keep active network connectivity when

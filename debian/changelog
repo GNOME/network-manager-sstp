@@ -1,6 +1,7 @@
 network-manager-sstp (1.2.5-0ubuntu4) bionic; urgency=low
 
   * Added a checkbox to enable TLS hostname extentions.
+  * Fixed double sstp-connected message
 
  -- Eivind Naess <eivnaes@yahoo.com>  Sat, 17 Feb 2018 10:00:01 -0800
 network-manager-sstp (1.2.4-0ubuntu4) bionic; urgency=low
