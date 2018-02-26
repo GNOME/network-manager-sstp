@@ -6,6 +6,7 @@ AC_INIT(NetworkManager-sstp,
 	NetworkManager-sstp)
 AM_INIT_AUTOMAKE([1.9 foreign no-dist-gzip dist-xz])
 AM_MAINTAINER_MODE
+AM_SILENT_RULES([yes])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -18,6 +19,7 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
+AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 
 dnl
 dnl Required headers
@@ -119,7 +121,7 @@ LIBNM_CFLAGS="$LIBNM_CFLAGS -DNM_VERSION_MAX_ALLOWED=NM_VERSION_1_2"
 NM_VPN_SERVICE_DIR=`$PKG_CONFIG --define-variable prefix='\${prefix}' --variable vpnservicedir libnm`
 AC_SUBST(NM_VPN_SERVICE_DIR)
 
-NM_COMPILER_WARNINGS
+NM_COMPILER_WARNINGS([yes])
 
 NM_PLUGIN_DIR="$libdir/NetworkManager"
 AC_SUBST(NM_PLUGIN_DIR)
@@ -141,17 +143,15 @@ fi
 
 AC_CONFIG_FILES([
 Makefile
-src/Makefile
-auth-dialog/Makefile
-properties/Makefile
 po/Makefile.in
-shared/Makefile
 ])
 AC_OUTPUT
 
 echo ""
 echo "Build configuration: "
+echo "  --with-dist-version=$ac_distver"
 echo "  --with-gnome=$with_gnome"
 echo "  --with-libnm-glib=$with_libnm_glib"
+echo "  --with-pppd-plugin-dir=$PPPD_PLUGIN_DIR"
 echo "  --enable-absolute-paths=$enable_absolute_paths"
 echo "  --enable-more-warnings=$set_more_warnings"

@@ -199,7 +199,7 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 				g_set_error (info->error,
 				             NM_VPN_PLUGIN_ERROR,
 				             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
-				             _("invalid gateway '%s'"),
+				             _("invalid gateway “%s”"),
 				             key);
 				return;
 			}
@@ -213,7 +213,7 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 			g_set_error (info->error,
 			             NM_VPN_PLUGIN_ERROR,
 			             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
-			             _("invalid integer property '%s'"),
+			             _("invalid integer property “%s”"),
 			             key);
 			break;
 		case G_TYPE_BOOLEAN:
@@ -223,14 +223,14 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 			g_set_error (info->error,
 			             NM_VPN_PLUGIN_ERROR,
 			             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
-			             _("invalid boolean property '%s' (not yes or no)"),
+			             _("invalid boolean property “%s” (not yes or no)"),
 			             key);
 			break;
 		default:
 			g_set_error (info->error,
 			             NM_VPN_PLUGIN_ERROR,
 			             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
-			             _("unhandled property '%s' type %s"),
+			             _("unhandled property “%s” type %s"),
 			             key, g_type_name (prop.type));
 			break;
 		}
@@ -241,7 +241,7 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 		g_set_error (info->error,
 		             NM_VPN_PLUGIN_ERROR,
 		             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
-		             _("property '%s' invalid or not supported"),
+		             _("property “%s” invalid or not supported"),
 		             key);
 	}
 }
@@ -279,7 +279,7 @@ nm_sstp_properties_validate (NMSettingVpn *s_vpn,
 			g_set_error (error,
 			             NM_VPN_PLUGIN_ERROR,
 			             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
-			             _("Missing required option '%s'."),
+			             _("Missing required option “%s”."),
 			             prop.name);
 			return FALSE;
 		}
@@ -524,10 +524,10 @@ construct_pppd_args (NMSstpPlugin *plugin,
 						   sstp_binary, gwaddr,
 						   ign_cert == TRUE ? "--cert-warn" : "",
 						   tls_ext == TRUE ? "--tls-ext" : "",
-						   gl.debug ? "--log-level 4" : "",
+						   gl.debug ? "--log-level 5" : "",
 						   proxy ? proxy : "",
 						   ipparam,
-                           uuid ? uuid : "",
+						   uuid ? uuid : "",
 						   ca_cert ? ca_cert : ""
 						   );
 
@@ -636,7 +636,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 			g_ptr_array_add (args, (gpointer) g_strdup ("lcp-echo-failure"));
 			g_ptr_array_add (args, (gpointer) g_strdup_printf ("%ld", tmp_int));
 		} else {
-			g_warning ("failed to convert lcp-echo-failure value '%s'", value);
+			_LOGW ("failed to convert lcp-echo-failure value “%s”", value);
 		}
 	} else {
 		g_ptr_array_add (args, (gpointer) g_strdup ("lcp-echo-failure"));
@@ -655,7 +655,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 			g_ptr_array_add (args, (gpointer) g_strdup ("lcp-echo-interval"));
 			g_ptr_array_add (args, (gpointer) g_strdup_printf ("%ld", tmp_int));
 		} else {
-			_LOGW ("failed to convert lcp-echo-interval value '%s'", value);
+			_LOGW ("failed to convert lcp-echo-interval value “%s”", value);
 		}
 	} else {
 		g_ptr_array_add (args, (gpointer) g_strdup ("lcp-echo-interval"));
@@ -670,7 +670,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 			g_ptr_array_add (args, (gpointer) g_strdup ("unit"));
 			g_ptr_array_add (args, (gpointer) g_strdup_printf ("%ld", tmp_int));
 		} else
-			_LOGW ("failed to convert unit value '%s'", value);
+			_LOGW ("failed to convert unit value “%s”", value);
 	}
 
 	/* Add the SSTP PPP Plugin */
@@ -883,7 +883,7 @@ lookup_gateway (NMSstpPlugin *self,
 			g_set_error (error,
 			             NM_VPN_PLUGIN_ERROR,
 			             NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-			             _("couldn't convert SSTP VPN gateway IP address '%s' (%d)"),
+			             _("couldn't convert SSTP VPN gateway IP address “%s” (%d)"),
 			             src, errno);
 			return FALSE;
 		}
@@ -901,7 +901,7 @@ lookup_gateway (NMSstpPlugin *self,
 		g_set_error (error,
 		             NM_VPN_PLUGIN_ERROR,
 		             NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-		             _("couldn't look up SSTP VPN gateway IP address '%s' (%d)"),
+		             _("couldn't look up SSTP VPN gateway IP address “%s” (%d)"),
 		             src, err);
 		return FALSE;
 	}
@@ -925,7 +925,7 @@ lookup_gateway (NMSstpPlugin *self,
 		g_set_error (error,
 		             NM_VPN_PLUGIN_ERROR,
 		             NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-		             _("no usable addresses returned for SSTP VPN gateway '%s'"),
+		             _("no usable addresses returned for SSTP VPN gateway “%s”"),
 		             src);
 		return FALSE;
 	}

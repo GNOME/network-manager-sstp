@@ -468,7 +468,6 @@ advanced_dialog_new (GHashTable *hash)
 {
 	GtkBuilder *builder;
 	GtkWidget *dialog = NULL;
-	char *ui_file = NULL;
 	GtkWidget *widget, *spin;
 	const char *value;
 	const char *value2;
@@ -477,22 +476,21 @@ advanced_dialog_new (GHashTable *hash)
 
 	g_return_val_if_fail (hash != NULL, NULL);
 
-	ui_file = g_strdup_printf ("%s/%s", UIDIR, "nm-sstp-dialog.ui");
 	builder = gtk_builder_new ();
 
 	gtk_builder_set_translation_domain (builder, GETTEXT_PACKAGE);
-	if (!gtk_builder_add_from_file (builder, ui_file, &error)) {
+	if (!gtk_builder_add_from_resource (builder, "/org/freedesktop/network-manager-sstp/nm-sstp-dialog.ui", &error)) {
 		g_warning ("Couldn't load builder file: %s",
 		           error ? error->message : "(unknown)");
 		g_clear_error (&error);
 		g_object_unref (G_OBJECT (builder));
-		goto out;
+		return NULL;
 	}
 
 	dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sstp-advanced-dialog"));
 	if (!dialog) {
 		g_object_unref (G_OBJECT (builder));
-		goto out;
+		return NULL;
 	}
 	gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
 
@@ -625,8 +623,6 @@ advanced_dialog_new (GHashTable *hash)
 		gtk_widget_set_sensitive (widget, FALSE);
 	}
 
-out:
-	g_free (ui_file);
 	return dialog;
 }
 
