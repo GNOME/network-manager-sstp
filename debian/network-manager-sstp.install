@@ -1,4 +1,0 @@
-etc
-usr/lib/pppd/*/*.so
-usr/lib/NetworkManager/VPN/nm-sstp-service.name
-usr/lib/NetworkManager/nm-sstp-service
