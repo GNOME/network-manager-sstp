@@ -87,24 +87,24 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.ui.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>認証</b>"
+msgid "Authentication"
+msgstr "認証"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+msgid "Echo"
+msgstr "Echo"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>General</b>"
-msgstr "<b>一般</b>"
+msgid "General"
+msgstr "一般"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>オプション</b>"
+msgid "Optional"
+msgstr "オプション"
 
 #: ../properties/nm-sstp-dialog.ui.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>暗号化と圧縮</b>"
+msgid "Security and Compression"
+msgstr "暗号化と圧縮"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
 msgid "Ad_vanced..."
@@ -383,11 +383,11 @@ msgstr ""
 #~ msgid "00:00:00:00"
 #~ msgstr "00:00:00:00"
 
-#~ msgid "<b>Delays &amp; Timeouts</b>"
-#~ msgstr "<b>遅延とタイムアウト</b>"
+#~ msgid "Delays &amp; Timeouts"
+#~ msgstr "遅延とタイムアウト"
 
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>パケットパラメータ</b>"
+#~ msgid "Packet Parameters"
+#~ msgstr "パケットパラメータ"
 
 #~ msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
 #~ msgstr "<i>例: 172.16.0.0/16 10.11.12.0/24</i>"
@@ -699,23 +699,23 @@ msgstr ""
 #~ msgid "Tunnel via pppd"
 #~ msgstr "pppd 経由でトンネル"
 
-#~ msgid "<b>Bluetooth options</b>"
-#~ msgstr "<b>Bluetooth オプション</b>"
+#~ msgid "Bluetooth options"
+#~ msgstr "Bluetooth オプション"
 
-#~ msgid "<b>Connection Name</b>"
-#~ msgstr "<b>接続名</b>"
+#~ msgid "Connection Name"
+#~ msgstr "接続名"
 
-#~ msgid "<b>Dial-up options</b>"
-#~ msgstr "<b>ダイアルアップオプション</b>"
+#~ msgid "Dial-up options"
+#~ msgstr "ダイアルアップオプション"
 
-#~ msgid "<b>SSTP options</b>"
-#~ msgstr "<b>SSTP オプション</b>"
+#~ msgid "SSTP options"
+#~ msgstr "SSTP オプション"
 
-#~ msgid "<b>Required Information</b>"
-#~ msgstr "<b>必須情報</b>"
+#~ msgid "Required Information"
+#~ msgstr "必須情報"
 
-#~ msgid "<b>Routing options</b>"
-#~ msgstr "<b>ルーティングオプション</b>"
+#~ msgid "Routing options"
+#~ msgstr "ルーティングオプション"
 
 #~ msgid "MPPC Compression"
 #~ msgstr "MPPC 圧縮"

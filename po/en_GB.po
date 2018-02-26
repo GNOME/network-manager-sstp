@@ -103,24 +103,24 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.ui.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Authentication</b>"
+msgid "Authentication"
+msgstr "Authentication"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+msgid "Echo"
+msgstr "Echo"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>General</b>"
-msgstr "<b>General</b>"
+msgid "General"
+msgstr "General"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Optional</b>"
+msgid "Optional"
+msgstr "Optional"
 
 #: ../properties/nm-sstp-dialog.ui.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Security and Compression</b>"
+msgid "Security and Compression"
+msgstr "Security and Compression"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
 msgid "Ad_vanced..."
@@ -246,11 +246,11 @@ msgstr "Compatible with Microsoft and other SSTP VPN servers."
 #~ msgid "00:00:00:00"
 #~ msgstr "00:00:00:00"
 
-#~ msgid "<b>Delays &amp; Timeouts</b>"
-#~ msgstr "<b>Delays &amp; TImeouts</b>"
+#~ msgid "Delays &amp; Timeouts"
+#~ msgstr "Delays &amp; TImeouts"
 
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>Packet Parameters</b>"
+#~ msgid "Packet Parameters"
+#~ msgstr "Packet Parameters"
 
 #~ msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
 #~ msgstr "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
@@ -572,8 +572,8 @@ msgstr "Compatible with Microsoft and other SSTP VPN servers."
 #~ msgid "auth-none-window"
 #~ msgstr "auth-none-window"
 
-#~ msgid "<b>Connection Name</b>"
-#~ msgstr "<b>Connection Name</b>"
+#~ msgid "Connection Name"
+#~ msgstr "Connection Name"
 
 #~ msgid "Telephone number to dial"
 #~ msgstr "Telephone number to dial"

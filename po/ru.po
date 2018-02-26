@@ -10,10 +10,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2015-07-27 11:15+0000\n"
-"PO-Revision-Date: 2015-07-27 23:28+0300\n"
+"POT-Creation-Date: 2017-08-03 13:59+0000\n"
+"PO-Revision-Date: 2017-12-20 00:24+0300\n"
 "Last-Translator: Stas Solovey <whats_up@tut.by>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -21,64 +21,240 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.0.5\n"
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
+msgid "SSTP VPN client"
+msgstr "SSTP VPN клиент"
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
+msgid "Client for SSTP virtual private networks"
+msgstr "Клиент для виртуальных приватных сетей SSTP"
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
+msgid "Support for configuring SSTP virtual private network connections."
+msgstr "Поддержка настройки приватных сетевых соединений SSTP."
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
+msgid "Compatible with various SSTP servers including Microsoft."
+msgstr "Совместим с различными серверами SSTP, включая Microsoft."
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
+msgid "The NetworkManager Developers"
+msgstr "Разработчики NetworkManager"
 
 #. Otherwise, we have no saved password, or the password flags indicated
 #. * that the password should never be saved.
 #.
-#: ../auth-dialog/main.c:155
+#: ../auth-dialog/main.c:146
 #, c-format
-msgid "You need to authenticate to access the Virtual Private Network '%s'."
-msgstr "Необходима аутентификация для доступа к виртуальной частной сети «%s»."
+msgid "You need to authenticate to access the Virtual Private Network “%s”."
+msgstr ""
+"Необходима аутентификация для доступа к виртуальной приватной сети «%s»."
 
-#: ../auth-dialog/main.c:164 ../auth-dialog/main.c:184
+#: ../auth-dialog/main.c:155 ../auth-dialog/main.c:175
 msgid "Authenticate VPN"
 msgstr "Аутентификация VPN"
 
-#: ../auth-dialog/main.c:166 ../properties/nm-sstp-dialog.ui.h:43
+#: ../auth-dialog/main.c:157 ../properties/nm-sstp-dialog.ui.h:43
 msgid "Password:"
 msgstr "Пароль:"
 
-#: ../properties/advanced-dialog.c:185
+#: ../properties/advanced-dialog.c:169
 msgid "All Available (Default)"
-msgstr "Любое доступное (по умолчанию)"
+msgstr "Все доступные (по умолчанию)"
 
-#: ../properties/advanced-dialog.c:189
+#: ../properties/advanced-dialog.c:173
 msgid "128-bit (most secure)"
-msgstr "128 бит (самое защищённое)"
+msgstr "128-бит (наиболее защищённое)"
 
-#: ../properties/advanced-dialog.c:198
+#: ../properties/advanced-dialog.c:182
 msgid "40-bit (less secure)"
-msgstr "40 бит (менее защищённое)"
+msgstr "40-бит (менее защищённое)"
 
-#: ../properties/advanced-dialog.c:302
+#: ../properties/advanced-dialog.c:286
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:315
+#: ../properties/advanced-dialog.c:299
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:327
+#: ../properties/advanced-dialog.c:311
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:339
+#: ../properties/advanced-dialog.c:323
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:352
+#: ../properties/advanced-dialog.c:336
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/nm-sstp.c:48
+#: ../properties/nm-sstp-editor-plugin.c:34
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "Туннельный протокол типа точка-точка (SSTP)"
 
-#: ../properties/nm-sstp.c:49
+#: ../properties/nm-sstp-editor-plugin.c:35
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Совместим с серверами Microsoft и другими серверами SSTP VPN."
+
+#: ../shared/nm-utils/nm-shared-utils.c:264
+#, c-format
+msgid "object class '%s' has no property named '%s'"
+msgstr "класс объекта «%s» не имеет свойства с именем «%s»"
+
+#: ../shared/nm-utils/nm-shared-utils.c:271
+#, c-format
+msgid "property '%s' of object class '%s' is not writable"
+msgstr "свойство «%s» класса объекта «%s» не доступно для записи"
+
+#: ../shared/nm-utils/nm-shared-utils.c:278
+#, c-format
+msgid ""
+"construct property \"%s\" for object '%s' can't be set after construction"
+msgstr ""
+"свойство построения «%s» для объекта «%s» не может быть установлено после "
+"построения"
+
+#: ../shared/nm-utils/nm-shared-utils.c:286
+#, c-format
+msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
+msgstr ""
+"«%s::%s'» не является допустимым именем свойства; «%s» не является подтипом "
+"GObject"
+
+#: ../shared/nm-utils/nm-shared-utils.c:295
+#, c-format
+msgid "unable to set property '%s' of type '%s' from value of type '%s'"
+msgstr "не удалось установить свойство «%s» типа «%s» из значения типа «%s»"
+
+#: ../shared/nm-utils/nm-shared-utils.c:306
+#, c-format
+msgid ""
+"value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
+"type '%s'"
+msgstr ""
+"значение «%s» типа «%s» недействительно или вне диапазона для свойства «%s» "
+"типа «%s»"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:80
+#, c-format
+msgid "missing plugin file \"%s\""
+msgstr "отсутствует файл плагина «%s»"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:86
+#, c-format
+msgid "cannot load editor plugin: %s"
+msgstr "невозможно загрузить плагин редактора: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:95
+#, c-format
+msgid "cannot load factory %s from plugin: %s"
+msgstr "невозможно загрузить прошивку %s из плагина: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:121
+msgid "unknown error creating editor instance"
+msgstr "неизвестная ошибка создания экземпляра редактора"
+
+#: ../src/nm-sstp-service.c:193
+#, c-format
+msgid "invalid gateway “%s”"
+msgstr "неверный шлюз «%s»"
+
+#: ../src/nm-sstp-service.c:207
+#, c-format
+msgid "invalid integer property “%s”"
+msgstr "«%s» неверно для целочисленного свойства"
+
+#: ../src/nm-sstp-service.c:217
+#, c-format
+msgid "invalid boolean property “%s” (not yes or no)"
+msgstr "«%s» неверно для логического свойства (не «да» или «нет»)"
+
+#: ../src/nm-sstp-service.c:224
+#, c-format
+msgid "unhandled property “%s” type %s"
+msgstr "свойство «%s» имеет необрабатываемый тип %s"
+
+#: ../src/nm-sstp-service.c:235
+#, c-format
+msgid "property “%s” invalid or not supported"
+msgstr "свойство «%s» неверно или не поддерживается"
+
+#: ../src/nm-sstp-service.c:253
+msgid "No VPN configuration options."
+msgstr "Нет параметров настройки VPN."
+
+#: ../src/nm-sstp-service.c:273
+#, c-format
+msgid "Missing required option “%s”."
+msgstr "Отсутствует требуемый параметр «%s»."
+
+#: ../src/nm-sstp-service.c:293
+msgid "No VPN secrets!"
+msgstr "Нет VPN-ключей!"
+
+#: ../src/nm-sstp-service.c:447
+msgid "Could not find sstp client binary."
+msgstr "Не удалось найти исполняемый файл клиента sstp."
+
+#: ../src/nm-sstp-service.c:460
+msgid "Missing VPN gateway."
+msgstr "Отсутствует шлюз VPN."
+
+#: ../src/nm-sstp-service.c:629
+msgid "Could not find the pppd binary."
+msgstr "Не удалось найти исполняемый файл pppd."
+
+#: ../src/nm-sstp-service.c:689
+msgid "Missing VPN username."
+msgstr "Отсутствует имя пользователя VPN."
+
+#: ../src/nm-sstp-service.c:698
+msgid "Missing or invalid VPN password."
+msgstr "Пароль VPN отсутствует или неверный."
+
+#: ../src/nm-sstp-service.c:804
+#, c-format
+msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
+msgstr "не удалось преобразовать IP-адрес шлюза SSTP VPN «%s» (%d)"
+
+#: ../src/nm-sstp-service.c:822
+#, c-format
+msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
+msgstr "не удалось найти IP-адрес шлюза SSTP VPN «%s» (%d)"
+
+#: ../src/nm-sstp-service.c:846
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway “%s”"
+msgstr "не получено приемлемых адресов для шлюза SSTP VPN «%s»"
+
+#: ../src/nm-sstp-service.c:875
+msgid "Invalid or missing SSTP gateway."
+msgstr "Шлюз SSTP отсутствует или неверный."
+
+#: ../src/nm-sstp-service.c:1123
+msgid "Don’t quit when VPN connection terminates"
+msgstr "Не завершать работу при отключении VPN"
+
+#: ../src/nm-sstp-service.c:1124
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Включить подробный режим отладки (могут отображаться пароли)"
+
+#: ../src/nm-sstp-service.c:1125
+msgid "D-Bus name to use for this instance"
+msgstr "Имя D-Bus для использования в этом экземпляре"
+
+#: ../src/nm-sstp-service.c:1146
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service позволяет использовать SSTP VPN (совместимые с Microsoft и "
+"другими реализациями) в NetworkManager."
 
 #: ../properties/nm-sstp-dialog.ui.h:1
 msgid "Default"
@@ -89,8 +265,8 @@ msgid "SSTP Advanced Options"
 msgstr "Дополнительные параметры SSTP"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>Authentication</b>"
-msgstr "<b>Аутентификация</b>"
+msgid "Authentication"
+msgstr "Аутентификация"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
 msgid "Allow the following authentication methods:"
@@ -105,8 +281,8 @@ msgstr ""
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Шифрование и сжатие</b>"
+msgid "Security and Compression"
+msgstr "Шифрование и сжатие"
 
 #: ../properties/nm-sstp-dialog.ui.h:8
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -186,8 +362,8 @@ msgstr ""
 "config: novj (если не выбрано)"
 
 #: ../properties/nm-sstp-dialog.ui.h:25
-msgid "<b>Echo</b>"
-msgstr "<b>Эхо</b>"
+msgid "Echo"
+msgstr "Эхо"
 
 #: ../properties/nm-sstp-dialog.ui.h:26
 msgid "Send PPP _echo packets"
@@ -202,9 +378,8 @@ msgstr ""
 "config: lcp-echo-failure и lcp-echo-interval"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
-#| msgid "<b>Echo</b>"
-msgid "<b>Misc</b>"
-msgstr "<b>Прочее</b>"
+msgid "Misc"
+msgstr "Прочее"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
 msgid "Use custom _unit number:"
@@ -219,8 +394,8 @@ msgstr ""
 "config: номер <n>"
 
 #: ../properties/nm-sstp-dialog.ui.h:33
-msgid "<b>General</b>"
-msgstr "<b>Общие</b>"
+msgid "General"
+msgstr "Общие"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
 msgid ""
@@ -235,8 +410,8 @@ msgid "_Gateway:"
 msgstr "_Шлюз:"
 
 #: ../properties/nm-sstp-dialog.ui.h:37
-msgid "<b>Optional</b>"
-msgstr "<b>Дополнительные</b>"
+msgid "Optional"
+msgstr "Дополнительные"
 
 #: ../properties/nm-sstp-dialog.ui.h:38
 msgid ""
@@ -274,119 +449,22 @@ msgid "User name:"
 msgstr "Имя пользователя:"
 
 #: ../properties/nm-sstp-dialog.ui.h:47
-msgid "Ad_vanced..."
+msgid "Ad_vanced…"
 msgstr "_Дополнительно…"
 
-#: ../src/nm-sstp-service.c:161
-#, c-format
-msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
-msgstr "не удалось преобразовать IP-адрес шлюза SSTP VPN «%s» (%d)"
+#~ msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
+#~ msgstr "не получен приемлемый IP-адрес шлюза SSTP VPN «%s» (%d)"
 
-#: ../src/nm-sstp-service.c:179
-#, c-format
-msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
-msgstr "не удалось найти IP-адрес шлюза SSTP VPN «%s» (%d)"
+#~ msgid "Could not find secrets (connection invalid, no vpn setting)."
+#~ msgstr ""
+#~ "Не удалось найти секретные ключи (некорректное подключение, не настроен "
+#~ "vpn)."
 
-#: ../src/nm-sstp-service.c:203
-#, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s'"
-msgstr "не получен приемлемый IP-адрес шлюза SSTP VPN «%s»"
+#~ msgid "Invalid VPN username."
+#~ msgstr "Неверное имя пользователя VPN."
 
-#: ../src/nm-sstp-service.c:214
-#, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
-msgstr "не получен приемлемый IP-адрес шлюза SSTP VPN «%s» (%d)"
-
-#: ../src/nm-sstp-service.c:241
-msgid "Could not find secrets (connection invalid, no vpn setting)."
-msgstr ""
-"Не удалось найти секретные ключи (некорректное подключение, не настроен vpn)."
-
-#: ../src/nm-sstp-service.c:253
-msgid "Invalid VPN username."
-msgstr "Неверное имя пользователя VPN."
-
-#: ../src/nm-sstp-service.c:262
-msgid "Missing VPN username."
-msgstr "Отсутствует имя пользователя VPN."
-
-#: ../src/nm-sstp-service.c:272
-msgid "Missing or invalid VPN password."
-msgstr "Пароль VPN отсутствует или неверный."
-
-#: ../src/nm-sstp-service.c:430
-msgid "No cached credentials."
-msgstr "Нет учётных данных в кэше."
-
-#: ../src/nm-sstp-service.c:577
-#, c-format
-msgid "invalid gateway '%s'"
-msgstr "неверный шлюз «%s»"
-
-#: ../src/nm-sstp-service.c:591
-#, c-format
-msgid "invalid integer property '%s'"
-msgstr "«%s» неверно для целочисленного свойства"
-
-#: ../src/nm-sstp-service.c:601
-#, c-format
-msgid "invalid boolean property '%s' (not yes or no)"
-msgstr "«%s» неверно для логического свойства (не «да» или «нет»)"
-
-#: ../src/nm-sstp-service.c:608
-#, c-format
-msgid "unhandled property '%s' type %s"
-msgstr "свойство «%s» имеет необрабатываемый тип %s"
-
-#: ../src/nm-sstp-service.c:619
-#, c-format
-msgid "property '%s' invalid or not supported"
-msgstr "свойство «%s» неверно или не поддерживается"
-
-#: ../src/nm-sstp-service.c:637
-msgid "No VPN configuration options."
-msgstr "Нет параметров настройки VPN."
-
-#: ../src/nm-sstp-service.c:657
-#, c-format
-msgid "Missing required option '%s'."
-msgstr "Отсутствует требуемый параметр «%s»."
-
-#: ../src/nm-sstp-service.c:677
-msgid "No VPN secrets!"
-msgstr "Нет VPN-ключей!"
-
-#: ../src/nm-sstp-service.c:835
-msgid "Could not find sstp client binary."
-msgstr "Не удалось найти исполняемый файл клиента sstp."
-
-#: ../src/nm-sstp-service.c:848
-msgid "Missing VPN gateway."
-msgstr "Отсутствует шлюз VPN."
-
-#: ../src/nm-sstp-service.c:1009
-msgid "Could not find the pppd binary."
-msgstr "Не удалось найти исполняемый файл pppd."
-
-#: ../src/nm-sstp-service.c:1139
-msgid "Invalid or missing SSTP gateway."
-msgstr "Шлюз SSTP отсутствует или неверный."
-
-#: ../src/nm-sstp-service.c:1320
-msgid "Don't quit when VPN connection terminates"
-msgstr "Не завершать работу при отключении VPN"
-
-#: ../src/nm-sstp-service.c:1321
-msgid "Enable verbose debug logging (may expose passwords)"
-msgstr "Включить подробный режим отладки (могут отображаться пароли)"
-
-#: ../src/nm-sstp-service.c:1344
-msgid ""
-"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
-"Microsoft and other implementations) to NetworkManager."
-msgstr ""
-"nm-sstp-service позволяет использовать SSTP VPN (совместимые с Microsoft и "
-"другими реализациями) в NetworkManager."
+#~ msgid "No cached credentials."
+#~ msgstr "Нет учётных данных в кэше."
 
 #~ msgid "SSTP VPN Connection Manager"
 #~ msgstr "Менеджер подключений SSTP VPN"

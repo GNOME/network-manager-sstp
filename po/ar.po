@@ -107,27 +107,27 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.glade.h:1
 #, fuzzy
-msgid "<b>Authentication</b>"
+msgid "Authentication"
 msgstr "التوثق"
 
 #: ../properties/nm-sstp-dialog.glade.h:2
 #, fuzzy
-msgid "<b>Echo</b>"
-msgstr "<b>التعمية</b>"
+msgid "Echo"
+msgstr "التعمية"
 
 #: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
+msgid "General"
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.glade.h:4
 #, fuzzy
-msgid "<b>Optional</b>"
-msgstr "<b>خيارات IP</b>"
+msgid "Optional"
+msgstr "خيارات IP"
 
 #: ../properties/nm-sstp-dialog.glade.h:5
 #, fuzzy
-msgid "<b>Security and Compression</b>"
-msgstr "<b>الضغط</b>"
+msgid "Security and Compression"
+msgstr "الضغط"
 
 #: ../properties/nm-sstp-dialog.glade.h:6
 msgid "Ad_vanced..."
@@ -243,11 +243,11 @@ msgstr ""
 #~ msgid "00:00:00:00"
 #~ msgstr "00:00:00:00"
 
-#~ msgid "<b>Delays &amp; Timeouts</b>"
-#~ msgstr "<b>التأخيرات والمهل</b>"
+#~ msgid "Delays &amp; Timeouts"
+#~ msgstr "التأخيرات والمهل"
 
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>معاملات الرزم</b>"
+#~ msgid "Packet Parameters"
+#~ msgstr "معاملات الرزم"
 
 #~ msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
 #~ msgstr "<i>مثال: 172.16.0.0/16 10.11.12.0/24</i>"

@@ -83,23 +83,23 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.ui.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Aŭtentokontrolo</b>"
+msgid "Authentication"
+msgstr "Aŭtentokontrolo"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>Echo</b>"
+msgid "Echo"
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>General</b>"
-msgstr "<b>Ĝenerale</b>"
+msgid "General"
+msgstr "Ĝenerale"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
-msgid "<b>Optional</b>"
+msgid "Optional"
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:5
-msgid "<b>Security and Compression</b>"
+msgid "Security and Compression"
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:6

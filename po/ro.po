@@ -103,24 +103,24 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Autentificare</b>"
+msgid "Authentication"
+msgstr "Autentificare"
 
 #: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+msgid "Echo"
+msgstr "Echo"
 
 #: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>Generale</b>"
+msgid "General"
+msgstr "Generale"
 
 #: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Opționale</b>"
+msgid "Optional"
+msgstr "Opționale"
 
 #: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Securitate și compresie</b>"
+msgid "Security and Compression"
+msgstr "Securitate și compresie"
 
 #: ../properties/nm-sstp-dialog.glade.h:6
 msgid "Ad_vanced..."

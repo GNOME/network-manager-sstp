@@ -98,24 +98,24 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>אימות</b>"
+msgid "Authentication"
+msgstr "אימות"
 
 #: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>הד</b>"
+msgid "Echo"
+msgstr "הד"
 
 #: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>כללי</b>"
+msgid "General"
+msgstr "כללי"
 
 #: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>לא מחייב</b>"
+msgid "Optional"
+msgstr "לא מחייב"
 
 #: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>אבטחה וכיווץ</b>"
+msgid "Security and Compression"
+msgstr "אבטחה וכיווץ"
 
 #: ../properties/nm-sstp-dialog.glade.h:6
 msgid "Ad_vanced..."
@@ -225,8 +225,8 @@ msgstr "תואם ל־Microsoft ולשרתי VPN דרך SSTP אחרים."
 #~ msgid "00:00:00:00"
 #~ msgstr "00:00:00:00"
 
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>אפשרויות חבילה</b>"
+#~ msgid "Packet Parameters"
+#~ msgstr "אפשרויות חבילה"
 
 #~ msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
 #~ msgstr "<i>דוגמה: 172.16.0.0/16 10.11.12.0/24</i>"

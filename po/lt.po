@@ -2,15 +2,15 @@
 # Copyright (C) 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the NetworkManager package.
 # Žygimantas Beručka <zygis@gnome.org>, 2008.
-# Aurimas Černius <aurisc4@gmail.com>, 2015, 2016.
+# Aurimas Černius <aurisc4@gmail.com>, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2016-06-16 11:19+0000\n"
-"PO-Revision-Date: 2016-08-15 14:26+0300\n"
+"POT-Creation-Date: 2017-02-26 22:59+0000\n"
+"PO-Revision-Date: 2017-03-13 23:50+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -31,10 +31,9 @@ msgstr "Klientas SSTP virtualiems privatiems tinklams"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
 msgid "Support for configuring SSTP virtual private network connections."
-msgstr "SSTP virtualių privačių tinklo ryčių konfigūracijos palaikymas"
+msgstr "SSTP virtualių privačių tinklo ryšių konfigūracijos palaikymas"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
-#| msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgid "Compatible with various SSTP servers including Microsoft."
 msgstr "Suderinama su įvairiais SSTP serveriais, įskaitant Microsoft."
 
@@ -47,7 +46,7 @@ msgstr "NetworkManager kūrėjai"
 #.
 #: ../auth-dialog/main.c:146
 #, c-format
-msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
 "Norint gauti prieigą prie Virtualiojo Privačiojo Tinklo „%s“, reikia "
 "nustatyti jūsų tapatybę."
@@ -100,6 +99,45 @@ msgstr "PPP tuneliavimo protokolas (SSTP)"
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Suderinama su Microsoft ir kitais SSTP VPN serveriais."
 
+#: ../shared/nm-utils/nm-shared-utils.c:264
+#, c-format
+msgid "object class '%s' has no property named '%s'"
+msgstr "objekto klasė „%s“ neturi savybės pavadinimu „%s“"
+
+#: ../shared/nm-utils/nm-shared-utils.c:271
+#, c-format
+msgid "property '%s' of object class '%s' is not writable"
+msgstr "savybė „%s“, kuri priklauso klasei „%s“, nėra skirta rašymui"
+
+#: ../shared/nm-utils/nm-shared-utils.c:278
+#, c-format
+msgid ""
+"construct property \"%s\" for object '%s' can't be set after construction"
+msgstr ""
+"konstruktoriaus savybė „%s“, kuri priklauso objektui „%s“, negali būti "
+"nustatyta po sukonstravimo"
+
+#: ../shared/nm-utils/nm-shared-utils.c:286
+#, c-format
+msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
+msgstr "„%s::%s“ nėra tinkamas savybės pavadinimas; „%s“ nėra GObject potipis"
+
+#: ../shared/nm-utils/nm-shared-utils.c:295
+#, c-format
+msgid "unable to set property '%s' of type '%s' from value of type '%s'"
+msgstr ""
+"nepavyko nustatyti savybės „%s“, priklausančios tipui „%s“, į „%s“ tipo "
+"reikšmę"
+
+#: ../shared/nm-utils/nm-shared-utils.c:306
+#, c-format
+msgid ""
+"value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
+"type '%s'"
+msgstr ""
+"reikšmė „%s“, kuri priklauso tipui „%s“, yra netinkama arba už savybės „%s“, "
+"priklausančios tipui „%s“, ribų"
+
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:80
 #, c-format
 msgid "missing plugin file \"%s\""
@@ -119,96 +157,96 @@ msgstr "nepavyksta įkelti %s gamyklos iš įskiepio: %s"
 msgid "unknown error creating editor instance"
 msgstr "nežinoma klaida kuriant redaktoriaus vienetą"
 
-#: ../src/nm-sstp-service.c:164
+#: ../src/nm-sstp-service.c:193
 #, c-format
-msgid "invalid gateway '%s'"
-msgstr "netinkamas kelvedys „%s“"
+msgid "invalid gateway “%s”"
+msgstr "netinkamas tinklų sietuvas „%s“"
 
-#: ../src/nm-sstp-service.c:178
+#: ../src/nm-sstp-service.c:207
 #, c-format
-msgid "invalid integer property '%s'"
-msgstr "netinkama skaitinė savybė „%s“"
+msgid "invalid integer property “%s”"
+msgstr "netinkama sveikaskaitinė savybė „%s“"
 
-#: ../src/nm-sstp-service.c:188
+#: ../src/nm-sstp-service.c:217
 #, c-format
-msgid "invalid boolean property '%s' (not yes or no)"
+msgid "invalid boolean property “%s” (not yes or no)"
 msgstr "netinkama loginė savybė „%s“ (ne taip arba ne)"
 
-#: ../src/nm-sstp-service.c:195
+#: ../src/nm-sstp-service.c:224
 #, c-format
-msgid "unhandled property '%s' type %s"
+msgid "unhandled property “%s” type %s"
 msgstr "neapdorotas savybės „%s“ tipas %s"
 
-#: ../src/nm-sstp-service.c:206
+#: ../src/nm-sstp-service.c:235
 #, c-format
-msgid "property '%s' invalid or not supported"
+msgid "property “%s” invalid or not supported"
 msgstr "savybė „%s“ netinkama arba nepalaikoma"
 
-#: ../src/nm-sstp-service.c:224
+#: ../src/nm-sstp-service.c:253
 msgid "No VPN configuration options."
 msgstr "Nėra VPN konfigūracijos parametrų."
 
-#: ../src/nm-sstp-service.c:244
+#: ../src/nm-sstp-service.c:273
 #, c-format
-msgid "Missing required option '%s'."
+msgid "Missing required option “%s”."
 msgstr "Trūksta būtino parametro „%s“."
 
-#: ../src/nm-sstp-service.c:264
+#: ../src/nm-sstp-service.c:293
 msgid "No VPN secrets!"
 msgstr "Nėra VPN paslapčių!"
 
-#: ../src/nm-sstp-service.c:419
+#: ../src/nm-sstp-service.c:447
 msgid "Could not find sstp client binary."
 msgstr "Nepavyko rasti sstp klientinės programos."
 
-#: ../src/nm-sstp-service.c:432
+#: ../src/nm-sstp-service.c:460
 msgid "Missing VPN gateway."
-msgstr "Trūksta VPN kelvedžio."
+msgstr "Trūksta VPN tinklų sietuvo."
 
-#: ../src/nm-sstp-service.c:594
+#: ../src/nm-sstp-service.c:629
 msgid "Could not find the pppd binary."
 msgstr "Nepavyko rasti pppd programos."
 
-#: ../src/nm-sstp-service.c:654
+#: ../src/nm-sstp-service.c:689
 msgid "Missing VPN username."
 msgstr "Trūksta VPN naudotojo vardo."
 
-#: ../src/nm-sstp-service.c:663
+#: ../src/nm-sstp-service.c:698
 msgid "Missing or invalid VPN password."
 msgstr "Nėra arba netinkamas VPN slaptažodis."
 
-#: ../src/nm-sstp-service.c:769
+#: ../src/nm-sstp-service.c:804
 #, c-format
-msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
-msgstr "nepavyko pakeisti SSTP VPN kelvedžio IP adreso „%s“ (%d)"
+msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
+msgstr "nepavyko pakeisti SSTP VPN tinklų sietuvo IP adreso „%s“ (%d)"
 
-#: ../src/nm-sstp-service.c:787
+#: ../src/nm-sstp-service.c:822
 #, c-format
-msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
-msgstr "nepavyko rasti SSTP VPN kelvedžio IP adreso „%s“ (%d)"
+msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
+msgstr "nepavyko rasti SSTP VPN tinklų sietuvo IP adreso „%s“ (%d)"
 
-#: ../src/nm-sstp-service.c:811
+#: ../src/nm-sstp-service.c:846
 #, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s'"
-msgstr "negrąžinti tinkami SSTP VPN kelvedžio „%s“ adresai"
+msgid "no usable addresses returned for SSTP VPN gateway “%s”"
+msgstr "negrąžinta jokių tinkamų SSTP VPN tinklų sietuvo „%s“ adresų"
 
-#: ../src/nm-sstp-service.c:840
+#: ../src/nm-sstp-service.c:875
 msgid "Invalid or missing SSTP gateway."
-msgstr "Netinkamas arba trūkstamas SSTP kelvedys."
+msgstr "Netinkamas arba trūkstamas SSTP tinklų sietuvas."
 
-#: ../src/nm-sstp-service.c:1085
-msgid "Don't quit when VPN connection terminates"
-msgstr "Neužverti kai VPN ryšys baigiasi"
+#: ../src/nm-sstp-service.c:1123
+msgid "Don’t quit when VPN connection terminates"
+msgstr "Neišeiti, kai nutrūksta VPN ryšys"
 
-#: ../src/nm-sstp-service.c:1086
+#: ../src/nm-sstp-service.c:1124
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr "Įjungti išsamų derinimo žurnalą (gali parodyti slaptažodžius)"
 
-#: ../src/nm-sstp-service.c:1087
+#: ../src/nm-sstp-service.c:1125
 msgid "D-Bus name to use for this instance"
 msgstr "D-Bus vardas, naudojamas šiam vienetui"
 
-#: ../src/nm-sstp-service.c:1110
+#: ../src/nm-sstp-service.c:1146
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
@@ -225,8 +263,8 @@ msgid "SSTP Advanced Options"
 msgstr "SSTP išplėstiniai parametrai"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>Authentication</b>"
-msgstr "<b>Tapatybės nustatymas</b>"
+msgid "Authentication"
+msgstr "Tapatybės nustatymas"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
 msgid "Allow the following authentication methods:"
@@ -237,12 +275,12 @@ msgid ""
 "Allow/disable authentication methods.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 msgstr ""
-"Leisti/išjungti tapatybės patvirtinimo metodus.\n"
+"Leisti/išjungti tapatybės nustatymo metodus.\n"
 "konfig: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Saugumas ir glaudinimas</b>"
+msgid "Security and Compression"
+msgstr "Saugumas ir glaudinimas"
 
 #: ../properties/nm-sstp-dialog.ui.h:8
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -254,9 +292,9 @@ msgid ""
 "To enable this checkbox, select one or more of the MSCHAP authentication "
 "methods: MSCHAP or MSCHAPv2."
 msgstr ""
-"Pastaba: MPPE šifravimas galimas tik su MSCHAP autentikacijos metodais. "
-"Norėdami jį pasirinkti, pasirinkite vieną ar kelis MSCHAP autentikacijos "
-"metodus: MSCHAP arba MSCHAPv2."
+"Pastaba: MPPE šifravimas galimas tik su MSCHAP tapatybės nustatymo metodais. "
+"Norėdami jį pasirinkti, pasirinkite vieną ar kelis MSCHAP tapatybės "
+"nustatymo metodus: MSCHAP arba MSCHAPv2."
 
 #: ../properties/nm-sstp-dialog.ui.h:10
 msgid "_Security:"
@@ -322,8 +360,8 @@ msgstr ""
 "konfig: novj (kai nepažymėta)"
 
 #: ../properties/nm-sstp-dialog.ui.h:25
-msgid "<b>Echo</b>"
-msgstr "<b>Aidas</b>"
+msgid "Echo"
+msgstr "Aidas"
 
 #: ../properties/nm-sstp-dialog.ui.h:26
 msgid "Send PPP _echo packets"
@@ -338,8 +376,8 @@ msgstr ""
 "konfig: lcp-echo-failure ir lcp-echo-interval"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
-msgid "<b>Misc</b>"
-msgstr "<b>Įvairūs</b>"
+msgid "Misc"
+msgstr "Įvairūs"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
 msgid "Use custom _unit number:"
@@ -354,8 +392,8 @@ msgstr ""
 "config: unit <n>"
 
 #: ../properties/nm-sstp-dialog.ui.h:33
-msgid "<b>General</b>"
-msgstr "<b>Bendra</b>"
+msgid "General"
+msgstr "Bendra"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
 msgid ""
@@ -367,11 +405,11 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:36
 msgid "_Gateway:"
-msgstr "Š_liuzas:"
+msgstr "_Tinklų sietuvas:"
 
 #: ../properties/nm-sstp-dialog.ui.h:37
-msgid "<b>Optional</b>"
-msgstr "<b>Neprivaloma</b>"
+msgid "Optional"
+msgstr "Neprivaloma"
 
 #: ../properties/nm-sstp-dialog.ui.h:38
 msgid ""
@@ -379,9 +417,9 @@ msgid ""
 "purposes.\n"
 "config: domain <domain>"
 msgstr ""
-"Pridėti domeno vardą <domenas> prie vietinio serverio pavadinimo tapatybės "
-"patvirtinimo tikslais.\n"
-"konfig: domain <domenas>"
+"Pridėti srities vardą <sritis> prie vietinio serverio pavadinimo tapatybės "
+"nustatymo tikslais.\n"
+"konfig.: domain <sritis>"
 
 #: ../properties/nm-sstp-dialog.ui.h:40
 msgid "NT Domain:"
@@ -401,17 +439,16 @@ msgid ""
 "<name>.\n"
 "config: user <name>"
 msgstr ""
-"Nustatyti <vardas> tapatybės patvirtinimo vardą vietinei sistemai "
-"porininkui.\n"
-"konfig: user <vardas>"
+"Nustatyti <vardas> tapatybės nustatymo vardą vietinei sistemai porininkui.\n"
+"konfig.: user <vardas>"
 
 #: ../properties/nm-sstp-dialog.ui.h:46
 msgid "User name:"
 msgstr "Naudotojo vardas:"
 
 #: ../properties/nm-sstp-dialog.ui.h:47
-msgid "Ad_vanced..."
-msgstr "Išsa_miau..."
+msgid "Ad_vanced…"
+msgstr "Išplėsti_niai…"
 
 #~ msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
 #~ msgstr "negrąžinti tinkami SSTP VPN kelvedžio „%s“ adresai (%d)"

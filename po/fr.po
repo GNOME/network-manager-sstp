@@ -97,8 +97,8 @@ msgid "Default"
 msgstr "Par défaut"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Général</b>"
+msgid "General"
+msgstr "Général"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
 msgid ""
@@ -113,8 +113,8 @@ msgid "_Gateway:"
 msgstr "_Passerelle :"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
-msgid "<b>Optional</b>"
-msgstr "<b>Facultatif</b>"
+msgid "Optional"
+msgstr "Facultatif"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
 msgid ""
@@ -161,8 +161,8 @@ msgid "SSTP Advanced Options"
 msgstr "Options avancée SSTP"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
-msgid "<b>Authentication</b>"
-msgstr "<b>Authentification</b>"
+msgid "Authentication"
+msgstr "Authentification"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Allow the following authentication methods:"
@@ -178,8 +178,8 @@ msgstr ""
 "refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Sécurité et compression</b>"
+msgid "Security and Compression"
+msgstr "Sécurité et compression"
 
 #: ../properties/nm-sstp-dialog.ui.h:23
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -260,8 +260,8 @@ msgstr ""
 "configuration : novj (si décoché)"
 
 #: ../properties/nm-sstp-dialog.ui.h:40
-msgid "<b>Echo</b>"
-msgstr "<b>Écho</b>"
+msgid "Echo"
+msgstr "Écho"
 
 #: ../properties/nm-sstp-dialog.ui.h:41
 msgid "Send PPP _echo packets"

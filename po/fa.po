@@ -102,24 +102,24 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.ui.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>تایید هویت</b>"
+msgid "Authentication"
+msgstr "تایید هویت"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+msgid "Echo"
+msgstr "Echo"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>General</b>"
-msgstr "<b>عمومی</b>"
+msgid "General"
+msgstr "عمومی"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>اختیاری</b>"
+msgid "Optional"
+msgstr "اختیاری"
 
 #: ../properties/nm-sstp-dialog.ui.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>امنیت و فشرده‌سازی</b>"
+msgid "Security and Compression"
+msgstr "امنیت و فشرده‌سازی"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
 msgid "Ad_vanced..."

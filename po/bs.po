@@ -76,8 +76,8 @@ msgid "Default"
 msgstr "Podrazumijevano"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Opšte</b>"
+msgid "General"
+msgstr "Opšte"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
 msgid ""
@@ -92,8 +92,8 @@ msgid "_Gateway:"
 msgstr "_Mrežni izlaz:"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
-msgid "<b>Optional</b>"
-msgstr "<b>Opciono</b>"
+msgid "Optional"
+msgstr "Opciono"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
 msgid ""
@@ -139,8 +139,8 @@ msgid "SSTP Advanced Options"
 msgstr "SSTP napredne opcije"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
-msgid "<b>Authentication</b>"
-msgstr "<b>Autentifikacija</b>"
+msgid "Authentication"
+msgstr "Autentifikacija"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Allow the following authentication methods:"
@@ -155,8 +155,8 @@ msgstr ""
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Sigurnost i kompresija</b>"
+msgid "Security and Compression"
+msgstr "Sigurnost i kompresija"
 
 #: ../properties/nm-sstp-dialog.ui.h:23
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -236,8 +236,8 @@ msgstr ""
 "config: novj (kada nije izabrano)"
 
 #: ../properties/nm-sstp-dialog.ui.h:40
-msgid "<b>Echo</b>"
-msgstr "<b>Eho</b>"
+msgid "Echo"
+msgstr "Eho"
 
 #: ../properties/nm-sstp-dialog.ui.h:41
 msgid "Send PPP _echo packets"

@@ -12,16 +12,16 @@ msgstr ""
 "Project-Id-Version: network-manager-sstp master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2016-09-22 08:31+0000\n"
-"PO-Revision-Date: 2016-09-25 00:33+0200\n"
-"Last-Translator: Bernd Homuth <dev@hmt.im>\n"
+"POT-Creation-Date: 2016-10-03 21:09+0000\n"
+"PO-Revision-Date: 2016-11-15 11:35+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
 msgid "SSTP VPN client"
@@ -50,7 +50,7 @@ msgstr "Die NetworkManager-Entwickler"
 #.
 #: ../auth-dialog/main.c:146
 #, c-format
-msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
 "Sie müssen sich legitimieren, um auf das Virtuelle Private Netz »%s« "
 "zuzugreifen."
@@ -164,27 +164,27 @@ msgstr "Unbekannter Fehler beim Erzeugen der Editor-Instanz"
 
 #: ../src/nm-sstp-service.c:193
 #, c-format
-msgid "invalid gateway '%s'"
+msgid "invalid gateway “%s”"
 msgstr "Ungültiges Gateway »%s«"
 
 #: ../src/nm-sstp-service.c:207
 #, c-format
-msgid "invalid integer property '%s'"
+msgid "invalid integer property “%s”"
 msgstr "Ungültige Ganzzahl-Eigenschaft »%s«"
 
 #: ../src/nm-sstp-service.c:217
 #, c-format
-msgid "invalid boolean property '%s' (not yes or no)"
+msgid "invalid boolean property “%s” (not yes or no)"
 msgstr "Ungültige boolesche Eigenschaft »%s« (nicht »yes« oder »no«)"
 
 #: ../src/nm-sstp-service.c:224
 #, c-format
-msgid "unhandled property '%s' type %s"
+msgid "unhandled property “%s” type %s"
 msgstr "Unbehandelte Eigenschaft »%s« des Typs %s"
 
 #: ../src/nm-sstp-service.c:235
 #, c-format
-msgid "property '%s' invalid or not supported"
+msgid "property “%s” invalid or not supported"
 msgstr "Eigenschaft »%s« ist ungültig oder wird nicht unterstützt"
 
 #: ../src/nm-sstp-service.c:253
@@ -193,7 +193,7 @@ msgstr "Keine VPN-Konfigurationsoptionen."
 
 #: ../src/nm-sstp-service.c:273
 #, c-format
-msgid "Missing required option '%s'."
+msgid "Missing required option “%s”."
 msgstr "Benötigte Option »%s« fehlt."
 
 #: ../src/nm-sstp-service.c:293
@@ -222,19 +222,19 @@ msgstr "Fehlendes oder ungültiges VPN-Passwort."
 
 #: ../src/nm-sstp-service.c:804
 #, c-format
-msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
 msgstr ""
 "IP-Adresse »%s« des SSTP-VPN-Gateways konnte nicht umgewandelt werden (%d)"
 
 #: ../src/nm-sstp-service.c:822
 #, c-format
-msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
 msgstr ""
 "IP-Adresse »%s« des SSTP-VPN-Gateways konnte nicht ermittelt werden (%d)"
 
 #: ../src/nm-sstp-service.c:846
 #, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgid "no usable addresses returned for SSTP VPN gateway “%s”"
 msgstr "Keine nutzbaren Adressen zurückgegeben für SSTP-VPN-Gateway »%s«"
 
 #: ../src/nm-sstp-service.c:875
@@ -242,7 +242,7 @@ msgid "Invalid or missing SSTP gateway."
 msgstr "Das VPN-Gateway fehlt oder ist ungültig."
 
 #: ../src/nm-sstp-service.c:1123
-msgid "Don't quit when VPN connection terminates"
+msgid "Don’t quit when VPN connection terminates"
 msgstr "Nicht beenden, wenn die VPN-Verbindung beendet wird"
 
 #: ../src/nm-sstp-service.c:1124
@@ -272,8 +272,8 @@ msgid "SSTP Advanced Options"
 msgstr "Erweiterte SSTP-Optionen"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>Authentication</b>"
-msgstr "<b>Legitimierung</b>"
+msgid "Authentication"
+msgstr "Legitimierung"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
 msgid "Allow the following authentication methods:"
@@ -288,8 +288,8 @@ msgstr ""
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Sicherheit und Komprimierung</b>"
+msgid "Security and Compression"
+msgstr "Sicherheit und Komprimierung"
 
 #: ../properties/nm-sstp-dialog.ui.h:8
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -370,8 +370,8 @@ msgstr ""
 "config: novj (wenn abgewählt)"
 
 #: ../properties/nm-sstp-dialog.ui.h:25
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+msgid "Echo"
+msgstr "Echo"
 
 #: ../properties/nm-sstp-dialog.ui.h:26
 msgid "Send PPP _echo packets"
@@ -387,8 +387,8 @@ msgstr ""
 "config: lcp-echo-failure und lcp-echo-interval"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
-msgid "<b>Misc</b>"
-msgstr "<b>Verschiedenes</b>"
+msgid "Misc"
+msgstr "Verschiedenes"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
 msgid "Use custom _unit number:"
@@ -403,8 +403,8 @@ msgstr ""
 "config: unit <n>"
 
 #: ../properties/nm-sstp-dialog.ui.h:33
-msgid "<b>General</b>"
-msgstr "<b>Allgemein</b>"
+msgid "General"
+msgstr "Allgemein"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
 msgid ""
@@ -419,8 +419,8 @@ msgid "_Gateway:"
 msgstr "_Gateway:"
 
 #: ../properties/nm-sstp-dialog.ui.h:37
-msgid "<b>Optional</b>"
-msgstr "<b>Optional</b>"
+msgid "Optional"
+msgstr "Optional"
 
 #: ../properties/nm-sstp-dialog.ui.h:38
 msgid ""
@@ -460,7 +460,7 @@ msgid "User name:"
 msgstr "Benutzername:"
 
 #: ../properties/nm-sstp-dialog.ui.h:47
-msgid "Ad_vanced..."
+msgid "Ad_vanced…"
 msgstr "Er_weitert …"
 
 #~ msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"

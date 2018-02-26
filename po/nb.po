@@ -90,8 +90,8 @@ msgid "Default"
 msgstr "Forvalgt"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Generelt</b>"
+msgid "General"
+msgstr "Generelt"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
 msgid ""
@@ -104,8 +104,8 @@ msgid "_Gateway:"
 msgstr "_Gateway:"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
-msgid "<b>Optional</b>"
-msgstr "<b>Valgfritt</b>"
+msgid "Optional"
+msgstr "Valgfritt"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
 msgid ""
@@ -146,8 +146,8 @@ msgid "SSTP Advanced Options"
 msgstr "Avanserte alternativer for SSTP"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
-msgid "<b>Authentication</b>"
-msgstr "<b>Autentisering</b>"
+msgid "Authentication"
+msgstr "Autentisering"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Allow the following authentication methods:"
@@ -160,8 +160,8 @@ msgid ""
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Sikkerhet og komprimering</b>"
+msgid "Security and Compression"
+msgstr "Sikkerhet og komprimering"
 
 #: ../properties/nm-sstp-dialog.ui.h:23
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -228,8 +228,8 @@ msgid ""
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:40
-msgid "<b>Echo</b>"
-msgstr "<b>Ekko</b>"
+msgid "Echo"
+msgstr "Ekko"
 
 #: ../properties/nm-sstp-dialog.ui.h:41
 msgid "Send PPP _echo packets"

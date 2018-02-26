@@ -82,8 +82,8 @@ msgid "Default"
 msgstr "Noklusēts"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Vispārējs</b>"
+msgid "General"
+msgstr "Vispārējs"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
 msgid ""
@@ -98,8 +98,8 @@ msgid "_Gateway:"
 msgstr "_Vārteja:"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
-msgid "<b>Optional</b>"
-msgstr "<b>Neobligāts</b>"
+msgid "Optional"
+msgstr "Neobligāts"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
 msgid ""
@@ -146,8 +146,8 @@ msgid "SSTP Advanced Options"
 msgstr "SSTP paplašinātas opcijas"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
-msgid "<b>Authentication</b>"
-msgstr "<b>Autentifikācija</b>"
+msgid "Authentication"
+msgstr "Autentifikācija"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Allow the following authentication methods:"
@@ -162,8 +162,8 @@ msgstr ""
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Drošība un saspiešana</b>"
+msgid "Security and Compression"
+msgstr "Drošība un saspiešana"
 
 #: ../properties/nm-sstp-dialog.ui.h:23
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -243,8 +243,8 @@ msgstr ""
 "config: novj (kad nav atzīmēts)"
 
 #: ../properties/nm-sstp-dialog.ui.h:40
-msgid "<b>Echo</b>"
-msgstr "<b>Atbalss</b>"
+msgid "Echo"
+msgstr "Atbalss"
 
 #: ../properties/nm-sstp-dialog.ui.h:41
 msgid "Send PPP _echo packets"

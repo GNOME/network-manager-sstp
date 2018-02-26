@@ -227,8 +227,8 @@ msgid "SSTP Advanced Options"
 msgstr "Opcions SSTP avançades"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>Authentication</b>"
-msgstr "<b>Autenticació</b>"
+msgid "Authentication"
+msgstr "Autenticació"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
 msgid "Allow the following authentication methods:"
@@ -243,8 +243,8 @@ msgstr ""
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Seguretat i compressió</b>"
+msgid "Security and Compression"
+msgstr "Seguretat i compressió"
 
 #: ../properties/nm-sstp-dialog.ui.h:8
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -324,8 +324,8 @@ msgstr ""
 "config: novj (quan no està marcat)"
 
 #: ../properties/nm-sstp-dialog.ui.h:25
-msgid "<b>Echo</b>"
-msgstr "<b>Eco</b>"
+msgid "Echo"
+msgstr "Eco"
 
 #: ../properties/nm-sstp-dialog.ui.h:26
 msgid "Send PPP _echo packets"
@@ -340,8 +340,8 @@ msgstr ""
 "config: lcp-echo-failure i lcop-echo-interval"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
-msgid "<b>Misc</b>"
-msgstr "<b>Misc</b>"
+msgid "Misc"
+msgstr "Misc"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
 msgid "Use custom _unit number:"
@@ -356,8 +356,8 @@ msgstr ""
 "config: unit <n>"
 
 #: ../properties/nm-sstp-dialog.ui.h:33
-msgid "<b>General</b>"
-msgstr "<b>General</b>"
+msgid "General"
+msgstr "General"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
 msgid ""
@@ -372,8 +372,8 @@ msgid "_Gateway:"
 msgstr "_Passarel·la:"
 
 #: ../properties/nm-sstp-dialog.ui.h:37
-msgid "<b>Optional</b>"
-msgstr "<b>Opcional</b>"
+msgid "Optional"
+msgstr "Opcional"
 
 #: ../properties/nm-sstp-dialog.ui.h:38
 msgid ""
@@ -499,11 +499,11 @@ msgstr "A_vançat..."
 #~ msgid "00:00:00:00"
 #~ msgstr "00:00:00:00"
 
-#~ msgid "<b>Delays &amp; Timeouts</b>"
-#~ msgstr "<b>Retards i temps d'espera</b>"
+#~ msgid "Delays &amp; Timeouts"
+#~ msgstr "Retards i temps d'espera"
 
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>Paràmetres dels paquets</b>"
+#~ msgid "Packet Parameters"
+#~ msgstr "Paràmetres dels paquets"
 
 #~ msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
 #~ msgstr "<i>Exemple: 172.16.0.0/16 10.11.12.0/24</i>"
@@ -849,11 +849,11 @@ msgstr "A_vançat..."
 #~ msgid "The VPN settings file '%s' does not contain valid data."
 #~ msgstr "Les dades del fitxer dels paràmetres VPN «%s» no són vàlides."
 
-#~ msgid "<b>Connection Name</b>"
-#~ msgstr "<b>Nom de la connexió</b>"
+#~ msgid "Connection Name"
+#~ msgstr "Nom de la connexió"
 
-#~ msgid "<b>Required Information</b>"
-#~ msgstr "<b>Informació requerida</b>"
+#~ msgid "Required Information"
+#~ msgstr "Informació requerida"
 
 #~ msgid ""
 #~ "Please enter the information provided by your system administrator below. "

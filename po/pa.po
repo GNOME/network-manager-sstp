@@ -95,8 +95,8 @@ msgid "Default"
 msgstr "ਡਿਫਾਲਟ"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>ਆਮ</b>"
+msgid "General"
+msgstr "ਆਮ"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
 msgid ""
@@ -109,8 +109,8 @@ msgid "_Gateway:"
 msgstr "ਗੇਟਵੇ(_G):"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
-msgid "<b>Optional</b>"
-msgstr "<b>ਚੋਣਵਾਂ</b>"
+msgid "Optional"
+msgstr "ਚੋਣਵਾਂ"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
 msgid ""
@@ -151,8 +151,8 @@ msgid "SSTP Advanced Options"
 msgstr "PPP ਮਾਹਰ ਚੋਣਾਂ"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
-msgid "<b>Authentication</b>"
-msgstr "<b>ਪਰਮਾਣਕਿਤਾ</b>"
+msgid "Authentication"
+msgstr "ਪਰਮਾਣਕਿਤਾ"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Allow the following authentication methods:"
@@ -165,8 +165,8 @@ msgid ""
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>Security and Compression</b>"
-msgstr "<b>ਸੁਰੱਖਿਆ ਅਤੇ ਕੰਪਰੈੱਸ਼ਨ</b>"
+msgid "Security and Compression"
+msgstr "ਸੁਰੱਖਿਆ ਅਤੇ ਕੰਪਰੈੱਸ਼ਨ"
 
 #: ../properties/nm-sstp-dialog.ui.h:23
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -234,8 +234,8 @@ msgid ""
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:40
-msgid "<b>Echo</b>"
-msgstr "<b>ਈਚੋ</b>"
+msgid "Echo"
+msgstr "ਈਚੋ"
 
 #: ../properties/nm-sstp-dialog.ui.h:41
 msgid "Send PPP _echo packets"
@@ -443,14 +443,14 @@ msgstr ""
 #~ msgid "00:00:00:00"
 #~ msgstr "00:00:00:00"
 
-#~ msgid "<b>Connection Name</b>"
-#~ msgstr "<b>ਕੁਨੈਕਸ਼ਨ ਨਾਂ</b>"
+#~ msgid "Connection Name"
+#~ msgstr "ਕੁਨੈਕਸ਼ਨ ਨਾਂ"
 
-#~ msgid "<b>Delays and TImeouts</b>"
-#~ msgstr "<b>ਡੀਲੇਅ ਅਤੇ ਅੰਤਰਾਲ</b>"
+#~ msgid "Delays and TImeouts"
+#~ msgstr "ਡੀਲੇਅ ਅਤੇ ਅੰਤਰਾਲ"
 
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>ਪੈਕਟ ਪੈਰਾਮੀਟਰ</b>"
+#~ msgid "Packet Parameters"
+#~ msgstr "ਪੈਕਟ ਪੈਰਾਮੀਟਰ"
 
 #~ msgid "<i>example: 172.16.0.0/16 10.11.12.0/24</i>"
 #~ msgstr "<i>ਜਿਵੇਂ: 172.16.0.0/16 10.11.12.0/24</i>"

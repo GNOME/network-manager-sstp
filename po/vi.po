@@ -117,24 +117,24 @@ msgid "00:00:00:00"
 msgstr "00:00:00:00"
 
 #: ../properties/nm-ppp-dialog.glade.h:2
-msgid "<b>Compression</b>"
-msgstr "<b>Nén</b>"
+msgid "Compression"
+msgstr "Nén"
 
 #: ../properties/nm-ppp-dialog.glade.h:3
-msgid "<b>Delays &amp; Timeouts</b>"
-msgstr "<b>Khoảng đợi và Thời hạn</b>"
+msgid "Delays &amp; Timeouts"
+msgstr "Khoảng đợi và Thời hạn"
 
 #: ../properties/nm-ppp-dialog.glade.h:4
-msgid "<b>Encryption</b>"
-msgstr "<b>Mật mã</b>"
+msgid "Encryption"
+msgstr "Mật mã"
 
 #: ../properties/nm-ppp-dialog.glade.h:5
-msgid "<b>IP Options</b>"
-msgstr "<b>Tùy chọn IP</b>"
+msgid "IP Options"
+msgstr "Tùy chọn IP"
 
 #: ../properties/nm-ppp-dialog.glade.h:6
-msgid "<b>Packet Parameters</b>"
-msgstr "<b>Tham số Gói tin</b>"
+msgid "Packet Parameters"
+msgstr "Tham số Gói tin"
 
 #: ../properties/nm-ppp-dialog.glade.h:7
 msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"

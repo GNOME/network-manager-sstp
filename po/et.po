@@ -82,20 +82,20 @@ msgstr "MSCHAPv2"
 msgid "EAP"
 msgstr "EAP"
 
-msgid "<b>Authentication</b>"
-msgstr "<b>Autentimine</b>"
+msgid "Authentication"
+msgstr "Autentimine"
 
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+msgid "Echo"
+msgstr "Echo"
 
-msgid "<b>General</b>"
-msgstr "<b>Üldine</b>"
+msgid "General"
+msgstr "Üldine"
 
-msgid "<b>Optional</b>"
-msgstr "<b>Valikuline</b>"
+msgid "Optional"
+msgstr "Valikuline"
 
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Turvalisus ja tihendamine</b>"
+msgid "Security and Compression"
+msgstr "Turvalisus ja tihendamine"
 
 msgid "Ad_vanced..."
 msgstr "_Täpsemalt..."

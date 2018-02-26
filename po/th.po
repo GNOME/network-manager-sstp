@@ -126,28 +126,28 @@ msgid "00:00:00:00"
 msgstr "00:00:00:00"
 
 #: ../properties/nm-ppp-dialog.glade.h:2
-msgid "<b>Compression</b>"
-msgstr "<b>การบีบอัด</b>"
+msgid "Compression"
+msgstr "การบีบอัด"
 
 #: ../properties/nm-ppp-dialog.glade.h:3
-msgid "<b>Connection Name</b>"
-msgstr "<b>ชื่อการเชื่อมต่อ</b>"
+msgid "Connection Name"
+msgstr "ชื่อการเชื่อมต่อ"
 
 #: ../properties/nm-ppp-dialog.glade.h:4
-msgid "<b>Delays and TImeouts</b>"
-msgstr "<b>การหน่วงเวลาและกำหนดเวลาคอย</b>"
+msgid "Delays and TImeouts"
+msgstr "การหน่วงเวลาและกำหนดเวลาคอย"
 
 #: ../properties/nm-ppp-dialog.glade.h:5
-msgid "<b>Encryption</b>"
-msgstr "<b>การเข้ารหัสลับ</b>"
+msgid "Encryption"
+msgstr "การเข้ารหัสลับ"
 
 #: ../properties/nm-ppp-dialog.glade.h:6
-msgid "<b>IP Options</b>"
-msgstr "<b>ตัวเลือกเกี่ยวกับ IP</b>"
+msgid "IP Options"
+msgstr "ตัวเลือกเกี่ยวกับ IP"
 
 #: ../properties/nm-ppp-dialog.glade.h:7
-msgid "<b>Packet Parameters</b>"
-msgstr "<b>พารามิเตอร์ของแพ็กเก็ต</b>"
+msgid "Packet Parameters"
+msgstr "พารามิเตอร์ของแพ็กเก็ต"
 
 #: ../properties/nm-ppp-dialog.glade.h:8
 msgid "<i>example: 172.16.0.0/16 10.11.12.0/24</i>"

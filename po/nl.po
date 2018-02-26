@@ -98,24 +98,24 @@ msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
 #: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Aanmeldingscontrole</b>"
+msgid "Authentication"
+msgstr "Aanmeldingscontrole"
 
 #: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+msgid "Echo"
+msgstr "Echo"
 
 #: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>Algemeen</b>"
+msgid "General"
+msgstr "Algemeen"
 
 #: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Facultatief</b>"
+msgid "Optional"
+msgstr "Facultatief"
 
 #: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Beveiliging en compressie</b>"
+msgid "Security and Compression"
+msgstr "Beveiliging en compressie"
 
 #: ../properties/nm-sstp-dialog.glade.h:6
 msgid "Ad_vanced..."

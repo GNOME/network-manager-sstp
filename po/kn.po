@@ -101,24 +101,24 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>ದೃಢೀಕರಣ</b>"
+msgid "Authentication"
+msgstr "ದೃಢೀಕರಣ"
 
 #: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>ಪ್ರತಿಧ್ವನಿ</b>"
+msgid "Echo"
+msgstr "ಪ್ರತಿಧ್ವನಿ"
 
 #: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>ಸಾಮಾನ್ಯ</b>"
+msgid "General"
+msgstr "ಸಾಮಾನ್ಯ"
 
 #: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>ಐಚ್ಛಿಕ</b>"
+msgid "Optional"
+msgstr "ಐಚ್ಛಿಕ"
 
 #: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>ಸುರಕ್ಷತೆ ಹಾಗು ಸಂಕುಚನೆ</b>"
+msgid "Security and Compression"
+msgstr "ಸುರಕ್ಷತೆ ಹಾಗು ಸಂಕುಚನೆ"
 
 #: ../properties/nm-sstp-dialog.glade.h:6
 msgid "Ad_vanced..."

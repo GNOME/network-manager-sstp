@@ -128,28 +128,28 @@ msgid "00:00:00:00"
 msgstr "00:00:00:00"
 
 #: ../properties/nm-ppp-dialog.glade.h:2
-msgid "<b>Compression</b>"
-msgstr "<b>Компресија</b>"
+msgid "Compression"
+msgstr "Компресија"
 
 #: ../properties/nm-ppp-dialog.glade.h:3
-msgid "<b>Connection Name</b>"
-msgstr "<b>Име на врска</b>"
+msgid "Connection Name"
+msgstr "Име на врска"
 
 #: ../properties/nm-ppp-dialog.glade.h:4
-msgid "<b>Delays and TImeouts</b>"
-msgstr "<b>Задоцнувања и паузи</b>"
+msgid "Delays and TImeouts"
+msgstr "Задоцнувања и паузи"
 
 #: ../properties/nm-ppp-dialog.glade.h:5
-msgid "<b>Encryption</b>"
-msgstr "<b>Енкрипција</b>"
+msgid "Encryption"
+msgstr "Енкрипција"
 
 #: ../properties/nm-ppp-dialog.glade.h:6
-msgid "<b>IP Options</b>"
-msgstr "<b>IP опции</b>"
+msgid "IP Options"
+msgstr "IP опции"
 
 #: ../properties/nm-ppp-dialog.glade.h:7
-msgid "<b>Packet Parameters</b>"
-msgstr "<b>Параметри на пакетите</b>"
+msgid "Packet Parameters"
+msgstr "Параметри на пакетите"
 
 #: ../properties/nm-ppp-dialog.glade.h:8
 msgid "<i>example: 172.16.0.0/16 10.11.12.0/24</i>"

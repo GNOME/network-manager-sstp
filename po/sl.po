@@ -96,8 +96,8 @@ msgid "Default"
 msgstr "Privzeto"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Splošno</b>"
+msgid "General"
+msgstr "Splošno"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
 msgid "SSTP server IP or name.\n"
@@ -109,8 +109,8 @@ msgid "_Gateway:"
 msgstr "_Prehod:"
 
 #: ../properties/nm-sstp-dialog.ui.h:5
-msgid "<b>Optional</b>"
-msgstr "<b>Izbirno</b>"
+msgid "Optional"
+msgstr "Izbirno"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
 msgid "Append the domain name <domain> to the local host name for authentication purposes.\n"
@@ -149,8 +149,8 @@ msgid "SSTP Advanced Options"
 msgstr "Napredne možnosti SSTP"
 
 #: ../properties/nm-sstp-dialog.ui.h:15
-msgid "<b>Authentication</b>"
-msgstr "<b>Overitev</b>"
+msgid "Authentication"
+msgstr "Overitev"
 
 #: ../properties/nm-sstp-dialog.ui.h:16
 msgid "Allow the following authentication methods:"
@@ -163,8 +163,8 @@ msgstr "Dovoli/Onemogoči način overjanja.\n"
 "Nastavitev: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Varnost in stiskanje</b>"
+msgid "Security and Compression"
+msgstr "Varnost in stiskanje"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -225,8 +225,8 @@ msgstr "Dovoli/Onemogoči slog stiskanja glav Van Jacobson v obeh smeren prenosa
 "Nastavitev: novj (neizbrano)"
 
 #: ../properties/nm-sstp-dialog.ui.h:31
-msgid "<b>Echo</b>"
-msgstr "<b>Odmev</b>"
+msgid "Echo"
+msgstr "Odmev"
 
 #: ../properties/nm-sstp-dialog.ui.h:32
 msgid "Send PPP _echo packets"

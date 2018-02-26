@@ -100,24 +100,24 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>인증</b>"
+msgid "Authentication"
+msgstr "인증"
 
 #: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>에코</b>"
+msgid "Echo"
+msgstr "에코"
 
 #: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>일반</b>"
+msgid "General"
+msgstr "일반"
 
 #: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>옵션</b>"
+msgid "Optional"
+msgstr "옵션"
 
 #: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>보안 및 압축</b>"
+msgid "Security and Compression"
+msgstr "보안 및 압축"
 
 #: ../properties/nm-sstp-dialog.glade.h:6
 msgid "Ad_vanced..."

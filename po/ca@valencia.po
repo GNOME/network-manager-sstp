@@ -102,24 +102,24 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Autenticació</b>"
+msgid "Authentication"
+msgstr "Autenticació"
 
 #: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Eco</b>"
+msgid "Echo"
+msgstr "Eco"
 
 #: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>General</b>"
+msgid "General"
+msgstr "General"
 
 #: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Opcional</b>"
+msgid "Optional"
+msgstr "Opcional"
 
 #: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Seguretat i compressió</b>"
+msgid "Security and Compression"
+msgstr "Seguretat i compressió"
 
 #: ../properties/nm-sstp-dialog.glade.h:6
 msgid "Ad_vanced..."
@@ -244,11 +244,11 @@ msgstr "Compatible amb els servidors SSTP VPN de Microsoft i d'altres."
 #~ msgid "00:00:00:00"
 #~ msgstr "00:00:00:00"
 
-#~ msgid "<b>Delays &amp; Timeouts</b>"
-#~ msgstr "<b>Retards i temps d'espera</b>"
+#~ msgid "Delays &amp; Timeouts"
+#~ msgstr "Retards i temps d'espera"
 
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>Paràmetres dels paquets</b>"
+#~ msgid "Packet Parameters"
+#~ msgstr "Paràmetres dels paquets"
 
 #~ msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
 #~ msgstr "<i>Exemple: 172.16.0.0/16 10.11.12.0/24</i>"
@@ -597,11 +597,11 @@ msgstr "Compatible amb els servidors SSTP VPN de Microsoft i d'altres."
 #~ msgid "The VPN settings file '%s' does not contain valid data."
 #~ msgstr "Les dades del fitxer dels paràmetres VPN «%s» no són vàlides."
 
-#~ msgid "<b>Connection Name</b>"
-#~ msgstr "<b>Nom de la connexió</b>"
+#~ msgid "Connection Name"
+#~ msgstr "Nom de la connexió"
 
-#~ msgid "<b>Required Information</b>"
-#~ msgstr "<b>Informació requerida</b>"
+#~ msgid "Required Information"
+#~ msgstr "Informació requerida"
 
 #~ msgid ""
 #~ "Please enter the information provided by your system administrator below. "

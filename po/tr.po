@@ -88,8 +88,8 @@ msgid "SSTP Advanced Options"
 msgstr "SSTP Gelişmiş Seçenekleri"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>Authentication</b>"
-msgstr "<b>Kimlik Doğrulama</b>"
+msgid "Authentication"
+msgstr "Kimlik Doğrulama"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
 msgid "Allow the following authentication methods:"
@@ -105,8 +105,8 @@ msgstr ""
 "refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Güvenlik ve Sıkıştırma</b>"
+msgid "Security and Compression"
+msgstr "Güvenlik ve Sıkıştırma"
 
 #: ../properties/nm-sstp-dialog.ui.h:8
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -186,8 +186,8 @@ msgstr ""
 "yapılandırma: novj (onaylandığında)"
 
 #: ../properties/nm-sstp-dialog.ui.h:25
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+msgid "Echo"
+msgstr "Echo"
 
 #: ../properties/nm-sstp-dialog.ui.h:26
 msgid "Send PPP _echo packets"
@@ -202,8 +202,8 @@ msgstr ""
 "yapılandırma: lcp-echo-failure ve lcp-echo-interval"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
-msgid "<b>Misc</b>"
-msgstr "<b>Çeşitli</b>"
+msgid "Misc"
+msgstr "Çeşitli"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
 msgid "Use custom _unit number:"
@@ -218,8 +218,8 @@ msgstr ""
 "yapılandırma: birim <n>"
 
 #: ../properties/nm-sstp-dialog.ui.h:33
-msgid "<b>General</b>"
-msgstr "<b>Genel</b>"
+msgid "General"
+msgstr "Genel"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
 msgid ""
@@ -234,8 +234,8 @@ msgid "_Gateway:"
 msgstr "_Ağ geçidi:"
 
 #: ../properties/nm-sstp-dialog.ui.h:37
-msgid "<b>Optional</b>"
-msgstr "<b>İsteğe Bağlı</b>"
+msgid "Optional"
+msgstr "İsteğe Bağlı"
 
 #: ../properties/nm-sstp-dialog.ui.h:38
 msgid ""

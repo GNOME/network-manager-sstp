@@ -83,8 +83,8 @@ msgid "Default"
 msgstr "Oletus"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Yleisasetukset</b>"
+msgid "General"
+msgstr "Yleisasetukset"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
 msgid ""
@@ -97,8 +97,8 @@ msgid "_Gateway:"
 msgstr "_Yhdyskäytävä:"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
-msgid "<b>Optional</b>"
-msgstr "<b>Lisävalinnat</b>"
+msgid "Optional"
+msgstr "Lisävalinnat"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
 msgid ""
@@ -140,8 +140,8 @@ msgid "SSTP Advanced Options"
 msgstr "SSTP-lisävalinnat"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
-msgid "<b>Authentication</b>"
-msgstr "<b>Todentaminen</b>"
+msgid "Authentication"
+msgstr "Todentaminen"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
 msgid "Allow the following authentication methods:"
@@ -154,8 +154,8 @@ msgid ""
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Salaus ja pakkaus</b>"
+msgid "Security and Compression"
+msgstr "Salaus ja pakkaus"
 
 #: ../properties/nm-sstp-dialog.ui.h:23
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -220,8 +220,8 @@ msgid ""
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:40
-msgid "<b>Echo</b>"
-msgstr "<b>Kaiutus</b>"
+msgid "Echo"
+msgstr "Kaiutus"
 
 #: ../properties/nm-sstp-dialog.ui.h:41
 msgid "Send PPP _echo packets"
@@ -427,11 +427,11 @@ msgstr ""
 #~ msgid "00:00:00:00"
 #~ msgstr "00:00:00:00"
 
-#~ msgid "<b>Delays &amp; Timeouts</b>"
-#~ msgstr "<b>Viiveet ja aikakatkaisut</b>"
+#~ msgid "Delays &amp; Timeouts"
+#~ msgstr "Viiveet ja aikakatkaisut"
 
-#~ msgid "<b>Packet Parameters</b>"
-#~ msgstr "<b>Pakettiparameterit</b>"
+#~ msgid "Packet Parameters"
+#~ msgstr "Pakettiparameterit"
 
 #~ msgid "<i>Example: 172.16.0.0/16 10.11.12.0/24</i>"
 #~ msgstr "<i>Esimerkki: 172.16.0.0/16 10.11.12.0/24</i>"
@@ -750,8 +750,8 @@ msgstr ""
 #~ msgid "auth-none-window"
 #~ msgstr "auth-none-ikkuna"
 
-#~ msgid "<b>Connection Name</b>"
-#~ msgstr "<b>Yhteyden nimi</b>"
+#~ msgid "Connection Name"
+#~ msgstr "Yhteyden nimi"
 
 #~ msgid "Telephone number to dial"
 #~ msgstr "Käytettävä puhelinnumero"
@@ -858,11 +858,11 @@ msgstr ""
 #~ msgid "1"
 #~ msgstr "1"
 
-#~ msgid "<b>Optional Information</b>"
-#~ msgstr "<b>Lisätietoja</b>"
+#~ msgid "Optional Information"
+#~ msgstr "Lisätietoja"
 
-#~ msgid "<b>Required Information</b>"
-#~ msgstr "<b>Vaaditut tiedot</b>"
+#~ msgid "Required Information"
+#~ msgstr "Vaaditut tiedot"
 
 #~ msgid "CA  file:"
 #~ msgstr "CA-tiedosto:"

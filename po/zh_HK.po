@@ -98,24 +98,24 @@ msgid "EAP"
 msgstr "EAP"
 
 #: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>驗證</b>"
+msgid "Authentication"
+msgstr "驗證"
 
 #: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>回應</b>"
+msgid "Echo"
+msgstr "回應"
 
 #: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>一般</b>"
+msgid "General"
+msgstr "一般"
 
 #: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>選擇性</b>"
+msgid "Optional"
+msgstr "選擇性"
 
 #: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>安全性與壓縮</b>"
+msgid "Security and Compression"
+msgstr "安全性與壓縮"
 
 #: ../properties/nm-sstp-dialog.glade.h:6
 msgid "Ad_vanced..."

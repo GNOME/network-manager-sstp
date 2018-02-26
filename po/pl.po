@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-20 20:20+0200\n"
-"PO-Revision-Date: 2016-09-20 20:21+0200\n"
+"POT-Creation-Date: 2016-10-03 23:08+0200\n"
+"PO-Revision-Date: 2016-10-03 23:09+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -45,7 +45,7 @@ msgstr "Programiści projektu NetworkManager"
 #.
 #: ../auth-dialog/main.c:146
 #, c-format
-msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
 "Aby uzyskać dostęp do wirtualnej sieci prywatnej „%s”, należy się "
 "uwierzytelnić."
@@ -158,29 +158,29 @@ msgstr "nieznany błąd podczas tworzenia wystąpienia edytora"
 
 #: ../src/nm-sstp-service.c:193
 #, c-format
-msgid "invalid gateway '%s'"
+msgid "invalid gateway “%s”"
 msgstr "nieprawidłowa brama „%s”"
 
 #: ../src/nm-sstp-service.c:207
 #, c-format
-msgid "invalid integer property '%s'"
-msgstr "nieprawidłowa własność liczby całkowitej „%s”"
+msgid "invalid integer property “%s”"
+msgstr "nieprawidłowa właściwość liczby całkowitej „%s”"
 
 #: ../src/nm-sstp-service.c:217
 #, c-format
-msgid "invalid boolean property '%s' (not yes or no)"
+msgid "invalid boolean property “%s” (not yes or no)"
 msgstr ""
-"nieprawidłowa własność zmiennej logicznej „%s” (nie wynosi „yes” lub „no”)"
+"nieprawidłowa właściwość zmiennej logicznej „%s” (nie wynosi „yes” lub „no”)"
 
 #: ../src/nm-sstp-service.c:224
 #, c-format
-msgid "unhandled property '%s' type %s"
-msgstr "nieobsługiwana własność „%s” typu „%s”"
+msgid "unhandled property “%s” type %s"
+msgstr "nieobsługiwana właściwość „%s” typu „%s”"
 
 #: ../src/nm-sstp-service.c:235
 #, c-format
-msgid "property '%s' invalid or not supported"
-msgstr "własność „%s” jest nieprawidłowa lub nieobsługiwana"
+msgid "property “%s” invalid or not supported"
+msgstr "właściwość „%s” jest nieprawidłowa lub nieobsługiwana"
 
 #: ../src/nm-sstp-service.c:253
 msgid "No VPN configuration options."
@@ -188,7 +188,7 @@ msgstr "Brak opcji konfiguracji VPN."
 
 #: ../src/nm-sstp-service.c:273
 #, c-format
-msgid "Missing required option '%s'."
+msgid "Missing required option “%s”."
 msgstr "Brak wymaganej opcji „%s”."
 
 #: ../src/nm-sstp-service.c:293
@@ -217,17 +217,17 @@ msgstr "Brak hasła VPN lub jest nieprawidłowe."
 
 #: ../src/nm-sstp-service.c:804
 #, c-format
-msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
 msgstr "nie można skonwertować adresu IP bramy VPN SSTP „%s” (%d)"
 
 #: ../src/nm-sstp-service.c:822
 #, c-format
-msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
 msgstr "nie można wyszukać adresu IP bramy VPN SSTP „%s” (%d)"
 
 #: ../src/nm-sstp-service.c:846
 #, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgid "no usable addresses returned for SSTP VPN gateway “%s”"
 msgstr "nie zwrócono używalnych adresów dla bramy VPN SSTP „%s”"
 
 #: ../src/nm-sstp-service.c:875
@@ -235,7 +235,7 @@ msgid "Invalid or missing SSTP gateway."
 msgstr "Brak bramy SSTP lub jest nieprawidłowa."
 
 #: ../src/nm-sstp-service.c:1123
-msgid "Don't quit when VPN connection terminates"
+msgid "Don’t quit when VPN connection terminates"
 msgstr "Nie kończy działania, kiedy połączenie VPN jest kończone"
 
 #: ../src/nm-sstp-service.c:1124
@@ -263,8 +263,8 @@ msgid "SSTP Advanced Options"
 msgstr "Zaawansowane opcje SSTP"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
-msgid "<b>Authentication</b>"
-msgstr "<b>Uwierzytelnianie</b>"
+msgid "Authentication"
+msgstr "Uwierzytelnianie"
 
 #: ../properties/nm-sstp-dialog.ui.h:4
 msgid "Allow the following authentication methods:"
@@ -280,8 +280,8 @@ msgstr ""
 "refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Zabezpieczenia i kompresja</b>"
+msgid "Security and Compression"
+msgstr "Zabezpieczenia i kompresja"
 
 #: ../properties/nm-sstp-dialog.ui.h:8
 msgid "Use _Point-to-Point encryption (MPPE)"
@@ -361,8 +361,8 @@ msgstr ""
 "konfiguracja: novj (kiedy nie jest wybrane)"
 
 #: ../properties/nm-sstp-dialog.ui.h:25
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+msgid "Echo"
+msgstr "Echo"
 
 #: ../properties/nm-sstp-dialog.ui.h:26
 msgid "Send PPP _echo packets"
@@ -377,8 +377,8 @@ msgstr ""
 "konfiguracja: lcp-echo-failure i lcp-echo-interval"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
-msgid "<b>Misc</b>"
-msgstr "<b>Różne</b>"
+msgid "Misc"
+msgstr "Różne"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
 msgid "Use custom _unit number:"
@@ -393,8 +393,8 @@ msgstr ""
 "konfiguracja: unit <n>"
 
 #: ../properties/nm-sstp-dialog.ui.h:33
-msgid "<b>General</b>"
-msgstr "<b>Ogólne</b>"
+msgid "General"
+msgstr "Ogólne"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
 msgid ""
@@ -409,8 +409,8 @@ msgid "_Gateway:"
 msgstr "_Brama:"
 
 #: ../properties/nm-sstp-dialog.ui.h:37
-msgid "<b>Optional</b>"
-msgstr "<b>Opcjonalne</b>"
+msgid "Optional"
+msgstr "Opcjonalne"
 
 #: ../properties/nm-sstp-dialog.ui.h:38
 msgid ""
@@ -449,5 +449,5 @@ msgid "User name:"
 msgstr "Nazwa użytkownika:"
 
 #: ../properties/nm-sstp-dialog.ui.h:47
-msgid "Ad_vanced..."
+msgid "Ad_vanced…"
 msgstr "Zaa_wansowane…"

@@ -93,24 +93,24 @@ msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
 #: ../properties/nm-sstp-dialog.glade.h:1
-msgid "<b>Authentication</b>"
-msgstr "<b>Spraŭdžvańnie</b>"
+msgid "Authentication"
+msgstr "Spraŭdžvańnie"
 
 #: ../properties/nm-sstp-dialog.glade.h:2
-msgid "<b>Echo</b>"
-msgstr "<b>Recha</b>"
+msgid "Echo"
+msgstr "Recha"
 
 #: ../properties/nm-sstp-dialog.glade.h:3
-msgid "<b>General</b>"
-msgstr "<b>Hałoŭnaje</b>"
+msgid "General"
+msgstr "Hałoŭnaje"
 
 #: ../properties/nm-sstp-dialog.glade.h:4
-msgid "<b>Optional</b>"
-msgstr "<b>Dadatkovaje</b>"
+msgid "Optional"
+msgstr "Dadatkovaje"
 
 #: ../properties/nm-sstp-dialog.glade.h:5
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Biaśpieka j kampresija</b>"
+msgid "Security and Compression"
+msgstr "Biaśpieka j kampresija"
 
 #: ../properties/nm-sstp-dialog.glade.h:6
 msgid "Ad_vanced..."

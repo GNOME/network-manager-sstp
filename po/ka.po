@@ -134,30 +134,30 @@ msgid "00:00:00:00"
 msgstr "00:00:00:00"
 
 #: ../properties/nm-ppp-dialog.glade.h:2
-msgid "<b>Compression</b>"
-msgstr "<b>კუმშვა</b>"
+msgid "Compression"
+msgstr "კუმშვა"
 
 #: ../properties/nm-ppp-dialog.glade.h:3
-msgid "<b>Connection Name</b>"
-msgstr "<b>შეერთების სახელი</b>"
+msgid "Connection Name"
+msgstr "შეერთების სახელი"
 
 #: ../properties/nm-ppp-dialog.glade.h:4
-msgid "<b>Delays and TImeouts</b>"
+msgid "Delays and TImeouts"
 msgstr ""
-"<b>დაყოვნებები და ლოდინის "
-"დრო</b>"
+"დაყოვნებები და ლოდინის "
+"დრო"
 
 #: ../properties/nm-ppp-dialog.glade.h:5
-msgid "<b>Encryption</b>"
-msgstr "<b>შიფრვა</b>"
+msgid "Encryption"
+msgstr "შიფრვა"
 
 #: ../properties/nm-ppp-dialog.glade.h:6
-msgid "<b>IP Options</b>"
-msgstr "<b>IP პარამეტრები</b>"
+msgid "IP Options"
+msgstr "IP პარამეტრები"
 
 #: ../properties/nm-ppp-dialog.glade.h:7
-msgid "<b>Packet Parameters</b>"
-msgstr "<b>პაკეტ-პარამეტრები</b>"
+msgid "Packet Parameters"
+msgstr "პაკეტ-პარამეტრები"
 
 #: ../properties/nm-ppp-dialog.glade.h:8
 msgid "<i>example: 172.16.0.0/16 10.11.12.0/24</i>"
