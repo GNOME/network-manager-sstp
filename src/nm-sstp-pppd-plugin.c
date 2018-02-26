@@ -42,7 +42,7 @@
 #include <sys/un.h>
 #include <paths.h>
 #include <unistd.h>
-#include <sstp-api.h>
+#include <sstp-client/sstp-api.h>
 
 #include "nm-sstp-service.h"
 #include "nm-ppp-status.h"
