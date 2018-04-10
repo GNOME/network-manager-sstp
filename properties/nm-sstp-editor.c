@@ -130,7 +130,7 @@ default_filter (const GtkFileFilterInfo *filter_info, gpointer data)
 	if (!p)
 		return FALSE;
 
-	/* Check extention, make lower case */
+	/* Check extension, make lower case */
 	ext = g_ascii_strdown (p, -1);
 	if (!ext)
 		return FALSE;
@@ -533,7 +533,7 @@ update_connection (NMVpnEditor *iface,
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_IGN_CERT_WARN, "yes");
 	}
 
-	/* Enable TLS hostname extentions */
+	/* Enable TLS hostname extensions */
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_enable_checkbutton"));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_EXT_ENABLE, "yes");
@@ -597,7 +597,7 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 	priv->builder = gtk_builder_new ();
 
 	gtk_builder_set_translation_domain (priv->builder, GETTEXT_PACKAGE);
-	if (!gtk_builder_add_from_resource (priv->builder, "/org/freedesktop/network-manager-pptp/nm-sstp-dialog.ui", error)) {
+	if (!gtk_builder_add_from_resource (priv->builder, "/org/freedesktop/network-manager-sstp/nm-sstp-dialog.ui", error)) {
 		g_object_unref (object);
 		return NULL;
 	}

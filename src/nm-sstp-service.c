@@ -512,7 +512,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 		ign_cert = TRUE;
 	}
 
-	/* Enable TLS hostname extentions */
+	/* Enable TLS hostname extensions */
 	value = nm_setting_vpn_get_data_item(s_vpn, NM_SSTP_KEY_TLS_EXT_ENABLE);
 	if (value && !strcmp(value, "yes")) {
 		tls_ext = TRUE;

@@ -1075,7 +1075,7 @@ config: user &lt;name&gt;</property>
                 </child>
                 <child>
 	          <object class="GtkCheckButton" id="tls_enable_checkbutton">
-		    <property name="label" translatable="yes">Use TLS hostname extentions</property>
+		    <property name="label" translatable="yes">Use TLS hostname extensions</property>
 		    <property name="use_action_appearance">False</property>
 		    <property name="visible">True</property>
 		    <property name="can_focus">True</property>
