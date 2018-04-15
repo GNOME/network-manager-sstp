@@ -43,6 +43,7 @@ EXTRA_DIST += \
 src_cppflags = \
 	$(GLIB_CFLAGS) \
 	$(LIBNM_CFLAGS) \
+	$(SSTPC_CFLAGS) \
 	-I$(top_srcdir)/shared \
 	-I$(builddir)/src \
 	-DNM_SSTP_LOCALEDIR=\"$(datadir)/locale\" \
@@ -111,8 +112,9 @@ src_nm_sstp_pppd_plugin_la_CPPFLAGS = $(src_cppflags)
 src_nm_sstp_pppd_plugin_la_LDFLAGS = \
 	-module -avoid-version
 src_nm_sstp_pppd_plugin_la_LIBADD = \
-	$(GLIB_LIBS)
-	$(LIBNM_LIBS)
+	$(GLIB_LIBS) \
+	$(LIBNM_LIBS) \
+	$(SSTPC_LIBS)
 
 ###############################################################################
 
