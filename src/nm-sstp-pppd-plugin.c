@@ -513,7 +513,6 @@ get_credentials (char *username, char *password)
 {
 	const char *my_username = NULL;
 	const char *my_password = NULL;
-	size_t len;
 	GVariant *ret;
 	GError *error = NULL;
 
@@ -544,21 +543,11 @@ get_credentials (char *username, char *password)
 	
     g_variant_get (ret, "(&s&s)", &my_username, &my_password);
 
-	if (my_username) {
-		len = strlen (my_username) + 1;
-		len = len < MAXNAMELEN ? len : MAXNAMELEN;
+	if (my_username)
+		g_strlcpy (username, my_username, MAXNAMELEN);
 
-		strncpy (username, my_username, len);
-		username[len - 1] = '\0';
-	}
-
-	if (my_password) {
-		len = strlen (my_password) + 1;
-		len = len < MAXSECRETLEN ? len : MAXSECRETLEN;
-
-		strncpy (password, my_password, len);
-		password[len - 1] = '\0';
-	}
+	if (my_password)
+		g_strlcpy (password, my_password, MAXNAMELEN);
 
 	g_variant_unref (ret);
 
