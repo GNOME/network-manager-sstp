@@ -14,8 +14,6 @@ network-manager-pptp - 0.6.x version:
 Based entirely on OpenVPN support by Tim Niemueller http://www.niemueller.de
 
 
-Theory of operation
-------------------------------
 This is a plugin to NetworkManager project, and will enable the capability of configure, start and stop a SSTP connection using sstp-client to connect to your remote workplace.
 
 
