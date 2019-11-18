@@ -1,4 +1,19 @@
 =======================================================
+NetworkManager-sstp-1.2.6
+Overview of changes since network-manager-sstp-1.2.4
+=======================================================
+
+This is a new stable release of NetworkManager-sstp.  Notable changes include:
+
+* Fix passing "user" and set "remotename" (bgo#794695)
+* Updated Brazilian Portuguese, Croatian, Czech, Danish, Dutch, Friulian, German,
+  Hungarian, Indonesian, Italian, Latvian, Lithuanian, Polish, Russian, Serbian,
+  Spanish, Swedish translations
+* Use gresources for UI file
+* Update build to use non-recursive make
+* Various cleanups
+
+=======================================================
 network-manager-sstp-1.0
 =======================================================
 
