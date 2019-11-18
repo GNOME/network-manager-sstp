@@ -10,9 +10,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-07 21:39+0200\n"
-"PO-Revision-Date: 2016-09-07 11:47+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/NetworkManager-sstp/"
+"issues\n"
+"POT-Creation-Date: 2018-06-04 12:32+0000\n"
+"PO-Revision-Date: 2018-07-22 16:23+0200\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -20,6 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
 msgid "SSTP VPN client"
@@ -46,7 +48,7 @@ msgstr "Els desenvolupadors del NetworkManager"
 #.
 #: ../auth-dialog/main.c:146
 #, c-format
-msgid "You need to authenticate to access the Virtual Private Network '%s'."
+msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
 "Cal que us autentiqueu per a poder accedir a la xarxa privada virtual «%s»."
 
@@ -98,6 +100,46 @@ msgstr "Protocol de túnel punt a punt (SSTP)"
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Compatible amb els servidors SSTP VPN de Microsoft i d'altres."
 
+#: ../shared/nm-utils/nm-shared-utils.c:264
+#, c-format
+msgid "object class '%s' has no property named '%s'"
+msgstr "la classe d'objecte «%s» no té cap propietat anomenada «%s»"
+
+#: ../shared/nm-utils/nm-shared-utils.c:271
+#, c-format
+msgid "property '%s' of object class '%s' is not writable"
+msgstr "no es pot escriure la propietat «%s» de la classe d'objecte «%s»"
+
+#: ../shared/nm-utils/nm-shared-utils.c:278
+#, c-format
+msgid ""
+"construct property \"%s\" for object '%s' can't be set after construction"
+msgstr ""
+"la propietat «%s» de construcció per a l'objecte «%s» no es pot establir "
+"després de la construcció"
+
+#: ../shared/nm-utils/nm-shared-utils.c:286
+#, c-format
+msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
+msgstr ""
+"«%s::%s» no és un nom vàlid de propietat: «%s» no és un subtipus de GObject"
+
+#: ../shared/nm-utils/nm-shared-utils.c:295
+#, c-format
+msgid "unable to set property '%s' of type '%s' from value of type '%s'"
+msgstr ""
+"no s'ha pogut establir la propietat «%s» de tipus «%s» a partir del valor de "
+"tipus «%s»"
+
+#: ../shared/nm-utils/nm-shared-utils.c:306
+#, c-format
+msgid ""
+"value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
+"type '%s'"
+msgstr ""
+"el valor «%s» de tipus «%s» no és vàlid o està fora de rang per a la "
+"propietat «%s» de tipus «%s»"
+
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:80
 #, c-format
 msgid "missing plugin file \"%s\""
@@ -118,99 +160,99 @@ msgid "unknown error creating editor instance"
 msgstr ""
 "s'ha produït un error desconegut quan es creava la instància de l'editor"
 
-#: ../src/nm-sstp-service.c:164
+#: ../src/nm-sstp-service.c:193
 #, c-format
-msgid "invalid gateway '%s'"
+msgid "invalid gateway “%s”"
 msgstr "passarel·la «%s» no vàlida"
 
-#: ../src/nm-sstp-service.c:178
+#: ../src/nm-sstp-service.c:207
 #, c-format
-msgid "invalid integer property '%s'"
+msgid "invalid integer property “%s”"
 msgstr "propietat «%s» d'enter no vàlida"
 
-#: ../src/nm-sstp-service.c:188
+#: ../src/nm-sstp-service.c:217
 #, c-format
-msgid "invalid boolean property '%s' (not yes or no)"
+msgid "invalid boolean property “%s” (not yes or no)"
 msgstr "propietat booleana «%s» no vàlida (no és sí o no)"
 
-#: ../src/nm-sstp-service.c:195
+#: ../src/nm-sstp-service.c:224
 #, c-format
-msgid "unhandled property '%s' type %s"
+msgid "unhandled property “%s” type %s"
 msgstr "propietat «%s» no gestionada de tipus %s"
 
-#: ../src/nm-sstp-service.c:206
+#: ../src/nm-sstp-service.c:235
 #, c-format
-msgid "property '%s' invalid or not supported"
+msgid "property “%s” invalid or not supported"
 msgstr "la propietat «%s» no és vàlida o no està suportada"
 
-#: ../src/nm-sstp-service.c:224
+#: ../src/nm-sstp-service.c:253
 msgid "No VPN configuration options."
 msgstr "No hi ha opcions de configuració de la VPN."
 
-#: ../src/nm-sstp-service.c:244
+#: ../src/nm-sstp-service.c:273
 #, c-format
-msgid "Missing required option '%s'."
+msgid "Missing required option “%s”."
 msgstr "Falta l'opció requerida «%s»."
 
-#: ../src/nm-sstp-service.c:264
+#: ../src/nm-sstp-service.c:293
 msgid "No VPN secrets!"
 msgstr "No hi ha secrets de la VPN!"
 
-#: ../src/nm-sstp-service.c:419
+#: ../src/nm-sstp-service.c:447
 msgid "Could not find sstp client binary."
 msgstr "No s'ha pogut trobar el binari del client sstp."
 
-#: ../src/nm-sstp-service.c:432
+#: ../src/nm-sstp-service.c:460
 msgid "Missing VPN gateway."
 msgstr "Falta la passarel·la de la VPN."
 
-#: ../src/nm-sstp-service.c:594
+#: ../src/nm-sstp-service.c:635
 msgid "Could not find the pppd binary."
 msgstr "No s'ha pogut trobar el binari pppd."
 
-#: ../src/nm-sstp-service.c:654
+#: ../src/nm-sstp-service.c:695
 msgid "Missing VPN username."
 msgstr "Falta el nom d'usuari de la VPN."
 
-#: ../src/nm-sstp-service.c:663
+#: ../src/nm-sstp-service.c:704
 msgid "Missing or invalid VPN password."
 msgstr "Falta la contrasenya de la VPN o no és vàlida."
 
-#: ../src/nm-sstp-service.c:769
+#: ../src/nm-sstp-service.c:810
 #, c-format
-msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
+msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
 msgstr ""
 "no s'ha pogut convertir l'adreça IP de la passarel·la SSTP VPN «%s» (%d)"
 
-#: ../src/nm-sstp-service.c:787
+#: ../src/nm-sstp-service.c:828
 #, c-format
-msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
+msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
 msgstr "no s'ha pogut buscar l'adreça ID de la passarel·la SSTP VPN «%s» (%d)"
 
-#: ../src/nm-sstp-service.c:811
+#: ../src/nm-sstp-service.c:852
 #, c-format
-msgid "no usable addresses returned for SSTP VPN gateway '%s'"
+msgid "no usable addresses returned for SSTP VPN gateway “%s”"
 msgstr "no s'han retornat adreces usables per a la passarel·la SSTP VPN «%s»"
 
-#: ../src/nm-sstp-service.c:840
+#: ../src/nm-sstp-service.c:881
 msgid "Invalid or missing SSTP gateway."
 msgstr "Passarel·la SSTP no vàlida o faltant."
 
-#: ../src/nm-sstp-service.c:1085
-msgid "Don't quit when VPN connection terminates"
+#: ../src/nm-sstp-service.c:1129
+msgid "Don’t quit when VPN connection terminates"
 msgstr "No surtis quan acabi la connexió de la VPN"
 
-#: ../src/nm-sstp-service.c:1086
+#: ../src/nm-sstp-service.c:1130
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr ""
 "Habilita el registre de depuració amb missatges (potser s'exposaran les "
 "contrasenyes)"
 
-#: ../src/nm-sstp-service.c:1087
+#: ../src/nm-sstp-service.c:1131
 msgid "D-Bus name to use for this instance"
 msgstr "Nom del D-Bus a usar en aquesta instància"
 
-#: ../src/nm-sstp-service.c:1110
+#: ../src/nm-sstp-service.c:1152
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
@@ -412,8 +454,8 @@ msgid "User name:"
 msgstr "Nom d'usuari:"
 
 #: ../properties/nm-sstp-dialog.ui.h:47
-msgid "Ad_vanced..."
-msgstr "A_vançat..."
+msgid "Ad_vanced…"
+msgstr "A_vançat…"
 
 #~ msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
 #~ msgstr ""

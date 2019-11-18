@@ -4,176 +4,478 @@
 # package.
 #
 # Tino Meinen <a.t.meinen@chello.nl>, 2008.
+# Nathan Follens <nthn@unseen.is>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager SSTP\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-15 10:17+0200\n"
-"PO-Revision-Date: 2008-09-14 18:07+0200\n"
-"Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
+"POT-Creation-Date: 2017-08-03 13:59+0000\n"
+"PO-Revision-Date: 2018-03-14 23:27+0100\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:144
-msgid "_Secondary Password:"
-msgstr "_Secondair wachtwoord:"
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
+msgid "SSTP VPN client"
+msgstr "SSTP-VPN-cliënt"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:258
-msgid "_Username:"
-msgstr "_Gebruikersnaam:"
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
+msgid "Client for SSTP virtual private networks"
+msgstr "Cliënt voor SSTP-virtuele privénetwerken"
 
-#: ../auth-dialog/gnome-two-password-dialog.c:260
-msgid "_Domain:"
-msgstr "_Domein:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:262
-msgid "_Password:"
-msgstr "_Wachtwoord:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:351
-msgid "Connect _anonymously"
-msgstr "A_noniem verbinden"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:356
-msgid "Connect as _user:"
-msgstr "Verbinden als _gebruiker:"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:465
-msgid "_Remember passwords for this session"
-msgstr "_Wachtwoorden gedurende deze sessie onthouden"
-
-#: ../auth-dialog/gnome-two-password-dialog.c:467
-msgid "_Save passwords in keyring"
-msgstr "Wachtwoorden in de sleutelbos op_slaan"
-
-#: ../auth-dialog/main.c:140
-#, c-format
-msgid "You need to authenticate to access the Virtual Private Network '%s'."
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
+msgid "Support for configuring SSTP virtual private network connections."
 msgstr ""
-"U moet u aanmelden om toegang te krijgen tot het Virtual Private Network ‘%"
-"s’."
+"Ondersteuning voor configuratie van SSTP-virtueleprivénetwerkverbindingen."
 
-#: ../auth-dialog/main.c:141
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
+msgid "Compatible with various SSTP servers including Microsoft."
+msgstr "Compatibel met verscheidene SSTP-servers, inclusief Microsoft."
+
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
+msgid "The NetworkManager Developers"
+msgstr "De NetworkManager-ontwikkelaars"
+
+#. Otherwise, we have no saved password, or the password flags indicated
+#. * that the password should never be saved.
+#.
+#: ../auth-dialog/main.c:146
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network “%s”."
+msgstr ""
+"Om toegang te krijgen tot het virtuele privénetwerk ‘%s’ moet u zich "
+"aanmelden."
+
+#: ../auth-dialog/main.c:155 ../auth-dialog/main.c:175
 msgid "Authenticate VPN"
-msgstr "VPN aanmeldingscontrole"
+msgstr "Aanmeldingscontrole voor VPN"
 
-#: ../nm-sstp.desktop.in.h:1
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "SSTP VPN-verbindingen toevoegen, verwijderen en bewerken"
+#: ../auth-dialog/main.c:157 ../properties/nm-sstp-dialog.ui.h:43
+msgid "Password:"
+msgstr "Wachtwoord:"
 
-#: ../nm-sstp.desktop.in.h:2
-msgid "SSTP VPN Connection Manager"
-msgstr "SSTP VPN-verbindingsmanager"
-
-#: ../properties/advanced-dialog.c:147
+#: ../properties/advanced-dialog.c:169
 msgid "All Available (Default)"
-msgstr "Alle beschikbare (Standaard)"
+msgstr "Alle beschikbare (standaard)"
 
-#: ../properties/advanced-dialog.c:151
+#: ../properties/advanced-dialog.c:173
 msgid "128-bit (most secure)"
 msgstr "128-bit (meest veilig)"
 
-#: ../properties/advanced-dialog.c:160
+#: ../properties/advanced-dialog.c:182
 msgid "40-bit (less secure)"
 msgstr "40-bit (minder veilig)"
 
-#: ../properties/advanced-dialog.c:231
+#: ../properties/advanced-dialog.c:286
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:237
+#: ../properties/advanced-dialog.c:299
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:243
+#: ../properties/advanced-dialog.c:311
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:249
+#: ../properties/advanced-dialog.c:323
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/nm-sstp-dialog.glade.h:1
-msgid "Authentication"
-msgstr "Aanmeldingscontrole"
+#: ../properties/advanced-dialog.c:336
+msgid "EAP"
+msgstr "EAP"
 
-#: ../properties/nm-sstp-dialog.glade.h:2
-msgid "Echo"
-msgstr "Echo"
-
-#: ../properties/nm-sstp-dialog.glade.h:3
-msgid "General"
-msgstr "Algemeen"
-
-#: ../properties/nm-sstp-dialog.glade.h:4
-msgid "Optional"
-msgstr "Facultatief"
-
-#: ../properties/nm-sstp-dialog.glade.h:5
-msgid "Security and Compression"
-msgstr "Beveiliging en compressie"
-
-#: ../properties/nm-sstp-dialog.glade.h:6
-msgid "Ad_vanced..."
-msgstr "_Geavanceerd…"
-
-#: ../properties/nm-sstp-dialog.glade.h:7
-msgid "Allow _BSD data compression"
-msgstr "_BSD-datacompressie toestaan"
-
-#: ../properties/nm-sstp-dialog.glade.h:8
-msgid "Allow _Deflate data compression"
-msgstr "_Deflate-datacompressie toestaan"
-
-#: ../properties/nm-sstp-dialog.glade.h:9
-msgid "Allow st_ateful encryption"
-msgstr "_Stateful encryption toestaan"
-
-#: ../properties/nm-sstp-dialog.glade.h:10
-msgid "Allow the following authentication methods:"
-msgstr "De volgende aanmeldingscontrolemethodes toestaan:"
-
-#: ../properties/nm-sstp-dialog.glade.h:11
-msgid "Default"
-msgstr "Standaard"
-
-#: ../properties/nm-sstp-dialog.glade.h:12
-msgid "Domain:"
-msgstr "Domein:"
-
-#: ../properties/nm-sstp-dialog.glade.h:13
-msgid "Send PPP _echo packets"
-msgstr "PPP _Echo-pakketten versturen"
-
-# toepassen/gebruiken
-#: ../properties/nm-sstp-dialog.glade.h:14
-msgid "Use TCP _header compression"
-msgstr "TCP-_headercompressie toepassen"
-
-#: ../properties/nm-sstp-dialog.glade.h:15
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "_Point-to-Point versleuteling (MPPE) toepassen"
-
-#: ../properties/nm-sstp-dialog.glade.h:16
-msgid "User name:"
-msgstr "Gebruikersnaam:"
-
-#: ../properties/nm-sstp-dialog.glade.h:17
-msgid "_Gateway:"
-msgstr "_Gateway:"
-
-#: ../properties/nm-sstp-dialog.glade.h:18
-msgid "_Security:"
-msgstr "_Beveiliging:"
-
-#: ../properties/nm-sstp.c:49
+#: ../properties/nm-sstp-editor-plugin.c:34
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
 msgstr "Point-to-Point Tunneling Protocol (SSTP)"
 
-#: ../properties/nm-sstp.c:50
+#: ../properties/nm-sstp-editor-plugin.c:35
 msgid "Compatible with Microsoft and other SSTP VPN servers."
-msgstr "Compatible met Microsoft en andere SSTP VPN-servers."
+msgstr "Compatibel met Microsoft- en andere SSTP VPN-servers."
+
+#: ../shared/nm-utils/nm-shared-utils.c:264
+#, c-format
+msgid "object class '%s' has no property named '%s'"
+msgstr "objectklasse ‘%s’ heeft geen eigenschap met de naam ‘%s’"
+
+#: ../shared/nm-utils/nm-shared-utils.c:271
+#, c-format
+msgid "property '%s' of object class '%s' is not writable"
+msgstr "eigenschap ‘%s’ van objectklasse ‘%s’ is niet schrijfbaar"
+
+#: ../shared/nm-utils/nm-shared-utils.c:278
+#, c-format
+msgid ""
+"construct property \"%s\" for object '%s' can't be set after construction"
+msgstr ""
+"constructeigenschap ‘%s’ voor object ‘%s’ kan niet ingesteld worden na "
+"constructie"
+
+#: ../shared/nm-utils/nm-shared-utils.c:286
+#, c-format
+msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
+msgstr "‘%s::%s’ is geen geldige eigenschapsnaam; ‘%s’ is geen GObject-subtype"
+
+#: ../shared/nm-utils/nm-shared-utils.c:295
+#, c-format
+msgid "unable to set property '%s' of type '%s' from value of type '%s'"
+msgstr ""
+"instellen van eigenschap ‘%s’ van type ‘%s’ van waarde van type ‘%s’ mislukt"
+
+#: ../shared/nm-utils/nm-shared-utils.c:306
+#, c-format
+msgid ""
+"value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
+"type '%s'"
+msgstr ""
+"waarde ‘%s’ van type ‘%s’ is ongeldig of buiten bereik voor eigenschap ‘%s’ "
+"van type ‘%s’"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:80
+#, c-format
+msgid "missing plugin file \"%s\""
+msgstr "plug-inbestand ‘%s’ ontbreekt"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:86
+#, c-format
+msgid "cannot load editor plugin: %s"
+msgstr "laden van verwerkersplug-in mislukt: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:95
+#, c-format
+msgid "cannot load factory %s from plugin: %s"
+msgstr "laden van factory %s uit plug-in %s mislukt"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:121
+msgid "unknown error creating editor instance"
+msgstr "onbekende fout bij aanmaken van verwerkersinstantie"
+
+#: ../src/nm-sstp-service.c:193
+#, c-format
+msgid "invalid gateway “%s”"
+msgstr "ongeldige gateway ‘%s’"
+
+#: ../src/nm-sstp-service.c:207
+#, c-format
+msgid "invalid integer property “%s”"
+msgstr "ongeldig geheel getal voor eigenschap ‘%s’"
+
+#: ../src/nm-sstp-service.c:217
+#, c-format
+msgid "invalid boolean property “%s” (not yes or no)"
+msgstr "ongeldige booleaanse waarde voor eigenschap ‘%s’ (geen ja of nee)"
+
+#: ../src/nm-sstp-service.c:224
+#, c-format
+msgid "unhandled property “%s” type %s"
+msgstr "onbehandelde eigenschap ‘%s’ type %s"
+
+#: ../src/nm-sstp-service.c:235
+#, c-format
+msgid "property “%s” invalid or not supported"
+msgstr "eigenschap ‘%s’ is ongeldig of wordt niet ondersteund"
+
+#: ../src/nm-sstp-service.c:253
+msgid "No VPN configuration options."
+msgstr "Geen VPN-configuratieopties."
+
+#: ../src/nm-sstp-service.c:273
+#, c-format
+msgid "Missing required option “%s”."
+msgstr "Vereiste optie ‘%s’ ontbreekt."
+
+#: ../src/nm-sstp-service.c:293
+msgid "No VPN secrets!"
+msgstr "Geen VPN-geheimen!"
+
+#: ../src/nm-sstp-service.c:447
+msgid "Could not find sstp client binary."
+msgstr "Kon het sstp-binaire bestand niet vinden."
+
+#: ../src/nm-sstp-service.c:460
+msgid "Missing VPN gateway."
+msgstr "VPN-gateway ontbreekt."
+
+#: ../src/nm-sstp-service.c:629
+msgid "Could not find the pppd binary."
+msgstr "Kon het pppd-binaire bestand niet vinden."
+
+#: ../src/nm-sstp-service.c:689
+msgid "Missing VPN username."
+msgstr "VPN-gebruikersnaam ontbreekt."
+
+#: ../src/nm-sstp-service.c:698
+msgid "Missing or invalid VPN password."
+msgstr "VPN-wachtwoord ontbreekt of is ongeldig."
+
+#: ../src/nm-sstp-service.c:804
+#, c-format
+msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
+msgstr "kon SSTP-VPN-gateway-IP-adres ‘%s’ niet converteren (%d)"
+
+#: ../src/nm-sstp-service.c:822
+#, c-format
+msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
+msgstr "kon SSTP-VPN-gateway-IP-adres ‘%s’ niet opzoekenen (%d)"
+
+#: ../src/nm-sstp-service.c:846
+#, c-format
+msgid "no usable addresses returned for SSTP VPN gateway “%s”"
+msgstr "geen bruikbare adressen gevonden voor SSTP-VPN-gateway ‘%s’"
+
+#: ../src/nm-sstp-service.c:875
+msgid "Invalid or missing SSTP gateway."
+msgstr "SSTP-gateway ontbreekt of is ongeldig."
+
+#: ../src/nm-sstp-service.c:1123
+msgid "Don’t quit when VPN connection terminates"
+msgstr "Niet afsluiten wanneer VPN-verbinding beëindigt"
+
+#: ../src/nm-sstp-service.c:1124
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Uitgebreide debug-logging inschakelen (kan wachtwoorden blootstellen)"
+
+#: ../src/nm-sstp-service.c:1125
+msgid "D-Bus name to use for this instance"
+msgstr "D-Bus-naam voor deze instantie"
+
+#: ../src/nm-sstp-service.c:1146
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service biedt geïntegreerde SSTP-VPN-mogelijkheden (compatibel met "
+"Microsoft en andere implementaties) aan NetworkManager."
+
+#: ../properties/nm-sstp-dialog.ui.h:1
+msgid "Default"
+msgstr "Standaard"
+
+#: ../properties/nm-sstp-dialog.ui.h:2
+msgid "SSTP Advanced Options"
+msgstr "Geavanceerde opties voor SSTP"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid "Authentication"
+msgstr "Aanmeldingscontrole"
+
+#: ../properties/nm-sstp-dialog.ui.h:4
+msgid "Allow the following authentication methods:"
+msgstr "De volgende aanmeldingscontrolemethodes toestaan:"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+"Authenticatiemethodes toestaan/uitschakelen.\n"
+"configuratie: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, "
+"refuse-eap"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+msgid "Security and Compression"
+msgstr "Beveiliging en compressie"
+
+#: ../properties/nm-sstp-dialog.ui.h:8
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "_Point-to-pointversleuteling gebruiken (MPPE)"
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+msgid ""
+"Note: MPPE encryption is only available with MSCHAP authentication methods. "
+"To enable this checkbox, select one or more of the MSCHAP authentication "
+"methods: MSCHAP or MSCHAPv2."
+msgstr ""
+"Let op: MPPE-versleuteling is enkel beschikbaar voor MSCHAP-"
+"authenticatiemethodes. Selecteer een of meerdere van de MSCHAP-"
+"authenticatiemethodes om dit selectievakje in te schakelen: MSCHAP of "
+"MSCHAPv2."
+
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid "_Security:"
+msgstr "_Beveiliging:"
+
+#: ../properties/nm-sstp-dialog.ui.h:11
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
+"Vereis het gebruik van MPPE, met 40/128-bits versleuteling of alles.\n"
+"configuratie: require-mppe, require-mppe-128 of require-mppe-40"
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid "Allow st_ateful encryption"
+msgstr "_Stateful-versleuteling toestaan"
+
+#: ../properties/nm-sstp-dialog.ui.h:14
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
+"Sta MPPE toe stateful-modus te gebruiken. Stateless-modus wordt nog steeds "
+"eerst geprobeerd.\n"
+"configuratie: mppe-stateful (indien aangevinkt)"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid "Allow _BSD data compression"
+msgstr "_BSD-datacompressie toestaan"
+
+#: ../properties/nm-sstp-dialog.ui.h:17
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+"BSD-Compress-compressie toestaan/uitschakelen.\n"
+"configuratie: nobsdcomp (indien uitgevinkt)"
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+msgid "Allow _Deflate data compression"
+msgstr "_Deflate-datacompressie toestaan"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+"Deflate-compressie toestaan/uitschakelen.\n"
+"configuratie: nodeflate (indien uitgevinkt)"
+
+# toepassen/gebruiken
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "Use TCP _header compression"
+msgstr "TCP-_headercompressie toepassen"
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
+"Van Jacobson-achtige TCP-/IP-headercompress toestaan/uitschakelen in zowel "
+"verzend- als ontvangrichting.\n"
+"configuratie: novj (indien uitgevinkt)"
+
+#: ../properties/nm-sstp-dialog.ui.h:25
+msgid "Echo"
+msgstr "Echo"
+
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid "Send PPP _echo packets"
+msgstr "PPP-_echopakketten versturen"
+
+#: ../properties/nm-sstp-dialog.ui.h:27
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
+"Stuur LCP-echoverzoeken om na te gaan of de peer nog actief is.\n"
+"configuratie: lcp-echo-failure en lcp-echo-interval"
+
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid "Misc"
+msgstr "Allerlei"
+
+#: ../properties/nm-sstp-dialog.ui.h:30
+msgid "Use custom _unit number:"
+msgstr "Aangepast eenheidsn_ummer gebruiken:"
+
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid ""
+"Enable custom index for ppp<n> device name.\n"
+"config: unit <n>"
+msgstr ""
+"Schakel aangepaste index in voor ppp<n> apparaatnaam.\n"
+"configuratie: unit <n>"
+
+#: ../properties/nm-sstp-dialog.ui.h:33
+msgid "General"
+msgstr "Algemeen"
+
+#: ../properties/nm-sstp-dialog.ui.h:34
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+"SSTP-server-IP-adres of -naam.\n"
+"configuratie: de eerste parameter van sstp"
+
+#: ../properties/nm-sstp-dialog.ui.h:36
+msgid "_Gateway:"
+msgstr "_Gateway:"
+
+#: ../properties/nm-sstp-dialog.ui.h:37
+msgid "Optional"
+msgstr "Optioneel"
+
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"config: domain <domain>"
+msgstr ""
+"Voeg de domeinnaam <domein> toe aan de lokale hostnaam voor authenticatie.\n"
+"configuratie: domain <domein>"
+
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "NT Domain:"
+msgstr "NT-domein:"
+
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid "Show password"
+msgstr "Wachtwoord tonen"
+
+#: ../properties/nm-sstp-dialog.ui.h:42
+msgid "Password passed to SSTP when prompted for it."
+msgstr "Wachtwoord dat aan SSTP wordt doorgegeven wanneer gevraagd."
+
+#: ../properties/nm-sstp-dialog.ui.h:44
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"config: user <name>"
+msgstr ""
+"Stel de naam in voor authenticatie van het lokale systeem met peer met "
+"<naam>.\n"
+"configuratie: user <naam>"
+
+#: ../properties/nm-sstp-dialog.ui.h:46
+msgid "User name:"
+msgstr "Gebruikersnaam:"
+
+#: ../properties/nm-sstp-dialog.ui.h:47
+msgid "Ad_vanced…"
+msgstr "Gea_vanceerd…"
+
+#~ msgid "_Secondary Password:"
+#~ msgstr "_Secondair wachtwoord:"
+
+#~ msgid "_Username:"
+#~ msgstr "_Gebruikersnaam:"
+
+#~ msgid "_Domain:"
+#~ msgstr "_Domein:"
+
+#~ msgid "Connect _anonymously"
+#~ msgstr "A_noniem verbinden"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "Verbinden als _gebruiker:"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "_Wachtwoorden gedurende deze sessie onthouden"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "Wachtwoorden in de sleutelbos op_slaan"
+
+#~ msgid "Add, Remove, and Edit SSTP VPN Connections"
+#~ msgstr "SSTP VPN-verbindingen toevoegen, verwijderen en bewerken"
+
+#~ msgid "SSTP VPN Connection Manager"
+#~ msgstr "SSTP VPN-verbindingsmanager"
