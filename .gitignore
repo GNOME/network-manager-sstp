@@ -30,6 +30,7 @@ m4/libtool.m4
 m4/lt*.m4
 appdata/network-manager-sstp.metainfo.xml
 /cscope.*
+/properties/resources.[ch]
 
 auth-dialog/nm-sstp-auth-dialog
 nm-sstp-service.name
