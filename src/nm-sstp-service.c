@@ -560,12 +560,19 @@ construct_pppd_args (NMSstpPlugin *plugin,
 	value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_USER);
 	if (!value || !*value)
 		value = nm_setting_vpn_get_user_name (s_vpn);
-	if (!value || !*value) {
+	if (value && *value) {
  		g_ptr_array_add (args, (gpointer) g_strdup ("user"));
 		g_ptr_array_add (args, (gpointer) g_strdup (value));
 	}
 
-	/* Allow EAP (currently not supported */
+	/* Pass the remotename */
+	value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_GATEWAY);
+	if (value && *value) {
+		g_ptr_array_add (args, (gpointer) g_strdup ("remotename"));
+		g_ptr_array_add (args, (gpointer) g_strdup (value));
+	}
+
+	/* Allow EAP */
 	value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_REFUSE_EAP);
 	if (value && !strcmp (value, "yes"))
 		g_ptr_array_add (args, (gpointer) g_strdup ("refuse-eap"));
