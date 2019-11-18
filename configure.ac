@@ -4,7 +4,7 @@ AC_INIT(NetworkManager-sstp,
 	1.2.8,
 	eivnaes@yahoo.com, 
 	NetworkManager-sstp)
-AM_INIT_AUTOMAKE([1.9 foreign no-dist-gzip dist-xz])
+AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz -Wno-portability])
 AM_MAINTAINER_MODE
 AM_SILENT_RULES([yes])
 
