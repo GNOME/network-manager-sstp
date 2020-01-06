@@ -63,6 +63,9 @@ static const char *advanced_keys[] = {
 	NM_SSTP_KEY_PROXY_PORT,
 	NM_SSTP_KEY_PROXY_USER,
 	NM_SSTP_KEY_PROXY_PASSWORD,
+    NM_SSTP_KEY_IGN_CERT_WARN,
+    NM_SSTP_KEY_TLS_EXT_ENABLE,
+    NM_SSTP_KEY_CA_CERT,
 	NULL
 };
 
@@ -139,21 +142,10 @@ advanced_dialog_new_hash_from_connection (NMConnection *connection,
 							 g_strdup("yes"));
 	}
 
- 	g_message("Refusing EAP");
-
-	/* Default to disable EAP */
-	if (!g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_EAP))
-	{
- 		g_message("Refusing EAP setting value to 'yes'");
-		g_hash_table_insert (hash,
-							 g_strdup(NM_SSTP_KEY_REFUSE_EAP),
-							 g_strdup("yes"));
-	}
 	return hash;
 }
 
-static void
-handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder *builder)
+static void handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder *builder)
 {
 	GtkWidget *widget;
 	gboolean use_mppe;
@@ -183,7 +175,7 @@ handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder *builder)
 	if (is_init && !use_mppe)
 		return;
 
-	/* If MPPE is active, PAP, CHAP, and EAP aren't allowed by the MPPE specs;
+	/* If MPPE is active, PAP, CHAP aren't allowed by the MPPE specs;
 	 * likewise, if MPPE is inactive, sensitize the PAP, CHAP, and EAP checkboxes.
 	 */
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
@@ -198,11 +190,6 @@ handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder *builder)
 		case TAG_CHAP:
 			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_SENSITIVE, !(use_mppe && mppe_sensitive), -1);
             break;
-		case TAG_EAP:
-			// EAP not supported
-			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_VALUE, FALSE, -1);
-			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_SENSITIVE, FALSE, -1);
-			break;
 		default:
 			break;
 		}
@@ -337,6 +324,7 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	gint offset;
 	gboolean mschap_state = TRUE;
 	gboolean mschap2_state = TRUE;
+    gboolean eap_state = TRUE;
 
 	store = gtk_list_store_new (4, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_UINT, G_TYPE_BOOLEAN);
 
@@ -405,18 +393,16 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	                    COL_SENSITIVE, TRUE,
 	                    -1);
 
-	/* EAP: Disabled by default, and de-sensiticed.
+    /* EAP */
 	value = g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_EAP);
 	allowed = (value && !strcmp (value, "yes")) ? FALSE : TRUE;
-	if (use_mppe)
-		allowed = FALSE;
-	*/
+    eap_state = allowed;
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter,
 	                    COL_NAME, _("EAP"),
-	                    COL_VALUE, FALSE,
+	                    COL_VALUE, allowed,
 	                    COL_TAG, TAG_EAP,
-	                    COL_SENSITIVE, FALSE,
+	                    COL_SENSITIVE, TRUE,
 	                    -1);
 
 	/* Set up the tree view */
@@ -448,7 +434,7 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 
 	/* Make sure MPPE is non-sensitive if MSCHAP and MSCHAPv2 are disabled */
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_use_mppe"));
-	if (!mschap_state && !mschap2_state) {
+	if (!mschap_state && !mschap2_state && !eap_state) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
 		gtk_widget_set_sensitive (widget, FALSE);
 	} else
@@ -469,6 +455,7 @@ advanced_dialog_new (GHashTable *hash)
 	GtkBuilder *builder;
 	GtkWidget *dialog = NULL;
 	GtkWidget *widget, *spin;
+    NMACertChooser *cert;
 	const char *value;
 	const char *value2;
 	gboolean mppe = FALSE;
@@ -496,6 +483,30 @@ advanced_dialog_new (GHashTable *hash)
 
 	g_object_set_data_full (G_OBJECT (dialog), "gtkbuilder-xml",
 	                        builder, (GDestroyNotify) g_object_unref);
+
+    cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
+	if (cert) {
+	    // nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels")));
+	    // g_signal_connect (G_OBJECT (cert), "changed", G_CALLBACK (stuff_changed_cb), self);
+        value = g_hash_table_lookup (hash, NM_SSTP_KEY_CA_CERT);
+        g_message("Certificate Choser : %s", value);
+        if (value && strlen (value)) {
+            nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
+        }
+	    // g_signal_connect_object (cert, "changed", G_CALLBACK (tls_cert_changed_cb), ca_chooser, 0);
+    }
+
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
+    value = g_hash_table_lookup (hash, NM_SSTP_KEY_IGN_CERT_WARN);
+    if (value && !strcmp (value, "yes")) {
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+    }
+	
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_hostext_checkbutton"));
+    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_EXT_ENABLE);
+    if (value && !strcmp (value, "yes")) {
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+    }
 
 	setup_security_combo (builder, hash);
 
@@ -634,6 +645,8 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 	GtkBuilder *builder;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
+    NMACertChooser *cert;
+	NMSetting8021xCKScheme scheme;
 	gboolean valid;
 	const char *value;
 
@@ -645,6 +658,69 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 	g_return_val_if_fail (builder != NULL, NULL);
 
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	
+    cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
+    // g_return_val_if_fail (cert != NULL, NULL);
+	if (cert) {
+	    // nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels")));
+	    // g_signal_connect (G_OBJECT (cert), "changed", G_CALLBACK (stuff_changed_cb), self);
+
+        value = nma_cert_chooser_get_cert(cert, &scheme);
+        if (value && strlen (value)) {
+            g_hash_table_insert (hash,
+								 g_strdup (NM_SSTP_KEY_CA_CERT),
+								 (char*) value);
+        }
+    }
+	// g_signal_connect_object (cert, "changed", G_CALLBACK (tls_cert_changed_cb), ca_chooser, 0);
+
+    /* Ignore Certificate Warnings */
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+		g_hash_table_insert (hash, g_strdup(NM_SSTP_KEY_IGN_CERT_WARN), g_strdup("yes"));
+	}
+
+	/* Enable TLS hostname extensions */
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_hostext_checkbutton"));
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_TLS_EXT_ENABLE), g_strdup ("yes"));
+	}
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while (valid) {
+		gboolean allowed;
+		guint32 tag;
+
+		gtk_tree_model_get (model, &iter, COL_VALUE, &allowed, COL_TAG, &tag, -1);
+		switch (tag) {
+		case TAG_PAP:
+			if (!allowed)
+				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_PAP), g_strdup ("yes"));
+			break;
+		case TAG_CHAP:
+			if (!allowed)
+				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_CHAP), g_strdup ("yes"));
+			break;
+		case TAG_MSCHAP:
+			if (!allowed)
+				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAP), g_strdup ("yes"));
+			break;
+		case TAG_MSCHAPV2:
+			if (!allowed)
+				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAPV2), g_strdup ("yes"));
+			break;
+		case TAG_EAP:
+            if (!allowed)
+			    g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_EAP), g_strdup ("yes"));
+			break;
+		default:
+			break;
+		}
+
+		valid = gtk_tree_model_iter_next (model, &iter);
+	}
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_use_mppe"));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
@@ -685,40 +761,14 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_LCP_ECHO_INTERVAL), g_strdup_printf ("%d", 30));
 	}
 
-	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
-	valid = gtk_tree_model_get_iter_first (model, &iter);
-	while (valid) {
-		gboolean allowed;
-		guint32 tag;
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_checkbutton"));
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+		int unit_num;
 
-		gtk_tree_model_get (model, &iter, COL_VALUE, &allowed, COL_TAG, &tag, -1);
-		switch (tag) {
-		case TAG_PAP:
-			if (!allowed)
-				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_PAP), g_strdup ("yes"));
-			break;
-		case TAG_CHAP:
-			if (!allowed)
-				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_CHAP), g_strdup ("yes"));
-			break;
-		case TAG_MSCHAP:
-			if (!allowed)
-				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAP), g_strdup ("yes"));
-			break;
-		case TAG_MSCHAPV2:
-			if (!allowed)
-				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAPV2), g_strdup ("yes"));
-			break;
-		case TAG_EAP:
-			// always refuse-eap
-			g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_EAP), g_strdup ("yes"));
-			break;
-		default:
-			break;
-		}
-
-		valid = gtk_tree_model_iter_next (model, &iter);
+		widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
+		unit_num = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
+		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_UNIT_NUM),
+		                     g_strdup_printf ("%d", unit_num));
 	}
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_server_entry"));
@@ -760,17 +810,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 								 g_strdup_printf ("%d", pw_flags));
 		}
 	}
-
-	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_checkbutton"));
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
-		int unit_num;
-
-		widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
-		unit_num = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
-		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_UNIT_NUM),
-		                     g_strdup_printf ("%d", unit_num));
-	}
-
+    
 	return hash;
 }
 

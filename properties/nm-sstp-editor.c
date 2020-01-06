@@ -35,6 +35,7 @@
 #include <fcntl.h>
 
 #include "advanced-dialog.h"
+#include "nm-utils/nm-shared-utils.h"
 
 /*****************************************************************************/
 
@@ -91,90 +92,6 @@ advanced_dialog_close_cb (GtkWidget *dialog, gpointer user_data)
 	/* gtk_widget_destroy() will remove the window from the window group */
 	gtk_widget_destroy (dialog);
 }
-
-
-static const char *
-find_tag (const char *tag, const char *buf, gsize len)
-{
-	gsize i, taglen;
-
-	taglen = strlen (tag);
-	if (len < taglen)
-		return NULL;
-
-	for (i = 0; i < len - taglen + 1; i++) {
-		if (memcmp (buf + i, tag, taglen) == 0)
-			return buf + i;
-	}
-	return NULL;
-}
-
-
-static gboolean
-default_filter (const GtkFileFilterInfo *filter_info, gpointer data)
-{
-	static const char *key_begin = "-----BEGIN CERTIFICATE-----";
-	int fd;
-	unsigned char buffer[1024];
-	ssize_t bytes_read;
-	gboolean show = FALSE;
-	char *p;
-	char *ext;
-
-	/* No nane, bail .. */
-	if (!filter_info->filename)
-		return FALSE;
-
-	/* Must have a '.' */
-	p = strrchr (filter_info->filename, '.');
-	if (!p)
-		return FALSE;
-
-	/* Check extension, make lower case */
-	ext = g_ascii_strdown (p, -1);
-	if (!ext)
-		return FALSE;
-	if (strcmp (ext, ".pem")) {
-		g_free (ext);
-		return FALSE;
-	}
-	g_free (ext);
-
-	/* Extention is OK, check if file is a certificate */
-	fd = open (filter_info->filename, O_RDONLY);
-	if (fd < 0)
-		return FALSE;
-
-	/* Read the first 400 bytes */
-	bytes_read = read (fd, buffer, sizeof (buffer) - 1);
-	if (bytes_read < 400)  /* needs to be lower? */
-		goto out;
-	buffer[bytes_read] = '\0';
-
-	/* Check for PEM signatures */
-	if (find_tag (key_begin, (const char *) buffer, bytes_read)) {
-		show = TRUE;
-		goto out;
-	}
-
-out:
-	close (fd);
-	return show;
-}
-
-
-static GtkFileFilter *
-file_chooser_filter_new(void)
-{
-	GtkFileFilter *filter;
-
-	filter = gtk_file_filter_new ();
-	gtk_file_filter_add_custom (filter, GTK_FILE_FILTER_FILENAME, 
-							    default_filter, NULL, NULL);
-	gtk_file_filter_set_name (filter, _("Certificate in PEM (*.pem)"));
-	return filter;
-}
-
 
 static void
 advanced_dialog_response_cb (GtkWidget *dialog, gint response, gpointer user_data)
@@ -316,7 +233,6 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
 	NMSettingVpn *s_vpn;
 	GtkWidget *widget;
-	GtkFileFilter *filter;
 	const char *value;
 
 	s_vpn = nm_connection_get_setting_vpn (connection);
@@ -344,25 +260,8 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 			gtk_entry_set_text (GTK_ENTRY (widget), value);
 	}
 	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (stuff_changed_cb), self);
-
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "ca_cert_chooser"));
-	if (!widget)
-		return FALSE;
-	gtk_size_group_add_widget (priv->group, widget);
-	filter = file_chooser_filter_new ();
-	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (widget), filter);
-	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (widget), TRUE);
-	gtk_file_chooser_button_set_title (GTK_FILE_CHOOSER_BUTTON (widget),
-									  _("Choose a CA Certificate"));
-	if (s_vpn) {
-		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CA_CERT);
-		if (value && strlen (value))
-			gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (widget), value);
-	}
 	
-	g_signal_connect (G_OBJECT (widget), "selection-changed", G_CALLBACK (stuff_changed_cb), self);
-
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
+    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
 	if (!widget)
 		return FALSE;
 	gtk_size_group_add_widget (priv->group, widget);
@@ -381,28 +280,6 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	g_signal_connect (G_OBJECT (widget), "toggled",
 	                  (GCallback) show_toggled_cb,
 	                  self);
-
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "cert_warn_checkbutton"));
-	g_return_val_if_fail (widget != NULL, FALSE);
-	gtk_size_group_add_widget (priv->group, widget);
-	if (s_vpn) {
-		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_IGN_CERT_WARN);
-		if (value && !strcmp(value, "yes")) {
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
-		}
-	}
-	g_signal_connect (widget, "toggled", G_CALLBACK (stuff_changed_cb), self);
-
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_enable_checkbutton"));
-	g_return_val_if_fail (widget != NULL, FALSE);
-	gtk_size_group_add_widget (priv->group, widget);
-	if (s_vpn) {
-		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_EXT_ENABLE);
-		if (value && !strcmp(value, "yes")) {
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
-		}
-	}
-	g_signal_connect (widget, "toggled", G_CALLBACK (stuff_changed_cb), self);
 
 	/* Fill the VPN passwords *before* initializing the PW type combo, since
 	 * knowing if there is a password when initializing the type combo is helpful.
@@ -486,7 +363,6 @@ update_connection (NMVpnEditor *iface,
 	NMSettingVpn *s_vpn;
 	GtkWidget *widget;
 	const char *str;
-	char *tmp;
 	gboolean valid = FALSE;
 
 	if (!check_validity (self, error))
@@ -516,28 +392,32 @@ update_connection (NMVpnEditor *iface,
 	/* Domain */
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
 	str = gtk_entry_get_text (GTK_ENTRY (widget));
-	if (str && strlen (str))
+	if (str && strlen (str)) {
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_DOMAIN, str);
+    }
 
-	/* CA Certificate */
+	/* CA Certificate 
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "ca_cert_chooser"));
 	tmp = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (widget));
 	if (tmp && strlen(tmp)) {
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_CA_CERT, tmp);
 		g_free (tmp);
 	}
+    */
 
-	/* Ignore Certificate Warnings */
+	/* Ignore Certificate Warnings
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "cert_warn_checkbutton"));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_IGN_CERT_WARN, "yes");
 	}
+    */
 
-	/* Enable TLS hostname extensions */
+	/* Enable TLS hostname extensions
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_enable_checkbutton"));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
 		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_EXT_ENABLE, "yes");
 	}
+    */
 
 	/* Update the NM_SETTING object */
  	if (priv->advanced)
