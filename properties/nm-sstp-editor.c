@@ -35,6 +35,7 @@
 #include <fcntl.h>
 
 #include "advanced-dialog.h"
+#include "utils.h"
 #include "nm-utils/nm-shared-utils.h"
 
 /*****************************************************************************/
@@ -46,6 +47,8 @@ G_DEFINE_TYPE_EXTENDED (SstpPluginUiWidget, sstp_plugin_ui_widget, G_TYPE_OBJECT
                                                sstp_plugin_ui_widget_interface_init))
 
 #define SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), SSTP_TYPE_PLUGIN_UI_WIDGET, SstpPluginUiWidgetPrivate))
+
+typedef void (*ChangedCallback) (GtkWidget *widget, gpointer user_data);
 
 typedef struct {
 	GtkBuilder *builder;
@@ -59,16 +62,86 @@ typedef struct {
 
 /*****************************************************************************/
 
+#define COL_AUTH_NAME 0
+#define COL_AUTH_PAGE 1
+#define COL_AUTH_TYPE 2
+
+static gboolean
+auth_widget_check_validity (GtkBuilder *builder, const char *type, GError **error)
+{
+    gboolean encrypted, secrets_required;
+    NMACertChooser *chooser;
+	NMSetting8021xCKScheme scheme;
+	NMSettingSecretFlags pw_flags;
+    GError *local = NULL;
+    char *tmp;
+
+    if (!strcmp (type, NM_SSTP_CONTYPE_PASSWORD)) {
+        
+        chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert"));
+        if (!nma_cert_chooser_validate (chooser, &local)) {
+            g_set_error (error, 
+                         NMV_EDITOR_PLUGIN_ERROR,
+                         NMV_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY,
+                         "%s: %s", NM_SSTP_KEY_TLS_CA_CERT, local->message);
+            g_error_free(local);
+            return FALSE;
+        }
+
+        chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_user_cert"));
+        if (!nma_cert_chooser_validate (chooser, &local)) {
+            g_set_error (error, 
+                         NMV_EDITOR_PLUGIN_ERROR,
+                         NMV_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY,
+                         "%s: %s", NM_SSTP_KEY_TLS_USER_CERT, local->message);
+            g_error_free(local);
+            return FALSE;
+        }
+
+        /* Encrypted certificates require a password */
+        tmp = nma_cert_chooser_get_cert (chooser, &scheme);
+        encrypted = is_encrypted (tmp);
+        g_free (tmp);
+
+        pw_flags = nma_cert_chooser_get_key_password_flags (chooser);
+        if (pw_flags & NM_SETTING_SECRET_FLAG_NOT_SAVED ||
+            pw_flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED) {
+            secrets_required = FALSE;
+        }
+
+        if (encrypted && secrets_required) {
+            if (!nma_cert_chooser_get_key_password (chooser)) {
+                g_set_error (error,
+                             NMV_EDITOR_PLUGIN_ERROR,
+                             NMV_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY,
+                             NM_SSTP_KEY_TLS_USER_KEY_SECRET);
+                return FALSE;
+            }
+        }
+
+        return TRUE;
+    }
+
+    return TRUE;
+}
+
 static gboolean
 check_validity (SstpPluginUiWidget *self, GError **error)
 {
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
-	GtkWidget *widget;
-	const char *str;
+    SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+    GtkWidget *widget;
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+    gs_free char *auth_type;
+    const char *str;
+    gboolean status;
 
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "gateway_entry"));
+	g_return_val_if_fail (widget, FALSE);
+
 	str = gtk_entry_get_text (GTK_ENTRY (widget));
-	if (!str || !strlen (str)) {
+	if (!str || !strlen (str)) { // check_gateway_entry (ipv4|ipv6|hostname:port)
+		gtk_style_context_add_class (gtk_widget_get_style_context (widget), "error");
 		g_set_error (error,
 		             NMV_EDITOR_PLUGIN_ERROR,
 		             NMV_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY,
@@ -76,13 +149,50 @@ check_validity (SstpPluginUiWidget *self, GError **error)
 		return FALSE;
 	}
 
+    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "auth_combo"));
+	g_return_val_if_fail (widget, FALSE);
+
+	model = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
+	g_return_val_if_fail (model, FALSE);
+
+	status = gtk_combo_box_get_active_iter (GTK_COMBO_BOX (widget), &iter);
+    g_return_val_if_fail (status, FALSE);
+
+	gtk_tree_model_get (model, &iter, COL_AUTH_TYPE, &auth_type, -1);
+	status = auth_widget_check_validity (priv->builder, auth_type, error);
+    g_return_val_if_fail (status, FALSE);
+
 	return TRUE;
 }
+
+
 
 static void
 stuff_changed_cb (GtkWidget *widget, gpointer user_data)
 {
 	g_signal_emit_by_name (SSTP_PLUGIN_UI_WIDGET (user_data), "changed");
+}
+
+static void
+auth_combo_changed_cb (GtkWidget *combo, gpointer user_data)
+{
+    SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET(user_data);
+	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	GtkWidget *auth_notebook;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	int new_page;
+    gboolean status;
+
+	model = gtk_combo_box_get_model (GTK_COMBO_BOX (combo));
+	status = gtk_combo_box_get_active_iter (GTK_COMBO_BOX (combo), &iter);
+    g_assert (status);
+	gtk_tree_model_get (model, &iter, COL_AUTH_PAGE, &new_page, -1);
+
+	auth_notebook = GTK_WIDGET (gtk_builder_get_object (priv->builder, "auth_notebook"));
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (auth_notebook), new_page);
+
+	stuff_changed_cb (combo, self);
 }
 
 static void
@@ -147,29 +257,6 @@ advanced_button_clicked_cb (GtkWidget *button, gpointer user_data)
 }
 
 static void
-setup_password_widget (SstpPluginUiWidget *self,
-                       const char *entry_name,
-                       NMSettingVpn *s_vpn,
-                       const char *secret_name,
-                       gboolean new_connection)
-{
-	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
-	GtkWidget *widget;
-	const char *value;
-
-	widget = (GtkWidget *) gtk_builder_get_object (priv->builder, entry_name);
-	g_assert (widget);
-	gtk_size_group_add_widget (priv->group, widget);
-
-	if (s_vpn) {
-		value = nm_setting_vpn_get_secret (s_vpn, secret_name);
-		gtk_entry_set_text (GTK_ENTRY (widget), value ? value : "");
-	}
-
-	g_signal_connect (widget, "changed", G_CALLBACK (stuff_changed_cb), self);
-}
-
-static void
 show_toggled_cb (GtkCheckButton *button, SstpPluginUiWidget *self)
 {
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
@@ -194,38 +281,144 @@ password_storage_changed_cb (GObject *entry,
 }
 
 static void
-init_password_icon (SstpPluginUiWidget *self,
-                    NMSettingVpn *s_vpn,
-                    const char *secret_key,
-		    const char *entry_name)
+tls_cert_changed_cb (NMACertChooser *this, gpointer user_data)
+{
+	NMACertChooser *other = user_data; // the other "Linked" cert chooser
+	NMSetting8021xCKScheme scheme;
+	gs_free char *this_cert = NULL;
+	gs_free char *other_cert = NULL;
+	gs_free char *this_key = NULL;
+	gs_free char *other_key = NULL;
+
+    // TODO: I don't get this, but if we "Link" these 
+    //  The user changes the tls-user-cert, and that "clears" the CA cert?
+    //    
+    // I can maybe imagine this being useful if you have tls_ca_cert and tls_pw_ca_cert, but not here...
+
+	other_key = nma_cert_chooser_get_key (other, &scheme);
+	this_key = nma_cert_chooser_get_key (this, &scheme);
+	other_cert = nma_cert_chooser_get_cert (other, &scheme);
+	this_cert = nma_cert_chooser_get_cert (this, &scheme);
+	if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
+	    && is_pkcs12 (this_cert)) {
+		if (!this_key) {
+			nma_cert_chooser_set_key (this, this_cert, NM_SETTING_802_1X_CK_SCHEME_PATH);
+        }
+		if (!other_cert) {
+			nma_cert_chooser_set_cert (other, this_cert, NM_SETTING_802_1X_CK_SCHEME_PATH);
+			if (!other_key) {
+				nma_cert_chooser_set_key (other, this_cert, NM_SETTING_802_1X_CK_SCHEME_PATH);
+            }
+		}
+	}
+}
+
+
+
+static gboolean
+pw_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed_cb) 
 {
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
-	GtkWidget *entry;
-	const char *value = NULL;
 	NMSettingSecretFlags pw_flags = NM_SETTING_SECRET_FLAG_NONE;
+    GtkWidget *widget;
+    const char *value;
+    
+    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_entry"));
+	g_return_val_if_fail (widget != NULL, FALSE);
+	gtk_size_group_add_widget (priv->group, widget);
+	if (s_vpn) {
+		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_USER);
+		if (value && strlen (value))
+			gtk_entry_set_text (GTK_ENTRY (widget), value);
+	}
+	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (changed_cb), self);
+	
+    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
+	g_return_val_if_fail (widget != NULL, FALSE);
+	gtk_size_group_add_widget (priv->group, widget);
+	if (s_vpn) {
+		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_DOMAIN);
+		if (value && strlen (value))
+			gtk_entry_set_text (GTK_ENTRY (widget), value);
+	}
+	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (changed_cb), self);
+    
+    widget = GTK_WIDGET (gtk_builder_get_object(priv->builder, "user_password_entry"));
+    g_return_val_if_fail (widget != NULL, FALSE);
+	if (s_vpn) {
+		value = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PASSWORD);
+        if (value)
+		    gtk_entry_set_text (GTK_ENTRY (widget), value);
+	}
+	g_signal_connect (widget, "changed", G_CALLBACK (changed_cb), self);
 
-	/* If there's already a password and the password type can't be found in
-	 * the VPN settings, default to saving it.  Otherwise, always ask for it.
-	 */
-	entry = GTK_WIDGET (gtk_builder_get_object (priv->builder, entry_name));
-	g_assert (entry);
-
-	nma_utils_setup_password_storage (entry, 0, (NMSetting *) s_vpn, secret_key,
-	                                  TRUE, FALSE);
-
-	/* If there's no password and no flags in the setting,
+    nma_utils_setup_password_storage (widget, 0, (NMSetting *) s_vpn, NM_SSTP_KEY_PASSWORD,
+                                      TRUE, FALSE);
+	
+    /* If there's no password and no flags in the setting,
 	 * initialize flags as "always-ask".
 	 */
 	if (s_vpn)
-		nm_setting_get_secret_flags (NM_SETTING (s_vpn), secret_key, &pw_flags, NULL);
-	value = gtk_entry_get_text (GTK_ENTRY (entry));
+		nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, &pw_flags, NULL);
+	value = gtk_entry_get_text (GTK_ENTRY (widget));
 	if ((!value || !*value) && (pw_flags == NM_SETTING_SECRET_FLAG_NONE))
-		nma_utils_update_password_storage (entry, NM_SETTING_SECRET_FLAG_NOT_SAVED,
-						   (NMSetting *) s_vpn, secret_key);
+		nma_utils_update_password_storage (widget, NM_SETTING_SECRET_FLAG_NOT_SAVED,
+						   (NMSetting *) s_vpn, NM_SSTP_KEY_PASSWORD);
 
-	g_signal_connect (entry, "notify::secondary-icon-name",
+	g_signal_connect (widget, "notify::secondary-icon-name",
 	                  G_CALLBACK (password_storage_changed_cb), self);
+
+    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "show_passwords_checkbutton"));
+	g_return_val_if_fail (widget != NULL, FALSE);
+	g_signal_connect (G_OBJECT (widget), "toggled", (GCallback) show_toggled_cb, self);
+
+    return TRUE;
 }
+
+static gboolean
+tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed_cb) 
+{
+    SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
+	NMACertChooser *cert;
+    NMACertChooser *ca;
+	const char *value;
+ 
+    cert = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
+    g_return_val_if_fail (cert != NULL, FALSE);
+    g_signal_connect (G_OBJECT (cert), "changed", G_CALLBACK (changed_cb), self);
+    
+    ca = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
+    g_return_val_if_fail (ca != NULL, FALSE);
+    g_signal_connect (G_OBJECT (ca), "changed", G_CALLBACK (changed_cb), self);
+
+    if (s_vpn) {
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT);
+        if (value && *value) {
+            nma_cert_chooser_set_cert (ca, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
+        }
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT);
+        if (value && *value) {
+            nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
+        }
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
+        if (value && *value) {
+            nma_cert_chooser_set_key (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
+        }
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET);
+        if (value) {
+            nma_cert_chooser_set_key_password (cert, value);
+        }
+    }
+
+    nma_cert_chooser_setup_key_password_storage (cert, 0, (NMSetting *) s_vpn,
+            NM_SSTP_KEY_TLS_USER_KEY_SECRET, TRUE, FALSE);
+
+    /* Link choosers to the PKCS#12 changer callback */
+	g_signal_connect_object (ca, "changed", G_CALLBACK (tls_cert_changed_cb), cert, 0);
+	g_signal_connect_object (cert, "changed", G_CALLBACK (tls_cert_changed_cb), ca, 0);
+    return TRUE;
+}
+
 
 static gboolean
 init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **error)
@@ -233,7 +426,10 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
 	NMSettingVpn *s_vpn;
 	GtkWidget *widget;
+	GtkListStore *store;
+	GtkTreeIter iter;
 	const char *value;
+	const char *contype = NM_SSTP_CONTYPE_PASSWORD;
 
 	s_vpn = nm_connection_get_setting_vpn (connection);
 
@@ -250,52 +446,44 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 	}
 	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (stuff_changed_cb), self);
 
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_entry"));
-	if (!widget)
-		return FALSE;
-	gtk_size_group_add_widget (priv->group, widget);
-	if (s_vpn) {
-		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_USER);
-		if (value && strlen (value))
-			gtk_entry_set_text (GTK_ENTRY (widget), value);
-	}
-	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (stuff_changed_cb), self);
-	
-    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
-	if (!widget)
-		return FALSE;
-	gtk_size_group_add_widget (priv->group, widget);
-	if (s_vpn) {
-		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_DOMAIN);
-		if (value && strlen (value))
-			gtk_entry_set_text (GTK_ENTRY (widget), value);
-	}
-	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (stuff_changed_cb), self);
-
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "advanced_button"));
-	g_signal_connect (G_OBJECT (widget), "clicked", G_CALLBACK (advanced_button_clicked_cb), self);
-
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "show_passwords_checkbutton"));
+    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "auth_combo"));
 	g_return_val_if_fail (widget != NULL, FALSE);
-	g_signal_connect (G_OBJECT (widget), "toggled",
-	                  (GCallback) show_toggled_cb,
-	                  self);
 
-	/* Fill the VPN passwords *before* initializing the PW type combo, since
-	 * knowing if there is a password when initializing the type combo is helpful.
-	 */
-	setup_password_widget (self,
-	                       "user_password_entry",
-	                       s_vpn,
-	                       NM_SSTP_KEY_PASSWORD,
-	                       priv->new_connection);
 
-	init_password_icon (self,
-	                    s_vpn,
-	                    NM_SSTP_KEY_PASSWORD,
-	                    "user_password_entry");
+	if (s_vpn) {
+		contype = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
+		if (!NM_IN_STRSET (contype, NM_SSTP_CONTYPE_TLS,
+		                            NM_SSTP_CONTYPE_PASSWORD))
+			contype = NM_SSTP_CONTYPE_PASSWORD;
+	}
 
-	return TRUE;
+	store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING);
+    gtk_list_store_append (store, &iter);
+	gtk_list_store_set (store, &iter,
+	                    COL_AUTH_NAME, _("Certificates (TLS)"),
+	                    COL_AUTH_PAGE, 0,
+	                    COL_AUTH_TYPE, NM_SSTP_CONTYPE_TLS,
+	                    -1);
+    tls_setup(self, s_vpn, stuff_changed_cb);
+
+	gtk_list_store_append (store, &iter);
+	gtk_list_store_set (store, &iter,
+	                    COL_AUTH_NAME, _("Password"),
+	                    COL_AUTH_PAGE, 1,
+	                    COL_AUTH_TYPE, NM_SSTP_CONTYPE_PASSWORD,
+	                    -1);
+    pw_setup(self, s_vpn, stuff_changed_cb);
+
+	gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
+	g_object_unref (store);
+	g_signal_connect (widget, "changed", G_CALLBACK (auth_combo_changed_cb), self);
+	gtk_combo_box_set_active (GTK_COMBO_BOX (widget), 0);
+    
+    // TODO: track the "active" based on the connection-type property
+
+    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "advanced_button"));
+	g_signal_connect (G_OBJECT (widget), "clicked", G_CALLBACK (advanced_button_clicked_cb), self);
+    return TRUE;
 }
 
 static GObject *
@@ -353,6 +541,26 @@ save_password_and_flags (NMSettingVpn *s_vpn,
 	nm_setting_set_secret_flags (NM_SETTING (s_vpn), secret_key, flags, NULL);
 }
 
+static char *
+get_auth_type (GtkBuilder *builder)
+{
+	GtkComboBox *combo;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	char *auth_type;
+	gboolean success;
+
+	combo = GTK_COMBO_BOX (GTK_WIDGET (gtk_builder_get_object (builder, "auth_combo")));
+	model = gtk_combo_box_get_model (combo);
+
+	success = gtk_combo_box_get_active_iter (combo, &iter);
+	g_return_val_if_fail (success == TRUE, NULL);
+	gtk_tree_model_get (model, &iter, COL_AUTH_TYPE, &auth_type, -1);
+	return auth_type;
+}
+
+
+
 static gboolean
 update_connection (NMVpnEditor *iface,
                    NMConnection *connection,
@@ -361,9 +569,13 @@ update_connection (NMVpnEditor *iface,
 	SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (iface);
 	SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
 	NMSettingVpn *s_vpn;
+	NMSetting8021xCKScheme scheme;
+	NMSettingSecretFlags pw_flags;
+    NMACertChooser *chooser;
 	GtkWidget *widget;
+    gs_free char *auth_type = NULL;
 	const char *str;
-	gboolean valid = FALSE;
+    char *value;
 
 	if (!check_validity (self, error))
 		return FALSE;
@@ -374,55 +586,82 @@ update_connection (NMVpnEditor *iface,
 	/* Gateway */
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "gateway_entry"));
 	str = gtk_entry_get_text (GTK_ENTRY (widget));
-	if (str && strlen (str))
-		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_GATEWAY, str);
-
-	/* Username */
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_entry"));
-	str = gtk_entry_get_text (GTK_ENTRY (widget));
-	if (str && strlen (str))
-		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_USER, str);
-
-	/* User password and flags */
-	save_password_and_flags (s_vpn,
-	                         priv->builder,
-	                         "user_password_entry",
-	                         NM_SSTP_KEY_PASSWORD);
-
-	/* Domain */
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
-	str = gtk_entry_get_text (GTK_ENTRY (widget));
 	if (str && strlen (str)) {
-		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_DOMAIN, str);
+		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_GATEWAY, str);
     }
 
-	/* CA Certificate 
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "ca_cert_chooser"));
-	tmp = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (widget));
-	if (tmp && strlen(tmp)) {
-		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_CA_CERT, tmp);
-		g_free (tmp);
-	}
-    */
+    auth_type = get_auth_type (priv->builder);
+    if (auth_type) {
 
-	/* Ignore Certificate Warnings
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "cert_warn_checkbutton"));
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
-		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_IGN_CERT_WARN, "yes");
-	}
-    */
+        nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE, auth_type);
 
-	/* Enable TLS hostname extensions
-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_enable_checkbutton"));
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
-		nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_EXT_ENABLE, "yes");
-	}
-    */
+        if (!strcmp(auth_type, NM_SSTP_CONTYPE_PASSWORD)) {
 
-	/* Update the NM_SETTING object */
- 	if (priv->advanced)
+            /* Username */
+            widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_entry"));
+            str = gtk_entry_get_text (GTK_ENTRY (widget));
+            if (str && strlen (str)) {
+                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_USER, str);
+            }
+
+            /* User password and flags */
+            save_password_and_flags (s_vpn, priv->builder, "user_password_entry",
+                    NM_SSTP_KEY_PASSWORD);
+
+            /* Domain */
+            widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
+            str = gtk_entry_get_text (GTK_ENTRY (widget));
+            if (str && strlen (str)) {
+                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_DOMAIN, str);
+            }
+        }
+        else if (!strcmp(auth_type, NM_SSTP_CONTYPE_TLS)) {
+             
+            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
+
+            /* User certificate */
+            value = nma_cert_chooser_get_cert (chooser, &scheme);
+            if (value && *value) {
+                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT, value);
+                g_free (value);
+            }
+
+            /* User Certificate Key File */
+            value = nma_cert_chooser_get_key (chooser, &scheme);
+            if (value && *value) {
+                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY, value);
+                g_free (value);
+            }
+
+            /* User Certificate Key Password */
+            str = nma_cert_chooser_get_key_password (chooser);
+            if (str && *str) {
+                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET, str);
+            }
+
+            /* User Certificate Key Password Flags */
+            pw_flags = nma_cert_chooser_get_key_password_flags (chooser);
+            nm_setting_set_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_TLS_USER_KEY_SECRET, 
+                    pw_flags, NULL);
+
+            /* CA certificate for the EAP-TLS tunnel */
+            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
+            value = nma_cert_chooser_get_cert (chooser, &scheme);
+            if (value && *value) {
+                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT, value);
+                g_free (value);
+            }
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+	/* Account for the advanced options */
+ 	if (priv->advanced) {
  		g_hash_table_foreach (priv->advanced, hash_copy_advanced, s_vpn);
- 
+    }
+
 	/* Default to agent owned secret for new connections */
 	if (nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD)) {
 		nm_setting_set_secret_flags (NM_SETTING(s_vpn),
@@ -432,10 +671,10 @@ update_connection (NMVpnEditor *iface,
                                      NULL);
     }
 
+    /* Save the setting */
 	nm_connection_add_setting (connection, NM_SETTING (s_vpn));
-	valid = TRUE;
 
-	return valid;
+	return TRUE;
 }
 
 static void
@@ -473,9 +712,7 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 	}
 
 	priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (object);
-
 	priv->builder = gtk_builder_new ();
-
 	gtk_builder_set_translation_domain (priv->builder, GETTEXT_PACKAGE);
 	if (!gtk_builder_add_from_resource (priv->builder, "/org/freedesktop/network-manager-sstp/nm-sstp-dialog.ui", error)) {
 		g_object_unref (object);
