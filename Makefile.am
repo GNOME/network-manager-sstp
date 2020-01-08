@@ -132,6 +132,8 @@ plugin_sources = \
 editor_sources = \
 	$(shared_sources) \
 	shared/nm-utils/nm-vpn-plugin-utils.h \
+	shared/utils.h \
+	shared/utils.c \
 	properties/resources.c \
 	properties/resources.h \
 	properties/advanced-dialog.c \
