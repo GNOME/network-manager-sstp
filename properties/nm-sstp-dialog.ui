@@ -1347,6 +1347,8 @@ config: the first parameter of sstp</property>
       <widget name="label23"/>
       <widget name="label26"/>
       <widget name="label2"/>
+      <widget name="label27"/>
+      <widget name="auth_label"/>
     </widgets>
   </object>
 </interface>
