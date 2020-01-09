@@ -486,14 +486,10 @@ advanced_dialog_new (GHashTable *hash)
 
     cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
 	if (cert) {
-	    // nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels")));
-	    // g_signal_connect (G_OBJECT (cert), "changed", G_CALLBACK (stuff_changed_cb), self);
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_CA_CERT);
-        g_message("Certificate Choser : %s", value);
         if (value && strlen (value)) {
             nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
-	    // g_signal_connect_object (cert, "changed", G_CALLBACK (tls_cert_changed_cb), ca_chooser, 0);
     }
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
@@ -660,11 +656,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	
     cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
-    // g_return_val_if_fail (cert != NULL, NULL);
 	if (cert) {
-	    // nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels")));
-	    // g_signal_connect (G_OBJECT (cert), "changed", G_CALLBACK (stuff_changed_cb), self);
-
         value = nma_cert_chooser_get_cert(cert, &scheme);
         if (value && strlen (value)) {
             g_hash_table_insert (hash,
@@ -672,7 +664,6 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 								 (char*) value);
         }
     }
-	// g_signal_connect_object (cert, "changed", G_CALLBACK (tls_cert_changed_cb), ca_chooser, 0);
 
     /* Ignore Certificate Warnings */
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
