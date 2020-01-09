@@ -42,6 +42,7 @@
 #define NM_SSTP_KEY_PASSWORD_FLAGS    "password-flags"
 #define NM_SSTP_KEY_DOMAIN            "domain"
 #define NM_SSTP_KEY_CA_CERT           "ca-cert"
+#define NM_SSTP_KEY_CONNECTION_TYPE   "connection-type"
 #define NM_SSTP_KEY_IGN_CERT_WARN     "ignore-cert-warn"
 #define NM_SSTP_KEY_TLS_EXT_ENABLE    "tls-ext"
 #define NM_SSTP_KEY_REFUSE_EAP        "refuse-eap"
@@ -64,7 +65,15 @@
 #define NM_SSTP_KEY_PROXY_USER        "proxy-user"
 #define NM_SSTP_KEY_PROXY_PASSWORD    "proxy-password"
 #define NM_SSTP_KEY_PROXY_PASSWORD_FLAGS "proxy-password-flags"
+#define NM_SSTP_KEY_TLS_CA_CERT       "tls-ca-cert"
+#define NM_SSTP_KEY_TLS_USER_CERT     "tls-user-cert"
+#define NM_SSTP_KEY_TLS_USER_KEY      "tls-user-key"
+#define NM_SSTP_KEY_TLS_USER_KEY_SECRET "tls-user-key-secret"
 
 // TODO: We need to eliminate the password-flags and proxy-password-flags
+
+#define NM_SSTP_CONTYPE_PASSWORD     "password"
+#define NM_SSTP_CONTYPE_TLS          "tls"
+
 
 #endif /* __NM_SERVICE_DEFINES_H__ */
