@@ -29,16 +29,24 @@
 #define NM_NETWORKMANAGER_COMPILATION_LIB_EDITOR          0x0004
 #define NM_NETWORKMANAGER_COMPILATION_LIB                 (0x0002 | 0x0004)
 
-/* special flag, to indicate that we build a legacy library. That is, we link against
- * deprecated libnm-util/libnm-glib instead against libnm. */
-#define NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL     0x0010
+#ifndef NETWORKMANAGER_COMPILATION
+/* For convenience, we don't require our Makefile.am to define
+ * -DNETWORKMANAGER_COMPILATION. As we now include this internal header,
+ *  we know we do a NETWORKMANAGER_COMPILATION. */
+#define NETWORKMANAGER_COMPILATION NM_NETWORKMANAGER_COMPILATION_DEFAULT
+#endif
 
 /*****************************************************************************/
 
+#ifndef ___CONFIG_H__
+#define ___CONFIG_H__
 #include <config.h>
+#endif
 
 /* always include these headers for our internal source files. */
 
+#include "nm-utils/nm-glib.h"
+#include "nm-utils/gsystem-local-alloc.h"
 #include "nm-utils/nm-macros-internal.h"
 
 #include "nm-version.h"
@@ -58,7 +66,7 @@
 
 /*****************************************************************************/
 
-#if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
+#ifdef NM_VPN_OLD
 
 #define NM_VPN_LIBNM_COMPAT
 #include <nm-connection.h>
@@ -69,49 +77,34 @@
 #include <nm-utils.h>
 #include <nm-vpn-plugin-ui-interface.h>
 
-#define nm_simple_connection_new nm_connection_new
-#define NM_SETTING_IP_CONFIG NM_SETTING_IP4_CONFIG
-#define NM_SETTING_IP_CONFIG_METHOD NM_SETTING_IP4_CONFIG_METHOD
-#define NM_SETTING_IP_CONFIG_NEVER_DEFAULT NM_SETTING_IP4_CONFIG_NEVER_DEFAULT
-#define NMSettingIPConfig NMSettingIP4Config
-
 #define NMV_EDITOR_PLUGIN_ERROR                     NM_SETTING_VPN_ERROR
 #define NMV_EDITOR_PLUGIN_ERROR_FAILED              NM_SETTING_VPN_ERROR_UNKNOWN
 #define NMV_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY    NM_SETTING_VPN_ERROR_INVALID_PROPERTY
-#define NMV_EDITOR_PLUGIN_ERROR_MISSING_PROPERTY    NM_SETTING_VPN_ERROR_MISSING_PROPERTY
 #define NMV_EDITOR_PLUGIN_ERROR_FILE_NOT_VPN        NM_SETTING_VPN_ERROR_UNKNOWN
 #define NMV_EDITOR_PLUGIN_ERROR_FILE_NOT_READABLE   NM_SETTING_VPN_ERROR_UNKNOWN
-#define NMV_EDITOR_PLUGIN_ERROR_FILE_INVALID        NM_SETTING_VPN_ERROR_UNKNOWN
 
-#define _nm_utils_is_valid_iface_name(n)            nm_utils_iface_valid_name(n)
-
-#else /* NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL */
+#else /* !NM_VPN_OLD */
 
 #include <NetworkManager.h>
 
 #define NMV_EDITOR_PLUGIN_ERROR                     NM_CONNECTION_ERROR
 #define NMV_EDITOR_PLUGIN_ERROR_FAILED              NM_CONNECTION_ERROR_FAILED
 #define NMV_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY    NM_CONNECTION_ERROR_INVALID_PROPERTY
-#define NMV_EDITOR_PLUGIN_ERROR_MISSING_PROPERTY    NM_CONNECTION_ERROR_MISSING_PROPERTY
 #define NMV_EDITOR_PLUGIN_ERROR_FILE_NOT_VPN        NM_CONNECTION_ERROR_FAILED
 #define NMV_EDITOR_PLUGIN_ERROR_FILE_NOT_READABLE   NM_CONNECTION_ERROR_FAILED
-#define NMV_EDITOR_PLUGIN_ERROR_FILE_INVALID        NM_CONNECTION_ERROR_FAILED
 
-#define _nm_utils_is_valid_iface_name(n)            nm_utils_is_valid_iface_name(n, NULL)
-
-#endif /* NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL */
+#endif /* NM_VPN_OLD */
 
 /*****************************************************************************/
 
 #if (NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_LIB_EDITOR
 
-#if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
+#ifdef NM_VPN_OLD
 #include <nm-ui-utils.h>
-#include <nm-cert-chooser.h>
-#else
+#else /* NM_VPN_OLD */
 #include <nma-ui-utils.h>
 #include <nma-cert-chooser.h>
-#endif
+#endif /* NM_VPN_OLD */
 
 #endif /* NM_NETWORKMANAGER_COMPILATION_LIB_EDITOR */
 
