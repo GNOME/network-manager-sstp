@@ -31,11 +31,11 @@
 #define NM_SSTP_PLUGIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), NM_TYPE_SSTP_PLUGIN, NMSstpPluginClass))
 
 typedef struct {
-	NMVpnServicePlugin parent;
+    NMVpnServicePlugin parent;
 } NMSstpPlugin;
 
 typedef struct {
-	NMVpnServicePluginClass parent;
+    NMVpnServicePluginClass parent;
 } NMSstpPluginClass;
 
 GType nm_sstp_plugin_get_type (void);
