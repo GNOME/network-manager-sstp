@@ -26,7 +26,6 @@
 
 #include <gtk/gtk.h>
 
-// TODO: #include <glib/gi18n-lib.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <errno.h>
@@ -135,9 +134,10 @@ check_validity (SstpPluginUiWidget *self, GError **error)
 
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "gateway_entry"));
 	g_return_val_if_fail (widget, FALSE);
-
 	str = gtk_entry_get_text (GTK_ENTRY (widget));
-	if (!str || !strlen (str)) { // check_gateway_entry (ipv4|ipv6|hostname:port)
+	if (str != NULL && strlen (str) > 0) {
+		gtk_style_context_remove_class (gtk_widget_get_style_context (widget), "error");
+    } else {
 		gtk_style_context_add_class (gtk_widget_get_style_context (widget), "error");
 		g_set_error (error,
 		             NMV_EDITOR_PLUGIN_ERROR,
@@ -210,8 +210,9 @@ advanced_dialog_response_cb (GtkWidget *dialog, gint response, gpointer user_dat
 		return;
 	}
 
-	if (priv->advanced)
+	if (priv->advanced) {
 		g_hash_table_destroy (priv->advanced);
+    }
 	priv->advanced = advanced_dialog_new_hash_from_dialog (dialog, &error);
 	if (!priv->advanced) {
 		g_message ("%s: error reading advanced settings: %s", __func__, error->message);
@@ -426,12 +427,12 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
 
     /* Gateway */
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "gateway_entry"));
-	if (!widget)
-		return FALSE;
+	g_return_val_if_fail (widget != NULL, FALSE);
 	if (s_vpn) {
 		value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_GATEWAY);
-		if (value && strlen (value))
+		if (value && strlen (value)) {
 			gtk_entry_set_text (GTK_ENTRY (widget), value);
+        }
 	}
 	g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (stuff_changed_cb), self);
 
