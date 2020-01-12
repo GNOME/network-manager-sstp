@@ -131,19 +131,22 @@ static const ValidProperty valid_properties[] = {
     { NM_SSTP_KEY_LCP_ECHO_FAILURE,  G_TYPE_UINT, FALSE },
     { NM_SSTP_KEY_LCP_ECHO_INTERVAL, G_TYPE_UINT, FALSE },
     { NM_SSTP_KEY_UNIT_NUM,          G_TYPE_UINT, FALSE },
-    { NM_SSTP_KEY_PASSWORD_FLAGS,    G_TYPE_UINT, FALSE },
     { NM_SSTP_KEY_PROXY_SERVER,      G_TYPE_STRING, FALSE },
     { NM_SSTP_KEY_PROXY_PORT,        G_TYPE_UINT, FALSE },
     { NM_SSTP_KEY_PROXY_USER,        G_TYPE_STRING, FALSE },
     { NM_SSTP_KEY_PROXY_PASSWORD_FLAGS, G_TYPE_STRING, FALSE },
     { NM_SSTP_KEY_UUID,              G_TYPE_STRING, FALSE },
+    { NM_SSTP_KEY_TLS_CA_CERT,       G_TYPE_STRING, FALSE },
+    { NM_SSTP_KEY_TLS_USER_CERT,     G_TYPE_STRING, FALSE },
+    { NM_SSTP_KEY_TLS_USER_KEY,      G_TYPE_STRING, FALSE },
     { NULL,                          G_TYPE_NONE, FALSE }
 };
 
 static const ValidProperty valid_secrets[] = {
-    { NM_SSTP_KEY_PASSWORD,          G_TYPE_STRING, FALSE },
-    { NM_SSTP_KEY_PROXY_PASSWORD,    G_TYPE_STRING, FALSE },
-    { NULL,                          G_TYPE_NONE,   FALSE }
+    { NM_SSTP_KEY_PASSWORD,             G_TYPE_STRING, FALSE },
+    { NM_SSTP_KEY_PROXY_PASSWORD,       G_TYPE_STRING, FALSE },
+    { NM_SSTP_KEY_TLS_USER_KEY_SECRET,  G_TYPE_STRING, FALSE },
+    { NULL,                             G_TYPE_NONE,   FALSE }
 };
 
 static gboolean
@@ -1266,7 +1269,7 @@ main (int argc, char *argv[])
                                                  10, 0, LOG_DEBUG,
                                                  gl.debug ? LOG_INFO : LOG_NOTICE);
     
-     _LOGD ("nm-sstp-service (version " DIST_VERSION ") starting...");
+    _LOGD ("nm-sstp-service (version " DIST_VERSION ") starting...");
     _LOGD ("   uses%s --bus-name \"%s\"", bus_name_free ? "" : " default", bus_name);
        
     setenv ("NM_VPN_LOG_LEVEL", nm_sprintf_buf (sbuf, "%d", gl.log_level), TRUE);

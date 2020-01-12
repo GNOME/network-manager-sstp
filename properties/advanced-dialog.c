@@ -32,6 +32,9 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include "utils.h"
+#include "nm-utils/nm-shared-utils.h"
+
 #define COL_NAME  0
 #define COL_VALUE 1
 #define COL_TAG 2
@@ -63,9 +66,9 @@ static const char *advanced_keys[] = {
 	NM_SSTP_KEY_PROXY_PORT,
 	NM_SSTP_KEY_PROXY_USER,
 	NM_SSTP_KEY_PROXY_PASSWORD,
-    NM_SSTP_KEY_IGN_CERT_WARN,
-    NM_SSTP_KEY_TLS_EXT_ENABLE,
-    NM_SSTP_KEY_CA_CERT,
+	NM_SSTP_KEY_IGN_CERT_WARN,
+	NM_SSTP_KEY_TLS_EXT_ENABLE,
+	NM_SSTP_KEY_CA_CERT,
 	NULL
 };
 
@@ -99,11 +102,11 @@ copy_values (const char *key, const char *value, gpointer user_data)
 
 GHashTable *
 advanced_dialog_new_hash_from_connection (NMConnection *connection,
-                                         GError **error)
+							             GError **error)
 {
 	GHashTable *hash;
 	NMSettingVpn *s_vpn;
-	const char *secret = NULL;
+	const char *secret;
 	NMSettingSecretFlags flags;
 
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
@@ -189,7 +192,7 @@ static void handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder 
 		case TAG_PAP:
 		case TAG_CHAP:
 			gtk_list_store_set (GTK_LIST_STORE (model), &iter, COL_SENSITIVE, !(use_mppe && mppe_sensitive), -1);
-            break;
+			break;
 		default:
 			break;
 		}
@@ -303,7 +306,7 @@ check_toggled_cb (GtkCellRendererToggle *cell, gchar *path_str, gpointer user_da
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
 		gtk_widget_set_sensitive (widget, FALSE);
 	} else {
-	    gtk_widget_set_sensitive (widget, mschap_state || mschap2_state);
+		gtk_widget_set_sensitive (widget, mschap_state || mschap2_state);
 	}
 	/* Make sure also MPPE security combo and stateful checkbox are non-sensitive */
 	mppe_toggled_cb (widget, builder);
@@ -324,7 +327,7 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	gint offset;
 	gboolean mschap_state = TRUE;
 	gboolean mschap2_state = TRUE;
-    gboolean eap_state = TRUE;
+	gboolean eap_state = TRUE;
 
 	store = gtk_list_store_new (4, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_UINT, G_TYPE_BOOLEAN);
 
@@ -350,11 +353,11 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 		allowed = FALSE;
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter,
-	                    COL_NAME, _("PAP"),
-	                    COL_VALUE, allowed,
-	                    COL_TAG, TAG_PAP,
-	                    COL_SENSITIVE, !use_mppe,
-	                    -1);
+						COL_NAME, _("PAP"),
+						COL_VALUE, allowed,
+						COL_TAG, TAG_PAP,
+						COL_SENSITIVE, !use_mppe,
+						-1);
 
 	/* CHAP */
 	value = g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_CHAP);
@@ -363,11 +366,11 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 		allowed = FALSE;
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter,
-	                    COL_NAME, _("CHAP"),
-	                    COL_VALUE, allowed,
-	                    COL_TAG, TAG_CHAP,
-	                    COL_SENSITIVE, !use_mppe,
-	                    -1);
+						COL_NAME, _("CHAP"),
+						COL_VALUE, allowed,
+						COL_TAG, TAG_CHAP,
+						COL_SENSITIVE, !use_mppe,
+						-1);
 
 	/* MSCHAP */
 	value = g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_MSCHAP);
@@ -375,11 +378,11 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	mschap_state = allowed;
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter,
-	                    COL_NAME, _("MSCHAP"),
-	                    COL_VALUE, allowed,
-	                    COL_TAG, TAG_MSCHAP,
-	                    COL_SENSITIVE, TRUE,
-	                    -1);
+						COL_NAME, _("MSCHAP"),
+						COL_VALUE, allowed,
+						COL_TAG, TAG_MSCHAP,
+						COL_SENSITIVE, TRUE,
+						-1);
 
 	/* MSCHAPv2 */
 	value = g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_MSCHAPV2);
@@ -387,23 +390,23 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	mschap2_state = allowed;
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter,
-	                    COL_NAME, _("MSCHAPv2"),
-	                    COL_VALUE, allowed,
-	                    COL_TAG, TAG_MSCHAPV2,
-	                    COL_SENSITIVE, TRUE,
-	                    -1);
+						COL_NAME, _("MSCHAPv2"),
+						COL_VALUE, allowed,
+						COL_TAG, TAG_MSCHAPV2,
+						COL_SENSITIVE, TRUE,
+						-1);
 
-    /* EAP */
+	/* EAP */
 	value = g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_EAP);
 	allowed = (value && !strcmp (value, "yes")) ? FALSE : TRUE;
-    eap_state = allowed;
+	eap_state = allowed;
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter,
-	                    COL_NAME, _("EAP"),
-	                    COL_VALUE, allowed,
-	                    COL_TAG, TAG_EAP,
-	                    COL_SENSITIVE, TRUE,
-	                    -1);
+						COL_NAME, _("EAP"),
+						COL_VALUE, allowed,
+						COL_TAG, TAG_EAP,
+						COL_SENSITIVE, TRUE,
+						-1);
 
 	/* Set up the tree view */
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
@@ -413,11 +416,11 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 	g_signal_connect (check_renderer, "toggled", G_CALLBACK (check_toggled_cb), builder);
 
 	offset = gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (widget),
-	                                                      -1, "", GTK_CELL_RENDERER (check_renderer),
-	                                                      "active", COL_VALUE,
-	                                                      "sensitive", COL_SENSITIVE,
-	                                                      "activatable", COL_SENSITIVE,
-	                                                      NULL);
+														  -1, "", GTK_CELL_RENDERER (check_renderer),
+														  "active", COL_VALUE,
+														  "sensitive", COL_SENSITIVE,
+														  "activatable", COL_SENSITIVE,
+														  NULL);
 	column = gtk_tree_view_get_column (GTK_TREE_VIEW (widget), offset - 1);
 	gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column), GTK_TREE_VIEW_COLUMN_FIXED);
 	gtk_tree_view_column_set_fixed_width (GTK_TREE_VIEW_COLUMN (column), 30);
@@ -425,10 +428,10 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 
 	text_renderer = gtk_cell_renderer_text_new ();
 	offset = gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (widget),
-	                                                      -1, "", text_renderer,
-	                                                      "text", COL_NAME,
-	                                                      "sensitive", COL_SENSITIVE,
-	                                                      NULL);
+														  -1, "", text_renderer,
+														  "text", COL_NAME,
+														  "sensitive", COL_SENSITIVE,
+														  NULL);
 	column = gtk_tree_view_get_column (GTK_TREE_VIEW (widget), offset - 1);
 	gtk_tree_view_column_set_expand (GTK_TREE_VIEW_COLUMN (column), TRUE);
 
@@ -455,11 +458,12 @@ advanced_dialog_new (GHashTable *hash)
 	GtkBuilder *builder;
 	GtkWidget *dialog = NULL;
 	GtkWidget *widget, *spin;
-    NMACertChooser *cert;
+	NMACertChooser *cert;
 	const char *value;
 	const char *value2;
 	gboolean mppe = FALSE;
 	GError *error = NULL;
+	NMSettingSecretFlags pw_flags;
 
 	g_return_val_if_fail (hash != NULL, NULL);
 
@@ -468,7 +472,7 @@ advanced_dialog_new (GHashTable *hash)
 	gtk_builder_set_translation_domain (builder, GETTEXT_PACKAGE);
 	if (!gtk_builder_add_from_resource (builder, "/org/freedesktop/network-manager-sstp/nm-sstp-dialog.ui", &error)) {
 		g_warning ("Couldn't load builder file: %s",
-		           error ? error->message : "(unknown)");
+				   error ? error->message : "(unknown)");
 		g_clear_error (&error);
 		g_object_unref (G_OBJECT (builder));
 		return NULL;
@@ -482,27 +486,27 @@ advanced_dialog_new (GHashTable *hash)
 	gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
 
 	g_object_set_data_full (G_OBJECT (dialog), "gtkbuilder-xml",
-	                        builder, (GDestroyNotify) g_object_unref);
+							builder, (GDestroyNotify) g_object_unref);
 
-    cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
+	cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
 	if (cert) {
-        value = g_hash_table_lookup (hash, NM_SSTP_KEY_CA_CERT);
-        if (value && strlen (value)) {
-            nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
-        }
-    }
+		value = g_hash_table_lookup (hash, NM_SSTP_KEY_CA_CERT);
+		if (value && strlen (value)) {
+			nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
+		}
+	}
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
-    value = g_hash_table_lookup (hash, NM_SSTP_KEY_IGN_CERT_WARN);
-    if (value && !strcmp (value, "yes")) {
+	value = g_hash_table_lookup (hash, NM_SSTP_KEY_IGN_CERT_WARN);
+	if (value && !strcmp (value, "yes")) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
-    }
+	}
 	
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_hostext_checkbutton"));
-    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_EXT_ENABLE);
-    if (value && !strcmp (value, "yes")) {
+	value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_EXT_ENABLE);
+	if (value && !strcmp (value, "yes")) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
-    }
+	}
 
 	setup_security_combo (builder, hash);
 
@@ -592,16 +596,16 @@ advanced_dialog_new (GHashTable *hash)
 		}
 		
 		value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_PASSWORD_FLAGS);
-		if (value && strlen (value)) {
-			errno = 0; 
-			tmp = strtol (value, NULL, 10); 
-			if (errno != 0 || tmp < 0 || tmp > 65535)
-				tmp = 0; 
-			widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_password_entry"));
-			g_object_set_data (G_OBJECT (widget), "flags", GUINT_TO_POINTER ((guint32) tmp));
-		}
+		G_STATIC_ASSERT_EXPR (((guint) (NMSettingSecretFlags) 0xFFFFu) == 0xFFFFu);
+		pw_flags = _nm_utils_ascii_str_to_int64 (value, 10, 0, 0xFFFF, NM_SETTING_SECRET_FLAG_NONE);
+	} else {
+		pw_flags = NM_SETTING_SECRET_FLAG_NONE;
 	}
-	
+
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_password_entry"));
+	nma_utils_setup_password_storage (widget, pw_flags, NULL, NULL,
+									  TRUE, FALSE);
+
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "show_proxy_password"));
 	g_signal_connect (G_OBJECT (widget), "toggled", G_CALLBACK (show_proxy_password_toggled_cb), builder);
 	
@@ -641,7 +645,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 	GtkBuilder *builder;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-    NMACertChooser *cert;
+	NMACertChooser *cert;
 	NMSetting8021xCKScheme scheme;
 	gboolean valid;
 	const char *value;
@@ -655,17 +659,17 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 
 	hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	
-    cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
+	cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
 	if (cert) {
-        value = nma_cert_chooser_get_cert(cert, &scheme);
-        if (value && strlen (value)) {
-            g_hash_table_insert (hash,
+		value = nma_cert_chooser_get_cert(cert, &scheme);
+		if (value && strlen (value)) {
+			g_hash_table_insert (hash,
 								 g_strdup (NM_SSTP_KEY_CA_CERT),
 								 (char*) value);
-        }
-    }
+		}
+	}
 
-    /* Ignore Certificate Warnings */
+	/* Ignore Certificate Warnings */
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
 		g_hash_table_insert (hash, g_strdup(NM_SSTP_KEY_IGN_CERT_WARN), g_strdup("yes"));
@@ -677,7 +681,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_TLS_EXT_ENABLE), g_strdup ("yes"));
 	}
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while (valid) {
@@ -703,8 +707,8 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAPV2), g_strdup ("yes"));
 			break;
 		case TAG_EAP:
-            if (!allowed)
-			    g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_EAP), g_strdup ("yes"));
+			if (!allowed)
+				g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_EAP), g_strdup ("yes"));
 			break;
 		default:
 			break;
@@ -752,21 +756,22 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_LCP_ECHO_INTERVAL), g_strdup_printf ("%d", 30));
 	}
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_checkbutton"));
+	widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_checkbutton"));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
 		int unit_num;
 
 		widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
 		unit_num = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
 		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_UNIT_NUM),
-		                     g_strdup_printf ("%d", unit_num));
+						 	g_strdup_printf ("%d", unit_num));
 	}
 
+	/* Proxy support */
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_server_entry"));
 	value = (char *) gtk_entry_get_text (GTK_ENTRY (widget));
 	if (value && strlen(value))
 	{
-		guint32 pw_flags;
+		NMSettingSecretFlags pw_flags;
 		int proxy_port;
 		
 		g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_PROXY_SERVER), g_strdup (value));
@@ -793,15 +798,15 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 								 g_strdup (NM_SSTP_KEY_PROXY_PASSWORD),
 								 g_strdup (value));
 		}
-		
-		pw_flags = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (widget), "flags"));
+
+		pw_flags = nma_utils_menu_to_secret_flags (widget);
 		if (pw_flags != NM_SETTING_SECRET_FLAG_NONE) {
 			g_hash_table_insert (hash,
 								 g_strdup (NM_SSTP_KEY_PROXY_PASSWORD_FLAGS),
 								 g_strdup_printf ("%d", pw_flags));
 		}
 	}
-    
+	
 	return hash;
 }
 

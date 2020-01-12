@@ -499,42 +499,14 @@ hash_copy_advanced (gpointer key, gpointer data, gpointer user_data)
     /* Special handling of the secrets */
     if (!strcmp(NM_SSTP_KEY_PROXY_PASSWORD, (const char *) key))
     {
-        nm_setting_vpn_add_secret (s_vpn, (const char *) key, 
-                          (const char *) data);
+        if (data && *(const char*) data) {
+            nm_setting_vpn_add_secret (s_vpn, (const char *) key, 
+                              (const char *) data);
+        }
         return;
     }
 
     nm_setting_vpn_add_data_item (s_vpn, (const char *) key, (const char *) data);
-}
-
-static void
-save_password_and_flags (NMSettingVpn *s_vpn,
-                         GtkBuilder *builder,
-                         const char *entry_name,
-                         const char *secret_key)
-{
-    NMSettingSecretFlags flags;
-    const char *password;
-    GtkWidget *entry;
-
-    /* Get secret flags */
-    entry = GTK_WIDGET (gtk_builder_get_object (builder, entry_name));
-    flags = nma_utils_menu_to_secret_flags (entry);
-
-    /* Save password and convert flags to legacy data items */
-    switch (flags) {
-    case NM_SETTING_SECRET_FLAG_NONE:
-    case NM_SETTING_SECRET_FLAG_AGENT_OWNED:
-        password = gtk_entry_get_text (GTK_ENTRY (entry));
-        if (password && strlen (password))
-            nm_setting_vpn_add_secret (s_vpn, secret_key, password);
-        break;
-    default:
-        break;
-    }
-
-    /* Set new secret flags */
-    nm_setting_set_secret_flags (NM_SETTING (s_vpn), secret_key, flags, NULL);
 }
 
 static char *
@@ -564,7 +536,7 @@ update_connection (NMVpnEditor *iface,
     SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
     NMSettingVpn *s_vpn;
     NMSetting8021xCKScheme scheme;
-    NMSettingSecretFlags pw_flags;
+    NMSettingSecretFlags flags;
     NMACertChooser *chooser;
     GtkWidget *widget;
     gs_free char *auth_type = NULL;
@@ -599,9 +571,16 @@ update_connection (NMVpnEditor *iface,
                 nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_USER, str);
             }
 
-            /* User password and flags */
-            save_password_and_flags (s_vpn, priv->builder, "user_password_entry",
-                    NM_SSTP_KEY_PASSWORD);
+            /* User password */
+            widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_password_entry"));
+            str = gtk_entry_get_text (GTK_ENTRY (widget));
+            if (str && *str) {
+                nm_setting_vpn_add_secret (s_vpn, NM_SSTP_KEY_PASSWORD, str);
+            }
+
+            /* User password flags */
+            flags = nma_utils_menu_to_secret_flags (widget);
+            nm_setting_set_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, flags, NULL);
 
             /* Domain */
             widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
@@ -635,9 +614,9 @@ update_connection (NMVpnEditor *iface,
             }
 
             /* User Certificate Key Password Flags */
-            pw_flags = nma_cert_chooser_get_key_password_flags (chooser);
+            flags = nma_cert_chooser_get_key_password_flags (chooser);
             nm_setting_set_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_TLS_USER_KEY_SECRET, 
-                    pw_flags, NULL);
+                    flags, NULL);
 
             /* CA certificate for the EAP-TLS tunnel */
             chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
@@ -658,17 +637,31 @@ update_connection (NMVpnEditor *iface,
     }
 
     /* Default to agent owned secret for new connections */
-    if (nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD)) {
-        nm_setting_set_secret_flags (NM_SETTING(s_vpn),
-                                     NM_SSTP_KEY_PROXY_PASSWORD,
-                                     NM_SETTING_SECRET_FLAG_NONE,
-                                     // NM_SETTING_SECRET_FLAG_AGENT_OWNED,
-                                     NULL);
+    if (priv->new_connection) {
+        if (nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PASSWORD)) {
+            nm_setting_set_secret_flags (NM_SETTING(s_vpn),
+                                         NM_SSTP_KEY_PASSWORD,
+                                         NM_SETTING_SECRET_FLAG_AGENT_OWNED,
+                                         NULL);
+        }
+
+        if (nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET)) {
+            nm_setting_set_secret_flags (NM_SETTING(s_vpn),
+                                         NM_SSTP_KEY_TLS_USER_KEY_SECRET,
+                                         NM_SETTING_SECRET_FLAG_AGENT_OWNED,
+                                         NULL);
+        }
+
+        if (nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD)) {
+            nm_setting_set_secret_flags (NM_SETTING(s_vpn),
+                                         NM_SSTP_KEY_PROXY_PASSWORD,
+                                         NM_SETTING_SECRET_FLAG_AGENT_OWNED,
+                                         NULL);
+        }
     }
 
     /* Save the setting */
     nm_connection_add_setting (connection, NM_SETTING (s_vpn));
-
     return TRUE;
 }
 

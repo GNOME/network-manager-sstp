@@ -21,7 +21,7 @@
  */
 
 #include <config.h>
-#define ___CONFIG_H__
+#define __CONFIG_H__
 
 /* pppd headers *sigh* */
 #include <pppd/pppd.h>
@@ -44,9 +44,8 @@
 #include <unistd.h>
 #include <sstp-client/sstp-api.h>
 
-#include "nm-sstp-service.h"
 #include "nm-ppp-status.h"
-
+#include "nm-sstp-service.h"
 #include "nm-utils/nm-shared-utils.h"
 #include "nm-utils/nm-vpn-plugin-macros.h"
 
