@@ -496,17 +496,13 @@ hash_copy_advanced (gpointer key, gpointer data, gpointer user_data)
 {
     NMSettingVpn *s_vpn = NM_SETTING_VPN (user_data);
     
-    /* Special handling of the secrets */
-    if (!strcmp(NM_SSTP_KEY_PROXY_PASSWORD, (const char *) key))
-    {
-        if (data && *(const char*) data) {
-            nm_setting_vpn_add_secret (s_vpn, (const char *) key, 
-                              (const char *) data);
-        }
-        return;
+    /* HTTP Proxy password is a secret, not a data item */
+    if (NM_IN_SET (key, NM_SSTP_KEY_PROXY_PASSWORD)) {
+        nm_setting_vpn_add_secret (s_vpn, (const char *) key, 
+                          (const char *) data);
+    } else {
+        nm_setting_vpn_add_data_item (s_vpn, (const char *) key, (const char *) data);
     }
-
-    nm_setting_vpn_add_data_item (s_vpn, (const char *) key, (const char *) data);
 }
 
 static char *
@@ -632,7 +628,7 @@ update_connection (NMVpnEditor *iface,
     }
 
     /* Account for the advanced options */
-     if (priv->advanced) {
+    if (priv->advanced) {
          g_hash_table_foreach (priv->advanced, hash_copy_advanced, s_vpn);
     }
 

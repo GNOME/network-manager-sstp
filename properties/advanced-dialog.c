@@ -122,24 +122,21 @@ advanced_dialog_new_hash_from_connection (NMConnection *connection,
                              g_strdup(secret));
     }
     
-    if (nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PROXY_PASSWORD, &flags, NULL))
-    {
+    if (nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PROXY_PASSWORD, &flags, NULL)) {
         g_hash_table_insert (hash,
                              g_strdup(NM_SSTP_KEY_PROXY_PASSWORD_FLAGS),
                              g_strdup_printf("%d", flags));
     }
     
     /* Default to disable PAP */
-    if (!g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_PAP))
-    {
+    if (!g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_PAP)) {
         g_hash_table_insert (hash,
                              g_strdup(NM_SSTP_KEY_REFUSE_PAP),
                              g_strdup("yes"));
     }
 
     /* Default to disable CHAP */
-    if (!g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_CHAP))
-    {
+    if (!g_hash_table_lookup (hash, NM_SSTP_KEY_REFUSE_CHAP)) {
         g_hash_table_insert (hash,
                              g_strdup(NM_SSTP_KEY_REFUSE_CHAP),
                              g_strdup("yes"));
