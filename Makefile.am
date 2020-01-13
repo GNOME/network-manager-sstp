@@ -41,14 +41,18 @@ EXTRA_DIST += \
 	shared/README
 
 src_cppflags = \
+	-DNM_SSTP_LOCALEDIR=\"$(datadir)/locale\" \
+	-DNM_SSTP_STATEDIR=\"$(sstp_statedir)\" \
+	-DPLUGINDIR=\"$(PPPD_PLUGIN_DIR)\" \
+	-DG_LOG_DOMAIN=\"nm-openvpn\" \
+	-DNETWORKMANAGER_COMPILATION=NM_NETWORKMANAGER_COMPILATION_DEFAULT \
+	-I$(builddir)/src \
+	-I$(top_srcdir)/shared \
 	$(GLIB_CFLAGS) \
 	$(LIBNM_CFLAGS) \
 	$(SSTPC_CFLAGS) \
-	-I$(top_srcdir)/shared \
-	-I$(builddir)/src \
-	-DNM_SSTP_LOCALEDIR=\"$(datadir)/locale\" \
-	-DNM_SSTP_STATEDIR=\"$(sstp_statedir)\" \
-	-DPLUGINDIR=\"$(PPPD_PLUGIN_DIR)\"
+
+
 
 ###############################################################################
 
@@ -179,7 +183,9 @@ properties_libnm_vpn_plugin_sstp_la_LDFLAGS = \
 
 ###############################################################################
 
+if WITH_GNOME
 plugin_LTLIBRARIES += properties/libnm-vpn-plugin-sstp-editor.la
+endif
 
 properties_libnm_vpn_plugin_sstp_editor_la_SOURCES = \
 	$(editor_sources)
@@ -210,20 +216,23 @@ properties_libnm_sstp_properties_la_SOURCES = \
 	shared/nm-utils/nm-glib.h \
 	$(plugin_sources) \
 	$(editor_sources)
+
 properties_libnm_sstp_properties_la_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBNM_GLIB_CFLAGS) \
 	$(LIBNM_GTK_CFLAGS)
+
 properties_libnm_sstp_properties_la_CPPFLAGS = \
-	-DNETWORKMANAGER_COMPILATION=NM_NETWORKMANAGER_COMPILATION_LIB \
-	-DNM_VPN_OLD \
+	-DNETWORKMANAGER_COMPILATION='NM_NETWORKMANAGER_COMPILATION_LIB|NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL' \
 	$(properties_cppflags)
+
 properties_libnm_sstp_properties_la_LIBADD = \
 	$(GLIB_LIBS) \
 	$(GTK_LIBS) \
 	$(LIBNM_GLIB_LIBS) \
 	$(LIBNM_GLIB_LIBS)
+
 properties_libnm_sstp_properties_la_LDFLAGS = \
 	-avoid-version \
 	-Wl,--version-script="$(srcdir)/properties/libnm-sstp-properties.ver"
