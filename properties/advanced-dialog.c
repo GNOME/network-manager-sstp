@@ -688,24 +688,24 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
         gtk_tree_model_get (model, &iter, COL_VALUE, &allowed, COL_TAG, &tag, -1);
         switch (tag) {
         case TAG_PAP:
-            if (!allowed)
-                g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_PAP), g_strdup ("yes"));
+            g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_PAP), !allowed 
+                    ? g_strdup ("yes") : g_strdup("no"));
             break;
         case TAG_CHAP:
-            if (!allowed)
-                g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_CHAP), g_strdup ("yes"));
+            g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_CHAP), !allowed
+                    ? g_strdup ("yes") : g_strdup("no"));
             break;
         case TAG_MSCHAP:
-            if (!allowed)
-                g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAP), g_strdup ("yes"));
+            g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAP), !allowed
+                    ? g_strdup ("yes") : g_strdup("no"));
             break;
         case TAG_MSCHAPV2:
-            if (!allowed)
-                g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAPV2), g_strdup ("yes"));
+            g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_MSCHAPV2), !allowed
+                    ? g_strdup ("yes") : g_strdup("no"));
             break;
         case TAG_EAP:
-            if (!allowed)
-                g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_EAP), g_strdup ("yes"));
+            g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_REFUSE_EAP), !allowed
+                    ? g_strdup ("yes") : g_strdup("no"));
             break;
         default:
             break;
