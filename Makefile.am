@@ -44,14 +44,13 @@ src_cppflags = \
 	-DNM_SSTP_LOCALEDIR=\"$(datadir)/locale\" \
 	-DNM_SSTP_STATEDIR=\"$(sstp_statedir)\" \
 	-DPLUGINDIR=\"$(PPPD_PLUGIN_DIR)\" \
-	-DG_LOG_DOMAIN=\"nm-openvpn\" \
+	-DG_LOG_DOMAIN=\"nm-sstp\" \
 	-DNETWORKMANAGER_COMPILATION=NM_NETWORKMANAGER_COMPILATION_DEFAULT \
 	-I$(builddir)/src \
 	-I$(top_srcdir)/shared \
 	$(GLIB_CFLAGS) \
 	$(LIBNM_CFLAGS) \
-	$(SSTPC_CFLAGS) \
-
+	$(SSTPC_CFLAGS)
 
 
 ###############################################################################
@@ -93,6 +92,8 @@ libexec_PROGRAMS += src/nm-sstp-service
 
 src_nm_sstp_service_SOURCES = \
 	$(shared_sources) \
+	shared/utils.c \
+	shared/utils.h \
 	shared/nm-service-defines.h \
 	src/nm-ppp-status.h \
 	src/nm-sstp-service.h \
@@ -245,6 +246,8 @@ endif
 
 auth_dialog_nm_sstp_auth_dialog_SOURCES = \
 	$(shared_sources) \
+	shared/utils.c \
+	shared/utils.h \
 	properties/resources.c \
 	properties/resources.h \
 	auth-dialog/main.c

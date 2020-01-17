@@ -2,7 +2,7 @@
 name=sstp
 service=org.freedesktop.NetworkManager.sstp
 program=@LIBEXECDIR@/nm-sstp-service
-supports-multiple-connections=true
+supports-multiple-connections=false
 
 [libnm]
 plugin=@PLUGINDIR@/libnm-vpn-plugin-sstp.so
@@ -11,3 +11,4 @@ plugin=@PLUGINDIR@/libnm-vpn-plugin-sstp.so
 auth-dialog=@LIBEXECDIR@/nm-sstp-auth-dialog
 properties=@PLUGINDIR@/libnm-sstp-properties
 supports-external-ui-mode=true
+supports-hints=true
