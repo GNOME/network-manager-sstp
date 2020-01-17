@@ -44,6 +44,7 @@
 #define NM_SSTP_KEY_CONNECTION_TYPE             "connection-type"
 #define NM_SSTP_KEY_IGN_CERT_WARN               "ignore-cert-warn"
 #define NM_SSTP_KEY_TLS_EXT_ENABLE              "tls-ext"
+#define NM_SSTP_KEY_NOSECRET                    "no-secret"
 #define NM_SSTP_KEY_REFUSE_EAP                  "refuse-eap"
 #define NM_SSTP_KEY_REFUSE_PAP                  "refuse-pap"
 #define NM_SSTP_KEY_REFUSE_CHAP                 "refuse-chap"
