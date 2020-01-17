@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*- */
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: s; c-basic-offset: 4 -*- */
 /* nm-sstp-service - SSTP VPN integration with NetworkManager
  *
  * Dan Williams <dcbw@redhat.com>
@@ -43,6 +43,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
+#include "utils.h"
 #include "nm-ppp-status.h"
 #include "nm-sstp-pppd-service-dbus.h"
 #include "nm-utils/nm-shared-utils.h"
@@ -114,6 +115,7 @@ static const ValidProperty valid_properties[] = {
     { NM_SSTP_KEY_USER,                      G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_PASSWORD_FLAGS,            G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_DOMAIN,                    G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_CONNECTION_TYPE,           G_TYPE_STRING,  TRUE  },
     { NM_SSTP_KEY_CA_CERT,                   G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_IGN_CERT_WARN,             G_TYPE_BOOLEAN, FALSE },
     { NM_SSTP_KEY_TLS_EXT_ENABLE,            G_TYPE_BOOLEAN, FALSE },
@@ -137,6 +139,7 @@ static const ValidProperty valid_properties[] = {
     { NM_SSTP_KEY_PROXY_USER,                G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_PROXY_PASSWORD_FLAGS,      G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_UUID,                      G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_NOSECRET,                  G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_CA_CERT,               G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_CERT,             G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_KEY,              G_TYPE_STRING,  FALSE },
@@ -148,8 +151,31 @@ static const ValidProperty valid_secrets[] = {
     { NM_SSTP_KEY_PASSWORD,                  G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_PROXY_PASSWORD,            G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_KEY_SECRET,       G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_NOSECRET,                  G_TYPE_STRING,  FALSE },
     { NULL,                                  G_TYPE_NONE,    FALSE }
 };
+
+static void
+args_add_str_take (GPtrArray *args, char *arg)
+{
+    nm_assert (args);
+    nm_assert (arg);
+
+    g_ptr_array_add (args, arg);
+}
+
+static const char *
+args_add_utf8safe_str (GPtrArray *args, const char *arg)
+{
+    char *arg_unescaped;
+
+    nm_assert (args);
+    nm_assert (arg);
+
+    arg_unescaped = nm_utils_str_utf8safe_unescape_cp (arg);
+    args_add_str_take (args, arg_unescaped);
+    return arg_unescaped;
+}
 
 static gboolean
 validate_gateway (const char *gateway)
@@ -296,19 +322,15 @@ nm_sstp_properties_validate (NMSettingVpn *s_vpn,
 static gboolean
 nm_sstp_secrets_validate (NMSettingVpn *s_vpn, GError **error)
 {
-    ValidateInfo info = { &valid_secrets[0], error, FALSE };
+    GError *validate_error = NULL;
+    ValidateInfo info = { &valid_secrets[0], &validate_error, FALSE };
 
     nm_setting_vpn_foreach_secret (s_vpn, validate_one_property, &info);
-    if (!info.have_items) {
-        g_set_error (error,
-                     NM_VPN_PLUGIN_ERROR,
-                     NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
-                     "%s",
-                     _("No VPN secrets!"));
+    if (validate_error) {
+        g_propagate_error (error, validate_error);
         return FALSE;
     }
-
-    return *error ? FALSE : TRUE;
+    return TRUE;
 }
 
 static void
@@ -462,8 +484,9 @@ construct_pppd_args (NMSstpPlugin *plugin,
         const char *proxy_user, *proxy_password;
         long int tmp_int;
 
-        if (!str_to_int (proxy_port, &tmp_int))
+        if (!str_to_int (proxy_port, &tmp_int)) {
             tmp_int = 0;
+        }
 
         proxy_user = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_USER);
         proxy_password = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD);
@@ -472,7 +495,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
                                 proxy_user     ?     : "",
                                 proxy_password ? ":" : "",
                                 proxy_password ?     : "",
-                    proxy_user     ? "@" : "",
+                                proxy_user     ? "@" : "",
                                 proxy_server,
                                 tmp_int);
     }
@@ -504,8 +527,9 @@ construct_pppd_args (NMSstpPlugin *plugin,
 
     /* Get the CA Certificate (if any) */
     value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CA_CERT);
-    if (value && strlen (value))
+    if (value && strlen (value)) {
         ca_cert = g_strdup_printf ("--ca-cert %s", value);
+    }
 
     /*  Set the UUID of the connection */
     value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_UUID);
@@ -538,19 +562,23 @@ construct_pppd_args (NMSstpPlugin *plugin,
                            );
 
     g_ptr_array_add (args, (gpointer) tmp);
-    if (ca_cert)
+    if (ca_cert) {
         g_free(ca_cert);
-    if (uuid)
+    }
+
+    if (uuid) {
         g_free(uuid);
+    }
 
     /* Enable debug */
-    if (_LOGD_enabled ())
+    if (_LOGD_enabled ()) {
         g_ptr_array_add (args, (gpointer) g_strdup ("debug"));
+    }
 
     /* PPP options */
-    g_ptr_array_add (args, (gpointer) g_strdup ("noipv6"));
     g_ptr_array_add (args, (gpointer) g_strdup ("ipparam"));
     g_ptr_array_add (args, (gpointer) ipparam);
+    g_free (ipparam);
 
     g_ptr_array_add (args, (gpointer) g_strdup ("nodetach"));
     g_ptr_array_add (args, (gpointer) g_strdup ("lock"));
@@ -562,12 +590,44 @@ construct_pppd_args (NMSstpPlugin *plugin,
     g_ptr_array_add (args, (gpointer) g_strdup ("noauth"));
 
     /* Username; try SSTP specific username first, then generic username */
-    value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_USER);
-    if (!value || !*value)
-        value = nm_setting_vpn_get_user_name (s_vpn);
-    if (value && *value) {
-         g_ptr_array_add (args, (gpointer) g_strdup ("user"));
-        g_ptr_array_add (args, (gpointer) g_strdup (value));
+    value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
+    if (value && !strcmp (value, NM_SSTP_CONTYPE_PASSWORD)) {
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_USER);
+        if (!value || !*value)
+            value = nm_setting_vpn_get_user_name (s_vpn);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("user"));
+            g_ptr_array_add (args, (gpointer) g_strdup (value));
+        }
+    }
+    else if (value && !strcmp (value, NM_SSTP_CONTYPE_TLS)) {
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("ca"));
+            args_add_utf8safe_str(args, value); 
+        }
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("cert"));
+            args_add_utf8safe_str(args, value); 
+        } 
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("key"));
+            args_add_utf8safe_str(args, value); 
+        }
+    
+        value = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("password"));
+            g_ptr_array_add (args, g_strdup (value));
+        }
+
+        g_ptr_array_add (args, (gpointer) g_strdup ("need-peer-eap"));
     }
 
     /* Pass the remotename */
@@ -811,6 +871,7 @@ handle_set_state (NMDBusSstpPpp *object,
                   guint arg_state,
                   gpointer user_data)
 {
+    g_message("handle_set_state");
     remove_timeout_handler (NM_SSTP_PLUGIN (user_data));
     if (arg_state == NM_PPP_STATUS_DEAD || arg_state == NM_PPP_STATUS_DISCONNECT)
         nm_vpn_service_plugin_disconnect (NM_VPN_SERVICE_PLUGIN (user_data), NULL);
@@ -834,6 +895,7 @@ handle_set_ip4_config (NMDBusSstpPpp *object,
     GVariant *new_config;
 
     remove_timeout_handler (plugin);
+    g_message("handle_set_ipv4_config");
 
     g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{sv}"));
     g_variant_iter_init (&iter, arg_config);
@@ -855,100 +917,6 @@ handle_set_ip4_config (NMDBusSstpPpp *object,
     g_dbus_method_invocation_return_value (invocation, NULL);
     return TRUE;
 }
-
-#if 0
-/* SSTP-NOTE:
- * We need to pass the real server ip/fqdn for sstpc to validate the server certificate
- *  though, the nm-sstp-pppd-plugin.c will use sstp-api to get the server adddress before ip-up.
- */
-static gboolean
-lookup_gateway (NMSstpPlugin *self,
-                const char *src,
-                GError **error)
-{
-    NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (self);
-    const char *p = src;
-    gboolean is_name = FALSE;
-    struct in_addr naddr;
-    struct addrinfo hints;
-    struct addrinfo *result = NULL, *rp;
-    int err;
-    char buf[INET_ADDRSTRLEN];
-
-    g_return_val_if_fail (src != NULL, FALSE);
-
-    if (priv->saddr) {
-        g_free (priv->saddr);
-        priv->saddr = NULL;
-    }
-
-    while (*p) {
-        if (*p != '.' && !isdigit (*p)) {
-            is_name = TRUE;
-            break;
-        }
-        p++;
-    }
-
-    if (is_name == FALSE) {
-        errno = 0;
-        if (inet_pton (AF_INET, src, &naddr) <= 0) {
-            g_set_error (error,
-                         NM_VPN_PLUGIN_ERROR,
-                         NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-                         _("couldn't convert SSTP VPN gateway IP address “%s” (%d)"),
-                         src, errno);
-            return FALSE;
-        }
-        priv->naddr = naddr.s_addr;
-        priv->saddr = g_strdup (src);
-        return TRUE;
-    }
-
-    /* It's a hostname, resolve it */
-    memset (&hints, 0, sizeof (hints));
-    hints.ai_family = AF_INET;
-    hints.ai_flags = AI_ADDRCONFIG;
-    err = getaddrinfo (src, NULL, &hints, &result);
-    if (err != 0) {
-        g_set_error (error,
-                     NM_VPN_PLUGIN_ERROR,
-                     NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-                     _("couldn't look up SSTP VPN gateway IP address “%s” (%d)"),
-                     src, err);
-        return FALSE;
-    }
-
-    /* If the hostname resolves to multiple IP addresses, use the first one.
-     * FIXME: maybe we just want to use a random one instead?
-     */
-    memset (&naddr, 0, sizeof (naddr));
-    for (rp = result; rp; rp = rp->ai_next) {
-        if (   (rp->ai_family == AF_INET)
-            && (rp->ai_addrlen == sizeof (struct sockaddr_in))) {
-            struct sockaddr_in *inptr = (struct sockaddr_in *) rp->ai_addr;
-
-            memcpy (&naddr, &(inptr->sin_addr), sizeof (struct in_addr));
-            break;
-        }
-    }
-    freeaddrinfo (result);
-
-    if (naddr.s_addr == 0) {
-        g_set_error (error,
-                     NM_VPN_PLUGIN_ERROR,
-                     NM_VPN_PLUGIN_ERROR_LAUNCH_FAILED,
-                     _("no usable addresses returned for SSTP VPN gateway “%s”"),
-                     src);
-        return FALSE;
-    }
-
-    priv->naddr = naddr.s_addr;
-    priv->saddr = g_strdup (inet_ntop (AF_INET, &naddr, buf, sizeof (buf)));
-
-    return TRUE;
-}
-#endif
 
 static gboolean
 real_connect (NMVpnServicePlugin   *plugin,
@@ -974,30 +942,17 @@ real_connect (NMVpnServicePlugin   *plugin,
 
     /*  Set the UUID of the connection */
     value = nm_connection_get_uuid(connection);
-    if (value && strlen(value))
+    if (value && strlen(value)) {
         nm_setting_vpn_add_data_item(s_vpn, NM_SSTP_KEY_UUID, value);
+    }
 
-
-    /* SSTP-NOTE:
-     * We need to pass the real server ip/fqdn for sstpc to validate the server certificate
-     *  though, the nm-sstp-pppd-plugin.c will use sstp-api to get the server adddress before ip-up.
-     *
-     * Look up the IP address of the PPtP server; if the server has multiple
-     * addresses, because we can't get the actual IP used back from sstp itself,
-     * we need to do name->addr conversion here and only pass the IP address
-     * down to pppd/sstp.  If only sstp could somehow return the IP address it's
-     * using for the connection, we wouldn't need to do this...
-     *
-    if (!lookup_gateway (NM_SSTP_PLUGIN (plugin), gwaddr, error))
+    if (!nm_sstp_properties_validate (s_vpn, error)) {
         return FALSE;
-     */
+    }
 
-
-    if (!nm_sstp_properties_validate (s_vpn, error))
+    if (!nm_sstp_secrets_validate (s_vpn, error)) {
         return FALSE;
-
-    if (!nm_sstp_secrets_validate (s_vpn, error))
-        return FALSE;
+    }
 
     g_clear_object (&priv->connection);
     priv->connection = g_object_ref (connection);
@@ -1012,7 +967,11 @@ real_connect (NMVpnServicePlugin   *plugin,
                                       error);
 }
 
-
+/*
+ * Callback from NetworkManager having us check if we need secrets
+ *
+ * The auth-dialog is being displayed after we indicate it is needed. 
+ */
 static gboolean
 real_need_secrets (NMVpnServicePlugin *plugin,
                    NMConnection *connection,
@@ -1021,25 +980,70 @@ real_need_secrets (NMVpnServicePlugin *plugin,
 {
     NMSettingVpn *s_vpn;
     NMSettingSecretFlags flags = NM_SETTING_SECRET_FLAG_NONE;
+    const char *ctype, *key;
+    gs_free char *key_free = NULL;
 
     g_return_val_if_fail (NM_IS_VPN_SERVICE_PLUGIN (plugin), FALSE);
     g_return_val_if_fail (NM_IS_CONNECTION (connection), FALSE);
 
+    if (   getenv ("NM_PPP_DUMP_CONNECTION")
+        || _LOGD_enabled ()) {
+        nm_connection_dump (connection);
+    }
+
     s_vpn = nm_connection_get_setting_vpn (connection);
-
-    nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, &flags, NULL);
-
-    /* Don't need the password if it's not required */
-    if (flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED)
+    if (!s_vpn) {
+        g_set_error_literal (error,
+                             NM_VPN_PLUGIN_ERROR,
+                             NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
+                             _("Could not process the request because the VPN connection settings were invalid."));
         return FALSE;
+    }
 
-    /* Don't need the password if we already have one */
-    if (nm_setting_vpn_get_secret (NM_SETTING_VPN (s_vpn), NM_SSTP_KEY_PASSWORD))
+    ctype = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
+    if (nm_streq (ctype, NM_SSTP_CONTYPE_PASSWORD)) {
+        
+        /* Don't need the password if we already have one */
+        if (nm_setting_vpn_get_secret (NM_SETTING_VPN (s_vpn), NM_SSTP_KEY_PASSWORD))
+            return FALSE;
+     
+        /* Don't need the password if it's not required */
+        nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, &flags, NULL);
+        if (flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED)
+            return FALSE;
+
+        *setting_name = NM_SETTING_VPN_SETTING_NAME;
+        return TRUE;
+    }
+    else if (nm_streq (ctype, NM_SSTP_CONTYPE_TLS)) {
+        
+        /* The private key may require a password */
+        key = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
+        key = nm_utils_str_utf8safe_unescape (key, &key_free);
+        if (is_encrypted (key) && !nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET)) {
+            *setting_name = NM_SETTING_VPN_SETTING_NAME;
+            return TRUE;
+        }
+    }
+    else {
+        g_set_error_literal (error,
+                             NM_VPN_PLUGIN_ERROR,
+                             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
+                             _("Invalid connection type."));
         return FALSE;
+    }
 
-    /* Otherwise we need a password */
-    *setting_name = NM_SETTING_VPN_SETTING_NAME;
-    return TRUE;
+    /* Proxy might require a password; assume so if there's an proxy username */
+    if (nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_SERVER) && 
+        nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_USER)) {
+
+        if (!nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD)) {
+            *setting_name = NM_SETTING_VPN_SETTING_NAME;
+            return TRUE;
+        }
+    }
+
+    return FALSE;
 }
 
 static gboolean
@@ -1199,9 +1203,9 @@ nm_sstp_plugin_new (const char *bus_name)
     GError *error = NULL;
 
     plugin = g_initable_new (NM_TYPE_SSTP_PLUGIN, NULL, &error,
-                                              NM_VPN_SERVICE_PLUGIN_DBUS_SERVICE_NAME, bus_name,
-                                              NM_VPN_SERVICE_PLUGIN_DBUS_WATCH_PEER, !gl.debug,
-                                              NULL);
+                             NM_VPN_SERVICE_PLUGIN_DBUS_SERVICE_NAME, bus_name,
+                             NM_VPN_SERVICE_PLUGIN_DBUS_WATCH_PEER, !gl.debug,
+                             NULL);
     if (!plugin) {
         _LOGW ("Failed to initialize a plugin instance: %s", error->message);
         g_error_free (error);
