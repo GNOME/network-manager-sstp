@@ -395,7 +395,7 @@ tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed
         if (value && *value) {
             nma_cert_chooser_set_key (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
-        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET);
+        value = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET);
         if (value) {
             nma_cert_chooser_set_key_password (cert, value);
         }
@@ -606,7 +606,7 @@ update_connection (NMVpnEditor *iface,
             /* User Certificate Key Password */
             str = nma_cert_chooser_get_key_password (chooser);
             if (str && *str) {
-                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET, str);
+                nm_setting_vpn_add_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET, str);
             }
 
             /* User Certificate Key Password Flags */
