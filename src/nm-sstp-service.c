@@ -403,12 +403,12 @@ static inline const char *
 nm_find_sstpc (void)
 {
     static const char *sstp_binary_paths[] =
-        {
-            "/sbin/sstpc",
-            "/usr/sbin/sstpc",
-            "/usr/local/sbin/sstpc",
-            NULL
-        };
+    {
+        "/sbin/sstpc",
+        "/usr/sbin/sstpc",
+        "/usr/local/sbin/sstpc",
+        NULL
+    };
 
     const char  **sstp_binary = sstp_binary_paths;
 
@@ -430,19 +430,6 @@ pppd_timed_out (gpointer user_data)
     nm_vpn_service_plugin_failure (NM_VPN_SERVICE_PLUGIN (plugin), NM_VPN_PLUGIN_FAILURE_CONNECT_FAILED);
 
     return FALSE;
-}
-
-static void
-free_pppd_args (GPtrArray *args)
-{
-    int i;
-
-    if (!args)
-        return;
-
-    for (i = 0; i < args->len; i++)
-        g_free (g_ptr_array_index (args, i));
-    g_ptr_array_free (args, TRUE);
 }
 
 static gboolean
@@ -471,34 +458,15 @@ construct_pppd_args (NMSstpPlugin *plugin,
 {
     GPtrArray *args = NULL;
     const char *value, *sstp_binary;
-    char *ipparam, *tmp, *ca_cert = NULL, *proxy = NULL, *uuid = NULL;
     const char *proxy_server, *proxy_port;
-    gboolean ign_cert;
-    gboolean tls_ext;
-
-
-    /* Get the proxy settings */
-    proxy_server = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_SERVER);
-    proxy_port = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_PORT);
-    if (proxy_server && proxy_port && strlen(proxy_server) && strlen(proxy_port)) {
-        const char *proxy_user, *proxy_password;
-        long int tmp_int;
-
-        if (!str_to_int (proxy_port, &tmp_int)) {
-            tmp_int = 0;
-        }
-
-        proxy_user = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_USER);
-        proxy_password = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD);
-
-        proxy = g_strdup_printf("--proxy http://%s%s%s%s%s:%ld",
-                                proxy_user     ?     : "",
-                                proxy_password ? ":" : "",
-                                proxy_password ?     : "",
-                                proxy_user     ? "@" : "",
-                                proxy_server,
-                                tmp_int);
-    }
+    gs_free char *ipparam = NULL;
+    gs_free char *ca_cert = NULL;
+    gs_free char *ca_path = NULL;
+    gs_free char *proxy = NULL;
+    gs_free char *uuid = NULL;
+    gs_free char *pty = NULL;
+    gboolean ign_cert = FALSE;
+    gboolean tls_ext = FALSE;
 
     sstp_binary = nm_find_sstpc ();
     if (!sstp_binary) {
@@ -523,18 +491,20 @@ construct_pppd_args (NMSstpPlugin *plugin,
     /* Create the argument vector for pppd */
     args = g_ptr_array_new ();
     g_ptr_array_add (args, (gpointer) g_strdup (pppd));
-    g_ptr_array_add (args, (gpointer) g_strdup ("pty"));
 
     /* Get the CA Certificate (if any) */
     value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CA_CERT);
     if (value && strlen (value)) {
-        ca_cert = g_strdup_printf ("--ca-cert %s", value);
+
+        ca_path = nm_utils_str_utf8safe_unescape_cp (value);
+        ca_cert = g_strdup_printf ("--ca-cert %s", ca_path);
     }
 
     /*  Set the UUID of the connection */
     value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_UUID);
-    if (value && strlen(value))
+    if (value && strlen(value)) {
         uuid = g_strdup_printf ("--uuid %s", value);
+    }
 
     /* Ignore any certificate warnings */
     value = nm_setting_vpn_get_data_item(s_vpn, NM_SSTP_KEY_IGN_CERT_WARN);
@@ -548,9 +518,32 @@ construct_pppd_args (NMSstpPlugin *plugin,
         tls_ext = TRUE;
     }
 
-    /* Prepare the PTY option */
+    /* Get the proxy settings */
+    proxy_server = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_SERVER);
+    proxy_port = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_PORT);
+    if (proxy_server && proxy_port && strlen(proxy_server) && strlen(proxy_port)) {
+        const char *proxy_user, *proxy_password;
+        long int tmp_int;
+
+        if (!str_to_int (proxy_port, &tmp_int)) {
+            tmp_int = 0;
+        }
+
+        proxy_user = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_USER);
+        proxy_password = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD);
+
+        proxy = g_strdup_printf("--proxy http://%s%s%s%s%s:%ld",
+                                proxy_user     ?     : "",
+                                proxy_password ? ":" : "",
+                                proxy_password ?     : "",
+                                proxy_user     ? "@" : "",
+                                proxy_server,
+                                tmp_int);
+    }
+
+    /* Add the PTY option */
     ipparam = g_strdup_printf ("nm-sstp-service-%d", getpid ());
-    tmp = g_strdup_printf ("%s %s %s %s --nolaunchpppd %s %s --ipparam %s %s %s",
+    pty = g_strdup_printf ("%s %s %s %s --nolaunchpppd %s %s --ipparam %s %s %s",
                            sstp_binary, gwaddr,
                            ign_cert == TRUE ? "--cert-warn" : "",
                            tls_ext == TRUE ? "--tls-ext" : "",
@@ -560,15 +553,8 @@ construct_pppd_args (NMSstpPlugin *plugin,
                            uuid ? uuid : "",
                            ca_cert ? ca_cert : ""
                            );
-
-    g_ptr_array_add (args, (gpointer) tmp);
-    if (ca_cert) {
-        g_free(ca_cert);
-    }
-
-    if (uuid) {
-        g_free(uuid);
-    }
+    g_ptr_array_add (args, (gpointer) g_strdup ("pty"));
+    g_ptr_array_add (args, (gpointer) g_strdup (pty));
 
     /* Enable debug */
     if (_LOGD_enabled ()) {
@@ -577,15 +563,13 @@ construct_pppd_args (NMSstpPlugin *plugin,
 
     /* PPP options */
     g_ptr_array_add (args, (gpointer) g_strdup ("ipparam"));
-    g_ptr_array_add (args, (gpointer) ipparam);
-    g_free (ipparam);
-
+    g_ptr_array_add (args, (gpointer) g_strdup (ipparam));
     g_ptr_array_add (args, (gpointer) g_strdup ("nodetach"));
     g_ptr_array_add (args, (gpointer) g_strdup ("lock"));
     g_ptr_array_add (args, (gpointer) g_strdup ("usepeerdns"));
     g_ptr_array_add (args, (gpointer) g_strdup ("noipdefault"));
     g_ptr_array_add (args, (gpointer) g_strdup ("nodefaultroute"));
-
+    
     /* Don't need to auth the SSTP server */
     g_ptr_array_add (args, (gpointer) g_strdup ("noauth"));
 
@@ -598,6 +582,13 @@ construct_pppd_args (NMSstpPlugin *plugin,
             value = nm_setting_vpn_get_user_name (s_vpn);
         if (value && *value) {
             g_ptr_array_add (args, (gpointer) g_strdup ("user"));
+            g_ptr_array_add (args, (gpointer) g_strdup (value));
+        }
+
+        /* Pass the remotename */
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_GATEWAY);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("remotename"));
             g_ptr_array_add (args, (gpointer) g_strdup (value));
         }
     }
@@ -628,13 +619,6 @@ construct_pppd_args (NMSstpPlugin *plugin,
         }
 
         g_ptr_array_add (args, (gpointer) g_strdup ("need-peer-eap"));
-    }
-
-    /* Pass the remotename */
-    value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_GATEWAY);
-    if (value && *value) {
-        g_ptr_array_add (args, (gpointer) g_strdup ("remotename"));
-        g_ptr_array_add (args, (gpointer) g_strdup (value));
     }
 
     /* Allow EAP */
@@ -756,7 +740,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
     return args;
 
 error:
-    free_pppd_args (args);
+    g_ptr_array_free (args, TRUE);
     return FALSE;
 }
 
@@ -790,7 +774,7 @@ nm_sstp_start_pppd_binary (NMSstpPlugin *plugin,
         g_ptr_array_free (pppd_argv, TRUE);
         return FALSE;
     }
-    free_pppd_args (pppd_argv);
+    g_ptr_array_free (pppd_argv, TRUE);
 
     _LOGI ("pppd started with pid %d", pid);
 
