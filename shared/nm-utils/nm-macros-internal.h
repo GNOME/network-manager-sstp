@@ -1,4 +1,3 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*- */
 /* NetworkManager -- Network link manager
  *
  * This library is free software; you can redistribute it and/or
@@ -16,6 +15,7 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301 USA.
  *
+ * (C) Copyright 2012 Colin Walters <walters@verbum.org>.
  * (C) Copyright 2014 Red Hat, Inc.
  */
 
@@ -25,18 +25,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
 
-#define _nm_packed           __attribute__ ((packed))
-#define _nm_unused           __attribute__ ((unused))
-#define _nm_pure             __attribute__ ((pure))
-#define _nm_const            __attribute__ ((const))
+#include <gio/gio.h>
+
+/*****************************************************************************/
+
+#define _nm_packed           __attribute__ ((__packed__))
+#define _nm_unused           __attribute__ ((__unused__))
+#define _nm_used             __attribute__ ((__used__))
+#define _nm_pure             __attribute__ ((__pure__))
+#define _nm_const            __attribute__ ((__const__))
 #define _nm_printf(a,b)      __attribute__ ((__format__ (__printf__, a, b)))
-#define _nm_align(s)         __attribute__ ((aligned (s)))
+#define _nm_align(s)         __attribute__ ((__aligned__ (s)))
+#define _nm_section(s)       __attribute__ ((__section__ (s)))
 #define _nm_alignof(type)    __alignof (type)
 #define _nm_alignas(type)    _nm_align (_nm_alignof (type))
+#define nm_auto(fcn)         __attribute__ ((__cleanup__(fcn)))
+
+
+/* This is required to make LTO working.
+ *
+ * See https://gitlab.freedesktop.org/NetworkManager/NetworkManager/merge_requests/76#note_112694
+ *     https://gcc.gnu.org/bugzilla/show_bug.cgi?id=48200#c28
+ */
+#ifndef __clang__
+#define _nm_externally_visible __attribute__ ((__externally_visible__))
+#else
+#define _nm_externally_visible
+#endif
+
 
 #if __GNUC__ >= 7
-#define _nm_fallthrough      __attribute__ ((fallthrough))
+#define _nm_fallthrough      __attribute__ ((__fallthrough__))
 #else
 #define _nm_fallthrough
 #endif
@@ -57,13 +78,168 @@
 
 /*****************************************************************************/
 
+/* most of our code is single-threaded with a mainloop. Hence, we usually don't need
+ * any thread-safety. Sometimes, we do need thread-safety (nm-logging), but we can
+ * avoid locking if we are on the main-thread by:
+ *
+ *   - modifications of shared data is done infrequently and only from the
+ *     main-thread (nm_logging_setup())
+ *   - read-only access is done frequently (nm_logging_enabled())
+ *     - from the main-thread, we can do that without locking (because
+ *       all modifications are also done on the main thread.
+ *     - from other threads, we need locking. But this is expected to be
+ *       done infrequently too. Important is the lock-free fast-path on the
+ *       main-thread.
+ *
+ * By defining NM_THREAD_SAFE_ON_MAIN_THREAD you indicate that this code runs
+ * on the main-thread. It is by default defined to "1". If you have code that
+ * is also used on another thread, redefine the define to 0 (to opt in into
+ * the slow-path).
+ */
+#define NM_THREAD_SAFE_ON_MAIN_THREAD 1
+
+/*****************************************************************************/
+
+#define NM_AUTO_DEFINE_FCN_VOID(CastType, name, func) \
+static inline void name (void *v) \
+{ \
+	func (*((CastType *) v)); \
+}
+
+#define NM_AUTO_DEFINE_FCN_VOID0(CastType, name, func) \
+static inline void name (void *v) \
+{ \
+	if (*((CastType *) v)) \
+		func (*((CastType *) v)); \
+}
+
+#define NM_AUTO_DEFINE_FCN(Type, name, func) \
+static inline void name (Type *v) \
+{ \
+	func (*v); \
+}
+
+#define NM_AUTO_DEFINE_FCN0(Type, name, func) \
+static inline void name (Type *v) \
+{ \
+	if (*v) \
+		func (*v); \
+}
+
+/*****************************************************************************/
+
+/**
+ * gs_free:
+ *
+ * Call g_free() on a variable location when it goes out of scope.
+ */
+#define gs_free nm_auto(gs_local_free)
+NM_AUTO_DEFINE_FCN_VOID0 (void *, gs_local_free, g_free)
+
+/**
+ * gs_unref_object:
+ *
+ * Call g_object_unref() on a variable location when it goes out of
+ * scope.  Note that unlike g_object_unref(), the variable may be
+ * %NULL.
+ */
+#define gs_unref_object nm_auto(gs_local_obj_unref)
+NM_AUTO_DEFINE_FCN_VOID0 (GObject *, gs_local_obj_unref, g_object_unref)
+
+/**
+ * gs_unref_variant:
+ *
+ * Call g_variant_unref() on a variable location when it goes out of
+ * scope.  Note that unlike g_variant_unref(), the variable may be
+ * %NULL.
+ */
+#define gs_unref_variant nm_auto(gs_local_variant_unref)
+NM_AUTO_DEFINE_FCN0 (GVariant *, gs_local_variant_unref, g_variant_unref)
+
+/**
+ * gs_unref_array:
+ *
+ * Call g_array_unref() on a variable location when it goes out of
+ * scope.  Note that unlike g_array_unref(), the variable may be
+ * %NULL.
+
+ */
+#define gs_unref_array nm_auto(gs_local_array_unref)
+NM_AUTO_DEFINE_FCN0 (GArray *, gs_local_array_unref, g_array_unref)
+
+/**
+ * gs_unref_ptrarray:
+ *
+ * Call g_ptr_array_unref() on a variable location when it goes out of
+ * scope.  Note that unlike g_ptr_array_unref(), the variable may be
+ * %NULL.
+
+ */
+#define gs_unref_ptrarray nm_auto(gs_local_ptrarray_unref)
+NM_AUTO_DEFINE_FCN0 (GPtrArray *, gs_local_ptrarray_unref, g_ptr_array_unref)
+
+/**
+ * gs_unref_hashtable:
+ *
+ * Call g_hash_table_unref() on a variable location when it goes out
+ * of scope.  Note that unlike g_hash_table_unref(), the variable may
+ * be %NULL.
+ */
+#define gs_unref_hashtable nm_auto(gs_local_hashtable_unref)
+NM_AUTO_DEFINE_FCN0 (GHashTable *, gs_local_hashtable_unref, g_hash_table_unref)
+
+/**
+ * gs_free_slist:
+ *
+ * Call g_slist_free() on a variable location when it goes out
+ * of scope.
+ */
+#define gs_free_slist nm_auto(gs_local_free_slist)
+NM_AUTO_DEFINE_FCN0 (GSList *, gs_local_free_slist, g_slist_free)
+
+/**
+ * gs_unref_bytes:
+ *
+ * Call g_bytes_unref() on a variable location when it goes out
+ * of scope.  Note that unlike g_bytes_unref(), the variable may
+ * be %NULL.
+ */
+#define gs_unref_bytes nm_auto(gs_local_bytes_unref)
+NM_AUTO_DEFINE_FCN0 (GBytes *, gs_local_bytes_unref, g_bytes_unref)
+
+/**
+ * gs_strfreev:
+ *
+ * Call g_strfreev() on a variable location when it goes out of scope.
+ */
+#define gs_strfreev nm_auto(gs_local_strfreev)
+NM_AUTO_DEFINE_FCN0 (char **, gs_local_strfreev, g_strfreev)
+
+/**
+ * gs_free_error:
+ *
+ * Call g_error_free() on a variable location when it goes out of scope.
+ */
+#define gs_free_error nm_auto(gs_local_free_error)
+NM_AUTO_DEFINE_FCN0 (GError *, gs_local_free_error, g_error_free)
+
+/**
+ * gs_unref_keyfile:
+ *
+ * Call g_key_file_unref() on a variable location when it goes out of scope.
+ */
+#define gs_unref_keyfile nm_auto(gs_local_keyfile_unref)
+NM_AUTO_DEFINE_FCN0 (GKeyFile *, gs_local_keyfile_unref, g_key_file_unref)
+
+/*****************************************************************************/
+
 #include "nm-glib.h"
 
 /*****************************************************************************/
 
 #define nm_offsetofend(t,m) (G_STRUCT_OFFSET (t,m) + sizeof (((t *) NULL)->m))
 
-#define nm_auto(fcn) __attribute__ ((cleanup(fcn)))
+/*****************************************************************************/
 
 static inline int nm_close (int fd);
 
@@ -71,59 +247,51 @@ static inline int nm_close (int fd);
  * nm_auto_free:
  *
  * Call free() on a variable location when it goes out of scope.
- */
-#define nm_auto_free nm_auto(_nm_auto_free_impl)
-GS_DEFINE_CLEANUP_FUNCTION(void*, _nm_auto_free_impl, free)
-
-static inline void
-nm_free_secret (char *secret)
-{
-	if (secret) {
-		memset (secret, 0, strlen (secret));
-		g_free (secret);
-	}
-}
-
-static inline void
-_nm_auto_free_secret_impl (char **v)
-{
-	nm_free_secret (*v);
-}
-
-/**
- * nm_auto_free_secret:
+ * This is for pointers that are allocated with malloc() instead of
+ * g_malloc().
  *
- * Call g_free() on a variable location when it goes out of scope.
- * Also, previously, calls memset(loc, 0, strlen(loc)) to clear out
- * the secret.
+ * In practice, since glib 2.45, g_malloc()/g_free() always wraps malloc()/free().
+ * See bgo#751592. In that case, it would be safe to free pointers allocated with
+ * malloc() with gs_free or g_free().
+ *
+ * However, let's never mix them. To free malloc'ed memory, always use
+ * free() or nm_auto_free.
  */
-#define nm_auto_free_secret nm_auto(_nm_auto_free_secret_impl)
+NM_AUTO_DEFINE_FCN_VOID0 (void *, _nm_auto_free_impl, free)
+#define nm_auto_free nm_auto(_nm_auto_free_impl)
 
-static inline void
-_nm_auto_unset_gvalue_impl (GValue *v)
-{
-	g_value_unset (v);
-}
-#define nm_auto_unset_gvalue nm_auto(_nm_auto_unset_gvalue_impl)
+NM_AUTO_DEFINE_FCN0 (GVariantIter *, _nm_auto_free_variant_iter, g_variant_iter_free)
+#define nm_auto_free_variant_iter nm_auto(_nm_auto_free_variant_iter)
 
-static inline void
-_nm_auto_unref_gtypeclass (gpointer v)
-{
-	if (v && *((gpointer *) v))
-		g_type_class_unref (*((gpointer *) v));
-}
+NM_AUTO_DEFINE_FCN0 (GVariantBuilder *, _nm_auto_unref_variant_builder, g_variant_builder_unref)
+#define nm_auto_unref_variant_builder nm_auto(_nm_auto_unref_variant_builder)
+
+#define nm_auto_clear_variant_builder nm_auto(g_variant_builder_clear)
+
+NM_AUTO_DEFINE_FCN0 (GList *, _nm_auto_free_list, g_list_free)
+#define nm_auto_free_list nm_auto(_nm_auto_free_list)
+
+NM_AUTO_DEFINE_FCN0 (GChecksum *, _nm_auto_checksum_free, g_checksum_free)
+#define nm_auto_free_checksum nm_auto(_nm_auto_checksum_free)
+
+#define nm_auto_unset_gvalue nm_auto(g_value_unset)
+
+NM_AUTO_DEFINE_FCN_VOID0 (void *, _nm_auto_unref_gtypeclass, g_type_class_unref)
 #define nm_auto_unref_gtypeclass nm_auto(_nm_auto_unref_gtypeclass)
 
+NM_AUTO_DEFINE_FCN0 (GByteArray *, _nm_auto_unref_bytearray, g_byte_array_unref)
+#define nm_auto_unref_bytearray nm_auto(_nm_auto_unref_bytearray)
+
 static inline void
-_nm_auto_free_gstring_impl (GString **str)
+_nm_auto_free_gstring (GString **str)
 {
 	if (*str)
 		g_string_free (*str, TRUE);
 }
-#define nm_auto_free_gstring nm_auto(_nm_auto_free_gstring_impl)
+#define nm_auto_free_gstring nm_auto(_nm_auto_free_gstring)
 
 static inline void
-_nm_auto_close_impl (int *pfd)
+_nm_auto_close (int *pfd)
 {
 	if (*pfd >= 0) {
 		int errsv = errno;
@@ -132,10 +300,10 @@ _nm_auto_close_impl (int *pfd)
 		errno = errsv;
 	}
 }
-#define nm_auto_close nm_auto(_nm_auto_close_impl)
+#define nm_auto_close nm_auto(_nm_auto_close)
 
 static inline void
-_nm_auto_fclose_impl (FILE **pfd)
+_nm_auto_fclose (FILE **pfd)
 {
 	if (*pfd) {
 		int errsv = errno;
@@ -144,7 +312,7 @@ _nm_auto_fclose_impl (FILE **pfd)
 		errno = errsv;
 	}
 }
-#define nm_auto_fclose nm_auto(_nm_auto_fclose_impl)
+#define nm_auto_fclose nm_auto(_nm_auto_fclose)
 
 static inline void
 _nm_auto_protect_errno (int *p_saved_errno)
@@ -153,13 +321,28 @@ _nm_auto_protect_errno (int *p_saved_errno)
 }
 #define NM_AUTO_PROTECT_ERRNO(errsv_saved) nm_auto(_nm_auto_protect_errno) _nm_unused const int errsv_saved = (errno)
 
-static inline void
-_nm_auto_unref_gsource (GSource **ptr)
-{
-	if (*ptr)
-		g_source_unref (g_steal_pointer (ptr));
-}
+NM_AUTO_DEFINE_FCN0 (GSource *, _nm_auto_unref_gsource, g_source_unref);
 #define nm_auto_unref_gsource nm_auto(_nm_auto_unref_gsource)
+
+NM_AUTO_DEFINE_FCN0 (GMainLoop *, _nm_auto_unref_gmainloop, g_main_loop_unref);
+#define nm_auto_unref_gmainloop nm_auto(_nm_auto_unref_gmainloop)
+
+static inline void
+_nm_auto_freev (gpointer ptr)
+{
+	gpointer **p = ptr;
+	gpointer *_ptr;
+
+	if (*p) {
+		for (_ptr = *p; *_ptr; _ptr++)
+			g_free (*_ptr);
+		g_free (*p);
+	}
+}
+/* g_free a NULL terminated array of pointers, with also freeing each
+ * pointer with g_free(). It essentially does the same as
+ * gs_strfreev / g_strfreev(), but not restricted to strv arrays. */
+#define nm_auto_freev nm_auto(_nm_auto_freev)
 
 /*****************************************************************************/
 
@@ -184,13 +367,16 @@ _nm_auto_unref_gsource (GSource **ptr)
 
 /*****************************************************************************/
 
-/* http://stackoverflow.com/a/2124385/354393 */
+/* http://stackoverflow.com/a/2124385/354393
+ * https://stackoverflow.com/questions/11317474/macro-to-count-number-of-arguments
+ */
 
 #define NM_NARG(...) \
-         _NM_NARG(__VA_ARGS__,_NM_NARG_RSEQ_N())
+         _NM_NARG(, ##__VA_ARGS__, _NM_NARG_RSEQ_N())
 #define _NM_NARG(...) \
          _NM_NARG_ARG_N(__VA_ARGS__)
 #define _NM_NARG_ARG_N( \
+          _0, \
           _1, _2, _3, _4, _5, _6, _7, _8, _9,_10, \
          _11,_12,_13,_14,_15,_16,_17,_18,_19,_20, \
          _21,_22,_23,_24,_25,_26,_27,_28,_29,_30, \
@@ -261,13 +447,13 @@ _nm_auto_unref_gsource (GSource **ptr)
 static inline const char *
 NM_G_ERROR_MSG (GError *error)
 {
-	return error ? (error->message ? : "(null)") : "(no-error)"; \
+	return error ? (error->message ?: "(null)") : "(no-error)"; \
 }
 
 /*****************************************************************************/
 
 /* macro to return strlen() of a compile time string. */
-#define NM_STRLEN(str)     ( sizeof ("" str) - 1 )
+#define NM_STRLEN(str)     ( sizeof (""str"") - 1 )
 
 /* returns the length of a NULL terminated array of pointers,
  * like g_strv_length() does. The difference is:
@@ -312,6 +498,10 @@ NM_G_ERROR_MSG (GError *error)
 #endif
 
 #ifndef _NM_CC_SUPPORT_GENERIC
+/* In the meantime, NetworkManager requires C11 and _Generic() should always be available.
+ * However, shared/nm-utils may also be used in VPN/applet, which possibly did not yet
+ * bump the C standard requirement. Leave this for the moment, but eventually we can
+ * drop it. */
 #if (defined (__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9 ))) || (defined (__clang__))
 #define _NM_CC_SUPPORT_GENERIC 1
 #else
@@ -444,8 +634,14 @@ NM_G_ERROR_MSG (GError *error)
  * It's useful to check the let the compiler ensure that @value is
  * of a certain type. */
 #define _NM_ENSURE_TYPE(type, value) (_Generic ((value), type: (value)))
+#define _NM_ENSURE_TYPE_CONST(type, value) (_Generic ((value), \
+                                                      const type      : ((const type) (value)), \
+                                                      const type const: ((const type) (value)), \
+                                                            type      : ((const type) (value)), \
+                                                            type const: ((const type) (value))))
 #else
 #define _NM_ENSURE_TYPE(type, value) (value)
+#define _NM_ENSURE_TYPE_CONST(type, value) ((const type) (value))
 #endif
 
 #if _NM_CC_SUPPORT_GENERIC
@@ -459,7 +655,7 @@ NM_G_ERROR_MSG (GError *error)
  * argument is not modified (CC), but you want to make it work also
  * for "char **". C doesn't allow this form of casting (for good reasons),
  * so the function makes a choice like g_strdupv(char**). That means,
- * every time you want to call ith with a const argument, you need to
+ * every time you want to call it with a const argument, you need to
  * explicitly cast it.
  *
  * These macros do the cast, but they only accept a compatible input
@@ -492,6 +688,12 @@ NM_G_ERROR_MSG (GError *error)
 #else
 #define NM_PROPAGATE_CONST(test_expr, ptr) (ptr)
 #endif
+
+/* with the way it is implemented, the caller may or may not pass a trailing
+ * ',' and it will work. However, this makes the macro unsuitable for initializing
+ * an array. */
+#define NM_MAKE_STRV(...) \
+	((const char *const[(sizeof (((const char *const[]) { __VA_ARGS__ })) / sizeof (const char *)) + 1]) { __VA_ARGS__ })
 
 /*****************************************************************************/
 
@@ -527,7 +729,7 @@ NM_G_ERROR_MSG (GError *error)
 
 /* Beware that this does short-circuit evaluation (use "||" instead of "|")
  * which has a possibly unexpected non-function-like behavior.
- * Use NM_IN_SET_SE if you need all arguments to be evaluted. */
+ * Use NM_IN_SET_SE if you need all arguments to be evaluated. */
 #define NM_IN_SET(x, ...)                   _NM_IN_SET(||, typeof (x), x, __VA_ARGS__)
 
 /* "SE" stands for "side-effect". Contrary to NM_IN_SET(), this does not do
@@ -578,7 +780,7 @@ _NM_IN_STRSET_streq (const char *x, const char *s)
 
 /* Beware that this does short-circuit evaluation (use "||" instead of "|")
  * which has a possibly unexpected non-function-like behavior.
- * Use NM_IN_STRSET_SE if you need all arguments to be evaluted. */
+ * Use NM_IN_STRSET_SE if you need all arguments to be evaluated. */
 #define NM_IN_STRSET(x, ...)               _NM_IN_STRSET_EVAL_N(||, x, NM_NARG (__VA_ARGS__), __VA_ARGS__)
 
 /* "SE" stands for "side-effect". Contrary to NM_IN_STRSET(), this does not do
@@ -668,8 +870,59 @@ fcn (void) \
 
 /*****************************************************************************/
 
-#define nm_streq(s1, s2)  (strcmp (s1, s2) == 0)
-#define nm_streq0(s1, s2) (g_strcmp0 (s1, s2) == 0)
+static inline int
+nm_strcmp0 (const char *s1, const char *s2)
+{
+	int c;
+
+	/* like g_strcmp0(), but this is inlinable.
+	 *
+	 * Also, it is guaranteed to return either -1, 0, or 1. */
+	if (s1 == s2)
+		return 0;
+	if (!s1)
+		return -1;
+	if (!s2)
+		return 1;
+	c = strcmp (s1, s2);
+	if (c < 0)
+		return -1;
+	if (c > 0)
+		return 1;
+	return 0;
+}
+
+static inline gboolean
+nm_streq (const char *s1, const char *s2)
+{
+	return strcmp (s1, s2) == 0;
+}
+
+static inline gboolean
+nm_streq0 (const char *s1, const char *s2)
+{
+	return    (s1 == s2)
+	       || (s1 && s2 && strcmp (s1, s2) == 0);
+}
+
+#define NM_STR_HAS_PREFIX(str, prefix) \
+	({ \
+		const char *const _str = (str); \
+		\
+		_str && (strncmp ((str), ""prefix"", NM_STRLEN (prefix)) == 0); \
+	})
+
+#define NM_STR_HAS_SUFFIX(str, suffix) \
+	({ \
+		const char *_str; \
+		gsize _l; \
+		\
+		(   (_str = (str)) \
+		 && ((_l = strlen (_str)) >= NM_STRLEN (suffix)) \
+		 && (memcmp (&_str[_l - NM_STRLEN (suffix)], \
+		             ""suffix"", \
+		             NM_STRLEN (suffix)) == 0)); \
+	})
 
 /*****************************************************************************/
 
@@ -681,6 +934,14 @@ nm_gstring_prepare (GString **l)
 	else
 		*l = g_string_sized_new (30);
 	return *l;
+}
+
+static inline GString *
+nm_gstring_add_space_delimiter (GString *str)
+{
+	if (str->len > 0)
+		g_string_append_c (str, ' ');
+	return str;
 }
 
 static inline const char *
@@ -754,21 +1015,51 @@ nm_str_realloc (char *str)
 
 #define NM_GOBJECT_PROPERTIES_DEFINE_BASE(...) \
 typedef enum { \
-	_PROPERTY_ENUMS_0, \
+	PROP_0, \
 	__VA_ARGS__ \
 	_PROPERTY_ENUMS_LAST, \
 } _PropertyEnums; \
 static GParamSpec *obj_properties[_PROPERTY_ENUMS_LAST] = { NULL, }
 
+#define NM_GOBJECT_PROPERTIES_DEFINE_NOTIFY(obj_type, obj_properties, property_enums_type, prop_0) \
+static inline void \
+_nm_gobject_notify_together_impl (obj_type *obj, guint n, const property_enums_type *props) \
+{ \
+	const gboolean freeze_thaw = (n > 1); \
+	\
+	nm_assert (G_IS_OBJECT (obj)); \
+	nm_assert (n > 0); \
+	\
+	if (freeze_thaw) \
+		g_object_freeze_notify ((GObject *) obj); \
+	while (n-- > 0) { \
+		const property_enums_type prop = *props++; \
+		\
+		if (prop != prop_0) { \
+			nm_assert ((gsize) prop < G_N_ELEMENTS (obj_properties)); \
+			nm_assert (obj_properties[prop]); \
+			g_object_notify_by_pspec ((GObject *) obj, obj_properties[prop]); \
+		} \
+	} \
+	if (freeze_thaw) \
+		g_object_thaw_notify ((GObject *) obj); \
+} \
+\
+static inline void \
+_notify (obj_type *obj, property_enums_type prop) \
+{ \
+	_nm_gobject_notify_together_impl (obj, 1, &prop); \
+} \
+
 #define NM_GOBJECT_PROPERTIES_DEFINE(obj_type, ...) \
 NM_GOBJECT_PROPERTIES_DEFINE_BASE (__VA_ARGS__); \
-static inline void \
-_notify (obj_type *obj, _PropertyEnums prop) \
-{ \
-	nm_assert (G_IS_OBJECT (obj)); \
-	nm_assert ((gsize) prop < G_N_ELEMENTS (obj_properties)); \
-	g_object_notify_by_pspec ((GObject *) obj, obj_properties[prop]); \
-}
+NM_GOBJECT_PROPERTIES_DEFINE_NOTIFY (obj_type, obj_properties, _PropertyEnums, PROP_0)
+
+/* invokes _notify() for all arguments (of type _PropertyEnums). Note, that if
+ * there are more than one prop arguments, this will involve a freeze/thaw
+ * of GObject property notifications. */
+#define nm_gobject_notify_together(obj, ...) \
+	_nm_gobject_notify_together_impl (obj, NM_NARG (__VA_ARGS__), (const _PropertyEnums[]) { __VA_ARGS__ })
 
 /*****************************************************************************/
 
@@ -800,7 +1091,7 @@ static inline void
 nm_g_object_unref (gpointer obj)
 {
 	/* g_object_unref() doesn't accept NULL. Usully, we workaround that
-	 * by using g_clear_object(), but sometimes that is not convinient
+	 * by using g_clear_object(), but sometimes that is not convenient
 	 * (for example as as destroy function for a hash table that can contain
 	 * NULL values). */
 	if (obj)
@@ -874,6 +1165,30 @@ nm_g_object_unref (gpointer obj)
 #define nm_clear_g_object(pp) \
 	nm_clear_pointer (pp, g_object_unref)
 
+/**
+ * nm_clear_error:
+ * @err: a pointer to pointer to a #GError.
+ *
+ * This is like g_clear_error(). The only difference is
+ * that this is an inline function.
+ */
+static inline void
+nm_clear_error (GError **err)
+{
+	if (err && *err) {
+		g_error_free (*err);
+		*err = NULL;
+	}
+}
+
+/* Patch g_clear_error() to use nm_clear_error(), which is inlineable
+ * and visible to the compiler. For example gs_free_error attribute only
+ * frees the error after checking that it's not %NULL. So, in many cases
+ * the compiler knows that gs_free_error has no effect and can optimize
+ * the call away. By making g_clear_error() inlineable, we give the compiler
+ * more chance to detect that the function actually has no effect. */
+#define g_clear_error(ptr) nm_clear_error(ptr)
+
 static inline gboolean
 nm_clear_g_source (guint *id)
 {
@@ -931,6 +1246,61 @@ nm_clear_g_cancellable (GCancellable **cancellable)
 	return FALSE;
 }
 
+/* If @cancellable_id is not 0, clear it and call g_cancellable_disconnect().
+ * @cancellable may be %NULL, if there is nothing to disconnect.
+ *
+ * It's like nm_clear_g_signal_handler(), except that it uses g_cancellable_disconnect()
+ * instead of g_signal_handler_disconnect().
+ *
+ * Note the warning in glib documentation about dead-lock and what g_cancellable_disconnect()
+ * actually does. */
+static inline gboolean
+nm_clear_g_cancellable_disconnect (GCancellable *cancellable, gulong *cancellable_id)
+{
+	gulong id;
+
+	if (   cancellable_id
+	    && (id = *cancellable_id) != 0) {
+		*cancellable_id = 0;
+		g_cancellable_disconnect (cancellable, id);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+/*****************************************************************************/
+
+static inline GVariant *
+nm_g_variant_ref (GVariant *v)
+{
+	if (v)
+		g_variant_ref (v);
+	return v;
+}
+
+static inline GVariant *
+nm_g_variant_ref_sink (GVariant *v)
+{
+	if (v)
+		g_variant_ref_sink (v);
+	return v;
+}
+
+static inline void
+nm_g_variant_unref (GVariant *v)
+{
+	if (v)
+		g_variant_unref (v);
+}
+
+static inline GVariant *
+nm_g_variant_take_ref (GVariant *v)
+{
+	if (v)
+		g_variant_take_ref (v);
+	return v;
+}
+
 /*****************************************************************************/
 
 /* Determine whether @x is a power of two (@x being an integer type).
@@ -941,6 +1311,14 @@ nm_clear_g_cancellable (GCancellable **cancellable)
 		\
 		(    (__x > ((typeof(__x)) 0)) \
 		 && ((__x & (__x - (((typeof(__x)) 1)))) == ((typeof(__x)) 0))); \
+	})
+
+#define NM_DIV_ROUND_UP(x, y) \
+	({ \
+		const typeof(x) _x = (x); \
+		const typeof(y) _y = (y); \
+		\
+		(_x / _y + !!(_x % _y)); \
 	})
 
 /*****************************************************************************/
@@ -973,7 +1351,7 @@ fcn_name (lookup_type val) \
 /* Call the string-lookup-table function @fcn_name. If the function returns
  * %NULL, the numeric index is converted to string using a alloca() buffer.
  * Beware: this macro uses alloca(). */
-#define NM_UTILS_LOOKUP_STR(fcn_name, idx) \
+#define NM_UTILS_LOOKUP_STR_A(fcn_name, idx) \
 	({ \
 		typeof (idx) _idx = (idx); \
 		const char *_s; \
@@ -1022,30 +1400,33 @@ fcn_name (lookup_type val) \
 
 /*****************************************************************************/
 
-#define _NM_BACKPORT_SYMBOL_IMPL(VERSION, RETURN_TYPE, ORIG_FUNC, VERSIONED_FUNC, ARGS_TYPED, ARGS) \
-RETURN_TYPE VERSIONED_FUNC ARGS_TYPED; \
-RETURN_TYPE VERSIONED_FUNC ARGS_TYPED \
+#define _NM_BACKPORT_SYMBOL_IMPL(version, return_type, orig_func, versioned_func, args_typed, args) \
+return_type versioned_func args_typed; \
+_nm_externally_visible return_type versioned_func args_typed \
 { \
-    return ORIG_FUNC ARGS; \
+    return orig_func args; \
 } \
-RETURN_TYPE ORIG_FUNC ARGS_TYPED; \
-__asm__(".symver "G_STRINGIFY(VERSIONED_FUNC)", "G_STRINGIFY(ORIG_FUNC)"@"G_STRINGIFY(VERSION))
+return_type orig_func args_typed; \
+__asm__(".symver "G_STRINGIFY(versioned_func)", "G_STRINGIFY(orig_func)"@"G_STRINGIFY(version))
 
-#define NM_BACKPORT_SYMBOL(VERSION, RETURN_TYPE, FUNC, ARGS_TYPED, ARGS) \
-_NM_BACKPORT_SYMBOL_IMPL(VERSION, RETURN_TYPE, FUNC, _##FUNC##_##VERSION, ARGS_TYPED, ARGS)
+#define NM_BACKPORT_SYMBOL(version, return_type, func, args_typed, args) \
+_NM_BACKPORT_SYMBOL_IMPL(version, return_type, func, _##func##_##version, args_typed, args)
 
 /*****************************************************************************/
 
+/* mirrors g_ascii_isspace() and what we consider spaces in general. */
+#define NM_ASCII_SPACES "\t\n\f\r "
+
 #define nm_str_skip_leading_spaces(str) \
 	({ \
-		typeof (*(str)) *_str = (str); \
-		_nm_unused const char *_str_type_check = _str; \
+		typeof (*(str)) *_str_sls = (str); \
+		_nm_unused const char *const _str_type_check = _str_sls; \
 		\
-		if (_str) { \
-			while (g_ascii_isspace (_str[0])) \
-				_str++; \
+		if (_str_sls) { \
+			while (g_ascii_isspace (_str_sls[0])) \
+				_str_sls++; \
 		} \
-		_str; \
+		_str_sls; \
 	})
 
 static inline char *
@@ -1081,6 +1462,34 @@ nm_strstrip_avoid_copy (const char *str, char **str_free)
 	*str_free = s;
 	return s;
 }
+
+#define nm_strstrip_avoid_copy_a(alloca_maxlen, str, out_str_free) \
+	({ \
+		const char *_str_ssac = (str); \
+		char **_out_str_free_ssac = (out_str_free); \
+		\
+		G_STATIC_ASSERT_EXPR ((alloca_maxlen) > 0); \
+		\
+		nm_assert ( _out_str_free_ssac || ((alloca_maxlen) > (str ? strlen (str) : 0u))); \
+		nm_assert (!_out_str_free_ssac || !*_out_str_free_ssac); \
+		\
+		if (_str_ssac) { \
+			_str_ssac = nm_str_skip_leading_spaces (_str_ssac); \
+			if (_str_ssac[0] != '\0') { \
+				gsize _l = strlen (_str_ssac); \
+				\
+				if (g_ascii_isspace (_str_ssac[--_l])) { \
+					while (   _l > 0 \
+					       && g_ascii_isspace (_str_ssac[_l - 1])) { \
+						_l--; \
+					} \
+					_str_ssac = nm_strndup_a ((alloca_maxlen), _str_ssac, _l, _out_str_free_ssac); \
+				} \
+			} \
+		} \
+		\
+		_str_ssac; \
+	})
 
 /* g_ptr_array_sort()'s compare function takes pointers to the
  * value. Thus, you cannot use strcmp directly. You can use
@@ -1140,6 +1549,198 @@ nm_strcmp_p (gconstpointer a, gconstpointer b)
 		     : NM_UNIQ_T(X,xq)); \
 	})
 
+#define NM_MAX_WITH_CMP(cmp, a, b) \
+	({ \
+		typeof (a) _a = (a); \
+		typeof (b) _b = (b); \
+		\
+		(  ((cmp (_a, _b)) >= 0) \
+		 ? _a \
+		 : _b); \
+	})
+
+/* evaluates to (void) if _A or _B are not constant or of different types */
+#define NM_CONST_MAX(_A, _B) \
+	(__builtin_choose_expr ((   __builtin_constant_p (_A) \
+	                         && __builtin_constant_p (_B) \
+	                         && __builtin_types_compatible_p (typeof (_A), typeof (_B))), \
+	                        ((_A) > (_B)) ? (_A) : (_B),                            \
+	                        ((void)  0)))
+
+/*****************************************************************************/
+
+#define nm_g_slice_free(ptr) \
+	g_slice_free (typeof (*(ptr)), ptr)
+
+/*****************************************************************************/
+
+/* like g_memdup(). The difference is that the @size argument is of type
+ * gsize, while g_memdup() has type guint. Since, the size of container types
+ * like GArray is guint as well, this means trying to g_memdup() an
+ * array,
+ *    g_memdup (array->data, array->len * sizeof (ElementType))
+ * will lead to integer overflow, if there are more than G_MAXUINT/sizeof(ElementType)
+ * bytes. That seems unnecessarily dangerous to me.
+ * nm_memdup() avoids that, because its size argument is always large enough
+ * to contain all data that a GArray can hold.
+ *
+ * Another minor difference to g_memdup() is that the glib version also
+ * returns %NULL if @data is %NULL. E.g. g_memdup(NULL, 1)
+ * gives %NULL, but nm_memdup(NULL, 1) crashes. I think that
+ * is desirable, because @size MUST be correct at all times. @size
+ * may be zero, but one must not claim to have non-zero bytes when
+ * passing a %NULL @data pointer.
+ */
+static inline gpointer
+nm_memdup (gconstpointer data, gsize size)
+{
+	gpointer p;
+
+	if (size == 0)
+		return NULL;
+	p = g_malloc (size);
+	memcpy (p, data, size);
+	return p;
+}
+
+#define nm_malloc_maybe_a(alloca_maxlen, bytes, to_free) \
+	({ \
+		const gsize _bytes = (bytes); \
+		typeof (to_free) _to_free = (to_free); \
+		typeof (*_to_free) _ptr; \
+		\
+		G_STATIC_ASSERT_EXPR ((alloca_maxlen) <= 500); \
+		nm_assert (_to_free && !*_to_free); \
+		\
+		if (_bytes <= (alloca_maxlen)) { \
+			_ptr = g_alloca (_bytes); \
+		} else { \
+			_ptr = g_malloc (_bytes); \
+			*_to_free = _ptr; \
+		}; \
+		\
+		_ptr; \
+	})
+
+#define nm_malloc0_maybe_a(alloca_maxlen, bytes, to_free) \
+	({ \
+		const gsize _bytes = (bytes); \
+		typeof (to_free) _to_free = (to_free); \
+		typeof (*_to_free) _ptr; \
+		\
+		G_STATIC_ASSERT_EXPR ((alloca_maxlen) <= 500); \
+		nm_assert (_to_free && !*_to_free); \
+		\
+		if (_bytes <= (alloca_maxlen)) { \
+			_ptr = g_alloca (_bytes); \
+			memset (_ptr, 0, _bytes); \
+		} else { \
+			_ptr = g_malloc0 (_bytes); \
+			*_to_free = _ptr; \
+		}; \
+		\
+		_ptr; \
+	})
+
+#define nm_memdup_maybe_a(alloca_maxlen, data, size, to_free) \
+	({ \
+		const gsize _size = (size); \
+		typeof (to_free) _to_free_md = (to_free); \
+		typeof (*_to_free_md) _ptr_md = NULL; \
+		\
+		nm_assert (_to_free_md && !*_to_free_md); \
+		\
+		if (_size > 0u) { \
+			_ptr_md = nm_malloc_maybe_a ((alloca_maxlen), _size, _to_free_md); \
+			memcpy (_ptr_md, (data), _size); \
+		} \
+		\
+		_ptr_md; \
+	})
+
+static inline char *
+_nm_strndup_a_step (char *s, const char *str, gsize len)
+{
+	NM_PRAGMA_WARNING_DISABLE ("-Wstringop-truncation");
+	NM_PRAGMA_WARNING_DISABLE ("-Wstringop-overflow");
+	if (len > 0)
+		strncpy (s, str, len);
+	s[len] = '\0';
+	return s;
+	NM_PRAGMA_WARNING_REENABLE;
+	NM_PRAGMA_WARNING_REENABLE;
+}
+
+/* Similar to g_strndup(), however, if the string (including the terminating
+ * NUL char) fits into alloca_maxlen, this will alloca() the memory.
+ *
+ * It's a mix of strndup() and strndupa(), but deciding based on @alloca_maxlen
+ * which one to use.
+ *
+ * In case malloc() is necessary, @out_str_free will be set (this string
+ * must be freed afterwards). It is permissible to pass %NULL as @out_str_free,
+ * if you ensure that len < alloca_maxlen.
+ *
+ * Note that just like g_strndup(), this always returns a buffer with @len + 1
+ * bytes, even if strlen(@str) is shorter than that (NUL terminated early). We fill
+ * the buffer with strncpy(), which means, that @str is copied up to the first
+ * NUL character and then filled with NUL characters. */
+#define nm_strndup_a(alloca_maxlen, str, len, out_str_free) \
+	({ \
+		const gsize _alloca_maxlen_snd = (alloca_maxlen); \
+		const char *const _str_snd = (str); \
+		const gsize _len_snd = (len); \
+		char **const _out_str_free_snd = (out_str_free); \
+		char *_s_snd; \
+		\
+		G_STATIC_ASSERT_EXPR ((alloca_maxlen) <= 300); \
+		\
+		if (   _out_str_free_snd \
+		    && _len_snd >= _alloca_maxlen_snd) { \
+			_s_snd = g_malloc (_len_snd + 1); \
+			*_out_str_free_snd = _s_snd; \
+		} else { \
+			g_assert (_len_snd < _alloca_maxlen_snd); \
+			_s_snd = g_alloca (_len_snd + 1); \
+		} \
+		_nm_strndup_a_step (_s_snd, _str_snd, _len_snd); \
+	})
+
+/*****************************************************************************/
+
+/* generic macro to convert an int to a (heap allocated) string.
+ *
+ * Usually, an inline function nm_strdup_int64() would be enough. However,
+ * that cannot be used for guint64. So, we would also need nm_strdup_uint64().
+ * This causes subtle error potential, because the caller needs to ensure to
+ * use the right one (and compiler isn't going to help as it silently casts).
+ *
+ * Instead, this generic macro is supposed to handle all integers correctly. */
+#if _NM_CC_SUPPORT_GENERIC
+#define nm_strdup_int(val) \
+	_Generic ((val), \
+	          char:               g_strdup_printf ("%d",   (int)                (val)), \
+	          \
+	          signed char:        g_strdup_printf ("%d",   (signed)             (val)), \
+	          signed short:       g_strdup_printf ("%d",   (signed)             (val)), \
+	          signed:             g_strdup_printf ("%d",   (signed)             (val)), \
+	          signed long:        g_strdup_printf ("%ld",  (signed long)        (val)), \
+	          signed long long:   g_strdup_printf ("%lld", (signed long long)   (val)), \
+	          \
+	          unsigned char:      g_strdup_printf ("%u",   (unsigned)           (val)), \
+	          unsigned short:     g_strdup_printf ("%u",   (unsigned)           (val)), \
+	          unsigned:           g_strdup_printf ("%u",   (unsigned)           (val)), \
+	          unsigned long:      g_strdup_printf ("%lu",  (unsigned long)      (val)), \
+	          unsigned long long: g_strdup_printf ("%llu", (unsigned long long) (val))  \
+	)
+#else
+#define nm_strdup_int(val) \
+	(  (   sizeof (val) == sizeof (guint64) \
+	    && ((typeof (val)) -1) > 0) \
+	 ? g_strdup_printf ("%"G_GUINT64_FORMAT, (guint64) (val)) \
+	 : g_strdup_printf ("%"G_GINT64_FORMAT, (gint64) (val)))
+#endif
+
 /*****************************************************************************/
 
 static inline guint
@@ -1178,7 +1779,8 @@ nm_decode_version (guint version, guint *major, guint *minor, guint *micro)
  * If @str is longer then @trunc_at, the string is truncated and the closing
  * quote is instead '^' to indicate truncation.
  *
- * Thus, the maximum stack allocated buffer will be @trunc_at+3. */
+ * Thus, the maximum stack allocated buffer will be @trunc_at+3. The maximum
+ * buffer size must be a constant and not larger than 300. */
 #define nm_strquote_a(trunc_at, str) \
 	({ \
 		const char *const _str = (str); \
@@ -1188,6 +1790,8 @@ nm_decode_version (guint version, guint *major, guint *minor, guint *micro)
 				const gsize _trunc_at = (trunc_at); \
 				const gsize _strlen_trunc = NM_MIN (strlen (_str), _trunc_at); \
 				char *_buf; \
+				\
+				G_STATIC_ASSERT_EXPR ((trunc_at) <= 300); \
 				\
 				_buf = g_alloca (_strlen_trunc + 3); \
 				_buf[0] = '"'; \
@@ -1213,17 +1817,28 @@ nm_decode_version (guint version, guint *major, guint *minor, guint *micro)
 		_buf; \
 	})
 
-#define nm_sprintf_bufa(n_elements, format, ...) \
+/* it is "unsafe" because @bufsize must not be a constant expression and
+ * there is no check at compiletime. Regardless of that, the buffer size
+ * must not be larger than 300 bytes, as this gets stack allocated. */
+#define nm_sprintf_buf_unsafe_a(bufsize, format, ...) \
 	({ \
 		char *_buf; \
 		int _buf_len; \
-		typeof (n_elements) _n_elements = (n_elements); \
+		typeof (bufsize) _bufsize = (bufsize); \
 		\
-		_buf = g_alloca (_n_elements); \
-		_buf_len = g_snprintf (_buf, _n_elements, \
+		nm_assert (_bufsize <= 300); \
+		\
+		_buf = g_alloca (_bufsize); \
+		_buf_len = g_snprintf (_buf, _bufsize, \
 		                       ""format"", ##__VA_ARGS__); \
-		nm_assert (_buf_len < _n_elements); \
+		nm_assert (_buf_len >= 0 && _buf_len < _bufsize); \
 		_buf; \
+	})
+
+#define nm_sprintf_bufa(bufsize, format, ...) \
+	({ \
+		G_STATIC_ASSERT_EXPR ((bufsize) <= 300); \
+		nm_sprintf_buf_unsafe_a ((bufsize), format, ##__VA_ARGS__); \
 	})
 
 /* aims to alloca() a buffer and fill it with printf(format, name).
@@ -1239,8 +1854,9 @@ nm_decode_version (guint version, guint *major, guint *minor, guint *micro)
 		char *_buf2; \
 		\
 		nm_assert (_p_val_to_free && !*_p_val_to_free); \
-		if (NM_STRLEN (format) + _name_len < 200) \
-			_buf2 = nm_sprintf_bufa (NM_STRLEN (format) + _name_len, format, _name); \
+		if (   NM_STRLEN (format) <= 290 \
+		    && _name_len < (gsize) (290 - NM_STRLEN (format))) \
+			_buf2 = nm_sprintf_buf_unsafe_a (NM_STRLEN (format) + _name_len, format, _name); \
 		else { \
 			_buf2 = g_strdup_printf (format, _name); \
 			*_p_val_to_free = _buf2; \
@@ -1252,7 +1868,7 @@ nm_decode_version (guint version, guint *major, guint *minor, guint *micro)
 
 /**
  * The boolean type _Bool is C99 while we mostly stick to C89. However, _Bool is too
- * convinient to miss and is effectively available in gcc and clang. So, just use it.
+ * convenient to miss and is effectively available in gcc and clang. So, just use it.
  *
  * Usually, one would include "stdbool.h" to get the "bool" define which aliases
  * _Bool. We provide this define here, because we want to make use of it anywhere.
@@ -1261,10 +1877,10 @@ nm_decode_version (guint version, guint *major, guint *minor, guint *micro)
  * Using _Bool has advantages over gboolean:
  *
  * - commonly _Bool is one byte large, instead of gboolean's 4 bytes (because gboolean
- *   is a typedef for gint). Especially when having boolean fields in a struct, we can
+ *   is a typedef for int). Especially when having boolean fields in a struct, we can
  *   thereby easily save some space.
  *
- * - _Bool type guarantees that two "true" expressions compare equal. E.g. the follwing
+ * - _Bool type guarantees that two "true" expressions compare equal. E.g. the following
  *   will not work:
  *        gboolean v1 = 1;
  *        gboolean v2 = 2;
