@@ -32,8 +32,12 @@ BUILT_SOURCES =
 
 shared_sources = \
 	shared/nm-default.h \
-	shared/nm-utils/gsystem-local-alloc.h \
+	shared/nm-utils/nm-errno.h \
+	shared/nm-utils/nm-errno.c \
+	shared/nm-utils/nm-io-utils.c \
 	shared/nm-utils/nm-macros-internal.h \
+	shared/nm-utils/nm-secret-utils.h \
+	shared/nm-utils/nm-secret-utils.c \
 	shared/nm-utils/nm-shared-utils.c \
 	shared/nm-utils/nm-shared-utils.h
 
@@ -102,7 +106,8 @@ src_nm_sstp_service_CPPFLAGS = $(src_cppflags)
 src_nm_sstp_service_LDADD = \
 	src/libnm-sstp-pppd-service-dbus.la \
 	$(GLIB_LIBS) \
-	$(LIBNM_LIBS)
+	$(LIBNM_LIBS) \
+	$(GNUTLS_LIBS)
 
 ###############################################################################
 
@@ -264,7 +269,8 @@ auth_dialog_nm_sstp_auth_dialog_LDADD = \
 	$(GTK_LIBS) \
 	$(LIBNM_LIBS) \
 	$(LIBNMA_LIBS) \
-	$(LIBSECRET_LIBS)
+	$(LIBSECRET_LIBS) \
+	$(GNUTLS_LIBS)
 
 ###############################################################################
 
