@@ -141,6 +141,7 @@ static const ValidProperty valid_properties[] = {
     { NM_SSTP_KEY_UUID,                      G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_NOSECRET,                  G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_CA_CERT,               G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_TLS_USER_NAME,             G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_CERT,             G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_KEY,              G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_KEY_SECRET_FLAGS, G_TYPE_STRING,  FALSE },
@@ -600,6 +601,13 @@ construct_pppd_args (NMSstpPlugin *plugin,
             args_add_utf8safe_str(args, value); 
         }
 
+        // This is the certificate's subject name. 
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_NAME);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("name"));
+            args_add_utf8safe_str(args, value); 
+        }
+
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT);
         if (value && *value) {
             g_ptr_array_add (args, (gpointer) g_strdup ("cert"));
@@ -966,6 +974,7 @@ real_need_secrets (NMVpnServicePlugin *plugin,
     NMSettingSecretFlags flags = NM_SETTING_SECRET_FLAG_NONE;
     const char *ctype, *key;
     gs_free char *key_free = NULL;
+    gboolean encrypted = FALSE;
 
     g_return_val_if_fail (NM_IS_VPN_SERVICE_PLUGIN (plugin), FALSE);
     g_return_val_if_fail (NM_IS_CONNECTION (connection), FALSE);
@@ -1004,7 +1013,9 @@ real_need_secrets (NMVpnServicePlugin *plugin,
         /* The private key may require a password */
         key = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
         key = nm_utils_str_utf8safe_unescape (key, &key_free);
-        if (is_encrypted (key) && !nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET)) {
+        if (nm_utils_file_is_private_key (key, &encrypted) && encrypted &&
+            !nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET)) {
+
             *setting_name = NM_SETTING_VPN_SETTING_NAME;
             return TRUE;
         }

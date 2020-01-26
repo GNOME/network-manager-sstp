@@ -20,79 +20,189 @@
  */
 
 #include "nm-default.h"
-
 #include "utils.h"
 
+#include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 #include <arpa/inet.h>
 
+#include <math.h>
+#include <glib.h>
+#include <gnutls/gnutls.h>
+#include <gnutls/x509.h>
+
 #include "nm-utils/nm-shared-utils.h"
+#include "nm-utils/nm-io-utils.h"
 
-gboolean
-is_pkcs12 (const char *filepath)
-{
-	NMSetting8021xCKFormat ck_format = NM_SETTING_802_1X_CK_FORMAT_UNKNOWN;
-	NMSetting8021x *s_8021x;
 
-	if (!filepath || !strlen (filepath))
-		return FALSE;
+// This will evaluate the active directory username@domain.com
+#define MICROSOFT_OID_USERNAME "1.2.840.113549.1.9.1"
 
-	if (!g_file_test (filepath, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_REGULAR))
-		return FALSE;
-
-	s_8021x = (NMSetting8021x *) nm_setting_802_1x_new ();
-	g_return_val_if_fail (s_8021x != NULL, FALSE);
-
-	nm_setting_802_1x_set_private_key (s_8021x,
-	                                   filepath,
-	                                   NULL,
-	                                   NM_SETTING_802_1X_CK_SCHEME_PATH,
-	                                   &ck_format,
-	                                   NULL);
-	g_object_unref (s_8021x);
-
-	return (ck_format == NM_SETTING_802_1X_CK_FORMAT_PKCS12);
-}
-
-#define PROC_TYPE_TAG "Proc-Type: 4,ENCRYPTED"
-#define PKCS8_TAG "-----BEGIN ENCRYPTED PRIVATE KEY-----"
-
-/** Checks if a file appears to be an encrypted private key.
- * @param filename the path to the file
- * @return returns true if the key is encrypted, false otherwise
+/**
+ * Initialize the libgnutls crypto library
  */
-gboolean
-is_encrypted (const char *filename)
+static gboolean 
+nm_sstp_crypto_init(GError **error) 
 {
-	GIOChannel *pem_chan;
-	char *str = NULL;
-	gboolean encrypted = FALSE;
+    static gboolean initialized = FALSE;
 
-	if (!filename || !strlen (filename))
-		return FALSE;
-
-	if (is_pkcs12 (filename))
-		return TRUE;
-
-	pem_chan = g_io_channel_new_file (filename, "r", NULL);
-	if (!pem_chan)
-		return FALSE;
-
-	while (g_io_channel_read_line (pem_chan, &str, NULL, NULL, NULL) == G_IO_STATUS_NORMAL) {
-		if (str) {
-			if (g_str_has_prefix (str, PROC_TYPE_TAG) || g_str_has_prefix (str, PKCS8_TAG)) {
-				encrypted = TRUE;
-				break;
-			}
-			g_free (str);
-		}
-	}
-
-	g_io_channel_shutdown (pem_chan, FALSE, NULL);
-	g_io_channel_unref (pem_chan);
-	return encrypted;
+    if (!initialized) { 
+    
+        if (gnutls_global_init() != 0) {
+            gnutls_global_deinit();
+            g_set_error_literal (error, 
+                                 NM_CRYPTO_ERROR,
+                                 NM_CRYPTO_ERROR_FAILED,
+                                 _("Failed to initialize the crypto engine"));
+            return FALSE;
+        }
+        initialized = TRUE;
+    }
+    return initialized;
 }
 
+/**
+ * Lookup the common name, or the active directory username
+ */
+char *
+nm_sstp_get_subject_name(const char *filename, GError **error) {
+    
+    nm_auto_clear_secret_ptr NMSecretPtr out_contents = { 0 };
+    gnutls_x509_crt_t cert;
+    gnutls_datum_t dt;
+    char subject[255];
+    size_t size = sizeof(subject) - 1;
+    int ret = 0;
 
-/*****************************************************************************/
+    if (!nm_sstp_crypto_init(error)) {
+        return FALSE;
+    }
+
+    if (nm_utils_file_get_contents (-1, 
+                                    filename,
+                                    1024*1024,
+                                    NM_UTILS_FILE_GET_CONTENTS_FLAG_SECRET,
+                                    &out_contents.str,
+                                    &out_contents.len,
+                                    error)) {
+        return NULL;
+    }
+
+    ret = gnutls_x509_crt_init(&cert);
+    if (ret != GNUTLS_E_SUCCESS) {
+        g_set_error (error, 
+                    NM_CRYPTO_ERROR,
+                    NM_CRYPTO_ERROR_FAILED,
+                    _("Failed to initialze certificate"));
+        return NULL;
+    }
+
+    dt.data = out_contents.bin;
+    dt.size = out_contents.len;
+
+    ret = gnutls_x509_crt_import(cert, &dt, GNUTLS_X509_FMT_PEM);
+    if (ret != GNUTLS_E_SUCCESS) {
+            
+        ret = gnutls_x509_crt_import(cert, &dt, GNUTLS_X509_FMT_DER);
+        if (ret != GNUTLS_E_SUCCESS) {
+            gnutls_x509_crt_deinit(cert);
+            g_set_error (error, 
+                         NM_CRYPTO_ERROR,
+                         NM_CRYPTO_ERROR_INVALID_DATA,
+                         _("Failed to load certificate"));
+            return NULL;
+        }
+    }
+
+
+    ret = gnutls_x509_crt_get_dn_by_oid(cert, MICROSOFT_OID_USERNAME,
+            0, 0, subject, &size);
+    if (ret != GNUTLS_E_SUCCESS) {
+        ret = gnutls_x509_crt_get_dn_by_oid(cert, GNUTLS_OID_X520_COMMON_NAME, 
+                0, 0, subject, &size);
+    }
+    gnutls_x509_crt_deinit(cert);
+
+    if (ret != GNUTLS_E_SUCCESS) {
+        g_set_error (error, 
+                     NM_CRYPTO_ERROR,
+                     NM_CRYPTO_ERROR_FAILED,
+                     _("Failed to lookup certificate name"));
+    } else {
+        size = MIN(size, sizeof(subject));
+        subject[size] = 0;
+    }
+    
+    return (ret == GNUTLS_E_SUCCESS)
+        ? strdup(subject)
+        : NULL;
+}
+
+/* If we need to look at other fields ...
+    gnutls_x509_dn_t dn;
+    ret = gnutls_x509_crt_get_subject(cert, &dn);
+    if (ret == GNUTLS_E_SUCCESS) {
+        gnutls_x509_ava_st ava;
+        int i = 0;
+
+        ret = gnutls_x509_dn_get_rdn_ava(dn, i++, 0, &ava);
+        while (ret == GNUTLS_E_SUCCESS) {
+            
+            ret = gnutls_x509_dn_get_rdn_ava(dn, i++, 0, &ava);
+        }
+    }
+    else {
+        g_message("Failed to get dn");
+    }
+*/
+
+
+gboolean
+nm_sstp_verify_private_key(const char *keyfile, const char *password, GError **error)
+{
+    nm_auto_clear_secret_ptr NMSecretPtr content;
+    gnutls_x509_privkey_t key;
+    gnutls_datum_t dt;
+    int ret;
+
+    if (!nm_sstp_crypto_init(error)) {
+        return FALSE;
+    }
+
+    if (nm_utils_file_get_contents(-1, keyfile, 1024*1024, 
+        NM_UTILS_FILE_GET_CONTENTS_FLAG_SECRET, &content.str, 
+        &content.len, error)) {
+        return FALSE;
+    }
+
+    dt.data = content.bin;
+    dt.size = content.len;
+
+    ret = gnutls_x509_privkey_init(&key);
+    if (ret != GNUTLS_E_SUCCESS) {
+        g_set_error(error, 
+                    NM_CRYPTO_ERROR,
+                    NM_CRYPTO_ERROR_FAILED,
+                    _("Failed to initialize private key"));
+        return FALSE;
+    }
+
+    ret = gnutls_x509_privkey_import2(key, &dt, GNUTLS_X509_FMT_PEM, password, 0);
+    if (ret != GNUTLS_E_SUCCESS) {
+
+        ret = gnutls_x509_privkey_import2(key, &dt, GNUTLS_X509_FMT_DER, password, 0);
+        if (ret != GNUTLS_E_SUCCESS) {
+            gnutls_x509_privkey_deinit(key);
+            g_set_error(error, 
+                        NM_CRYPTO_ERROR,
+                        NM_CRYPTO_ERROR_FAILED,
+                        _("Failed to decrypt private key"));
+            return FALSE;
+        }
+    }
+
+    gnutls_x509_privkey_deinit(key);
+    return TRUE;
+}
+

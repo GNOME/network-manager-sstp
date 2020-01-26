@@ -65,6 +65,7 @@
 #define NM_SSTP_KEY_PROXY_USER                  "proxy-user"
 #define NM_SSTP_KEY_PROXY_PASSWORD              "proxy-password"
 #define NM_SSTP_KEY_TLS_CA_CERT                 "tls-ca-cert"
+#define NM_SSTP_KEY_TLS_USER_NAME               "tls-user-name"
 #define NM_SSTP_KEY_TLS_USER_CERT               "tls-user-cert"
 #define NM_SSTP_KEY_TLS_USER_KEY                "tls-user-key"
 #define NM_SSTP_KEY_TLS_USER_KEY_SECRET         "tls-user-key-secret"

@@ -22,8 +22,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-gboolean is_pkcs12 (const char *filepath);
-
-gboolean is_encrypted (const char *filename);
+char *nm_sstp_get_subject_name(const char *file, GError **error);
+gboolean nm_sstp_verify_private_key(const char *keyfile, const char *password, GError **error);
 
 #endif  /* UTILS_H */

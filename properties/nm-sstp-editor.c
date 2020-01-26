@@ -67,12 +67,12 @@ typedef struct {
 static gboolean
 auth_widget_check_validity (GtkBuilder *builder, const char *type, GError **error)
 {
-    gboolean encrypted, secrets_required;
+    gboolean encrypted = FALSE, secrets_required;
     NMACertChooser *chooser;
     NMSetting8021xCKScheme scheme;
     NMSettingSecretFlags pw_flags;
     GError *local = NULL;
-    char *tmp;
+    gs_free char *tmp = NULL;
 
     if (!strcmp (type, NM_SSTP_CONTYPE_TLS)) {
         
@@ -98,8 +98,12 @@ auth_widget_check_validity (GtkBuilder *builder, const char *type, GError **erro
 
         /* Encrypted certificates require a password */
         tmp = nma_cert_chooser_get_cert (chooser, &scheme);
-        encrypted = is_encrypted (tmp);
-        g_free (tmp);
+        if (!nm_utils_file_is_private_key (tmp, &encrypted)) {
+            g_set_error (error,
+                         NMV_EDITOR_PLUGIN_ERROR,
+                         NMV_EDITOR_PLUGIN_ERROR_INVALID_PROPERTY,
+                         "%s: %s", NM_SSTP_KEY_TLS_USER_CERT, "certificate format not recognized");
+        }
 
         pw_flags = nma_cert_chooser_get_key_password_flags (chooser);
         if (pw_flags & NM_SETTING_SECRET_FLAG_NOT_SAVED ||
@@ -288,7 +292,7 @@ tls_cert_changed_cb (NMACertChooser *this, gpointer user_data)
     other_cert = nma_cert_chooser_get_cert (other, &scheme);
     this_cert = nma_cert_chooser_get_cert (this, &scheme);
     if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-        && is_pkcs12 (this_cert)) {
+        && nm_utils_file_is_pkcs12(this_cert)) {
         if (!this_key) {
             nma_cert_chooser_set_key (this, this_cert, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
@@ -536,6 +540,7 @@ update_connection (NMVpnEditor *iface,
     NMACertChooser *chooser;
     GtkWidget *widget;
     gs_free char *auth_type = NULL;
+    gs_free char *subject = NULL;
     const char *str;
     char *value;
 
@@ -586,13 +591,19 @@ update_connection (NMVpnEditor *iface,
             }
         }
         else if (!strcmp(auth_type, NM_SSTP_CONTYPE_TLS)) {
-             
+
             chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
 
             /* User certificate */
             value = nma_cert_chooser_get_cert (chooser, &scheme);
             if (value && *value) {
                 nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT, value);
+
+                /* Get the subject name of the certificate */
+                subject = nm_sstp_get_subject_name (value, error);
+                if (subject && *subject) {
+                    nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_NAME, subject);
+                }
                 g_free (value);
             }
 

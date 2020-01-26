@@ -226,7 +226,7 @@ get_passwords_required (GHashTable *data,
             /* ... but only if private key is encrypted */
             val = g_hash_table_lookup (data, NM_SSTP_KEY_TLS_USER_KEY);
             if (val) {
-                *out_need_certpass = is_encrypted (val);
+                nm_utils_file_is_private_key (val, out_need_certpass);
             }
         }
     /* Normal user password */
