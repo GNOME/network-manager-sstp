@@ -1,4 +1,4 @@
-AC_PREREQ(2.59)
+AC_PREREQ(2.63)
 
 AC_INIT(NetworkManager-sstp, 
 	1.2.9,
@@ -11,6 +11,10 @@ AM_SILENT_RULES([yes])
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_CONFIG_HEADERS([config.h])
+
+
+dnl Define _SYSTEM_EXTENSIONS for various things like strcasestr()
+AC_USE_SYSTEM_EXTENSIONS
 
 dnl
 dnl Require programs
@@ -101,10 +105,11 @@ IT_PROG_INTLTOOL([0.35])
 AM_GLIB_GNU_GETTEXT
 
 # gio-unix will require glib and gio
-PKG_CHECK_MODULES(GLIB, gio-unix-2.0 >= 2.32)
-GLIB_CFLAGS="$GLIB_CFLAGS -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_32"
+PKG_CHECK_MODULES(GLIB, [gio-unix-2.0 >= 2.40 gmodule-2.0])
+GLIB_CFLAGS="$GLIB_CFLAGS -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_40 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_40"
 
-PKG_CHECK_MODULES(SSTPC, sstp-client-1.0)
+PKG_CHECK_MODULES(GNUTLS, [gnutls >= 2.12])
+PKG_CHECK_MODULES(SSTPC, [sstp-client-1.0 >= 1.0.10])
 
 if test x"$with_gnome" != xno; then
 	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.4)

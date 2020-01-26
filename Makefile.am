@@ -33,12 +33,8 @@ BUILT_SOURCES =
 shared_sources = \
 	shared/nm-default.h \
 	shared/nm-utils/nm-errno.h \
-	shared/nm-utils/nm-errno.c \
-	shared/nm-utils/nm-io-utils.c \
 	shared/nm-utils/nm-macros-internal.h \
 	shared/nm-utils/nm-secret-utils.h \
-	shared/nm-utils/nm-secret-utils.c \
-	shared/nm-utils/nm-shared-utils.c \
 	shared/nm-utils/nm-shared-utils.h
 
 EXTRA_DIST += \
@@ -55,7 +51,6 @@ src_cppflags = \
 	$(GLIB_CFLAGS) \
 	$(LIBNM_CFLAGS) \
 	$(SSTPC_CFLAGS)
-
 
 ###############################################################################
 
@@ -92,6 +87,19 @@ EXTRA_DIST += \
 
 ###############################################################################
 
+noinst_LTLIBRARIES += shared/nm-utils/libnm-utils.la
+shared_nm_utils_libnm_utils_la_SOURCES = \
+	$(shared_sources) \
+	shared/nm-utils/nm-errno.c \
+	shared/nm-utils/nm-io-utils.c \
+	shared/nm-utils/nm-secret-utils.c \
+	shared/nm-utils/nm-shared-utils.c
+shared_nm_utils_libnm_utils_la_CPPFLAGS = \
+	$(src_cppflags)
+shared_nm_utils_libnm_utils_la_LIBADD = \
+	$(GLIB_LIBS) \
+	$(GNUTLS_LIBS)
+
 libexec_PROGRAMS += src/nm-sstp-service
 
 src_nm_sstp_service_SOURCES = \
@@ -105,9 +113,8 @@ src_nm_sstp_service_SOURCES = \
 src_nm_sstp_service_CPPFLAGS = $(src_cppflags)
 src_nm_sstp_service_LDADD = \
 	src/libnm-sstp-pppd-service-dbus.la \
-	$(GLIB_LIBS) \
-	$(LIBNM_LIBS) \
-	$(GNUTLS_LIBS)
+	shared/nm-utils/libnm-utils.la \
+	$(LIBNM_LIBS)
 
 ###############################################################################
 
@@ -181,7 +188,7 @@ properties_libnm_vpn_plugin_sstp_la_CPPFLAGS = \
 	-DNM_PLUGIN_DIR=\"$(NM_PLUGIN_DIR)\" \
 	$(properties_cppflags)
 properties_libnm_vpn_plugin_sstp_la_LIBADD = \
-	$(GLIB_LIBS) \
+	shared/nm-utils/libnm-utils.la \
 	$(LIBNM_LIBS)
 properties_libnm_vpn_plugin_sstp_la_LDFLAGS = \
 	-avoid-version \
@@ -204,7 +211,7 @@ properties_libnm_vpn_plugin_sstp_editor_la_CPPFLAGS = \
 	-DNETWORKMANAGER_COMPILATION=NM_NETWORKMANAGER_COMPILATION_LIB_EDITOR \
 	$(properties_cppflags)
 properties_libnm_vpn_plugin_sstp_editor_la_LIBADD = \
-	$(GLIB_LIBS) \
+	shared/nm-utils/libnm-utils.la \
 	$(GTK_LIBS) \
 	$(LIBNM_LIBS) \
 	$(LIBNMA_LIBS)
@@ -234,7 +241,7 @@ properties_libnm_sstp_properties_la_CPPFLAGS = \
 	$(properties_cppflags)
 
 properties_libnm_sstp_properties_la_LIBADD = \
-	$(GLIB_LIBS) \
+	shared/nm-utils/libnm-utils.la \
 	$(GTK_LIBS) \
 	$(LIBNM_GLIB_LIBS) \
 	$(LIBNM_GLIB_LIBS)
@@ -265,7 +272,7 @@ auth_dialog_nm_sstp_auth_dialog_CFLAGS = \
 auth_dialog_nm_sstp_auth_dialog_CPPFLAGS = \
 	-I$(top_srcdir)/shared
 auth_dialog_nm_sstp_auth_dialog_LDADD = \
-	$(GLIB_LIBS) \
+	shared/nm-utils/libnm-utils.la \
 	$(GTK_LIBS) \
 	$(LIBNM_LIBS) \
 	$(LIBNMA_LIBS) \
