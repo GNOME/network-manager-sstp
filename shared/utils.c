@@ -139,25 +139,9 @@ nm_sstp_get_subject_name(const char *filename, GError **error) {
         : NULL;
 }
 
-/* If we need to look at other fields ...
-    gnutls_x509_dn_t dn;
-    ret = gnutls_x509_crt_get_subject(cert, &dn);
-    if (ret == GNUTLS_E_SUCCESS) {
-        gnutls_x509_ava_st ava;
-        int i = 0;
-
-        ret = gnutls_x509_dn_get_rdn_ava(dn, i++, 0, &ava);
-        while (ret == GNUTLS_E_SUCCESS) {
-            
-            ret = gnutls_x509_dn_get_rdn_ava(dn, i++, 0, &ava);
-        }
-    }
-    else {
-        g_message("Failed to get dn");
-    }
-*/
-
-
+/**
+ * Verify that the password is indeed the password needed to decrypt the key
+ */
 gboolean
 nm_sstp_verify_private_key(const char *keyfile, const char *password, GError **error)
 {
