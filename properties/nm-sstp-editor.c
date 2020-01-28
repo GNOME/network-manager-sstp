@@ -277,6 +277,10 @@ password_storage_changed_cb (GObject *entry, GParamSpec *pspec, gpointer user_da
     stuff_changed_cb (NULL, self);
 }
 
+/*
+ * If the user entered a .crt/.p12 file for CA or CERT chooser, then use 
+ *    this for CA, Cert and Key.
+ */
 static void
 tls_cert_changed_cb (NMACertChooser *this, gpointer user_data)
 {
@@ -303,6 +307,33 @@ tls_cert_changed_cb (NMACertChooser *this, gpointer user_data)
             }
         }
     }
+}
+
+static GError*
+tls_key_check_cb(NMACertChooser *this, gpointer user_data)
+{
+    NMSetting8021xCKScheme scheme;
+    NMSettingSecretFlags flags;
+    GError *error = NULL;
+    gs_free char *this_key = NULL;
+    const char *secret = NULL;
+
+    this_key = nma_cert_chooser_get_key (this, &scheme);
+    if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH 
+        && !nm_utils_file_is_pkcs12 (this_key)) {
+
+        flags = nma_cert_chooser_get_key_password_flags (this);
+        if (flags & NM_SETTING_SECRET_FLAG_NOT_SAVED ||
+            flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED) {
+            return NULL;
+        }
+
+        secret = nma_cert_chooser_get_key_password (this);
+        if (!nm_sstp_verify_private_key (this_key, secret, &error)) {
+            return error;
+        }
+    }
+    return NULL;
 }
 
 static gboolean
@@ -409,8 +440,9 @@ tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed
             NM_SSTP_KEY_TLS_USER_KEY_SECRET, TRUE, FALSE);
 
     /* Link choosers to the PKCS#12 changer callback */
-    g_signal_connect_object (ca, "changed", G_CALLBACK (tls_cert_changed_cb), cert, 0);
+    g_signal_connect_object (ca,   "changed", G_CALLBACK (tls_cert_changed_cb), cert, 0);
     g_signal_connect_object (cert, "changed", G_CALLBACK (tls_cert_changed_cb), ca, 0);
+    g_signal_connect_object (cert, "key-password-validate", G_CALLBACK (tls_key_check_cb), NULL, 0);
 
     return TRUE;
 }
@@ -540,7 +572,6 @@ update_connection (NMVpnEditor *iface,
     NMACertChooser *chooser;
     GtkWidget *widget;
     gs_free char *auth_type = NULL;
-    gs_free char *subject = NULL;
     const char *str;
     char *value;
 
@@ -598,12 +629,6 @@ update_connection (NMVpnEditor *iface,
             value = nma_cert_chooser_get_cert (chooser, &scheme);
             if (value && *value) {
                 nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT, value);
-
-                /* Get the subject name of the certificate */
-                subject = nm_sstp_get_subject_name (value, error);
-                if (subject && *subject) {
-                    nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_NAME, subject);
-                }
                 g_free (value);
             }
 
@@ -631,6 +656,13 @@ update_connection (NMVpnEditor *iface,
             if (value && *value) {
                 nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT, value);
                 g_free (value);
+            }
+        
+            /* Identity */
+            widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_identity"));
+            str = gtk_entry_get_text (GTK_ENTRY (widget));
+            if (str && strlen (str)) {
+                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_NAME, value);
             }
         }
         else {
