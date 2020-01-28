@@ -488,7 +488,7 @@ advanced_dialog_new (GHashTable *hash)
     cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
     if (cert) {
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_CA_CERT);
-        if (value && strlen (value)) {
+        if (value && strlen (value) && access(value, R_OK) == 0) {
             nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
     }
