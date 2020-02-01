@@ -902,7 +902,7 @@ update_connection (NMVpnEditor *iface,
             widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_identity"));
             str = gtk_entry_get_text (GTK_ENTRY (widget));
             if (str && strlen (str)) {
-                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_NAME, value);
+                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_NAME, str);
             }
         }
         else {
