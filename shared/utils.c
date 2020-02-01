@@ -1,6 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*- */
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: s; c-basic-offset: 4 -*- */
 /*
- * Dan Williams <dcbw@redhat.com>
+ * Eivind Naess <eivnaes@yahoo.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@
 #include <glib.h>
 #include <gnutls/gnutls.h>
 #include <gnutls/x509.h>
+#include <gnutls/pkcs12.h>
 
 #include "nm-utils/nm-shared-utils.h"
 #include "nm-utils/nm-io-utils.h"
@@ -38,6 +39,7 @@
 
 // This will evaluate the active directory username@domain.com
 #define MICROSOFT_OID_USERNAME "1.2.840.113549.1.9.1"
+#define MAX_SUBJECT_SZ 255
 
 /**
  * Initialize the libgnutls crypto library
@@ -62,59 +64,12 @@ nm_sstp_crypto_init(GError **error)
     return initialized;
 }
 
-/**
- * Lookup the common name, or the active directory username
- */
-char *
-nm_sstp_get_subject_name(const char *filename, GError **error) {
-    
-    nm_auto_clear_secret_ptr NMSecretPtr out_contents = { 0 };
-    gnutls_x509_crt_t cert;
-    gnutls_datum_t dt;
-    char subject[255];
-    size_t size = sizeof(subject) - 1;
-    int ret = 0;
-
-    if (!nm_sstp_crypto_init(error)) {
-        return FALSE;
-    }
-
-    if (nm_utils_file_get_contents (-1, 
-                                    filename,
-                                    1024*1024,
-                                    NM_UTILS_FILE_GET_CONTENTS_FLAG_SECRET,
-                                    &out_contents.str,
-                                    &out_contents.len,
-                                    error)) {
-        return NULL;
-    }
-
-    ret = gnutls_x509_crt_init(&cert);
-    if (ret != GNUTLS_E_SUCCESS) {
-        g_set_error (error, 
-                    NM_CRYPTO_ERROR,
-                    NM_CRYPTO_ERROR_FAILED,
-                    _("Failed to initialze certificate"));
-        return NULL;
-    }
-
-    dt.data = out_contents.bin;
-    dt.size = out_contents.len;
-
-    ret = gnutls_x509_crt_import(cert, &dt, GNUTLS_X509_FMT_PEM);
-    if (ret != GNUTLS_E_SUCCESS) {
-            
-        ret = gnutls_x509_crt_import(cert, &dt, GNUTLS_X509_FMT_DER);
-        if (ret != GNUTLS_E_SUCCESS) {
-            gnutls_x509_crt_deinit(cert);
-            g_set_error (error, 
-                         NM_CRYPTO_ERROR,
-                         NM_CRYPTO_ERROR_INVALID_DATA,
-                         _("Failed to load certificate"));
-            return NULL;
-        }
-    }
-
+static char *
+nm_sstp_x509_get_subject_name(gnutls_x509_crt_t cert, GError **error) 
+{
+    char subject[MAX_SUBJECT_SZ+1] = {};
+    size_t size = MAX_SUBJECT_SZ;
+    int ret;
 
     ret = gnutls_x509_crt_get_dn_by_oid(cert, MICROSOFT_OID_USERNAME,
             0, 0, subject, &size);
@@ -122,71 +77,186 @@ nm_sstp_get_subject_name(const char *filename, GError **error) {
         ret = gnutls_x509_crt_get_dn_by_oid(cert, GNUTLS_OID_X520_COMMON_NAME, 
                 0, 0, subject, &size);
     }
-    gnutls_x509_crt_deinit(cert);
-
-    if (ret != GNUTLS_E_SUCCESS) {
-        g_set_error (error, 
+    if (ret == GNUTLS_E_SUCCESS) {
+        return g_strdup(subject);
+    } else {
+        g_set_error (error,
                      NM_CRYPTO_ERROR,
                      NM_CRYPTO_ERROR_FAILED,
-                     _("Failed to lookup certificate name"));
-    } else {
-        size = MIN(size, sizeof(subject));
-        subject[size] = 0;
+                     _("Failede to get subject name"));
     }
+    return NULL;
+}
+
+char *
+nm_sstp_get_subject_name(const char *filename, GError **error) {
     
-    return (ret == GNUTLS_E_SUCCESS)
-        ? strdup(subject)
-        : NULL;
+    gnutls_x509_crt_t cert;
+    gnutls_datum_t dt;
+    char *retval = NULL;
+    int ret = 0;
+
+    if (!nm_sstp_crypto_init(error)) {
+        return FALSE;
+    }
+
+    ret = gnutls_load_file (filename, &dt);
+    if (ret == GNUTLS_E_SUCCESS) {
+    
+        ret = gnutls_x509_crt_init(&cert);
+        if (ret == GNUTLS_E_SUCCESS) {
+
+            ret = gnutls_x509_crt_import(cert, &dt, GNUTLS_X509_FMT_PEM);
+            if (ret != GNUTLS_E_SUCCESS) {
+                    
+                ret = gnutls_x509_crt_import(cert, &dt, GNUTLS_X509_FMT_DER);
+            }
+            if (ret == GNUTLS_E_SUCCESS) {
+            
+                retval = nm_sstp_x509_get_subject_name(cert, error);
+
+            } else {
+                g_set_error (error, 
+                             NM_CRYPTO_ERROR,
+                             NM_CRYPTO_ERROR_INVALID_DATA,
+                             _("Failed to load certificate"));
+            }
+            gnutls_x509_crt_deinit(cert);
+        } else {
+            g_set_error (error, 
+                        NM_CRYPTO_ERROR,
+                        NM_CRYPTO_ERROR_FAILED,
+                        _("Failed to initialze certificate"));
+        }
+        gnutls_free(dt.data);
+    } else {
+        g_set_error (error, 
+                    NM_CRYPTO_ERROR,
+                    NM_CRYPTO_ERROR_FAILED,
+                    _("Failed to load certificate"));
+    }
+    return retval;
+}
+
+char *
+nm_sstp_get_suject_name_pkcs12(const char *filename, const char *password, GError **error)
+{
+    gnutls_pkcs12_t pkcs12;
+    gnutls_datum_t data = {};
+    gnutls_x509_privkey_t pkey;
+    gnutls_x509_crt_t *chain, *extras;
+    unsigned int chain_size = 0, extras_size = 0, i;
+    char *retval = NULL;
+    int ret = GNUTLS_E_SUCCESS;
+
+    if (!nm_sstp_crypto_init(error)) {
+        return NULL;
+    }
+
+    ret = gnutls_load_file (filename, &data);
+    if (ret == GNUTLS_E_SUCCESS) {
+        
+        ret = gnutls_pkcs12_init (&pkcs12);
+        if (ret == GNUTLS_E_SUCCESS) {
+
+            ret = gnutls_pkcs12_import(pkcs12, &data, GNUTLS_X509_FMT_DER, 0);
+            if (ret == GNUTLS_E_SUCCESS) {
+
+                ret = gnutls_pkcs12_simple_parse(pkcs12, password, &pkey, &chain,
+                        &chain_size, &extras, &extras_size, NULL, 0);
+                if (ret == GNUTLS_E_SUCCESS) {
+                    
+                    if (chain_size > 0) {
+                        retval = nm_sstp_x509_get_subject_name(chain[0], error);
+                    }
+                    for (i = 0; i < chain_size; i++) {
+                        gnutls_x509_crt_deinit(chain[i]);
+                    }
+                    gnutls_free(chain);
+
+                    for (i = 0; i < extras_size; i++) {
+                        gnutls_x509_crt_deinit(extras[i]);
+                    }
+                    gnutls_free(extras);
+
+                } else {
+                    g_set_error (error, 
+                                NM_CRYPTO_ERROR,
+                                NM_CRYPTO_ERROR_FAILED,
+                                _("Failed to parse pkcs12 file"));
+                }
+            } else {
+                g_set_error (error, 
+                            NM_CRYPTO_ERROR,
+                            NM_CRYPTO_ERROR_FAILED,
+                            _("Failed to import pkcs12 file"));
+            }
+            gnutls_pkcs12_deinit(pkcs12);
+        } else {
+            g_set_error (error, 
+                        NM_CRYPTO_ERROR,
+                        NM_CRYPTO_ERROR_FAILED,
+                        _("Failed to initialize pkcs12 structure"));
+        }
+        gnutls_free(data.data);
+    } else {
+        g_set_error (error, 
+                    NM_CRYPTO_ERROR,
+                    NM_CRYPTO_ERROR_FAILED,
+                    _("Failed read file"));
+    }
+    return retval;
 }
 
 /**
- * Verify that the password is indeed the password needed to decrypt the key
+ * Verify that the password is indeed the password needed to decrypt the key.
+ *    this works with .pfx, and .pem files?
  */
 gboolean
 nm_sstp_verify_private_key(const char *keyfile, const char *password, GError **error)
 {
-    nm_auto_clear_secret_ptr NMSecretPtr content;
     gnutls_x509_privkey_t key;
-    gnutls_datum_t dt;
+    gnutls_datum_t data;
     int ret;
 
     if (!nm_sstp_crypto_init(error)) {
         return FALSE;
     }
 
-    if (nm_utils_file_get_contents(-1, keyfile, 1024*1024, 
-        NM_UTILS_FILE_GET_CONTENTS_FLAG_SECRET, &content.str, 
-        &content.len, error)) {
-        return FALSE;
-    }
+    ret = gnutls_load_file (keyfile, &data);
+    if (ret == GNUTLS_E_SUCCESS) {
 
-    dt.data = content.bin;
-    dt.size = content.len;
+        ret = gnutls_x509_privkey_init(&key);
+        if (ret == GNUTLS_E_SUCCESS) {
 
-    ret = gnutls_x509_privkey_init(&key);
-    if (ret != GNUTLS_E_SUCCESS) {
-        g_set_error(error, 
-                    NM_CRYPTO_ERROR,
-                    NM_CRYPTO_ERROR_FAILED,
-                    _("Failed to initialize private key"));
-        return FALSE;
-    }
+            ret = gnutls_x509_privkey_import2(key, &data, GNUTLS_X509_FMT_PEM, password, 0);
+            if (ret != GNUTLS_E_SUCCESS) {
 
-    ret = gnutls_x509_privkey_import2(key, &dt, GNUTLS_X509_FMT_PEM, password, 0);
-    if (ret != GNUTLS_E_SUCCESS) {
-
-        ret = gnutls_x509_privkey_import2(key, &dt, GNUTLS_X509_FMT_DER, password, 0);
-        if (ret != GNUTLS_E_SUCCESS) {
-            gnutls_x509_privkey_deinit(key);
+                ret = gnutls_x509_privkey_import2(key, &data, GNUTLS_X509_FMT_DER, password, 0);
+                if (ret != GNUTLS_E_SUCCESS) {
+                    g_set_error(error, 
+                                NM_CRYPTO_ERROR,
+                                NM_CRYPTO_ERROR_FAILED,
+                                _("Failed to decrypt private key"));
+                }
+            }
+            if (ret == GNUTLS_E_SUCCESS) {
+                gnutls_x509_privkey_deinit(key);
+            }
+        } else {
             g_set_error(error, 
                         NM_CRYPTO_ERROR,
                         NM_CRYPTO_ERROR_FAILED,
-                        _("Failed to decrypt private key"));
+                        _("Failed to initialize private key"));
             return FALSE;
         }
+        gnutls_free(data.data);
+    } else {
+        g_set_error(error, 
+                    NM_CRYPTO_ERROR,
+                    NM_CRYPTO_ERROR_FAILED,
+                    _("Failed read file"));
     }
-
-    gnutls_x509_privkey_deinit(key);
-    return TRUE;
+    return (ret == GNUTLS_E_SUCCESS);
 }
 

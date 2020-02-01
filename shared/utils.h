@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*- */
 /*
- * Dan Williams <dcbw@redhat.com>
+ * Eivind Naess <eivnaes@yahoo.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,22 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-char *nm_sstp_get_subject_name(const char *file, GError **error);
+static inline void
+nm_sstp_cache_value(char **value, const char *str)
+{
+    g_free(*value);
+    *value = (str != NULL) ? strdup(str) : NULL;
+        
+}
+
+static inline gboolean
+nm_sstp_cache_check(const char *val1, const char *val2) 
+{
+    return (!val1 || strcmp(val1, val2));
+}
+
+char* nm_sstp_get_subject_name(const char *file, GError **error);
+char* nm_sstp_get_suject_name_pkcs12(const char *file, const char *password, GError **error);
 gboolean nm_sstp_verify_private_key(const char *keyfile, const char *password, GError **error);
 
 #endif  /* UTILS_H */
