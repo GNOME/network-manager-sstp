@@ -120,7 +120,7 @@ validate (SstpPluginUiWidget *self, GError **error)
     widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "gateway_entry"));
     g_return_val_if_fail (widget, FALSE);
     str = gtk_entry_get_text (GTK_ENTRY (widget));
-    if (str && nm_sstp_parse_gateway(str, NULL, NULL, NULL, NULL) != -1) {
+    if (str && nm_sstp_parse_gateway(str, NULL, NULL, NULL, NULL) == -1) {
         gtk_style_context_remove_class (gtk_widget_get_style_context (widget), "error");
     } else {
         gtk_style_context_add_class (gtk_widget_get_style_context (widget), "error");
