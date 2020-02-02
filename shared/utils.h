@@ -36,8 +36,38 @@ nm_sstp_cache_check(const char *val1, const char *val2)
     return (!val1 || strcmp(val1, val2));
 }
 
+/**
+ * Extract the subjectname from a certificate file
+ */
 char* nm_sstp_get_subject_name(const char *file, GError **error);
-char* nm_sstp_get_suject_name_pkcs12(const char *file, const char *password, GError **error);
-gboolean nm_sstp_verify_private_key(const char *keyfile, const char *password, GError **error);
+
+/**
+ * Extract the subject name from a pcks12 envelope
+ */
+char* nm_sstp_get_suject_name_pkcs12(const char *file, const char *password, 
+        GError **error);
+
+/**
+ * Verify that the private key can be decrypt the key
+ */
+gboolean nm_sstp_verify_private_key(const char *keyfile, const char *password, 
+        GError **error);
+
+/**
+ * nm_sstp_parse_gateway:
+ * @str: the input string to be split. It is modified inplace.
+ * @out_buf: an allocated string, to which the other arguments
+ *   point to. Must be freed by caller.
+ * @out_host: pointer to the host out argument.
+ * @out_port: pointer to the port out argument.
+ * @error:
+ *
+ * Splits @str in two parts: host and port.
+ *
+ * Returns: -1 on success or index in @str of first invalid character.
+ *  Note that the error index can be at strlen(str), if some data is missing.
+ */
+gssize nm_sstp_parse_gateway (const char *str, char **out_buf, const char **out_host, 
+        const char **out_port, GError **error);
 
 #endif  /* UTILS_H */

@@ -70,7 +70,7 @@ typedef struct {
 #define COL_AUTH_TYPE 2
 
 static gboolean
-auth_widget_check_validity (GtkBuilder *builder, const char *type, GError **error)
+validate_auth_widgets (GtkBuilder *builder, const char *type, GError **error)
 {
     NMACertChooser *chooser;
     NMSetting8021xCKScheme scheme;
@@ -107,7 +107,7 @@ auth_widget_check_validity (GtkBuilder *builder, const char *type, GError **erro
 }
 
 static gboolean
-check_validity (SstpPluginUiWidget *self, GError **error)
+validate (SstpPluginUiWidget *self, GError **error)
 {
     SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
     GtkWidget *widget;
@@ -120,7 +120,7 @@ check_validity (SstpPluginUiWidget *self, GError **error)
     widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "gateway_entry"));
     g_return_val_if_fail (widget, FALSE);
     str = gtk_entry_get_text (GTK_ENTRY (widget));
-    if (str != NULL && strlen (str) > 0) {
+    if (str && nm_sstp_parse_gateway(str, NULL, NULL, NULL, NULL) != -1) {
         gtk_style_context_remove_class (gtk_widget_get_style_context (widget), "error");
     } else {
         gtk_style_context_add_class (gtk_widget_get_style_context (widget), "error");
@@ -141,7 +141,7 @@ check_validity (SstpPluginUiWidget *self, GError **error)
     g_return_val_if_fail (status, FALSE);
 
     gtk_tree_model_get (model, &iter, COL_AUTH_TYPE, &auth_type, -1);
-    status = auth_widget_check_validity (priv->builder, auth_type, error);
+    status = validate_auth_widgets (priv->builder, auth_type, error);
 
     return status;
 }
@@ -816,7 +816,7 @@ update_connection (NMVpnEditor *iface,
     const char *str;
     char *value;
 
-    if (!check_validity (self, error)) {
+    if (!validate (self, error)) {
         return FALSE;
     }
 
