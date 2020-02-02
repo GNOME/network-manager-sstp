@@ -302,7 +302,9 @@ nm_sstp_parse_gateway (const char *str, char **out_buf, const char **out_host,
 	if (!t)
 		t = strchr (str, ',');
 	if (t) {
-		g_set_error (error, NM_UTILS_ERROR, NM_UTILS_ERROR_UNKNOWN,
+		g_set_error (error, 
+                     NM_UTILS_ERROR, 
+                     NM_UTILS_ERROR_UNKNOWN,
 		             _("invalid delimiter character '%c'"), t[0]);
 		idx_fail = t - str;
 		goto out_fail;
@@ -336,7 +338,9 @@ nm_sstp_parse_gateway (const char *str, char **out_buf, const char **out_host,
 	}
 
 	if (!host[0]) {
-		g_set_error (error, NM_UTILS_ERROR, NM_UTILS_ERROR_UNKNOWN,
+		g_set_error (error, 
+                     NM_UTILS_ERROR, 
+                     NM_UTILS_ERROR_UNKNOWN,
 		             _("empty host"));
 		idx_fail = host - str_copy;
 		goto out_fail;
@@ -346,7 +350,9 @@ nm_sstp_parse_gateway (const char *str, char **out_buf, const char **out_host,
 			/* allow empty port like "host::udp". */
 			port = NULL;
 		} else if (_nm_utils_ascii_str_to_int64 (port, 10, 1, 0xFFFF, 0) == 0) {
-			g_set_error (error, NM_UTILS_ERROR, NM_UTILS_ERROR_UNKNOWN,
+			g_set_error (error, 
+                         NM_UTILS_ERROR, 
+                         NM_UTILS_ERROR_UNKNOWN,
 			             _("invalid port"));
 			idx_fail = port - str_copy;
 			goto out_fail;
