@@ -520,7 +520,6 @@ tls_key_valid_cb(NMACertChooser *chooser, gpointer user_data)
         if (nm_utils_file_is_pkcs12(key)) {
             NMACertChooser *ca_chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
             tls_pkcs12_set_others(chooser, ca_chooser, key);
-            stuff_changed_cb(NULL, self);
         }
     }
     return error;
