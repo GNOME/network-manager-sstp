@@ -271,176 +271,83 @@ tls_update_identity(SstpPluginUiWidget *self, const char *identity)
     }
 }
 
-static void 
-tls_pkcs12_set_others(NMACertChooser *cert_chooser, NMACertChooser *key_chooser, const char *pkcs12)
-{
-    NMSetting8021xCKScheme scheme;
-    gs_free char *cert = NULL;
-    gs_free char *key  = NULL;
-
-    key = nma_cert_chooser_get_key(key_chooser, &scheme);
-    if (!key || strcmp (pkcs12, key)) {
-        nma_cert_chooser_set_key (key_chooser, pkcs12, NM_SETTING_802_1X_CK_SCHEME_PATH);
-    }
-
-    cert = nma_cert_chooser_get_cert (cert_chooser, &scheme);
-    if (!cert || strcmp (pkcs12, cert)) {
-        nma_cert_chooser_set_cert (cert_chooser, pkcs12, NM_SETTING_802_1X_CK_SCHEME_PATH);
-    }
-}
-
 static void
-tls_clear_input(SstpPluginUiWidget *self, const char *file)
-{
-    SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
-    NMSetting8021xCKScheme scheme;
-    NMACertChooser *chooser;
-    char *tmp;
-
-    chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
-    tmp = nma_cert_chooser_get_key (chooser, &scheme);
-    if (tmp && strcmp (tmp, file)) {
-        nma_cert_chooser_set_key_uri (chooser, NULL);
-        nma_cert_chooser_set_key_password (chooser, "");
-        nm_sstp_cache_value(&priv->user_key, NULL);
-    }
-    g_free(tmp);
-
-    tmp = nma_cert_chooser_get_cert (chooser, &scheme);
-    if (tmp && strcmp (tmp, file)) {
-        nma_cert_chooser_set_cert_uri (chooser, NULL);
-        tls_update_identity(self, "");
-        nm_sstp_cache_value(&priv->user_cert, NULL);
-    }
-    g_free(tmp);
-    
-    chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
-    tmp = nma_cert_chooser_get_cert (chooser, &scheme);
-    if (tmp && strcmp (tmp, file)) {
-        nma_cert_chooser_set_cert_uri (chooser, NULL);
-        nm_sstp_cache_value(&priv->ca_cert, NULL);
-    }
-    g_free(tmp);
-}
-
-static void
-tls_set_pkcs12(GtkBuilder *builder, const char *file)
-{
-    NMSetting8021xCKScheme scheme;
-    NMACertChooser *chooser;
-    char *tmp;
-
-    chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_user_cert"));
-    tmp = nma_cert_chooser_get_cert (chooser, &scheme);
-    if (!tmp || strcmp (tmp, file)) {
-        nma_cert_chooser_set_cert (chooser, file, NM_SETTING_802_1X_CK_SCHEME_PATH);
-    }
-    g_free(tmp);
-
-    tmp = nma_cert_chooser_get_key (chooser, &scheme);
-    if (!tmp || strcmp (tmp, file)) {
-        nma_cert_chooser_set_key (chooser, file, NM_SETTING_802_1X_CK_SCHEME_PATH);
-        nma_cert_chooser_set_key_password (chooser, "");
-    }
-    g_free(tmp);
-    
-    chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert"));
-    tmp = nma_cert_chooser_get_cert (chooser, &scheme);
-    if (!tmp || strcmp (tmp, file)) {
-        nma_cert_chooser_set_cert (chooser, file, NM_SETTING_802_1X_CK_SCHEME_PATH);
-    }
-    g_free(tmp);
-}
-
-static void
-tls_changed_cb(NMACertChooser *this, gpointer user_data)
+tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
 {
     SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET(user_data);
     SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
     NMSetting8021xCKScheme scheme;
     GError *error = NULL;
-    gs_free char *key = NULL;
     gs_free char *cert = NULL;
+    gs_free char *ca = NULL;
     gs_free char *subject = NULL;
 
-    g_signal_handlers_block_by_func (this, tls_changed_cb, user_data);
-    
-    /* Check if key changed */
-    key = nma_cert_chooser_get_key(this, &scheme);
-    if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-            && nm_sstp_cache_check(priv->user_key, key)) {
-
-        if (nm_utils_file_is_pkcs12(key)) {
-            tls_set_pkcs12(priv->builder, key);
-            priv->is_pkcs12 = TRUE;
-        }
-        else if (priv->is_pkcs12) {
-            tls_clear_input(self, key);
-            priv->is_pkcs12 = FALSE;
-        }
-        else {
-            nma_cert_chooser_set_key_password (this, "");
-        }
-        nm_sstp_cache_value(&priv->user_key, key);
-    }
-
     /* Check if cert changed */
-    cert = nma_cert_chooser_get_cert(this, &scheme);
+    cert = nma_cert_chooser_get_cert(chooser, &scheme);
     if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
             && nm_sstp_cache_check(priv->user_cert, cert)) {
 
         if (nm_utils_file_is_pkcs12(cert)) {
-            tls_set_pkcs12(priv->builder, cert);
+            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
+            ca = nma_cert_chooser_get_cert (chooser, &scheme);
+            if (!ca || (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
+                    && strcmp (ca, cert))) {
+                nma_cert_chooser_set_cert (chooser, cert, NM_SETTING_802_1X_CK_SCHEME_PATH);
+            }
             priv->is_pkcs12 = TRUE;
         } 
         else if (priv->is_pkcs12) {
-            tls_clear_input(self, cert);
+            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
+            nma_cert_chooser_clear_cert (chooser);
             priv->is_pkcs12 = FALSE;
         }
-        subject = nm_sstp_get_subject_name(cert, &error);
-        if (subject && *subject) {
-            tls_update_identity(self, subject);
-        } 
         else {
-            g_clear_error (&error);
+            subject = nm_sstp_get_subject_name(cert, &error);
+            if (subject && *subject) {
+                tls_update_identity(self, subject);
+            } 
+            else {
+                g_clear_error (&error);
+            }
         }
+
         nm_sstp_cache_value(&priv->user_cert, cert);
     }
-    g_signal_handlers_unblock_by_func (this, tls_changed_cb, user_data);
-    stuff_changed_cb(NULL, self);
+    
+    g_signal_emit_by_name (user_data, "changed");
 }
 
-
 static void
-tls_ca_changed_cb(NMACertChooser *this, gpointer user_data)
+tls_ca_changed_cb(NMACertChooser *chooser, gpointer user_data)
 {
     SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET(user_data);
     SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
     NMSetting8021xCKScheme scheme;
+    gs_free char *ca = NULL;
     gs_free char *cert = NULL;
 
-    g_signal_handlers_block_by_func (this, tls_ca_changed_cb, user_data);
-
-    /* Check if cert changed */
-    cert = nma_cert_chooser_get_cert(this, &scheme);
+    /* Check if CA changed */
+    ca = nma_cert_chooser_get_cert(chooser, &scheme);
     if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-            && nm_sstp_cache_check(priv->ca_cert, cert)) {
+            && nm_sstp_cache_check(priv->ca_cert, ca)) {
 
-        if (nm_utils_file_is_pkcs12(cert)) {
-            tls_set_pkcs12(priv->builder, cert);
+        if (nm_utils_file_is_pkcs12(ca)) {
+            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
+            cert = nma_cert_chooser_get_cert (chooser, &scheme);
+            if (!cert || (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
+                    && strcmp (cert, ca))) {
+                nma_cert_chooser_set_cert (chooser, ca, NM_SETTING_802_1X_CK_SCHEME_PATH);
+            }
             priv->is_pkcs12 = TRUE;
-        } 
-        nm_sstp_cache_value(&priv->ca_cert, cert);
+        }
+        nm_sstp_cache_value(&priv->ca_cert, ca);
     }
-    g_signal_handlers_unblock_by_func (this, tls_ca_changed_cb, user_data);
-    g_signal_emit_by_name (self, "changed");
+    g_signal_emit_by_name (user_data, "changed");
 }
 
 static GError*
 tls_ca_valid_cb(NMACertChooser *chooser, gpointer user_data)
 {
-    SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET(user_data);
-    SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
     NMSetting8021xCKScheme scheme;
     gboolean is_x509 = FALSE;
     gboolean is_pkcs12 = FALSE;
@@ -449,8 +356,7 @@ tls_ca_valid_cb(NMACertChooser *chooser, gpointer user_data)
     GError *error = NULL;
 
     cert = nma_cert_chooser_get_cert (chooser, &scheme);
-    if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-            && nm_sstp_cache_check(priv->ca_cert, cert)) {
+    if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH) {
         
         is_x509 = nm_utils_file_is_certificate(cert);
         if (!is_x509) {
@@ -464,7 +370,6 @@ tls_ca_valid_cb(NMACertChooser *chooser, gpointer user_data)
                          _("file is not a certificate"));
             return error;
         }
-        nm_sstp_cache_value(&priv->ca_cert, cert);
     }
     return error;
 }
@@ -516,11 +421,6 @@ tls_key_valid_cb(NMACertChooser *chooser, gpointer user_data)
                          _("file is not a private key"));
             return error;
         }
-
-        if (nm_utils_file_is_pkcs12(key)) {
-            NMACertChooser *ca_chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
-            tls_pkcs12_set_others(chooser, ca_chooser, key);
-        }
     }
     return error;
 }
@@ -555,7 +455,6 @@ tls_key_check_cb(NMACertChooser *this, gpointer user_data)
         subject = nm_sstp_get_suject_name_pkcs12 (key, secret, &error);
         if (subject && *subject) {
             tls_update_identity (self, subject);
-            stuff_changed_cb(NULL, self);
         }
         else {
             g_clear_error (&error);
@@ -1075,4 +974,3 @@ nm_vpn_editor_factory_sstp (NMVpnEditorPlugin *editor_plugin,
     return nm_vpn_plugin_ui_widget_interface_new (connection, error);
 }
 #endif
-
