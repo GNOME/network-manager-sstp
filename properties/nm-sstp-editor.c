@@ -298,7 +298,7 @@ tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
         } 
         else if (priv->is_pkcs12) {
             chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
-            nma_cert_chooser_clear_cert (chooser);
+            nma_cert_chooser_set_cert (chooser, NULL, NM_SETTING_802_1X_CK_SCHEME_PATH);
             priv->is_pkcs12 = FALSE;
         }
         else {
