@@ -42,7 +42,6 @@
 /* always include these headers for our internal source files. */
 
 #include "nm-utils/nm-macros-internal.h"
-#include "nm-utils/nm-secret-utils.h"
 
 #include "nm-version.h"
 #include "nm-service-defines.h"

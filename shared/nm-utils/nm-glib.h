@@ -31,6 +31,8 @@
 #include <gio/gio.h>
 #include <string.h>
 
+#include "gsystem-local-alloc.h"
+
 /*****************************************************************************/
 
 #ifdef __clang__
