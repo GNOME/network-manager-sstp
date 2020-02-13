@@ -32,9 +32,7 @@ BUILT_SOURCES =
 
 shared_sources = \
 	shared/nm-default.h \
-	shared/nm-utils/nm-errno.h \
 	shared/nm-utils/nm-macros-internal.h \
-	shared/nm-utils/nm-secret-utils.h \
 	shared/nm-utils/nm-shared-utils.h
 
 EXTRA_DIST += \
@@ -86,19 +84,6 @@ EXTRA_DIST += \
 	src/nm-sstp-pppd-service.xml
 
 ###############################################################################
-
-noinst_LTLIBRARIES += shared/nm-utils/libnm-utils.la
-shared_nm_utils_libnm_utils_la_SOURCES = \
-	$(shared_sources) \
-	shared/nm-utils/nm-errno.c \
-	shared/nm-utils/nm-io-utils.c \
-	shared/nm-utils/nm-secret-utils.c \
-	shared/nm-utils/nm-shared-utils.c
-shared_nm_utils_libnm_utils_la_CPPFLAGS = \
-	$(src_cppflags)
-shared_nm_utils_libnm_utils_la_LIBADD = \
-	$(GLIB_LIBS) \
-	$(GNUTLS_LIBS)
 
 libexec_PROGRAMS += src/nm-sstp-service
 

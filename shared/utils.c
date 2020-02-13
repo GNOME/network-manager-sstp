@@ -34,7 +34,6 @@
 #include <gnutls/pkcs12.h>
 
 #include "nm-utils/nm-shared-utils.h"
-#include "nm-utils/nm-io-utils.h"
 
 
 // This will evaluate the active directory username@domain.com
