@@ -23,7 +23,6 @@
 #include <config.h>
 #define __CONFIG_H__
 
-/* pppd headers *sigh* */
 #include <pppd/pppd.h>
 #include <pppd/fsm.h>
 #include <pppd/ccp.h>
@@ -55,7 +54,13 @@ extern u_char mppe_send_key[MPPE_MAX_KEY_LEN];
 extern u_char mppe_recv_key[MPPE_MAX_KEY_LEN];
 extern int mppe_keys_set;
 #endif
-static int sstp_notify_sent = 1;
+
+static u_char mppe_send_key_[MPPE_MAX_KEY_LEN] = {};
+static u_char mppe_recv_key_[MPPE_MAX_KEY_LEN] = {};
+static int sstp_notify_sent = 0;
+
+#define PPP_PROTO_EAP   0xc227
+#define PPP_PROTO_CHAP  0xc223
 
 int plugin_init (void);
 
@@ -179,8 +184,7 @@ nm_sstp_getsock(void)
 
     /* Open the socket */
     sock = socket(AF_UNIX, SOCK_STREAM, 0);
-    if (sock < 0)
-    {
+    if (sock < 0) {
         _LOGE ("sstp-plugin: could not create a socket to sstpc");
         goto done;
     }
@@ -191,8 +195,7 @@ nm_sstp_getsock(void)
 
     /* Connect the socket */
     ret = connect(sock, (struct sockaddr*) &addr, alen);
-    if (ret < 0)
-    {
+    if (ret < 0) {
         _LOGE ("sstp-plugin: Could not connect to sstpc (%s), %m", addr.sun_path);
         goto done;
     }
@@ -202,8 +205,7 @@ nm_sstp_getsock(void)
  
 done:
 
-    if (retval <= 0)
-    {
+    if (retval <= 0) {
         close(sock);
     }
 
@@ -226,8 +228,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
 
     /* Get the sstpc socket */
     sock = nm_sstp_getsock();
-    if (sock <= 0)
-    {
+    if (sock <= 0) {
         goto done;
     }
     
@@ -236,56 +237,49 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
 
     /* Send the request */
     ret = send(sock, &msg, sizeof(msg), 0);
-    if (ret < 0)
-    {
+    if (ret < 0) {
         _LOGE ("sstp-plugin: Could not send data to sstpc");
         goto done;
     }
     
     /* Wait for the ACK to be received */
     ret = recv(sock, &msg, (sizeof(msg)), 0);
-    if (ret < 0 || ret != (sizeof(msg)))
-    {
+    if (ret < 0 || ret != (sizeof(msg))) {
         _LOGE ("sstp-plugin: Failed to receive ack from sstpc");
         goto done;
     }
 
     /* Validate message header */
     if (sstp_api_msg_type(&msg, &type) && 
-        SSTP_API_MSG_ACK != type)
-    {
+        SSTP_API_MSG_ACK != type) {
         _LOGE ("sstp-plugin: Received invalid response from sstpc");
         goto done;
     }
 
     /* Allocate memory for response */
     buff = alloca(msg.msg_len);
-    if (!buff)
-    {
+    if (!buff) {
         _LOGE ("sstp-plugin: Could not allocate space for response");
         goto done;
     }
 
     /* Read the remainder of the payload */
     ret = read(sock, buff, msg.msg_len);
-    if (ret < 0 || ret != msg.msg_len)
-    {
+    if (ret < 0 || ret != msg.msg_len) {
         _LOGE ("sstp-plugin: Could not read the response");
         goto done;
     }
 
     /* Parse the Attributes */
     ret = sstp_api_attr_parse(buff, msg.msg_len, list, cnt);
-    if (ret != 0)
-    {
+    if (ret != 0) {
         _LOGE ("sstp-plugin: Could not parse attributes");
         goto done;
     }
 
     /* Get the address */
     attr = list[SSTP_API_ATTR_ADDR];
-    if (!attr)
-    {
+    if (!attr) {
         _LOGE ("sstp-plugin: Could not get resolved address");
         goto done;
     }
@@ -295,8 +289,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
 
     /* Get the gateway name */
     attr = list[SSTP_API_ATTR_GATEWAY];
-    if (!attr)
-    {
+    if (!attr) {
         _LOGE ("sstp-plugin: Could not get resolved name");
         goto done;
     }
@@ -313,8 +306,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
 done:
 
     /* Close socket */
-    if (sock > 0)
-    {
+    if (sock > 0) {
         close(sock);
     }
 
@@ -333,15 +325,13 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
 
     /* Get the sstpc socket */
     sock = nm_sstp_getsock();
-    if (sock <= 0)
-    {
+    if (sock <= 0) {
         goto done;
     }
 
     /* Create a new message */
     msg = sstp_api_msg_new((unsigned char*) buf, SSTP_API_MSG_AUTH);
-    if (!msg)
-    {
+    if (!msg) {
         _LOGE ("sstp-plugin: Could not create message to sstpc");
         goto done;
     }
@@ -352,16 +342,14 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
 
     /* Send the structure */
     ret = send(sock, msg, sstp_api_msg_len(msg), 0);
-    if (ret < 0)
-    {
+    if (ret < 0) {
         _LOGE ("sstp-plugin: Could not send data to sstpc");
         goto done;
     }
     
     /* Wait for the ACK to be received */
     ret = recv(sock, msg, (sizeof(*msg)), 0);
-    if (ret <= 0 || ret != (sizeof(*msg)))
-    {
+    if (ret <= 0 || ret != (sizeof(*msg))) {
         _LOGE ("sstp-plugin: Could not wait for ack from sstpc (%d)", ret);
         goto done;
     }
@@ -372,20 +360,15 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     /* Success */
     retval = 0;
     
-    /* We have communicated the keys */
-    sstp_notify_sent = 1;
-
 done:
 
     /* Close socket */
-    if (sock > 0)
-    {
+    if (sock > 0) {
         close(sock);
     }
 
     return retval;
 }
-
 
 static void
 nm_ip_up (void *data, int arg)
@@ -396,24 +379,20 @@ nm_ip_up (void *data, int arg)
     GVariantBuilder builder;
     struct sockaddr_in addr;
 
-    g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
-
     _LOGI ("ip-up: event");
 
-    /* Auth-Type is not MSCHAPv2, reset the keys and send blank keys */
-    if (!sstp_notify_sent) {
-        if (!mppe_keys_set)
-        {
-            memset(&mppe_send_key, 0, sizeof(mppe_send_key));
-            memset(&mppe_recv_key, 0, sizeof(mppe_recv_key));
-        }
+    g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
 
-        /* Send the MPPE keys to the sstpc client */
-        nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key),
-                   mppe_recv_key, sizeof(mppe_recv_key));
+    /* Send the MPPE keys to the sstpc client */
+    if (!sstp_notify_sent) {
+        nm_sstp_notify(mppe_send_key_, sizeof(mppe_send_key_),
+                       mppe_recv_key_, sizeof(mppe_recv_key_));
+        sstp_notify_sent = 1;
     }
 
-
+    /* Clear our credentials */
+    memset(&mppe_send_key_, 0, sizeof(mppe_send_key_));
+    memset(&mppe_recv_key_, 0, sizeof(mppe_recv_key_));
 
     if (!opts.ouraddr) {
         _LOGW ("ip-up: didn't receive an internal IP from pppd!");
@@ -432,8 +411,8 @@ nm_ip_up (void *data, int arg)
                            g_variant_new_uint32 (opts.ouraddr));
 
     /* Request the address of the server sstpc connected to */
-    if (0 == nm_sstp_getaddr(&addr))
-    {
+    if (0 == nm_sstp_getaddr(&addr)) {
+
         /* This will eliminate the need to have nm-sstp-service
          * insert a new entry for "gateway" as we have already set it.
          */
@@ -493,6 +472,8 @@ nm_ip_up (void *data, int arg)
                        G_DBUS_CALL_FLAGS_NONE, -1,
                        NULL,
                        NULL, NULL);
+
+    snoop_send_hook = NULL;
 }
 
 static int
@@ -553,69 +534,75 @@ get_credentials (char *username, char *password)
     return 1;
 }
 
+
+/**
+ * Let's steal the keys here after pppd has completed the authentication, but before
+ * the CCP layer has completed and thus zero'd them out.
+ *
+ * BUG: if the MPPE keys are sent at ip-up; the WIN2K16 server expects the MPPE keys
+ * to be all zero for computing the appropriate HLAK keys.
+ */
 static void 
 nm_snoop_send(unsigned char *buf, int len)
 {
-    uint16_t protocol;
+    unsigned int psize;
+    unsigned int proto;
+    bool pcomp;
 
     /* Skip the HDLC header */
-    buf += 2;
-    len -= 2;
-   
-    /* Too short of a packet */
-    if (len <= 0)
-        return;
-    
-    /* Stop snooping if it is not a LCP Auth Chap packet */
-    protocol = (buf[0] & 0x10) ? buf[0] : (buf[0] << 8 | buf[1]);
-    if (protocol != 0xC223)
-        return;
+    if (buf[0] == 0xFF && buf[1] == 0x03) {
+        buf += 2;
+        len -= 2;
+    }
 
-    /* Skip the LCP header */
-    buf += 2;
-    len -= 2;
+    pcomp = (buf[0] & 0x10);
+    psize = pcomp ? 1 : 2;
 
     /* Too short of a packet */
-    if (len <= 0)
+    if (len <= psize) {
         return;
-    
-    /* Check if packet is a CHAP response */
-    if (buf[0] != 0x02)
+    }
+
+    /* Stop snooping if it is not a CHAP / EAP packet */
+    proto = pcomp ? buf[0] : (buf[0] << 8 | buf[1]);
+    if (proto != PPP_PROTO_CHAP && proto != PPP_PROTO_EAP) {
         return;
- 
+    }
+
+    /* Skip the protocol header */
+    buf += psize;
+    len -= psize;
+
     /* Don't bother if the keys aren't set yet */   
-    if (!mppe_keys_set)
+    if (!mppe_keys_set) {
         return;
+    }
 
-    /* ChapMS2/ChapMS sets the MPPE keys as a part of the make_response
-     * call, these might not be enabled dependent on negotiated options
-     * such as MPPE and compression. If they are enabled, the keys are 
-     * zeroed out in ccp.c before ip-up is called.
-     * 
-     * Let's steal the keys here over implementing all the code to
-     * calculate the MPPE keys here.
-     */
-    if (debug)
-    {
+    /* Print the MPPE keys for debugging */
+    if (debug) {
         char key[255];
-        _LOGI ("sstp-plugin: mppe keys are set");
 
         /* Add the MPPE Send Key */
         slprintf(key, sizeof(key)-1, "S:%0.*B", sizeof(mppe_send_key),
                  mppe_send_key);
-        _LOGI ("sstp-plugin: The mppe send key: %s", key);
+        _LOGI ("The mppe send key: %s", key);
 
         /* Add the MPPE Recv Key */
         slprintf(key, sizeof(key)-1, "S:%0.*B", sizeof(mppe_recv_key),
                  mppe_recv_key);
-        _LOGI ("sstp-plugin: The mppe recv key: %s", key);
+        _LOGI ("The mppe recv key: %s", key);
     }
 
-    /* Send the MPPE keys to the sstpc client */
-    _LOGI ("sstp-plugin: sending mppe keys");
+    /* Save the MPPE keys, ideally we send them during ip-up */
+    memcpy(mppe_send_key_, mppe_send_key, MPPE_MAX_KEY_LEN);
+    memcpy(mppe_recv_key_, mppe_recv_key, MPPE_MAX_KEY_LEN);
 
-    nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key), 
-                   mppe_recv_key, sizeof(mppe_recv_key));
+    /* Send the MPPE keys to the sstpc client */
+    nm_sstp_notify(mppe_send_key_, sizeof(mppe_send_key_),
+                   mppe_recv_key_, sizeof(mppe_recv_key_));
+    sstp_notify_sent = 1;
+
+    /* Disable the callback */
     snoop_send_hook = NULL;
 }
 
