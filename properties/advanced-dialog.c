@@ -261,8 +261,7 @@ check_toggled_cb (GtkCellRendererToggle *cell, gchar *path_str, gpointer user_da
     GtkTreeIter iter;
     gboolean toggle_item;
     gboolean valid;
-    gboolean mschap_state = TRUE;
-    gboolean mschap2_state = TRUE;
+    gboolean mppe = FALSE;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
     model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
@@ -286,10 +285,19 @@ check_toggled_cb (GtkCellRendererToggle *cell, gchar *path_str, gpointer user_da
         gtk_tree_model_get (model, &iter, COL_VALUE, &allowed, COL_TAG, &tag, -1);
         switch (tag) {
         case TAG_MSCHAP:
-            mschap_state = allowed;
+            if (allowed) {
+                mppe = TRUE;
+            }
             break;
         case TAG_MSCHAPV2:
-            mschap2_state = allowed;
+            if (allowed) {
+                mppe = TRUE;
+            }
+            break;
+        case TAG_EAP:
+            if (allowed) {
+                mppe = TRUE;
+            }
             break;
         default:
             break;
@@ -297,13 +305,13 @@ check_toggled_cb (GtkCellRendererToggle *cell, gchar *path_str, gpointer user_da
 
         valid = gtk_tree_model_iter_next (model, &iter);
     }
-    /* Make sure MPPE is non-sensitive if MSCHAP and MSCHAPv2 are disabled */
+    /* Make sure MPPE is non-sensitive if MSCHAP, MSCHAPv2 and EAP are disabled */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_use_mppe"));
-    if (!mschap_state && !mschap2_state) {
+    if (!mppe) {
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
         gtk_widget_set_sensitive (widget, FALSE);
     } else {
-        gtk_widget_set_sensitive (widget, mschap_state || mschap2_state);
+        gtk_widget_set_sensitive (widget, TRUE);
     }
     /* Make sure also MPPE security combo and stateful checkbox are non-sensitive */
     mppe_toggled_cb (widget, builder);
