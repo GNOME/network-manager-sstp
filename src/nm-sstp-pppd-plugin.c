@@ -55,8 +55,6 @@ extern u_char mppe_recv_key[MPPE_MAX_KEY_LEN];
 extern int mppe_keys_set;
 #endif
 
-static u_char mppe_send_key_[MPPE_MAX_KEY_LEN] = {};
-static u_char mppe_recv_key_[MPPE_MAX_KEY_LEN] = {};
 static int sstp_notify_sent = 0;
 
 #define PPP_PROTO_EAP   0xc227
@@ -94,6 +92,9 @@ struct {
 
 /*****************************************************************************/
 
+/**
+ * Notify Network Manager of phase changes
+ */
 static void
 nm_phasechange (void *data, int arg)
 {
@@ -173,6 +174,9 @@ nm_phasechange (void *data, int arg)
     }
 }
 
+/**
+ * Create the socket that is used to communicate with SSTPC
+ */
 static int 
 nm_sstp_getsock(void)
 {
@@ -212,6 +216,9 @@ done:
     return retval; 
 }
 
+/**
+ * Extract the address SSTPC resolved as the hostname
+ */
 static int
 nm_sstp_getaddr(struct sockaddr_in *addr)
 {
@@ -313,7 +320,9 @@ done:
     return retval;
 }
 
-
+/**
+ * Notify SSTPC of the MPPE keys
+ */
 static int
 nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
 {
@@ -370,6 +379,9 @@ done:
     return retval;
 }
 
+/**
+ * Process the ip-up event, and notify Network Manager
+ */
 static void
 nm_ip_up (void *data, int arg)
 {
@@ -383,16 +395,14 @@ nm_ip_up (void *data, int arg)
 
     g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
 
-    /* Send the MPPE keys to the sstpc client */
+    /* Send *blank* MPPE keys to the sstpc client */
     if (!sstp_notify_sent) {
-        nm_sstp_notify(mppe_send_key_, sizeof(mppe_send_key_),
-                       mppe_recv_key_, sizeof(mppe_recv_key_));
+        BZERO(mppe_send_key, MPPE_MAX_KEY_LEN);
+        BZERO(mppe_recv_key, MPPE_MAX_KEY_LEN);
+        nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key),
+                       mppe_recv_key, sizeof(mppe_recv_key));
         sstp_notify_sent = 1;
     }
-
-    /* Clear our credentials */
-    memset(&mppe_send_key_, 0, sizeof(mppe_send_key_));
-    memset(&mppe_recv_key_, 0, sizeof(mppe_recv_key_));
 
     if (!opts.ouraddr) {
         _LOGW ("ip-up: didn't receive an internal IP from pppd!");
@@ -476,20 +486,29 @@ nm_ip_up (void *data, int arg)
     snoop_send_hook = NULL;
 }
 
+/**
+ * Check if we have CHAP password (we always do)
+ */
 static int
-get_chap_check (void)
+nm_get_chap_check (void)
 {
     return 1;
 }
 
+/**
+ * Check if we have a PAP password (we always do)
+ */
 static int
-get_pap_check (void)
+nm_get_pap_check (void)
 {
     return 1;
 }
 
+/**
+ * Invoke Network Manager to extract the secret saved for this connection
+ */
 static int
-get_credentials (char *username, char *password)
+nm_get_credentials (char *username, char *password)
 {
     const char *my_username = NULL;
     const char *my_password = NULL;
@@ -534,48 +553,20 @@ get_credentials (char *username, char *password)
     return 1;
 }
 
-
 /**
- * Let's steal the keys here after pppd has completed the authentication, but before
- * the CCP layer has completed and thus zero'd them out.
- *
- * BUG: if the MPPE keys are sent at ip-up; the WIN2K16 server expects the MPPE keys
- * to be all zero for computing the appropriate HLAK keys.
+ * Called on transitions between phases
  */
-static void 
-nm_snoop_send(unsigned char *buf, int len)
+static int 
+nm_new_phase(int phase) 
 {
-    unsigned int psize;
-    unsigned int proto;
-    bool pcomp;
-
-    /* Skip the HDLC header */
-    if (buf[0] == 0xFF && buf[1] == 0x03) {
-        buf += 2;
-        len -= 2;
+    /* When transitioning from Auth -> Network phase */
+    if (PHASE_NETWORK != phase) {
+        return 0;
     }
-
-    pcomp = (buf[0] & 0x10);
-    psize = pcomp ? 1 : 2;
-
-    /* Too short of a packet */
-    if (len <= psize) {
-        return;
-    }
-
-    /* Stop snooping if it is not a CHAP / EAP packet */
-    proto = pcomp ? buf[0] : (buf[0] << 8 | buf[1]);
-    if (proto != PPP_PROTO_CHAP && proto != PPP_PROTO_EAP) {
-        return;
-    }
-
-    /* Skip the protocol header */
-    buf += psize;
-    len -= psize;
 
     /* Don't bother if the keys aren't set yet */   
-    if (!mppe_keys_set) {
-        return;
+    if (!mppe_keys_set || sstp_notify_sent) {
+        return 0;
     }
 
     /* Print the MPPE keys for debugging */
@@ -593,19 +584,17 @@ nm_snoop_send(unsigned char *buf, int len)
         _LOGI ("The mppe recv key: %s", key);
     }
 
-    /* Save the MPPE keys, ideally we send them during ip-up */
-    memcpy(mppe_send_key_, mppe_send_key, MPPE_MAX_KEY_LEN);
-    memcpy(mppe_recv_key_, mppe_recv_key, MPPE_MAX_KEY_LEN);
-
     /* Send the MPPE keys to the sstpc client */
-    nm_sstp_notify(mppe_send_key_, sizeof(mppe_send_key_),
-                   mppe_recv_key_, sizeof(mppe_recv_key_));
-    sstp_notify_sent = 1;
+    nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key),
+                   mppe_recv_key, sizeof(mppe_recv_key));
 
-    /* Disable the callback */
-    snoop_send_hook = NULL;
+    sstp_notify_sent = 1;
+    return 0;
 }
 
+/**
+ * PPPD exited, clean up resources
+ */
 static void
 nm_exit_notify (void *data, int arg)
 {
@@ -661,11 +650,11 @@ plugin_init (void)
         return -1;
     }
 
-    chap_passwd_hook = get_credentials;
-    chap_check_hook = get_chap_check;
-    pap_passwd_hook = get_credentials;
-    pap_check_hook = get_pap_check;
-    snoop_send_hook = nm_snoop_send;
+    chap_passwd_hook = nm_get_credentials;
+    chap_check_hook = nm_get_chap_check;
+    pap_passwd_hook = nm_get_credentials;
+    pap_check_hook = nm_get_pap_check;
+    new_phase_hook = nm_new_phase;
 
     add_notifier (&phasechange, nm_phasechange, NULL);
     add_notifier (&ip_up_notifier, nm_ip_up, NULL);
