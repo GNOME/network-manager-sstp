@@ -1,7 +1,7 @@
 AC_PREREQ(2.63)
 
 AC_INIT(NetworkManager-sstp, 
-	1.2.9,
+	1.3.0,
 	eivnaes@yahoo.com, 
 	NetworkManager-sstp)
 AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz -Wno-portability])
@@ -106,7 +106,7 @@ AM_GLIB_GNU_GETTEXT
 
 # gio-unix will require glib and gio
 PKG_CHECK_MODULES(GLIB, [gio-unix-2.0 >= 2.40 gmodule-2.0])
-GLIB_CFLAGS="$GLIB_CFLAGS -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_40 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_40"
+GLIB_CFLAGS="$GLIB_CFLAGS -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_44 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_44"
 
 PKG_CHECK_MODULES(GNUTLS, [gnutls >= 2.12])
 PKG_CHECK_MODULES(SSTPC, [sstp-client-1.0 >= 1.0.10])
