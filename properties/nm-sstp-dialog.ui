@@ -12,14 +12,8 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkListStore" id="liststore1">
-    <columns>
-      <!-- column-name Version -->
-      <column type="&lt; define a new column &gt;"/>
-    </columns>
-    <data>
-      <row/>
-    </data>
+  <object class="GtkSizeGroup" id="labels_group_1">
+    <property name="ignore_hidden">True</property>
   </object>
   <object class="GtkListStore" id="model1">
     <columns>
@@ -447,7 +441,7 @@ config: the first parameter of sstp</property>
       </packing>
     </child>
   </object>
-  <object class="GtkSizeGroup" id="labels">
+  <object class="GtkSizeGroup" id="labels_group_2">
     <property name="ignore_hidden">True</property>
     <widgets>
       <widget name="label26"/>
@@ -457,6 +451,17 @@ config: the first parameter of sstp</property>
     </widgets>
   </object>
   <object class="GtkListStore" id="model3">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Default</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model4">
     <columns>
       <!-- column-name gchararray -->
       <column type="gchararray"/>
@@ -536,7 +541,7 @@ config: the first parameter of sstp</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkBox" id="TlsPage">
+                  <object class="GtkBox" id="ConnectionPage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="border_width">5</property>
@@ -1125,7 +1130,7 @@ config: unit &lt;n&gt;</property>
                 <property name="left_padding">12</property>
                 <property name="right_padding">12</property>
                 <child>
-                  <object class="GtkBox" id="vbox14">
+                  <object class="GtkBox" id="TlsPage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="orientation">vertical</property>
@@ -1230,10 +1235,7 @@ By default, this will be populated, when correct password for certificate is sup
                                   <object class="GtkEntry" id="tls_remote_entry">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="tooltip_text" translatable="yes">Subject or Common Name to verify server certificate information against.
-
-config: verify-x509-name subject-or-name [mode]
-config (legacy mode): tls-remote subject-or-name</property>
+                                    <property name="tooltip_text" translatable="yes">Subject or Common Name to verify server certificate information against. </property>
                                     <property name="hexpand">True</property>
                                   </object>
                                   <packing>
@@ -1264,11 +1266,7 @@ config (legacy mode): tls-remote subject-or-name</property>
 When enabled, connection will only succeed if the server certificate matches some expected properties.
 Matching can either apply to the whole certificate subject (all the fields),
 or just the Common Name (CN field).
-
-The legacy option tls-remote is deprecated and removed from OpenVPN 2.4 and newer. Do not use it anymore.
-
-config: verify-x509-name subject-or-name [mode]
-config (legacy mode): tls-remote subject-or-name</property>
+                                    </property>
                                     <property name="hexpand">True</property>
                                     <property name="model">model3</property>
                                     <child>
@@ -1341,35 +1339,12 @@ config (legacy mode): tls-remote subject-or-name</property>
                             <property name="top_padding">6</property>
                             <property name="left_padding">12</property>
                             <child>
-                              <object class="GtkGrid" id="table6">
+                              <object class="NMACertChooser" id="tls_crl_cert">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="row_spacing">6</property>
-                                <property name="column_spacing">12</property>
-                                <child>
-                                  <object class="GtkLabel" id="tls_crl_from_file_label">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Verify CRL from file:</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="NMACertChooser" id="tls_crl_cert">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="title" translatable="yes">CRL</property>
-                                    <property name="flags">5</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">0</property>
-                                  </packing>
-                                </child>
+                                <property name="hexpand">True</property>
+                                <property name="title" translatable="yes">CRL</property>
+                                <property name="flags">5</property>
                               </object>
                             </child>
                           </object>
@@ -1438,7 +1413,7 @@ config (legacy mode): tls-remote subject-or-name</property>
                                     <property name="can_focus">False</property>
                                     <property name="tooltip_text" translatable="yes">Use this to control the maximum supported EAP-TLS version. Default is TLS 1.2, and use of TLS 1.3 is considered experimental at this point.</property>
                                     <property name="hexpand">True</property>
-                                    <property name="model">liststore1</property>
+                                    <property name="model">model4</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -1725,7 +1700,7 @@ config (legacy mode): tls-remote subject-or-name</property>
                 <property name="label" translatable="yes">Proxy</property>
               </object>
               <packing>
-                <property name="position">2</property>
+                <property name="position">3</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -1733,7 +1708,7 @@ config (legacy mode): tls-remote subject-or-name</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">0</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>
@@ -1742,14 +1717,5 @@ config (legacy mode): tls-remote subject-or-name</property>
       <action-widget response="-6">cancel_button</action-widget>
       <action-widget response="-5">ok_button</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkSizeGroup" id="labels1">
-    <property name="ignore_hidden">True</property>
-    <widgets>
-      <widget name="tls_remote_label"/>
-      <widget name="tls_remote_mode_label"/>
-      <widget name="tls_crl_from_file_label"/>
-      <widget name="tls_version_max_label"/>
-    </widgets>
   </object>
 </interface>
