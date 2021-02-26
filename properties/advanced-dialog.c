@@ -67,8 +67,13 @@ static const char *advanced_keys[] = {
     NM_SSTP_KEY_PROXY_USER,
     NM_SSTP_KEY_PROXY_PASSWORD,
     NM_SSTP_KEY_IGN_CERT_WARN,
-    NM_SSTP_KEY_TLS_EXT_ENABLE,
     NM_SSTP_KEY_CA_CERT,
+    NM_SSTP_KEY_CRL_REVOCATION_FILE,
+    NM_SSTP_KEY_TLS_EXT_ENABLE,
+    NM_SSTP_KEY_TLS_VERIFY_METHOD,
+    NM_SSTP_KEY_TLS_VERIFY_MATCH,
+    NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE,
+    NM_SSTP_KEY_TLS_MAX_VERSION,
     NULL
 };
 
@@ -467,8 +472,12 @@ advanced_dialog_new (GHashTable *hash)
     const char *value;
     const char *value2;
     gboolean mppe = FALSE;
+    int active = -1;
     GError *error = NULL;
     NMSettingSecretFlags pw_flags;
+    GtkListStore *store;
+    GtkTreeIter iter;
+
 
     g_return_val_if_fail (hash != NULL, NULL);
 
@@ -495,7 +504,17 @@ advanced_dialog_new (GHashTable *hash)
 
     cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_ca_cert_chooser"));
     if (cert) {
+        nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (builder, "labels_group_3")));
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_CA_CERT);
+        if (value && strlen (value) && access(value, R_OK) == 0) {
+            nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
+        }
+    }
+
+    cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_crl_cert_chooser"));
+    if (cert) {
+        nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (builder, "labels_group_3")));
+        value = g_hash_table_lookup (hash, NM_SSTP_KEY_CRL_REVOCATION_FILE);
         if (value && strlen (value) && access(value, R_OK) == 0) {
             nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
@@ -570,6 +589,105 @@ advanced_dialog_new (GHashTable *hash)
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_use_mppe"));
     handle_mppe_changed (widget, TRUE, builder);
     g_signal_connect (G_OBJECT (widget), "toggled", G_CALLBACK (mppe_toggled_cb), builder);
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_identity"));
+    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_IDENTITY);
+    if (value && strlen (value)) {
+        gtk_entry_set_text (GTK_ENTRY (widget), value);
+    }
+
+    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_METHOD);
+    store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        COL_NAME, _("Don't verify certificate identification"),
+                        COL_VALUE, NM_SSTP_VERIFY_MODE_NONE,
+                        -1);
+    if (nm_streq (value, NM_SSTP_VERIFY_MODE_NONE))
+        active = 0;
+
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        COL_NAME, _("Verify subject exactly"),
+                        COL_VALUE, NM_SSTP_VERIFY_MODE_SUBJECT,
+                        -1);
+    if (nm_streq (value, NM_SSTP_VERIFY_MODE_SUBJECT))
+        active = 1;
+
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        COL_NAME, _("Verify name exactly"),
+                        COL_VALUE, NM_SSTP_VERIFY_MODE_NAME,
+                        -1);
+    if (nm_streq (value, NM_SSTP_VERIFY_MODE_NAME))
+        active = 2;
+
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        COL_NAME, _("Verify name by suffix"),
+                        COL_VALUE, NM_SSTP_VERIFY_MODE_NAME_SUFFIX,
+                        -1);
+    if (nm_streq (value, NM_SSTP_VERIFY_MODE_NAME_SUFFIX))
+        active = 3;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_mode_combo"));
+    gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
+    if (active >= 0)
+        gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active);
+    g_object_unref (store);
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_entry"));
+    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_MATCH);
+    if (value && strlen (value)) {
+        gtk_entry_set_text (GTK_ENTRY (widget), value);
+    }
+
+    active = -1;
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_keyusage_check"));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), FALSE);
+    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE);
+    if (value && !strcmp (value, "yes"))
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);
+
+    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_MAX_VERSION);
+    store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        COL_NAME, "TLS 1.0",
+                        COL_VALUE, NM_SSTP_TLS_1_0_SUPPORT,
+                        -1);
+    if (nm_streq (value, NM_SSTP_TLS_1_0_SUPPORT))
+        active = 0;
+
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        COL_NAME, "TLS 1.1",
+                        COL_VALUE, NM_SSTP_TLS_1_1_SUPPORT,
+                        -1);
+    if (nm_streq (value, NM_SSTP_TLS_1_1_SUPPORT))
+        active = 1;
+
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        COL_NAME, _("TLS 1.2 (Default)"),
+                        COL_VALUE, NM_SSTP_TLS_1_2_SUPPORT,
+                        -1);
+    if (nm_streq (value, NM_SSTP_TLS_1_2_SUPPORT))
+        active = 2;
+
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        COL_NAME, _("TLS 1.3"),
+                        COL_VALUE, NM_SSTP_TLS_1_3_SUPPORT,
+                        -1);
+    if (nm_streq (value, NM_SSTP_TLS_1_3_SUPPORT))
+        active = 3;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_version_max_combo"));
+    gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
+    if (active > 0)
+        gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active);
+    g_object_unref (store);
 
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_SERVER);
     value2 = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_PORT);
@@ -674,6 +792,17 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
         }
     }
 
+    cert = NMA_CERT_CHOOSER (gtk_builder_get_object (builder, "tls_crl_cert_chooser"));
+    if (cert) {
+        value = nma_cert_chooser_get_cert(cert, &scheme);
+        if (value && strlen (value)) {
+            g_hash_table_insert (hash,
+                                 g_strdup (NM_SSTP_KEY_CRL_REVOCATION_FILE),
+                                 (char*) value);
+        }
+    }
+
+
     /* Ignore Certificate Warnings */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
@@ -769,6 +898,57 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
         unit_num = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
         g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_UNIT_NUM),
                              g_strdup_printf ("%d", unit_num));
+    }
+
+    /* TLS Authentication */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_identity"));
+    value = gtk_entry_get_text (GTK_ENTRY (widget));
+    if (value && strlen (value)) {
+        g_hash_table_insert (hash,
+                             g_strdup (NM_SSTP_KEY_TLS_IDENTITY),
+                             g_strdup (value));
+    }
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_mode_combo"));
+    model = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
+    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (widget), &iter)) {
+        char *method = NULL;
+
+        gtk_tree_model_get (model, &iter,
+                            COL_VALUE, &method, -1);
+
+        if (method && strlen (method)) {
+            g_hash_table_insert (hash,
+                                 g_strdup (NM_SSTP_KEY_TLS_VERIFY_METHOD),
+                                 method);
+        }
+    }
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_entry"));
+    value = gtk_entry_get_text (GTK_ENTRY (widget));
+    if (value && strlen (value)) {
+        g_hash_table_insert (hash,
+                             g_strdup (NM_SSTP_KEY_TLS_VERIFY_MATCH),
+                             g_strdup (value));
+    }
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_keyusage_check"));
+    g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE),
+                               g_strdup (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)) ? "yes" : "no"));
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_version_max_combo"));
+    model = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
+    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (widget), &iter)) {
+        char *version = NULL;
+
+        gtk_tree_model_get (model, &iter,
+                            COL_VALUE, &version, -1);
+
+        if (version && strlen (version)) {
+            g_hash_table_insert (hash,
+                                 g_strdup (NM_SSTP_KEY_TLS_MAX_VERSION),
+                                 version);
+        }
     }
 
     /* Proxy support */

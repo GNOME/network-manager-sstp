@@ -12,7 +12,7 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkSizeGroup" id="labels_group_1">
+  <object class="GtkSizeGroup" id="labels_group_3">
     <property name="ignore_hidden">True</property>
   </object>
   <object class="GtkListStore" id="model1">
@@ -441,7 +441,7 @@ config: the first parameter of sstp</property>
       </packing>
     </child>
   </object>
-  <object class="GtkSizeGroup" id="labels_group_2">
+  <object class="GtkSizeGroup" id="labels_group_1">
     <property name="ignore_hidden">True</property>
     <widgets>
       <widget name="label26"/>
@@ -557,7 +557,7 @@ config: the first parameter of sstp</property>
                           <object class="GtkLabel" id="label8">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Security&lt;/b&gt;</property>
+                            <property name="label" translatable="yes">&lt;b&gt;SSL Tunnel&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                             <property name="xalign">0</property>
                           </object>
@@ -580,11 +580,14 @@ config: the first parameter of sstp</property>
                                 <property name="column_spacing">12</property>
                                 <child>
                                   <object class="GtkCheckButton" id="tls_cert_warn_checkbutton">
-                                    <property name="label" translatable="yes">Ignore certificate warnings</property>
+                                    <property name="label" translatable="yes">_Verify certificate type and extended key usage</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
+                                    <property name="tooltip_text" translatable="yes">Require that the peer certificate used for outer SSL tunnel was signed with a certificate that has a trusted certificate chain, key usage, and extended key usage based on RFC3280 TLS rules.</property>
                                     <property name="halign">start</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                   </object>
                                   <packing>
@@ -595,11 +598,14 @@ config: the first parameter of sstp</property>
                                 </child>
                                 <child>
                                   <object class="GtkCheckButton" id="tls_hostext_checkbutton">
-                                    <property name="label" translatable="yes">Use TLS hostname extensions</property>
+                                    <property name="label" translatable="yes">_Use TLS hostname extensions</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
+                                    <property name="tooltip_text" translatable="yes">Use the gateway name as specified for this connection in the hostname extentions in the SSL tunnel</property>
                                     <property name="halign">start</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                   </object>
                                   <packing>
@@ -635,6 +641,54 @@ config: the first parameter of sstp</property>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox" id="vbox16">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;b&gt;Certificate Revocation&lt;/b&gt;</property>
+                            <property name="use_markup">True</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkAlignment" id="alignment18">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="top_padding">6</property>
+                            <property name="left_padding">12</property>
+                            <child>
+                              <object class="NMACertChooser" id="tls_crl_cert_chooser">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="hexpand">True</property>
+                                <property name="title" translatable="yes">CRL</property>
+                                <property name="flags">5</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
@@ -1125,16 +1179,13 @@ config: unit &lt;n&gt;</property>
               <object class="GtkAlignment" id="alignment16">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="top_padding">12</property>
-                <property name="bottom_padding">12</property>
-                <property name="left_padding">12</property>
-                <property name="right_padding">12</property>
                 <child>
                   <object class="GtkBox" id="TlsPage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="border_width">5</property>
                     <property name="orientation">vertical</property>
-                    <property name="spacing">12</property>
+                    <property name="spacing">18</property>
                     <child>
                       <object class="GtkBox" id="vbox17">
                         <property name="visible">True</property>
@@ -1216,12 +1267,12 @@ By default, this will be populated, when correct password for certificate is sup
                                 <property name="valign">start</property>
                                 <property name="hexpand">True</property>
                                 <property name="row_spacing">6</property>
-                                <property name="column_spacing">12</property>
+                                <property name="column_spacing">6</property>
                                 <child>
                                   <object class="GtkLabel" id="tls_remote_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">_Subject Match:</property>
+                                    <property name="label" translatable="yes">_Subject Match</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">tls_remote_entry</property>
                                     <property name="xalign">1</property>
@@ -1247,7 +1298,7 @@ By default, this will be populated, when correct password for certificate is sup
                                   <object class="GtkLabel" id="tls_remote_mode_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Server _Certificate Check:</property>
+                                    <property name="label" translatable="yes">_Verify Method</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">tls_remote_mode_combo</property>
                                     <property name="xalign">1</property>
@@ -1288,6 +1339,7 @@ or just the Common Name (CN field).
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="tooltip_text" translatable="yes">Require that peer certificate was signed with an explicit key usage and extended key usage based on RFC3280 TLS rules.</property>
+                                    <property name="halign">start</property>
                                     <property name="use_underline">True</property>
                                     <property name="draw_indicator">True</property>
                                   </object>
@@ -1311,54 +1363,6 @@ or just the Common Name (CN field).
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="vbox16">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Certificate Revocation&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
-                            <property name="xalign">0</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkAlignment" id="alignment18">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="top_padding">6</property>
-                            <property name="left_padding">12</property>
-                            <child>
-                              <object class="NMACertChooser" id="tls_crl_cert">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="hexpand">True</property>
-                                <property name="title" translatable="yes">CRL</property>
-                                <property name="flags">5</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
                       </packing>
                     </child>
                     <child>
@@ -1393,13 +1397,14 @@ or just the Common Name (CN field).
                                 <property name="valign">start</property>
                                 <property name="hexpand">True</property>
                                 <property name="row_spacing">6</property>
-                                <property name="column_spacing">12</property>
+                                <property name="column_spacing">6</property>
                                 <child>
                                   <object class="GtkLabel" id="tls_version_max_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Max TLS Version:</property>
+                                    <property name="label" translatable="yes">_Max TLS Version</property>
                                     <property name="use_underline">True</property>
+                                    <property name="mnemonic_widget">tls_version_max_combo</property>
                                     <property name="xalign">1</property>
                                   </object>
                                   <packing>
@@ -1414,6 +1419,12 @@ or just the Common Name (CN field).
                                     <property name="tooltip_text" translatable="yes">Use this to control the maximum supported EAP-TLS version. Default is TLS 1.2, and use of TLS 1.3 is considered experimental at this point.</property>
                                     <property name="hexpand">True</property>
                                     <property name="model">model4</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="renderer4"/>
+                                      <attributes>
+                                        <attribute name="text">0</attribute>
+                                      </attributes>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -1690,7 +1701,7 @@ or just the Common Name (CN field).
                 </child>
               </object>
               <packing>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
             <child type="tab">
@@ -1717,5 +1728,13 @@ or just the Common Name (CN field).
       <action-widget response="-6">cancel_button</action-widget>
       <action-widget response="-5">ok_button</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkSizeGroup" id="labels_group_2">
+    <property name="ignore_hidden">True</property>
+    <widgets>
+      <widget name="tls_remote_mode_label"/>
+      <widget name="tls_remote_label"/>
+      <widget name="tls_version_max_label"/>
+    </widgets>
   </object>
 </interface>

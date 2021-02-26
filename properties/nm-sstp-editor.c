@@ -69,6 +69,7 @@ typedef struct {
 #define COL_AUTH_PAGE 1
 #define COL_AUTH_TYPE 2
 
+
 static gboolean
 validate_auth_widgets (GtkBuilder *builder, const char *type, GError **error)
 {
@@ -260,6 +261,7 @@ password_storage_changed_cb (GObject *entry, GParamSpec *pspec, gpointer user_da
 static void
 tls_update_identity(SstpPluginUiWidget *self, const char *identity)
 {
+/*
     SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
     GtkWidget *widget;
     const char *str = NULL;
@@ -269,6 +271,7 @@ tls_update_identity(SstpPluginUiWidget *self, const char *identity)
     if (str && *str == 0) {
         gtk_entry_set_text (GTK_ENTRY (widget), identity);
     }
+*/
 }
 
 static void
@@ -463,7 +466,6 @@ tls_key_check_cb(NMACertChooser *this, gpointer user_data)
     return error;
 }
 
-
 static gboolean
 tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed_cb) 
 {
@@ -474,12 +476,12 @@ tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed
  
     cert = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
     g_return_val_if_fail (cert != NULL, FALSE);
-    nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels")));
+    nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels_group_1")));
     g_signal_connect_object (G_OBJECT (cert), "changed", G_CALLBACK (tls_changed_cb), self, 0);
     
     ca = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
     g_return_val_if_fail (ca != NULL, FALSE);
-    nma_cert_chooser_add_to_size_group (ca, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels")));
+    nma_cert_chooser_add_to_size_group (ca, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels_group_1")));
     g_signal_connect_object (G_OBJECT (ca), "changed", G_CALLBACK (tls_ca_changed_cb), self, 0);
 
     if (s_vpn) {
@@ -794,13 +796,6 @@ update_connection (NMVpnEditor *iface,
             if (value && *value) {
                 nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT, value);
                 g_free (value);
-            }
-        
-            /* Identity */
-            widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_identity"));
-            str = gtk_entry_get_text (GTK_ENTRY (widget));
-            if (str && strlen (str)) {
-                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_NAME, str);
             }
         }
         else {
