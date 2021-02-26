@@ -43,7 +43,6 @@
 #define NM_SSTP_KEY_CA_CERT                     "ca-cert"
 #define NM_SSTP_KEY_CONNECTION_TYPE             "connection-type"
 #define NM_SSTP_KEY_IGN_CERT_WARN               "ignore-cert-warn"
-#define NM_SSTP_KEY_TLS_EXT_ENABLE              "tls-ext"
 #define NM_SSTP_KEY_NOSECRET                    "no-secret"
 #define NM_SSTP_KEY_REFUSE_EAP                  "refuse-eap"
 #define NM_SSTP_KEY_REFUSE_PAP                  "refuse-pap"
@@ -64,11 +63,18 @@
 #define NM_SSTP_KEY_PROXY_PORT                  "proxy-port"
 #define NM_SSTP_KEY_PROXY_USER                  "proxy-user"
 #define NM_SSTP_KEY_PROXY_PASSWORD              "proxy-password"
+#define NM_SSTP_KEY_CRL_REVOCATION_FILE         "crl-file"
+
+#define NM_SSTP_KEY_TLS_EXT_ENABLE              "tls-ext"
 #define NM_SSTP_KEY_TLS_CA_CERT                 "tls-ca-cert"
-#define NM_SSTP_KEY_TLS_USER_NAME               "tls-user-name"
+#define NM_SSTP_KEY_TLS_IDENTITY                "tls-identity"
 #define NM_SSTP_KEY_TLS_USER_CERT               "tls-user-cert"
 #define NM_SSTP_KEY_TLS_USER_KEY                "tls-user-key"
 #define NM_SSTP_KEY_TLS_USER_KEY_SECRET         "tls-user-key-secret"
+#define NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE        "tls-verify-key-usage"
+#define NM_SSTP_KEY_TLS_VERIFY_METHOD           "tls-verify-method"
+#define NM_SSTP_KEY_TLS_VERIFY_MATCH            "tls-verify-match"
+#define NM_SSTP_KEY_TLS_MAX_VERSION             "tls-max-version"
 
 #define NM_SSTP_KEY_TLS_USER_KEY_SECRET_FLAGS   "tls-user-key-secret-flags"
 #define NM_SSTP_KEY_PASSWORD_FLAGS              "password-flags"
@@ -76,6 +82,16 @@
 
 #define NM_SSTP_CONTYPE_PASSWORD                "password"
 #define NM_SSTP_CONTYPE_TLS                     "tls"
+
+#define NM_SSTP_VERIFY_MODE_NONE                "none"
+#define NM_SSTP_VERIFY_MODE_SUBJECT             "subject"
+#define NM_SSTP_VERIFY_MODE_NAME                "name"
+#define NM_SSTP_VERIFY_MODE_NAME_SUFFIX         "suffix"
+
+#define NM_SSTP_TLS_1_0_SUPPORT                 "1.0"
+#define NM_SSTP_TLS_1_1_SUPPORT                 "1.1"
+#define NM_SSTP_TLS_1_2_SUPPORT                 "1.2"
+#define NM_SSTP_TLS_1_3_SUPPORT                 "1.3"
 
 
 #endif /* __NM_SERVICE_DEFINES_H__ */
