@@ -141,7 +141,7 @@ static const ValidProperty valid_properties[] = {
     { NM_SSTP_KEY_UUID,                      G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_NOSECRET,                  G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_CA_CERT,               G_TYPE_STRING,  FALSE },
-    { NM_SSTP_KEY_TLS_USER_NAME,             G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_TLS_IDENTITY,              G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_CERT,             G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_KEY,              G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_KEY_SECRET_FLAGS, G_TYPE_STRING,  FALSE },
@@ -602,7 +602,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
         }
 
         // This is the certificate's subject name. 
-        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_NAME);
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_IDENTITY);
         if (value && *value) {
             g_ptr_array_add (args, (gpointer) g_strdup ("name"));
             args_add_utf8safe_str(args, value); 

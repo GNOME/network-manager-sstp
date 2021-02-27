@@ -1176,7 +1176,7 @@ config: unit &lt;n&gt;</property>
               </packing>
             </child>
             <child>
-              <object class="GtkAlignment" id="alignment16">
+              <object class="GtkAlignment" id="alignment_tls">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>

@@ -68,6 +68,7 @@
 #define NM_SSTP_KEY_TLS_EXT_ENABLE              "tls-ext"
 #define NM_SSTP_KEY_TLS_CA_CERT                 "tls-ca-cert"
 #define NM_SSTP_KEY_TLS_IDENTITY                "tls-identity"
+#define NM_SSTP_KEY_TLS_SUBJECT_NAME            "tls-subject-name"
 #define NM_SSTP_KEY_TLS_USER_CERT               "tls-user-cert"
 #define NM_SSTP_KEY_TLS_USER_KEY                "tls-user-key"
 #define NM_SSTP_KEY_TLS_USER_KEY_SECRET         "tls-user-key-secret"

@@ -70,6 +70,7 @@ static const char *advanced_keys[] = {
     NM_SSTP_KEY_CA_CERT,
     NM_SSTP_KEY_CRL_REVOCATION_FILE,
     NM_SSTP_KEY_TLS_EXT_ENABLE,
+    NM_SSTP_KEY_TLS_IDENTITY,
     NM_SSTP_KEY_TLS_VERIFY_METHOD,
     NM_SSTP_KEY_TLS_VERIFY_MATCH,
     NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE,
@@ -463,7 +464,7 @@ checkbox_toggled_update_widget_cb (GtkWidget *check, gpointer user_data)
 }
 
 GtkWidget *
-advanced_dialog_new (GHashTable *hash)
+advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
 {
     GtkBuilder *builder;
     GtkWidget *dialog = NULL;
@@ -590,10 +591,14 @@ advanced_dialog_new (GHashTable *hash)
     handle_mppe_changed (widget, TRUE, builder);
     g_signal_connect (G_OBJECT (widget), "toggled", G_CALLBACK (mppe_toggled_cb), builder);
 
+    // Use the user-specified value for identity, or extracted subject name if not specified
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_identity"));
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_IDENTITY);
     if (value && strlen (value)) {
         gtk_entry_set_text (GTK_ENTRY (widget), value);
+    }
+    else if (subject && strlen (subject)) {
+        gtk_entry_set_text (GTK_ENTRY (widget), subject);
     }
 
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_METHOD);
@@ -688,6 +693,9 @@ advanced_dialog_new (GHashTable *hash)
     if (active > 0)
         gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active);
     g_object_unref (store);
+    
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "alignment_tls"));
+    gtk_widget_set_sensitive(widget, is_tls);
 
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_SERVER);
     value2 = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_PORT);
