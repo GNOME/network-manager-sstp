@@ -74,7 +74,7 @@
 #define NM_SSTP_KEY_TLS_USER_KEY_SECRET         "tls-user-key-secret"
 #define NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE        "tls-verify-key-usage"
 #define NM_SSTP_KEY_TLS_VERIFY_METHOD           "tls-verify-method"
-#define NM_SSTP_KEY_TLS_VERIFY_MATCH            "tls-verify-match"
+#define NM_SSTP_KEY_TLS_REMOTENAME              "tls-remotename"
 #define NM_SSTP_KEY_TLS_MAX_VERSION             "tls-max-version"
 
 #define NM_SSTP_KEY_TLS_USER_KEY_SECRET_FLAGS   "tls-user-key-secret-flags"

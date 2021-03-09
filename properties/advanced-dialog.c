@@ -72,8 +72,8 @@ static const char *advanced_keys[] = {
     NM_SSTP_KEY_TLS_EXT_ENABLE,
     NM_SSTP_KEY_TLS_IDENTITY,
     NM_SSTP_KEY_TLS_VERIFY_METHOD,
-    NM_SSTP_KEY_TLS_VERIFY_MATCH,
     NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE,
+    NM_SSTP_KEY_TLS_REMOTENAME,
     NM_SSTP_KEY_TLS_MAX_VERSION,
     NULL
 };
@@ -608,7 +608,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
                         COL_NAME, _("Don't verify certificate identification"),
                         COL_VALUE, NM_SSTP_VERIFY_MODE_NONE,
                         -1);
-    if (nm_streq (value, NM_SSTP_VERIFY_MODE_NONE))
+    if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_NONE))
         active = 0;
 
     gtk_list_store_append (store, &iter);
@@ -616,7 +616,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
                         COL_NAME, _("Verify subject exactly"),
                         COL_VALUE, NM_SSTP_VERIFY_MODE_SUBJECT,
                         -1);
-    if (nm_streq (value, NM_SSTP_VERIFY_MODE_SUBJECT))
+    if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_SUBJECT))
         active = 1;
 
     gtk_list_store_append (store, &iter);
@@ -624,7 +624,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
                         COL_NAME, _("Verify name exactly"),
                         COL_VALUE, NM_SSTP_VERIFY_MODE_NAME,
                         -1);
-    if (nm_streq (value, NM_SSTP_VERIFY_MODE_NAME))
+    if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_NAME))
         active = 2;
 
     gtk_list_store_append (store, &iter);
@@ -632,7 +632,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
                         COL_NAME, _("Verify name by suffix"),
                         COL_VALUE, NM_SSTP_VERIFY_MODE_NAME_SUFFIX,
                         -1);
-    if (nm_streq (value, NM_SSTP_VERIFY_MODE_NAME_SUFFIX))
+    if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_NAME_SUFFIX))
         active = 3;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_mode_combo"));
@@ -642,7 +642,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
     g_object_unref (store);
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_entry"));
-    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_MATCH);
+    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_REMOTENAME);
     if (value && strlen (value)) {
         gtk_entry_set_text (GTK_ENTRY (widget), value);
     }
@@ -661,7 +661,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
                         COL_NAME, "TLS 1.0",
                         COL_VALUE, NM_SSTP_TLS_1_0_SUPPORT,
                         -1);
-    if (nm_streq (value, NM_SSTP_TLS_1_0_SUPPORT))
+    if (nm_streq0 (value, NM_SSTP_TLS_1_0_SUPPORT))
         active = 0;
 
     gtk_list_store_append (store, &iter);
@@ -669,7 +669,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
                         COL_NAME, "TLS 1.1",
                         COL_VALUE, NM_SSTP_TLS_1_1_SUPPORT,
                         -1);
-    if (nm_streq (value, NM_SSTP_TLS_1_1_SUPPORT))
+    if (nm_streq0 (value, NM_SSTP_TLS_1_1_SUPPORT))
         active = 1;
 
     gtk_list_store_append (store, &iter);
@@ -677,7 +677,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
                         COL_NAME, _("TLS 1.2 (Default)"),
                         COL_VALUE, NM_SSTP_TLS_1_2_SUPPORT,
                         -1);
-    if (nm_streq (value, NM_SSTP_TLS_1_2_SUPPORT))
+    if (nm_streq0 (value, NM_SSTP_TLS_1_2_SUPPORT))
         active = 2;
 
     gtk_list_store_append (store, &iter);
@@ -685,7 +685,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
                         COL_NAME, _("TLS 1.3"),
                         COL_VALUE, NM_SSTP_TLS_1_3_SUPPORT,
                         -1);
-    if (nm_streq (value, NM_SSTP_TLS_1_3_SUPPORT))
+    if (nm_streq0 (value, NM_SSTP_TLS_1_3_SUPPORT))
         active = 3;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_version_max_combo"));
@@ -936,7 +936,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
     value = gtk_entry_get_text (GTK_ENTRY (widget));
     if (value && strlen (value)) {
         g_hash_table_insert (hash,
-                             g_strdup (NM_SSTP_KEY_TLS_VERIFY_MATCH),
+                             g_strdup (NM_SSTP_KEY_TLS_REMOTENAME),
                              g_strdup (value));
     }
 

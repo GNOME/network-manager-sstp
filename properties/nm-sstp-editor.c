@@ -280,7 +280,7 @@ tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
             chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
             ca = nma_cert_chooser_get_cert (chooser, &scheme);
             if (!ca || (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-                    && strcmp (ca, cert))) {
+                    && !nm_streq0 (ca, cert))) {
                 nma_cert_chooser_set_cert (chooser, cert, NM_SETTING_802_1X_CK_SCHEME_PATH);
             }
             priv->is_pkcs12 = TRUE;
@@ -324,7 +324,7 @@ tls_ca_changed_cb(NMACertChooser *chooser, gpointer user_data)
             chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
             cert = nma_cert_chooser_get_cert (chooser, &scheme);
             if (!cert || (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-                    && strcmp (cert, ca))) {
+                    && !nm_streq0 (cert, ca))) {
                 nma_cert_chooser_set_cert (chooser, ca, NM_SETTING_802_1X_CK_SCHEME_PATH);
             }
             priv->is_pkcs12 = TRUE;
@@ -463,26 +463,28 @@ tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed
     cert = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
     g_return_val_if_fail (cert != NULL, FALSE);
     nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels_group_1")));
-    g_signal_connect_object (G_OBJECT (cert), "changed", G_CALLBACK (tls_changed_cb), self, 0);
     
     ca = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
     g_return_val_if_fail (ca != NULL, FALSE);
     nma_cert_chooser_add_to_size_group (ca, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels_group_1")));
-    g_signal_connect_object (G_OBJECT (ca), "changed", G_CALLBACK (tls_ca_changed_cb), self, 0);
 
     if (s_vpn) {
+        
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT);
         if (value && *value && access(value, R_OK) == 0) {
             nma_cert_chooser_set_cert (ca, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
+
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT);
         if (value && *value && access(value, R_OK) == 0) {
             nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
+
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
         if (value && *value && access(value, R_OK) == 0) {
             nma_cert_chooser_set_key (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
+
         value = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET);
         if (value) {
             nma_cert_chooser_set_key_password (cert, value);
@@ -492,7 +494,15 @@ tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed
     nma_cert_chooser_setup_key_password_storage (cert, 0, (NMSetting *) s_vpn,
             NM_SSTP_KEY_TLS_USER_KEY_SECRET, TRUE, FALSE);
 
-    /*  Validate the 'Certificate' */
+    /* Setup 'changed' callback */
+    g_signal_connect_object (G_OBJECT (cert), "changed",
+            G_CALLBACK (tls_changed_cb), self, 0);
+
+    /* Setup 'changed' callback */
+    g_signal_connect_object (G_OBJECT (ca), "changed",
+            G_CALLBACK (tls_ca_changed_cb), self, 0);
+
+    /* Validate the 'Certificate' */
     g_signal_connect_object (G_OBJECT (ca), "cert-validate",
             G_CALLBACK (tls_ca_valid_cb), self, 0);
 

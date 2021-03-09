@@ -140,11 +140,17 @@ static const ValidProperty valid_properties[] = {
     { NM_SSTP_KEY_PROXY_PASSWORD_FLAGS,      G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_UUID,                      G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_NOSECRET,                  G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_CRL_REVOCATION_FILE,       G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_CA_CERT,               G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_IDENTITY,              G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_TLS_SUBJECT_NAME,          G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_CERT,             G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_KEY,              G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_TLS_USER_KEY_SECRET_FLAGS, G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE,      G_TYPE_BOOLEAN, FALSE },
+    { NM_SSTP_KEY_TLS_VERIFY_METHOD,         G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_TLS_REMOTENAME,            G_TYPE_STRING,  FALSE },
+    { NM_SSTP_KEY_TLS_MAX_VERSION,           G_TYPE_STRING,  FALSE },
     { NULL,                                  G_TYPE_NONE,    FALSE }
 };
 
@@ -468,6 +474,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
     gs_free char *pty = NULL;
     gboolean ign_cert = FALSE;
     gboolean tls_ext = FALSE;
+    gboolean is_pkcs12 = FALSE;
 
     sstp_binary = nm_find_sstpc ();
     if (!sstp_binary) {
@@ -570,7 +577,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
     g_ptr_array_add (args, (gpointer) g_strdup ("usepeerdns"));
     g_ptr_array_add (args, (gpointer) g_strdup ("noipdefault"));
     g_ptr_array_add (args, (gpointer) g_strdup ("nodefaultroute"));
-    
+
     /* Don't need to auth the SSTP server */
     g_ptr_array_add (args, (gpointer) g_strdup ("noauth"));
 
@@ -595,35 +602,89 @@ construct_pppd_args (NMSstpPlugin *plugin,
     }
     else if (value && !strcmp (value, NM_SSTP_CONTYPE_TLS)) {
 
-        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT);
-        if (value && *value) {
-            g_ptr_array_add (args, (gpointer) g_strdup ("ca"));
-            args_add_utf8safe_str(args, value); 
-        }
-
-        // This is the certificate's subject name. 
+        /* This is usually the certificate's subject name, but user can specify an override in
+         *   the advanced settings dialog
+         *
+         * NOTE: that the Microsoft OID for username has presidence (OID: 1.2.840.113549.1.9.1),
+         *   over the subject name for the user's convenience.
+         */
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_IDENTITY);
         if (value && *value) {
             g_ptr_array_add (args, (gpointer) g_strdup ("name"));
-            args_add_utf8safe_str(args, value); 
+            args_add_utf8safe_str(args, value);
+        }
+        else {
+            /* Automatically extracted from the certificate when password is correct */
+            value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_SUBJECT_NAME);
+            if (value && *value) {
+                g_ptr_array_add (args, (gpointer) g_strdup ("name"));
+                args_add_utf8safe_str (args, value);
+            }
         }
 
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT);
         if (value && *value) {
-            g_ptr_array_add (args, (gpointer) g_strdup ("cert"));
-            args_add_utf8safe_str(args, value); 
-        } 
 
-        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
-        if (value && *value) {
-            g_ptr_array_add (args, (gpointer) g_strdup ("key"));
-            args_add_utf8safe_str(args, value); 
+            is_pkcs12 = nm_utils_file_is_pkcs12 (value);
+            g_ptr_array_add (args, (gpointer) g_strdup (is_pkcs12 ? "pkcs12" : "cert"));
+            args_add_utf8safe_str (args, value);
         }
-    
+
+        if (!is_pkcs12) {
+            value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
+            if (value && *value) {
+                g_ptr_array_add (args, (gpointer) g_strdup ("key"));
+                args_add_utf8safe_str(args, value);
+            }
+        }
+
         value = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET);
         if (value && *value) {
             g_ptr_array_add (args, (gpointer) g_strdup ("password"));
             g_ptr_array_add (args, g_strdup (value));
+        }
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("ca"));
+            args_add_utf8safe_str(args, value);
+        }
+        else {
+            g_ptr_array_add (args, (gpointer) g_strdup ("capath"));
+            args_add_utf8safe_str(args, g_strdup (SYSTEM_CA_PATH));
+        }
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_MAX_VERSION);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("max-tls-version"));
+            g_ptr_array_add (args, g_strdup (value));
+        }
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CRL_REVOCATION_FILE);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("crl"));
+            g_ptr_array_add (args, g_strdup (value));
+        }
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("tls-verify-key-usage"));
+        }
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_VERIFY_METHOD);
+        if (value && *value) {
+
+            const char *remote = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_REMOTENAME);
+            if (remote && *remote) {
+
+                g_ptr_array_add (args, (gpointer) g_strdup ("tls-verify-method"));
+                g_ptr_array_add (args, g_strdup (value));
+
+                // If one specify (ca or capath), cert, key and password, then remote name isn't
+                //    used to look up the secret in /etc/ppp/eaptls-client
+                g_ptr_array_add (args, (gpointer) g_strdup ("remotename"));
+                g_ptr_array_add (args, g_strdup (remote));
+            }
         }
 
         g_ptr_array_add (args, (gpointer) g_strdup ("need-peer-eap"));
@@ -962,7 +1023,7 @@ real_connect (NMVpnServicePlugin   *plugin,
 /*
  * Callback from NetworkManager having us check if we need secrets
  *
- * The auth-dialog is being displayed after we indicate it is needed. 
+ * The auth-dialog is being displayed after we indicate it is needed.
  */
 static gboolean
 real_need_secrets (NMVpnServicePlugin *plugin,
@@ -995,11 +1056,11 @@ real_need_secrets (NMVpnServicePlugin *plugin,
 
     ctype = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
     if (nm_streq (ctype, NM_SSTP_CONTYPE_PASSWORD)) {
-        
+
         /* Don't need the password if we already have one */
         if (nm_setting_vpn_get_secret (NM_SETTING_VPN (s_vpn), NM_SSTP_KEY_PASSWORD))
             return FALSE;
-     
+
         /* Don't need the password if it's not required */
         nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, &flags, NULL);
         if (flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED)
@@ -1009,7 +1070,7 @@ real_need_secrets (NMVpnServicePlugin *plugin,
         return TRUE;
     }
     else if (nm_streq (ctype, NM_SSTP_CONTYPE_TLS)) {
-        
+
         /* The private key may require a password */
         key = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
         key = nm_utils_str_utf8safe_unescape (key, &key_free);
@@ -1029,7 +1090,7 @@ real_need_secrets (NMVpnServicePlugin *plugin,
     }
 
     /* Proxy might require a password; assume so if there's an proxy username */
-    if (nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_SERVER) && 
+    if (nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_SERVER) &&
         nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_PROXY_USER)) {
 
         if (!nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PROXY_PASSWORD)) {
@@ -1269,10 +1330,10 @@ main (int argc, char *argv[])
     gl.log_level = _nm_utils_ascii_str_to_int64 (getenv ("NM_VPN_LOG_LEVEL"),
                                                  10, 0, LOG_DEBUG,
                                                  gl.debug ? LOG_INFO : LOG_NOTICE);
-    
+
     _LOGD ("nm-sstp-service (version " DIST_VERSION ") starting...");
     _LOGD ("   uses%s --bus-name \"%s\"", bus_name_free ? "" : " default", bus_name);
-       
+
     setenv ("NM_VPN_LOG_LEVEL", nm_sprintf_buf (sbuf, "%d", gl.log_level), TRUE);
     setenv ("NM_VPN_LOG_PREFIX_TOKEN", nm_sprintf_buf (sbuf, "%ld", (long) getpid ()), TRUE);
     setenv ("NM_DBUS_SERVICE_SSTP", bus_name, 0);
