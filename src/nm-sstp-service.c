@@ -463,6 +463,10 @@ construct_pppd_args (NMSstpPlugin *plugin,
                      const char *gwaddr,
                      GError **error)
 {
+    NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (plugin);
+    NMConnection *connection = priv->connection;
+    NMSettingIPConfig *ip4cfg = NULL;
+    NMSettingIPConfig *ip6cfg = NULL;
     GPtrArray *args = NULL;
     const char *value, *sstp_binary;
     const char *proxy_server, *proxy_port;
@@ -475,6 +479,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
     gboolean ign_cert = FALSE;
     gboolean tls_ext = FALSE;
     gboolean is_pkcs12 = FALSE;
+    gboolean is_local_set = FALSE;
 
     sstp_binary = nm_find_sstpc ();
     if (!sstp_binary) {
@@ -575,8 +580,87 @@ construct_pppd_args (NMSstpPlugin *plugin,
     g_ptr_array_add (args, (gpointer) g_strdup ("nodetach"));
     g_ptr_array_add (args, (gpointer) g_strdup ("lock"));
     g_ptr_array_add (args, (gpointer) g_strdup ("usepeerdns"));
-    g_ptr_array_add (args, (gpointer) g_strdup ("noipdefault"));
+
+    ip4cfg = nm_connection_get_setting_ip4_config (connection);
+    if (ip4cfg) {
+
+        value = nm_setting_ip_config_get_method (ip4cfg);
+        if (nm_streq0 (value, NM_SETTING_IP4_CONFIG_METHOD_MANUAL)) {
+            const char *ipv4_str = NULL;
+            const char *gway_str = NULL;
+            const char *mask_str = NULL;
+            char buf[NM_UTILS_INET_ADDRSTRLEN];
+            NMIPAddress *ipv4 = NULL;
+
+            // IF <local:remote> is specified, the IPCP negotiation will fail unless
+            //   - ipcp-accept-local, and/or
+            //   - ipcp-accept-remote
+            // is specified. That depends on the server, but in any case allow it.
+            //
+            // The "manual" option is really just a suggestion. "auto" is the default.
+
+            ipv4 = nm_setting_ip_config_get_address (ip4cfg, 0);
+            if (ipv4) {
+                int prefix = nm_ip_address_get_prefix (ipv4);
+                ipv4_str = nm_ip_address_get_address (ipv4);
+                mask_str = nm_utils_inet4_ntop(nm_utils_ip4_prefix_to_netmask (prefix), buf);
+
+                gway_str = nm_setting_ip_config_get_gateway (ip4cfg);
+                if (ipv4_str && gway_str) {
+                    g_ptr_array_add (args, (gpointer) g_strdup_printf ("%s:%s", ipv4_str, gway_str));
+                    if (mask_str) {
+                        g_ptr_array_add (args, (gpointer) g_strdup ("netmask"));
+                        g_ptr_array_add (args, (gpointer) g_strdup (mask_str));
+                    }
+                    g_ptr_array_add (args, (gpointer) g_strdup ("ipcp-accept-local"));
+                    g_ptr_array_add (args, (gpointer) g_strdup ("ipcp-accept-remote"));
+                    is_local_set = TRUE;
+                }
+            }
+        }
+        if (nm_streq (value, NM_SETTING_IP4_CONFIG_METHOD_DISABLED)) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("noip"));
+        }
+    }
+    if (!is_local_set) {
+        g_ptr_array_add (args, (gpointer) g_strdup ("noipdefault"));
+    }
+    is_local_set = FALSE;
+
+    ip6cfg = nm_connection_get_setting_ip6_config (connection);
+    if (ip6cfg) {
+
+        value = nm_setting_ip_config_get_method (ip6cfg);
+        if (nm_streq0 (value, NM_SETTING_IP6_CONFIG_METHOD_MANUAL)) {
+
+            NMIPAddress *ipv6 = nm_setting_ip_config_get_address (ip6cfg, 0);
+            if (ipv6) {
+
+                const char *ipv6_str = nm_ip_address_get_address (ipv6);
+                const char *gway_str = nm_setting_ip_config_get_gateway (ip6cfg);
+                if (ipv6_str && gway_str) {
+
+                    g_ptr_array_add (args, (gpointer) g_strdup ("ipv6"));
+                    g_ptr_array_add (args, (gpointer) g_strdup_printf ("%s,%s",
+                            ipv6_str, gway_str));
+                }
+            }
+            else {
+                // Specified "manual", but no addresses provided??
+                g_ptr_array_add (args, (gpointer) g_strdup ("+ipv6"));
+            }
+        }
+        else if (nm_streq0 (value, NM_SETTING_IP6_CONFIG_METHOD_AUTO)) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("+ipv6"));
+        }
+        else if (nm_streq0 (value, NM_SETTING_IP6_CONFIG_METHOD_DISABLED)) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("noipv6"));
+        }
+    }
+
+    /* Let network-manager handle the routes, tell pppd to not mess with them */
     g_ptr_array_add (args, (gpointer) g_strdup ("nodefaultroute"));
+    g_ptr_array_add (args, (gpointer) g_strdup ("nodefaultroute6"));
 
     /* Don't need to auth the SSTP server */
     g_ptr_array_add (args, (gpointer) g_strdup ("noauth"));
@@ -813,6 +897,12 @@ error:
     return FALSE;
 }
 
+static void
+nm_sstp_dump_ptr_array(gpointer data, gpointer ctx)
+{
+    _LOGD("%s", (gchar *) data);
+}
+
 static gboolean
 nm_sstp_start_pppd_binary (NMSstpPlugin *plugin,
                            NMSettingVpn *s_vpn,
@@ -837,6 +927,9 @@ nm_sstp_start_pppd_binary (NMSstpPlugin *plugin,
     pppd_argv = construct_pppd_args (plugin, s_vpn, pppd_binary, gwaddr, error);
     if (!pppd_argv)
         return FALSE;
+
+    if (gl.debug)
+        g_ptr_array_foreach (pppd_argv, nm_sstp_dump_ptr_array, NULL);
 
     if (!g_spawn_async (NULL, (char **) pppd_argv->pdata, NULL,
                         G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &pid, error)) {
