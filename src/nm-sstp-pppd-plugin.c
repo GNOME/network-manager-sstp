@@ -22,13 +22,14 @@
 
 #include <config.h>
 #define __CONFIG_H__
-
+#define MPPE
 #include <pppd/pppd.h>
 #include <pppd/fsm.h>
 #include <pppd/ccp.h>
 #include <pppd/ipcp.h>
 #include <pppd/chap-new.h>
 #include <pppd/chap_ms.h>
+#include <pppd/mppe.h>
 
 #include "nm-default.h"
 
@@ -47,13 +48,6 @@
 #include "nm-sstp-service.h"
 #include "nm-utils/nm-shared-utils.h"
 #include "nm-utils/nm-vpn-plugin-macros.h"
-
-#ifndef MPPE
-#define MPPE_MAX_KEY_LEN 16
-extern u_char mppe_send_key[MPPE_MAX_KEY_LEN];
-extern u_char mppe_recv_key[MPPE_MAX_KEY_LEN];
-extern int mppe_keys_set;
-#endif
 
 static int sstp_notify_sent = 0;
 
@@ -397,8 +391,8 @@ nm_ip_up (void *data, int arg)
 
     /* Send *blank* MPPE keys to the sstpc client */
     if (!sstp_notify_sent) {
-        BZERO(mppe_send_key, MPPE_MAX_KEY_LEN);
-        BZERO(mppe_recv_key, MPPE_MAX_KEY_LEN);
+        BZERO(mppe_send_key, sizeof(mppe_send_key));
+        BZERO(mppe_recv_key, sizeof(mppe_recv_key));
         nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key),
                        mppe_recv_key, sizeof(mppe_recv_key));
         sstp_notify_sent = 1;
