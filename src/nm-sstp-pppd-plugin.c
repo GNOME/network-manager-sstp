@@ -662,6 +662,9 @@ nm_new_phase(int phase)
     return 0;
 }
 
+/**
+ * Called when IPCP has finished
+ */
 static void 
 nm_ip_up (void *data, int arg) 
 {
@@ -671,6 +674,12 @@ nm_ip_up (void *data, int arg)
     gl.is_ip_up = 1;
 }
 
+/**
+ * Called when IPv6CP has finished. 
+ *
+ * NOTE: if enabled, but protocol is rejected; we may never get here.
+ *       Disable IPv6 support in Network Manager to bypass this.
+ */
 static void
 nm_ip6_up (void *data, int arg) 
 {
@@ -680,6 +689,9 @@ nm_ip6_up (void *data, int arg)
     gl.is_ip6_up = 1;
 }
 
+/**
+ * Called when Auth phase has completed and before Network phase is initiated (e.g. CCP).
+ */
 static void
 nm_auth_notify (void *data, int arg)
 {
