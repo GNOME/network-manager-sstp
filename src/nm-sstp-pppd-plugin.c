@@ -17,18 +17,21 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- * 
+ *
  */
 
 #include <config.h>
 #define __CONFIG_H__
-
 #include <pppd/pppd.h>
 #include <pppd/fsm.h>
 #include <pppd/ccp.h>
+#include <pppd/eui64.h>
 #include <pppd/ipcp.h>
+#include <pppd/ipv6cp.h>
 #include <pppd/chap-new.h>
 #include <pppd/chap_ms.h>
+#include <pppd/mppe.h>
+#include <pppd/eap.h>
 
 #include "nm-default.h"
 
@@ -48,13 +51,6 @@
 #include "nm-utils/nm-shared-utils.h"
 #include "nm-utils/nm-vpn-plugin-macros.h"
 
-#ifndef MPPE
-#define MPPE_MAX_KEY_LEN 16
-extern u_char mppe_send_key[MPPE_MAX_KEY_LEN];
-extern u_char mppe_recv_key[MPPE_MAX_KEY_LEN];
-extern int mppe_keys_set;
-#endif
-
 static int sstp_notify_sent = 0;
 
 #define PPP_PROTO_EAP   0xc227
@@ -70,6 +66,8 @@ struct {
     int log_level;
     const char *log_prefix_token;
     GDBusProxy *proxy;
+    bool is_ip_up;
+    bool is_ip6_up;
 } gl/*lobal*/;
 
 /*****************************************************************************/
@@ -177,7 +175,7 @@ nm_phasechange (void *data, int arg)
 /**
  * Create the socket that is used to communicate with SSTPC
  */
-static int 
+static int
 nm_sstp_getsock(void)
 {
     struct sockaddr_un addr;
@@ -206,14 +204,14 @@ nm_sstp_getsock(void)
 
     /* Sucess */
     retval = sock;
- 
+
 done:
 
     if (retval <= 0) {
         close(sock);
     }
 
-    return retval; 
+    return retval;
 }
 
 /**
@@ -238,7 +236,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     if (sock <= 0) {
         goto done;
     }
-    
+
     /* Create an address request */
     sstp_api_msg_new((unsigned char*)&msg, SSTP_API_MSG_ADDR);
 
@@ -248,7 +246,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
         _LOGE ("sstp-plugin: Could not send data to sstpc");
         goto done;
     }
-    
+
     /* Wait for the ACK to be received */
     ret = recv(sock, &msg, (sizeof(msg)), 0);
     if (ret < 0 || ret != (sizeof(msg))) {
@@ -257,7 +255,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     }
 
     /* Validate message header */
-    if (sstp_api_msg_type(&msg, &type) && 
+    if (sstp_api_msg_type(&msg, &type) &&
         SSTP_API_MSG_ACK != type) {
         _LOGE ("sstp-plugin: Received invalid response from sstpc");
         goto done;
@@ -304,7 +302,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     /* Copy the name */
     memcpy(name, attr->attr_data, attr->attr_len);
 
-    _LOGI ("sstp-plugin: sstpc is connected to %s using %s", 
+    _LOGI ("sstp-plugin: sstpc is connected to %s using %s",
            name, inet_ntoa(addr->sin_addr));
 
     /* Success */
@@ -355,7 +353,7 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
         _LOGE ("sstp-plugin: Could not send data to sstpc");
         goto done;
     }
-    
+
     /* Wait for the ACK to be received */
     ret = recv(sock, msg, (sizeof(*msg)), 0);
     if (ret <= 0 || ret != (sizeof(*msg))) {
@@ -368,7 +366,7 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
 
     /* Success */
     retval = 0;
-    
+
 done:
 
     /* Close socket */
@@ -379,111 +377,198 @@ done:
     return retval;
 }
 
+extern int no_ifaceid_neg;
+
+static GVariant* nm_ip6_get_params(void)
+{
+    GVariantBuilder builder;
+    ipv6cp_options *opts = &ipv6cp_gotoptions[0];
+    ipv6cp_options *peer_opts = &ipv6cp_hisoptions[0];
+    struct in6_addr addr;
+
+    g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
+
+    if (no_ifaceid_neg || eui64_iszero(opts->ourid) || eui64_iszero(peer_opts->hisid)) {
+        _LOGI ("No IPv6 addresses negotiated");
+        return g_variant_builder_end (&builder);
+    }
+
+    eui64_copy(addr.s6_addr32[2], opts->ourid);
+    g_variant_builder_add (&builder, "{sv}",
+                           NM_VPN_PLUGIN_IP6_CONFIG_ADDRESS,
+                           g_variant_new_fixed_array (G_VARIANT_TYPE_BYTE, &addr, 16, 1));
+
+    eui64_copy(addr.s6_addr32[2], peer_opts->hisid);
+    g_variant_builder_add (&builder, "{sv}",
+                           NM_VPN_PLUGIN_IP6_CONFIG_PTP,
+                           g_variant_new_fixed_array (G_VARIANT_TYPE_BYTE, &addr, 16, 1));
+
+    // IPv6 DNS and DOMAIN is not supported
+    // IPv6 WINS is not supported
+
+    return g_variant_builder_end (&builder);
+}
+
+static GVariant*
+nm_ip4_get_params(void)
+{
+    guint32 pppd_made_up_address = htonl (0x0a404040 + ifunit);
+    ipcp_options *opts = &ipcp_gotoptions[0];
+    ipcp_options *peer_opts = &ipcp_hisoptions[0];
+    GVariantBuilder builder;
+
+    g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
+
+    if (opts->ouraddr != 0) {
+
+        g_variant_builder_add (&builder, "{sv}",
+                               NM_VPN_PLUGIN_IP4_CONFIG_ADDRESS,
+                               g_variant_new_uint32 (opts->ouraddr));
+
+        g_variant_builder_add (&builder, "{sv}",
+                               NM_VPN_PLUGIN_IP4_CONFIG_PREFIX,
+                               g_variant_new_uint32 (32));
+
+        /* Prefer the peer options remote address first, _unless_ pppd made the
+         * address up, at which point prefer the local options remote address,
+         * and if that's not right, use the made-up address as a last resort.
+         */
+        if (peer_opts->hisaddr && (peer_opts->hisaddr != pppd_made_up_address)) {
+            g_variant_builder_add (&builder, "{sv}",
+                                   NM_VPN_PLUGIN_IP4_CONFIG_PTP,
+                                   g_variant_new_uint32 (peer_opts->hisaddr));
+        } else if (opts->hisaddr) {
+            g_variant_builder_add (&builder, "{sv}",
+                                   NM_VPN_PLUGIN_IP4_CONFIG_PTP,
+                                   g_variant_new_uint32 (opts->hisaddr));
+        } else if (peer_opts->hisaddr == pppd_made_up_address) {
+            /* As a last resort, use the made-up address */
+            g_variant_builder_add (&builder, "{sv}",
+                                   NM_VPN_PLUGIN_IP4_CONFIG_PTP,
+                                   g_variant_new_uint32 (peer_opts->ouraddr));
+        }
+
+        /* DNS Servers */
+        if (opts->dnsaddr[0] || opts->dnsaddr[1]) {
+            guint32 dns[2];
+            int len = 0;
+
+            if (opts->dnsaddr[0])
+                dns[len++] = opts->dnsaddr[0];
+            if (opts->dnsaddr[1])
+                dns[len++] = opts->dnsaddr[1];
+
+            g_variant_builder_add (&builder, "{sv}",
+                                   NM_VPN_PLUGIN_IP4_CONFIG_DNS,
+                                   g_variant_new_fixed_array (G_VARIANT_TYPE_UINT32,
+                                                              dns, len, sizeof (guint32)));
+        }
+
+        /* NetBIOS or WINS server if configured */
+        if (opts->winsaddr[0] || opts->winsaddr[1]) {
+            guint32 wins[2];
+            int len = 0;
+
+            if (opts->winsaddr[0])
+                wins[len++] = opts->winsaddr[0];
+            if (opts->winsaddr[1])
+                wins[len++] = opts->winsaddr[1];
+
+            g_variant_builder_add (&builder, "{sv}",
+                                   NM_VPN_PLUGIN_IP4_CONFIG_NBNS,
+                                   g_variant_new_fixed_array (G_VARIANT_TYPE_UINT32,
+                                                              wins, len, sizeof (guint32)));
+        }
+    }
+
+    return g_variant_builder_end(&builder);
+}
+
 /**
  * Process the ip-up event, and notify Network Manager
  */
 static void
-nm_ip_up (void *data, int arg)
+nm_send_config (void)
 {
-    guint32 pppd_made_up_address = htonl (0x0a404040 + ifunit);
-    ipcp_options opts = ipcp_gotoptions[0];
-    ipcp_options peer_opts = ipcp_hisoptions[0];
     GVariantBuilder builder;
+    GVariant *ip4config = NULL, *ip6config = NULL;
     struct sockaddr_in addr;
-
-    _LOGI ("ip-up: event");
+    int mtu;
 
     g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
-
-    /* Send *blank* MPPE keys to the sstpc client */
-    if (!sstp_notify_sent) {
-        BZERO(mppe_send_key, MPPE_MAX_KEY_LEN);
-        BZERO(mppe_recv_key, MPPE_MAX_KEY_LEN);
-        nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key),
-                       mppe_recv_key, sizeof(mppe_recv_key));
-        sstp_notify_sent = 1;
-    }
-
-    if (!opts.ouraddr) {
-        _LOGW ("ip-up: didn't receive an internal IP from pppd!");
-        nm_phasechange (NULL, PHASE_DEAD);
-        return;
-    }
 
     g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
 
     g_variant_builder_add (&builder, "{sv}",
-                           NM_VPN_PLUGIN_IP4_CONFIG_TUNDEV,
+                           NM_VPN_PLUGIN_CONFIG_TUNDEV,
                            g_variant_new_string (ifname));
 
+    mtu = netif_get_mtu (ifunit);
     g_variant_builder_add (&builder, "{sv}",
-                           NM_VPN_PLUGIN_IP4_CONFIG_ADDRESS,
-                           g_variant_new_uint32 (opts.ouraddr));
+                           NM_VPN_PLUGIN_CONFIG_MTU,
+                            g_variant_new_uint32 (mtu));
 
     /* Request the address of the server sstpc connected to */
     if (0 == nm_sstp_getaddr(&addr)) {
 
-        /* This will eliminate the need to have nm-sstp-service
-         * insert a new entry for "gateway" as we have already set it.
-         */
-        g_variant_builder_add (&builder, "{sv}",
-                               NM_VPN_PLUGIN_IP4_CONFIG_EXT_GATEWAY,
-                               g_variant_new_uint32 (addr.sin_addr.s_addr));
+        if (addr.sin_family == AF_INET) {
+            g_variant_builder_add (&builder, "{sv}",
+                                   NM_VPN_PLUGIN_CONFIG_EXT_GATEWAY,
+                                   g_variant_new_uint32 (addr.sin_addr.s_addr));
+        }
+        if (addr.sin_family == AF_INET6) {
+            g_variant_builder_add (&builder, "{sv}",
+                                   NM_VPN_PLUGIN_CONFIG_EXT_GATEWAY,
+                                   g_variant_new_fixed_array (G_VARIANT_TYPE_BYTE, &((struct sockaddr_in6*)&addr)->sin6_addr, 16, 1));
+        }
     }
 
-    /* Prefer the peer options remote address first, _unless_ pppd made the
-     * address up, at which point prefer the local options remote address,
-     * and if that's not right, use the made-up address as a last resort.
-     */
-    if (peer_opts.hisaddr && (peer_opts.hisaddr != pppd_made_up_address)) {
-        g_variant_builder_add (&builder, "{sv}",
-                               NM_VPN_PLUGIN_IP4_CONFIG_PTP,
-                               g_variant_new_uint32 (peer_opts.hisaddr));
-    } else if (opts.hisaddr) {
-        g_variant_builder_add (&builder, "{sv}",
-                               NM_VPN_PLUGIN_IP4_CONFIG_PTP,
-                               g_variant_new_uint32 (opts.hisaddr));
-    } else if (peer_opts.hisaddr == pppd_made_up_address) {
-        /* As a last resort, use the made-up address */
-        g_variant_builder_add (&builder, "{sv}",
-                               NM_VPN_PLUGIN_IP4_CONFIG_PTP,
-                               g_variant_new_uint32 (peer_opts.ouraddr));
+    ip4config = nm_ip4_get_params();
+    if (g_variant_n_children (ip4config)) {
+        g_variant_builder_add (&builder, "{sv}", NM_VPN_PLUGIN_CONFIG_HAS_IP4,
+                g_variant_new_boolean (TRUE));
+    }
+    else {
+        g_variant_unref (ip4config);
+        ip4config = NULL;
     }
 
-    g_variant_builder_add (&builder, "{sv}",
-                           NM_VPN_PLUGIN_IP4_CONFIG_PREFIX,
-                           g_variant_new_uint32 (32));
-
-    if (opts.dnsaddr[0] || opts.dnsaddr[1]) {
-        guint32 dns[2];
-        int len = 0;
-
-        if (opts.dnsaddr[0])
-            dns[len++] = opts.dnsaddr[0];
-        if (opts.dnsaddr[1])
-            dns[len++] = opts.dnsaddr[1];
-
-        g_variant_builder_add (&builder, "{sv}",
-                               NM_VPN_PLUGIN_IP4_CONFIG_DNS,
-                               g_variant_new_fixed_array (G_VARIANT_TYPE_UINT32,
-                                                          dns, len, sizeof (guint32)));
+    ip6config = nm_ip6_get_params();
+    if (g_variant_n_children (ip6config)) {
+        g_variant_builder_add (&builder, "{sv}", NM_VPN_PLUGIN_CONFIG_HAS_IP6,
+                g_variant_new_boolean (TRUE));
+    }
+    else {
+        g_variant_unref (ip6config);
+        ip6config = NULL;
     }
 
-    /* Default MTU to 1400, which is also what Windows XP/Vista use */
-    g_variant_builder_add (&builder, "{sv}",
-                           NM_VPN_PLUGIN_IP4_CONFIG_MTU,
-                            g_variant_new_uint32 (1400));
-
-    _LOGI ("ip-up: sending Ip4Config to NetworkManager-sstp...");
-
+    _LOGI ("Sending Config to NetworkManager-sstp...");
     g_dbus_proxy_call (gl.proxy,
-                       "SetIp4Config",
-                       g_variant_new ("(a{sv})", &builder),
+                       "SetConfig",
+                       g_variant_new ("(*)", g_variant_builder_end (&builder)),
                        G_DBUS_CALL_FLAGS_NONE, -1,
                        NULL,
                        NULL, NULL);
 
-    snoop_send_hook = NULL;
+    if (ip4config) {
+        _LOGI ("Sending IP4Config to NetworkManager-sstp...");
+        g_dbus_proxy_call (gl.proxy,
+                           "SetIp4Config",
+                           g_variant_new ("(*)", ip4config),
+                           G_DBUS_CALL_FLAGS_NONE, -1,
+                           NULL,
+                           NULL, NULL);
+    }
+
+    if (ip6config) {
+        _LOGI ("Sending IP6Config to NetworkManager-sstp...");
+        g_dbus_proxy_call (gl.proxy,
+                           "SetIp6Config",
+                           g_variant_new ("(*)", ip6config),
+                           G_DBUS_CALL_FLAGS_NONE, -1,
+                           NULL, NULL, NULL);
+    }
 }
 
 /**
@@ -537,9 +622,9 @@ nm_get_credentials (char *username, char *password)
         g_error_free (error);
         return -1;
     }
-    
+
     _LOGI ("passwd-hook: got credentials from NetworkManager-sstp");
-    
+
     g_variant_get (ret, "(&s&s)", &my_username, &my_password);
 
     if (my_username)
@@ -554,20 +639,63 @@ nm_get_credentials (char *username, char *password)
 }
 
 /**
- * Called on transitions between phases
+ * Called on transitions between phases, but only act when
+ *   pppd has reached state running.
  */
-static int 
-nm_new_phase(int phase) 
+static int
+nm_new_phase(int phase)
 {
-    /* When transitioning from Auth -> Network phase */
-    if (PHASE_NETWORK != phase) {
+    if (PHASE_RUNNING != phase) {
         return 0;
     }
 
-    /* Don't bother if the keys aren't set yet */   
-    if (!mppe_keys_set || sstp_notify_sent) {
-        return 0;
+    /* Send *blank* MPPE keys to the sstpc client */
+    if (!sstp_notify_sent) {
+        BZERO(mppe_send_key, sizeof(mppe_send_key));
+        BZERO(mppe_recv_key, sizeof(mppe_recv_key));
+        nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key),
+                       mppe_recv_key, sizeof(mppe_recv_key));
+        sstp_notify_sent = 1;
     }
+
+    new_phase_hook = NULL;
+    return 0;
+}
+
+/**
+ * Called when IPCP has finished
+ */
+static void 
+nm_ip_up (void *data, int arg) 
+{
+    if (gl.is_ip6_up || !ipv6cp_protent.enabled_flag) {
+        nm_send_config();
+    }
+    gl.is_ip_up = 1;
+}
+
+/**
+ * Called when IPv6CP has finished. 
+ *
+ * NOTE: if enabled, but protocol is rejected; we may never get here.
+ *       Disable IPv6 support in Network Manager to bypass this.
+ */
+static void
+nm_ip6_up (void *data, int arg) 
+{
+    if (gl.is_ip_up || !ipcp_protent.enabled_flag) {
+        nm_send_config();
+    }
+    gl.is_ip6_up = 1;
+}
+
+/**
+ * Called when Auth phase has completed and before Network phase is initiated (e.g. CCP).
+ */
+static void
+nm_auth_notify (void *data, int arg)
+{
+    eap_state *eap = NULL;
 
     /* Print the MPPE keys for debugging */
     if (debug) {
@@ -584,13 +712,25 @@ nm_new_phase(int phase)
         _LOGI ("The mppe recv key: %s", key);
     }
 
-    /* Send the MPPE keys to the sstpc client */
-    nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key),
-                   mppe_recv_key, sizeof(mppe_recv_key));
+    eap = &eap_states[0];
+    if (eap->es_client.ea_using_eaptls ||
+        eap->es_client.ea_using_eaptls) {
 
+        _LOGI ("EAP-TLS was used for authentication");
+
+        /* Use the MSK(0..32) as the key */
+        nm_sstp_notify(mppe_send_key, 16,
+                       mppe_send_key+16, 16);
+    }
+    else {
+
+        /* send the mppe keys to the sstpc client */
+        nm_sstp_notify(mppe_send_key, 16,
+                       mppe_recv_key, 16);
+    }
     sstp_notify_sent = 1;
-    return 0;
 }
+
 
 /**
  * PPPD exited, clean up resources
@@ -599,7 +739,6 @@ static void
 nm_exit_notify (void *data, int arg)
 {
     g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
-
     _LOGI ("exit: cleaning up");
     g_clear_object (&gl.proxy);
 }
@@ -655,10 +794,13 @@ plugin_init (void)
     pap_passwd_hook = nm_get_credentials;
     pap_check_hook = nm_get_pap_check;
     new_phase_hook = nm_new_phase;
+    eaptls_passwd_hook = nm_get_credentials;
 
     add_notifier (&phasechange, nm_phasechange, NULL);
-    add_notifier (&ip_up_notifier, nm_ip_up, NULL);
     add_notifier (&exitnotify, nm_exit_notify, NULL);
+    add_notifier (&ip_up_notifier, nm_ip_up, NULL);
+    add_notifier (&ipv6_up_notifier, nm_ip6_up, NULL);
+    add_notifier (&auth_up_notifier, nm_auth_notify, NULL);
 
     return 0;
 }

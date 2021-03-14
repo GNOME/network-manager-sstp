@@ -104,36 +104,46 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
 IT_PROG_INTLTOOL([0.35])
 AM_GLIB_GNU_GETTEXT
 
+PKG_CHECK_MODULES(GNUTLS, [gnutls >= 2.12])
+PKG_CHECK_MODULES(SSTPC, [sstp-client-1.0 >= 1.0.10])
+
 # gio-unix will require glib and gio
 PKG_CHECK_MODULES(GLIB, [gio-unix-2.0 >= 2.40 gmodule-2.0])
 GLIB_CFLAGS="$GLIB_CFLAGS -DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_44 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_44"
-
-PKG_CHECK_MODULES(GNUTLS, [gnutls >= 2.12])
-PKG_CHECK_MODULES(SSTPC, [sstp-client-1.0 >= 1.0.10])
 
 if test x"$with_gnome" != xno; then
 	PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.4)
 	GTK_CFLAGS="$GTK_CFLAGS -DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4"
 
-	PKG_CHECK_MODULES(LIBNMA, libnma >= 1.2.0)
+	PKG_CHECK_MODULES(LIBNMA, libnma >= 1.7.0)
 	PKG_CHECK_MODULES(LIBSECRET, libsecret-1 >= 0.18)
 
 	if test x"$with_libnm_glib" != xno; then
-		PKG_CHECK_MODULES(LIBNM_GTK, libnm-gtk >= 1.2.0)
 		PKG_CHECK_MODULES(LIBNM_GLIB,
-			NetworkManager >= 1.2.0
-			libnm-util >= 1.2.0
-			libnm-glib >= 1.2.0
-			libnm-glib-vpn >= 1.2.0);
+			NetworkManager >= 1.7.0
+			libnm-util >= 1.7.0
+			libnm-glib >= 1.7.0
+			libnm-glib-vpn >= 1.7.0);
 
 		LIBNM_GLIB_CFLAGS="$LIBNM_GLIB_CFLAGS -DNM_VERSION_MIN_REQUIRED=NM_VERSION_1_2"
 		LIBNM_GLIB_CFLAGS="$LIBNM_GLIB_CFLAGS -DNM_VERSION_MAX_ALLOWED=NM_VERSION_1_2"
 	fi
 fi
 
-PKG_CHECK_MODULES(LIBNM, libnm >= 1.2.0)
-LIBNM_CFLAGS="$LIBNM_CFLAGS -DNM_VERSION_MIN_REQUIRED=NM_VERSION_1_2"
-LIBNM_CFLAGS="$LIBNM_CFLAGS -DNM_VERSION_MAX_ALLOWED=NM_VERSION_1_2"
+PKG_CHECK_MODULES(LIBNM, libnm >= 1.7.0)
+LIBNM_CFLAGS="$LIBNM_CFLAGS -DNM_VERSION_MIN_REQUIRED=NM_VERSION_1_8"
+LIBNM_CFLAGS="$LIBNM_CFLAGS -DNM_VERSION_MAX_ALLOWED=NM_VERSION_1_8"
+
+# system CA certificates path
+AC_ARG_WITH(system-ca-path,
+            AS_HELP_STRING([--with-system-ca-path=/path/to/ssl/certs], [path to system CA certificates]))
+if test "x${with_system_ca_path}" = x; then
+    SYSTEM_CA_PATH=/etc/ssl/certs
+else
+    SYSTEM_CA_PATH="$with_system_ca_path"
+fi
+AC_DEFINE_UNQUOTED(SYSTEM_CA_PATH, "$SYSTEM_CA_PATH", [Define to path to system CA certificates])
+AC_SUBST(SYSTEM_CA_PATH)
 
 NM_VPN_SERVICE_DIR=`$PKG_CONFIG --define-variable prefix='\${prefix}' --variable vpnservicedir libnm`
 AC_SUBST(NM_VPN_SERVICE_DIR)
@@ -170,5 +180,6 @@ echo "  --with-dist-version=$ac_distver"
 echo "  --with-gnome=$with_gnome"
 echo "  --with-libnm-glib=$with_libnm_glib"
 echo "  --with-pppd-plugin-dir=$PPPD_PLUGIN_DIR"
+echo "  --with-system-ca-path=$SYSTEM_CA_PATH"
 echo "  --enable-absolute-paths=$enable_absolute_paths"
 echo "  --enable-more-warnings=$set_more_warnings"

@@ -58,9 +58,9 @@ typedef struct {
     gboolean window_added;
     gboolean is_encr;
     gboolean is_pkcs12;
-    gchar *ca_cert;
+    gboolean is_tls;
     gchar *user_cert;
-    gchar *user_key;
+    gchar *subject;
 } SstpPluginUiWidgetPrivate;
 
 /*****************************************************************************/
@@ -68,6 +68,7 @@ typedef struct {
 #define COL_AUTH_NAME 0
 #define COL_AUTH_PAGE 1
 #define COL_AUTH_TYPE 2
+
 
 static gboolean
 validate_auth_widgets (GtkBuilder *builder, const char *type, GError **error)
@@ -167,6 +168,7 @@ auth_combo_changed_cb (GtkWidget *combo, gpointer user_data)
     status = gtk_combo_box_get_active_iter (GTK_COMBO_BOX (combo), &iter);
     g_assert (status);
     gtk_tree_model_get (model, &iter, COL_AUTH_PAGE, &new_page, -1);
+    priv->is_tls = new_page == 0;
 
     auth_notebook = GTK_WIDGET (gtk_builder_get_object (priv->builder, "auth_notebook"));
     gtk_notebook_set_current_page (GTK_NOTEBOOK (auth_notebook), new_page);
@@ -217,7 +219,7 @@ advanced_button_clicked_cb (GtkWidget *button, gpointer user_data)
     toplevel = gtk_widget_get_toplevel (priv->widget);
     g_return_if_fail (gtk_widget_is_toplevel (toplevel));
 
-    dialog = advanced_dialog_new (priv->advanced);
+    dialog = advanced_dialog_new (priv->advanced, priv->is_tls, priv->subject);
     if (!dialog) {
         g_warning ("Failed to create the Advanced dialog!");
         return;
@@ -258,20 +260,6 @@ password_storage_changed_cb (GObject *entry, GParamSpec *pspec, gpointer user_da
 }
 
 static void
-tls_update_identity(SstpPluginUiWidget *self, const char *identity)
-{
-    SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
-    GtkWidget *widget;
-    const char *str = NULL;
-
-    widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_identity"));
-    str = gtk_entry_get_text (GTK_ENTRY (widget));
-    if (str && *str == 0) {
-        gtk_entry_set_text (GTK_ENTRY (widget), identity);
-    }
-}
-
-static void
 tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
 {
     SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET(user_data);
@@ -279,7 +267,6 @@ tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
     NMSetting8021xCKScheme scheme;
     GError *error = NULL;
     gs_free char *cert = NULL;
-    gs_free char *ca = NULL;
     gs_free char *subject = NULL;
 
     /* Check if cert changed */
@@ -287,28 +274,12 @@ tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
     if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
             && nm_sstp_cache_check(priv->user_cert, cert)) {
 
-        if (nm_utils_file_is_pkcs12(cert)) {
-            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
-            ca = nma_cert_chooser_get_cert (chooser, &scheme);
-            if (!ca || (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-                    && strcmp (ca, cert))) {
-                nma_cert_chooser_set_cert (chooser, cert, NM_SETTING_802_1X_CK_SCHEME_PATH);
-            }
-            priv->is_pkcs12 = TRUE;
+        subject = nm_sstp_get_subject_name(cert, &error);
+        if (subject && strlen (subject)) {
+            priv->subject = g_strdup(subject);
         } 
-        else if (priv->is_pkcs12) {
-            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
-            nma_cert_chooser_set_cert (chooser, NULL, NM_SETTING_802_1X_CK_SCHEME_PATH);
-            priv->is_pkcs12 = FALSE;
-        }
         else {
-            subject = nm_sstp_get_subject_name(cert, &error);
-            if (subject && *subject) {
-                tls_update_identity(self, subject);
-            } 
-            else {
-                g_clear_error (&error);
-            }
+            g_clear_error (&error);
         }
 
         nm_sstp_cache_value(&priv->user_cert, cert);
@@ -320,28 +291,6 @@ tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
 static void
 tls_ca_changed_cb(NMACertChooser *chooser, gpointer user_data)
 {
-    SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET(user_data);
-    SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
-    NMSetting8021xCKScheme scheme;
-    gs_free char *ca = NULL;
-    gs_free char *cert = NULL;
-
-    /* Check if CA changed */
-    ca = nma_cert_chooser_get_cert(chooser, &scheme);
-    if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-            && nm_sstp_cache_check(priv->ca_cert, ca)) {
-
-        if (nm_utils_file_is_pkcs12(ca)) {
-            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
-            cert = nma_cert_chooser_get_cert (chooser, &scheme);
-            if (!cert || (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-                    && strcmp (cert, ca))) {
-                nma_cert_chooser_set_cert (chooser, ca, NM_SETTING_802_1X_CK_SCHEME_PATH);
-            }
-            priv->is_pkcs12 = TRUE;
-        }
-        nm_sstp_cache_value(&priv->ca_cert, ca);
-    }
     g_signal_emit_by_name (user_data, "changed");
 }
 
@@ -350,7 +299,6 @@ tls_ca_valid_cb(NMACertChooser *chooser, gpointer user_data)
 {
     NMSetting8021xCKScheme scheme;
     gboolean is_x509 = FALSE;
-    gboolean is_pkcs12 = FALSE;
     gs_free char* cert = NULL;
     gs_free char* key = NULL;
     GError *error = NULL;
@@ -360,10 +308,6 @@ tls_ca_valid_cb(NMACertChooser *chooser, gpointer user_data)
         
         is_x509 = nm_utils_file_is_certificate(cert);
         if (!is_x509) {
-            is_pkcs12 = nm_utils_file_is_pkcs12(cert);
-        }
-        
-        if (!is_x509 && !is_pkcs12) {
             g_set_error (&error,
                          NM_CRYPTO_ERROR,
                          NM_CRYPTO_ERROR_FAILED,
@@ -454,7 +398,7 @@ tls_key_check_cb(NMACertChooser *this, gpointer user_data)
 
         subject = nm_sstp_get_suject_name_pkcs12 (key, secret, &error);
         if (subject && *subject) {
-            tls_update_identity (self, subject);
+            priv->subject = g_strdup(subject);
         }
         else {
             g_clear_error (&error);
@@ -462,7 +406,6 @@ tls_key_check_cb(NMACertChooser *this, gpointer user_data)
     }
     return error;
 }
-
 
 static gboolean
 tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed_cb) 
@@ -474,27 +417,29 @@ tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed
  
     cert = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
     g_return_val_if_fail (cert != NULL, FALSE);
-    nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels")));
-    g_signal_connect_object (G_OBJECT (cert), "changed", G_CALLBACK (tls_changed_cb), self, 0);
+    nma_cert_chooser_add_to_size_group (cert, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels_group_1")));
     
     ca = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
     g_return_val_if_fail (ca != NULL, FALSE);
-    nma_cert_chooser_add_to_size_group (ca, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels")));
-    g_signal_connect_object (G_OBJECT (ca), "changed", G_CALLBACK (tls_ca_changed_cb), self, 0);
+    nma_cert_chooser_add_to_size_group (ca, GTK_SIZE_GROUP (gtk_builder_get_object (priv->builder, "labels_group_1")));
 
     if (s_vpn) {
+        
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT);
         if (value && *value && access(value, R_OK) == 0) {
             nma_cert_chooser_set_cert (ca, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
+
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT);
         if (value && *value && access(value, R_OK) == 0) {
             nma_cert_chooser_set_cert (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
+
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
         if (value && *value && access(value, R_OK) == 0) {
             nma_cert_chooser_set_key (cert, value, NM_SETTING_802_1X_CK_SCHEME_PATH);
         }
+
         value = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET);
         if (value) {
             nma_cert_chooser_set_key_password (cert, value);
@@ -504,7 +449,15 @@ tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed
     nma_cert_chooser_setup_key_password_storage (cert, 0, (NMSetting *) s_vpn,
             NM_SSTP_KEY_TLS_USER_KEY_SECRET, TRUE, FALSE);
 
-    /*  Validate the 'Certificate' */
+    /* Setup 'changed' callback */
+    g_signal_connect_object (G_OBJECT (cert), "changed",
+            G_CALLBACK (tls_changed_cb), self, 0);
+
+    /* Setup 'changed' callback */
+    g_signal_connect_object (G_OBJECT (ca), "changed",
+            G_CALLBACK (tls_ca_changed_cb), self, 0);
+
+    /* Validate the 'Certificate' */
     g_signal_connect_object (G_OBJECT (ca), "cert-validate",
             G_CALLBACK (tls_ca_valid_cb), self, 0);
 
@@ -644,6 +597,7 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
         && nm_streq (contype, NM_SSTP_CONTYPE_PASSWORD)) {
         active = 1;
     }
+    priv->is_tls = active < 0 ? true : false;
 
     /* Apply Auth-Combo changes */
     gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
@@ -762,6 +716,14 @@ update_connection (NMVpnEditor *iface,
         }
         else if (!strcmp(auth_type, NM_SSTP_CONTYPE_TLS)) {
 
+            /* CA certificate for the EAP-TLS tunnel */
+            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
+            value = nma_cert_chooser_get_cert (chooser, &scheme);
+            if (value && *value) {
+                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT, value);
+                g_free (value);
+            }
+
             /* User certificate */
             chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
             value = nma_cert_chooser_get_cert (chooser, &scheme);
@@ -787,21 +749,6 @@ update_connection (NMVpnEditor *iface,
             flags = nma_cert_chooser_get_key_password_flags (chooser);
             nm_setting_set_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_TLS_USER_KEY_SECRET, 
                     flags, NULL);
-
-            /* CA certificate for the EAP-TLS tunnel */
-            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
-            value = nma_cert_chooser_get_cert (chooser, &scheme);
-            if (value && *value) {
-                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_CA_CERT, value);
-                g_free (value);
-            }
-        
-            /* Identity */
-            widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "tls_identity"));
-            str = gtk_entry_get_text (GTK_ENTRY (widget));
-            if (str && strlen (str)) {
-                nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_NAME, str);
-            }
         }
         else {
             return FALSE;
@@ -811,6 +758,12 @@ update_connection (NMVpnEditor *iface,
     /* Account for the advanced options */
     if (priv->advanced) {
          g_hash_table_foreach (priv->advanced, hash_copy_advanced, s_vpn);
+    }
+
+    /* If a subject name was extracted from certificate */
+    if (priv->subject && strlen (priv->subject)) {
+        nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_TLS_SUBJECT_NAME, 
+                priv->subject);
     }
 
     /* Default to agent owned secret for new connections */
@@ -878,7 +831,9 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 
     priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (object);
     priv->builder = gtk_builder_new ();
-    priv->ca_cert = NULL;
+    priv->user_cert = NULL;
+    priv->subject = NULL;
+
     gtk_builder_set_translation_domain (priv->builder, GETTEXT_PACKAGE);
     if (!gtk_builder_add_from_resource (priv->builder, "/org/freedesktop/network-manager-sstp/nm-sstp-dialog.ui", error)) {
         g_object_unref (object);
@@ -937,6 +892,12 @@ dispose (GObject *object)
 
     if (priv->advanced)
         g_hash_table_destroy (priv->advanced);
+
+    if (priv->user_cert)
+        g_free (priv->user_cert);
+
+    if (priv->subject)
+        g_free (priv->subject);
 
     G_OBJECT_CLASS (sstp_plugin_ui_widget_parent_class)->dispose (object);
 }
