@@ -59,7 +59,6 @@ typedef struct {
     gboolean is_encr;
     gboolean is_pkcs12;
     gboolean is_tls;
-    gchar *ca_cert;
     gchar *user_cert;
     gchar *subject;
 } SstpPluginUiWidgetPrivate;
@@ -268,7 +267,6 @@ tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
     NMSetting8021xCKScheme scheme;
     GError *error = NULL;
     gs_free char *cert = NULL;
-    gs_free char *ca = NULL;
     gs_free char *subject = NULL;
 
     /* Check if cert changed */
@@ -276,28 +274,12 @@ tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
     if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
             && nm_sstp_cache_check(priv->user_cert, cert)) {
 
-        if (nm_utils_file_is_pkcs12(cert)) {
-            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
-            ca = nma_cert_chooser_get_cert (chooser, &scheme);
-            if (!ca || (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-                    && !nm_streq0 (ca, cert))) {
-                nma_cert_chooser_set_cert (chooser, cert, NM_SETTING_802_1X_CK_SCHEME_PATH);
-            }
-            priv->is_pkcs12 = TRUE;
+        subject = nm_sstp_get_subject_name(cert, &error);
+        if (subject && strlen (subject)) {
+            priv->subject = g_strdup(subject);
         } 
-        else if (priv->is_pkcs12) {
-            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_ca_cert"));
-            nma_cert_chooser_set_cert (chooser, NULL, NM_SETTING_802_1X_CK_SCHEME_PATH);
-            priv->is_pkcs12 = FALSE;
-        }
         else {
-            subject = nm_sstp_get_subject_name(cert, &error);
-            if (subject && strlen (subject)) {
-                priv->subject = g_strdup(subject);
-            } 
-            else {
-                g_clear_error (&error);
-            }
+            g_clear_error (&error);
         }
 
         nm_sstp_cache_value(&priv->user_cert, cert);
@@ -309,28 +291,6 @@ tls_changed_cb(NMACertChooser *chooser, gpointer user_data)
 static void
 tls_ca_changed_cb(NMACertChooser *chooser, gpointer user_data)
 {
-    SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET(user_data);
-    SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
-    NMSetting8021xCKScheme scheme;
-    gs_free char *ca = NULL;
-    gs_free char *cert = NULL;
-
-    /* Check if CA changed */
-    ca = nma_cert_chooser_get_cert(chooser, &scheme);
-    if (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-            && nm_sstp_cache_check(priv->ca_cert, ca)) {
-
-        if (nm_utils_file_is_pkcs12(ca)) {
-            chooser = NMA_CERT_CHOOSER (gtk_builder_get_object (priv->builder, "tls_user_cert"));
-            cert = nma_cert_chooser_get_cert (chooser, &scheme);
-            if (!cert || (scheme == NM_SETTING_802_1X_CK_SCHEME_PATH
-                    && !nm_streq0 (cert, ca))) {
-                nma_cert_chooser_set_cert (chooser, ca, NM_SETTING_802_1X_CK_SCHEME_PATH);
-            }
-            priv->is_pkcs12 = TRUE;
-        }
-        nm_sstp_cache_value(&priv->ca_cert, ca);
-    }
     g_signal_emit_by_name (user_data, "changed");
 }
 
@@ -339,7 +299,6 @@ tls_ca_valid_cb(NMACertChooser *chooser, gpointer user_data)
 {
     NMSetting8021xCKScheme scheme;
     gboolean is_x509 = FALSE;
-    gboolean is_pkcs12 = FALSE;
     gs_free char* cert = NULL;
     gs_free char* key = NULL;
     GError *error = NULL;
@@ -349,10 +308,6 @@ tls_ca_valid_cb(NMACertChooser *chooser, gpointer user_data)
         
         is_x509 = nm_utils_file_is_certificate(cert);
         if (!is_x509) {
-            is_pkcs12 = nm_utils_file_is_pkcs12(cert);
-        }
-        
-        if (!is_x509 && !is_pkcs12) {
             g_set_error (&error,
                          NM_CRYPTO_ERROR,
                          NM_CRYPTO_ERROR_FAILED,
@@ -876,7 +831,6 @@ nm_vpn_plugin_ui_widget_interface_new (NMConnection *connection, GError **error)
 
     priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (object);
     priv->builder = gtk_builder_new ();
-    priv->ca_cert = NULL;
     priv->user_cert = NULL;
     priv->subject = NULL;
 
@@ -938,9 +892,6 @@ dispose (GObject *object)
 
     if (priv->advanced)
         g_hash_table_destroy (priv->advanced);
-
-    if (priv->ca_cert)
-        g_free (priv->ca_cert);
 
     if (priv->user_cert)
         g_free (priv->user_cert);
