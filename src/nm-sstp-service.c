@@ -580,6 +580,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
     g_ptr_array_add (args, (gpointer) g_strdup ("nodetach"));
     g_ptr_array_add (args, (gpointer) g_strdup ("lock"));
 
+    /* Any IPv4 configuration options */
     ip4cfg = nm_connection_get_setting_ip4_config (connection);
     if (ip4cfg) {
 
@@ -621,6 +622,9 @@ construct_pppd_args (NMSstpPlugin *plugin,
             g_ptr_array_add (args, (gpointer) g_strdup ("noip"));
         }
         else {
+            // pppd will copy over /etc/resolv.conf which results in an ugly bug when connecting to 
+            //    Azure and the private DNS service isn't responding to any queries. Don't use this
+            //    option unless it is absolutely necessary (i.e. user can disable this behavior).
             if (!nm_setting_ip_config_get_ignore_auto_dns(ip4cfg)) {
                 g_ptr_array_add (args, (gpointer) g_strdup ("usepeerdns"));
             }
@@ -631,6 +635,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
     }
     is_local_set = FALSE;
 
+    /* Any IPv6 configuration options */
     ip6cfg = nm_connection_get_setting_ip6_config (connection);
     if (ip6cfg) {
 
