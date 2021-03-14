@@ -25,8 +25,8 @@
 #include <pppd/pppd.h>
 #include <pppd/fsm.h>
 #include <pppd/ccp.h>
-#include <pppd/ipcp.h>
 #include <pppd/eui64.h>
+#include <pppd/ipcp.h>
 #include <pppd/ipv6cp.h>
 #include <pppd/chap-new.h>
 #include <pppd/chap_ms.h>
@@ -66,6 +66,8 @@ struct {
     int log_level;
     const char *log_prefix_token;
     GDBusProxy *proxy;
+    bool is_ip_up;
+    bool is_ip6_up;
 } gl/*lobal*/;
 
 /*****************************************************************************/
@@ -656,11 +658,26 @@ nm_new_phase(int phase)
         sstp_notify_sent = 1;
     }
 
-    nm_send_config();
-
-    /* Disable the callback */
     new_phase_hook = NULL;
     return 0;
+}
+
+static void 
+nm_ip_up (void *data, int arg) 
+{
+    if (gl.is_ip6_up || !ipv6cp_protent.enabled_flag) {
+        nm_send_config();
+    }
+    gl.is_ip_up = 1;
+}
+
+static void
+nm_ip6_up (void *data, int arg) 
+{
+    if (gl.is_ip_up || !ipcp_protent.enabled_flag) {
+        nm_send_config();
+    }
+    gl.is_ip6_up = 1;
 }
 
 static void
@@ -769,6 +786,8 @@ plugin_init (void)
 
     add_notifier (&phasechange, nm_phasechange, NULL);
     add_notifier (&exitnotify, nm_exit_notify, NULL);
+    add_notifier (&ip_up_notifier, nm_ip_up, NULL);
+    add_notifier (&ipv6_up_notifier, nm_ip6_up, NULL);
     add_notifier (&auth_up_notifier, nm_auth_notify, NULL);
 
     return 0;
