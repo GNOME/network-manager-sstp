@@ -555,7 +555,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
     }
 
     /* Add the PTY option */
-    ipparam = g_strdup_printf ("nm-sstp-service-%d", getpid ());
+    ipparam = g_strdup_printf ("nm-pptp-service-%d", getpid ());    /* Using "pptp" to avoid having /etc/ppp/ip-up.d/0000usepeerdns replace /etc/resolv.conf */
     pty = g_strdup_printf ("%s %s %s %s --nolaunchpppd %s %s --ipparam %s %s %s",
                            sstp_binary, gwaddr,
                            ign_cert == TRUE ? "--cert-warn" : "",
