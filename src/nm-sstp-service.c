@@ -1001,11 +1001,8 @@ handle_need_secrets (NMDBusSstpPpp *object,
         }
     }
     else {
-        /* In case of certificates, try IDENTITY, then SUBJECT */
-        user = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_IDENTITY);
-        if (!user || !strlen (user)) {
-            user = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_SUBJECT_NAME);
-        }
+        /* In case of certificates, the username is the certificate file */
+        user = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);
         if (!user || !strlen (user)) {
             g_dbus_method_invocation_return_error_literal (invocation,
                                                            NM_VPN_PLUGIN_ERROR,
