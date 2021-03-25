@@ -68,10 +68,6 @@ typedef struct {
     guint32 ppp_timeout_handler;
     NMConnection *connection;
     NMDBusSstpPpp *dbus_skeleton;
-
-    /* IP of SStP gateway in numeric and string format */
-    guint32 naddr;
-    char *saddr;
 } NMSstpPluginPrivate;
 
 #define NM_SSTP_PLUGIN_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), NM_TYPE_SSTP_PLUGIN, NMSstpPluginPrivate))
@@ -1057,7 +1053,6 @@ handle_set_ip4_config (NMDBusSstpPpp *object,
                        gpointer user_data)
 {
     NMSstpPlugin *plugin = NM_SSTP_PLUGIN (user_data);
-    NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (plugin);
     GVariantIter iter;
     const char *key;
     GVariant *value;
@@ -1073,11 +1068,6 @@ handle_set_ip4_config (NMDBusSstpPpp *object,
         g_variant_builder_add (&builder, "{sv}", key, value);
         g_variant_unref (value);
     }
-
-    /* Insert the external VPN gateway into the table, which the pppd plugin
-     * simply doesn't know about.
-     */
-    g_variant_builder_add (&builder, "{sv}", NM_SSTP_KEY_GATEWAY, g_variant_new_uint32 (priv->naddr));
     new_config = g_variant_builder_end (&builder);
     g_variant_ref_sink (new_config);
 
@@ -1095,7 +1085,6 @@ handle_set_ip6_config (NMDBusSstpPpp *object,
                        gpointer user_data)
 {
     NMSstpPlugin *plugin = NM_SSTP_PLUGIN (user_data);
-    NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (plugin);
     GVariantIter iter;
     const char *key;
     GVariant *value;
@@ -1111,11 +1100,6 @@ handle_set_ip6_config (NMDBusSstpPpp *object,
         g_variant_builder_add (&builder, "{sv}", key, value);
         g_variant_unref (value);
     }
-
-    /* Insert the external VPN gateway into the table, which the pppd plugin
-     * simply doesn't know about.
-     */
-    g_variant_builder_add (&builder, "{sv}", NM_SSTP_KEY_GATEWAY, g_variant_new_uint32 (priv->naddr));
     new_config = g_variant_builder_end (&builder);
     g_variant_ref_sink (new_config);
 
@@ -1284,11 +1268,6 @@ real_disconnect (NMVpnServicePlugin *plugin, GError **err)
     }
 
     g_clear_object (&priv->connection);
-    if (priv->saddr) {
-        g_free (priv->saddr);
-        priv->saddr = NULL;
-    }
-
     return TRUE;
 }
 
@@ -1308,10 +1287,6 @@ state_changed_cb (GObject *object, NMVpnServiceState state, gpointer user_data)
     case NM_VPN_SERVICE_STATE_STOPPED:
         remove_timeout_handler (NM_SSTP_PLUGIN (object));
         g_clear_object (&priv->connection);
-        if (priv->saddr) {
-            g_free (priv->saddr);
-            priv->saddr = NULL;
-        }
         break;
     default:
         break;
@@ -1337,11 +1312,6 @@ dispose (GObject *object)
     }
 
     g_clear_object (&priv->connection);
-    if (priv->saddr) {
-        g_free (priv->saddr);
-        priv->saddr = NULL;
-    }
-
     G_OBJECT_CLASS (nm_sstp_plugin_parent_class)->dispose (object);
 }
 
