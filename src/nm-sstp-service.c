@@ -1047,6 +1047,38 @@ handle_set_state (NMDBusSstpPpp *object,
 }
 
 static gboolean
+handle_set_config (NMDBusSstpPpp *object,
+                   GDBusMethodInvocation *invocation,
+                   GVariant *arg_config,
+                   gpointer user_data)
+{
+    NMSstpPlugin *plugin = NM_SSTP_PLUGIN (user_data);
+    GVariantIter iter;
+    const char *key;
+    GVariant *value;
+    GVariantBuilder builder;
+    GVariant *new_config;
+
+    remove_timeout_handler (plugin);
+    g_message("handle_set_config");
+
+    g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{sv}"));
+    g_variant_iter_init (&iter, arg_config);
+    while (g_variant_iter_next (&iter, "{&sv}", &key, &value)) {
+        g_variant_builder_add (&builder, "{sv}", key, value);
+        g_variant_unref (value);
+    }
+    new_config = g_variant_builder_end (&builder);
+    g_variant_ref_sink (new_config);
+
+    nm_vpn_service_plugin_set_config (NM_VPN_SERVICE_PLUGIN (plugin), new_config);
+    g_variant_unref (new_config);
+
+    g_dbus_method_invocation_return_value (invocation, NULL);
+    return TRUE;
+}
+
+static gboolean
 handle_set_ip4_config (NMDBusSstpPpp *object,
                        GDBusMethodInvocation *invocation,
                        GVariant *arg_config,
@@ -1307,6 +1339,7 @@ dispose (GObject *object)
             g_dbus_interface_skeleton_unexport (skeleton);
         g_signal_handlers_disconnect_by_func (skeleton, handle_need_secrets, object);
         g_signal_handlers_disconnect_by_func (skeleton, handle_set_state, object);
+        g_signal_handlers_disconnect_by_func (skeleton, handle_set_config, object);
         g_signal_handlers_disconnect_by_func (skeleton, handle_set_ip4_config, object);
         g_signal_handlers_disconnect_by_func (skeleton, handle_set_ip6_config, object);
     }
@@ -1365,6 +1398,7 @@ init_sync (GInitable *object, GCancellable *cancellable, GError **error)
 
     g_signal_connect (priv->dbus_skeleton, "handle-need-secrets", G_CALLBACK (handle_need_secrets), object);
     g_signal_connect (priv->dbus_skeleton, "handle-set-state", G_CALLBACK (handle_set_state), object);
+    g_signal_connect (priv->dbus_skeleton, "handle-set-config", G_CALLBACK (handle_set_config), object);
     g_signal_connect (priv->dbus_skeleton, "handle-set-ip4-config", G_CALLBACK (handle_set_ip4_config), object);
     g_signal_connect (priv->dbus_skeleton, "handle-set-ip6-config", G_CALLBACK (handle_set_ip6_config), object);
 

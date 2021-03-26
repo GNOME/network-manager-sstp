@@ -746,7 +746,6 @@ nm_exit_notify (void *data, int arg)
 int
 plugin_init (void)
 {
-    GDBusConnection *bus;
     GError *error = NULL;
     const char *bus_name;
 
@@ -766,22 +765,14 @@ plugin_init (void)
 
     _LOGI ("initializing");
 
-    bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
-    if (!bus) {
-        _LOGE ("couldn't connect to system bus: %s",
-               error->message);
-        g_error_free (error);
-        return -1;
-    }
-
-    gl.proxy = g_dbus_proxy_new_sync (bus,
+    gl.proxy = g_dbus_proxy_new_for_bus_sync (
+                       G_BUS_TYPE_SYSTEM,
                        G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
                        NULL,
-                                   bus_name,
-                                   NM_DBUS_PATH_SSTP_PPP,
+                       bus_name,
+                       NM_DBUS_PATH_SSTP_PPP,
                        NM_DBUS_INTERFACE_SSTP_PPP,
-                                   NULL, &error);
-    g_object_unref (bus);
+                       NULL, &error);
     if (!gl.proxy) {
         _LOGE ("couldn't create D-Bus proxy: %s",
                error->message);
