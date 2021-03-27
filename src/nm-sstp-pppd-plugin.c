@@ -61,6 +61,7 @@ int plugin_init (void);
 char pppd_version[] = VERSION;
 
 /*****************************************************************************/
+typedef void (*protrej_fn)(int unit);
 
 struct {
     int log_level;
@@ -68,6 +69,8 @@ struct {
     GDBusProxy *proxy;
     bool is_ip_up;
     bool is_ip6_up;
+    bool is_ip6_rej;
+    protrej_fn old_protrej;
 } gl/*lobal*/;
 
 /*****************************************************************************/
@@ -377,8 +380,6 @@ done:
     return retval;
 }
 
-extern int no_ifaceid_neg;
-
 static GVariant* nm_ip6_get_params(void)
 {
     GVariantBuilder builder;
@@ -388,8 +389,12 @@ static GVariant* nm_ip6_get_params(void)
 
     g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
 
-    if (no_ifaceid_neg || eui64_iszero(opts->ourid) || eui64_iszero(peer_opts->hisid)) {
+    if (gl.is_ip6_rej || eui64_iszero(opts->ourid) || eui64_iszero(peer_opts->hisid)) {
         _LOGI ("No IPv6 addresses negotiated");
+        return g_variant_builder_end (&builder);
+    }
+    if (eui64_equals(opts->ourid, peer_opts->hisid)) {
+        _LOGI ("Local and remote addresses are equal");
         return g_variant_builder_end (&builder);
     }
 
@@ -409,6 +414,18 @@ static GVariant* nm_ip6_get_params(void)
     return g_variant_builder_end (&builder);
 }
 
+static void
+nm_ip4_add_route(GVariantBuilder *builder, int network, int gateway, int prefix, int metric) 
+{
+    GVariantBuilder route;
+    g_variant_builder_init (&route, G_VARIANT_TYPE ("au"));
+    g_variant_builder_add_value (&route, g_variant_new_uint32 (network));
+    g_variant_builder_add_value (&route, g_variant_new_uint32 (prefix));
+    g_variant_builder_add_value (&route, g_variant_new_uint32 (gateway));
+    g_variant_builder_add_value (&route, g_variant_new_uint32 (metric));
+    g_variant_builder_add_value (builder, g_variant_builder_end (&route));
+}
+
 static GVariant*
 nm_ip4_get_params(void)
 {
@@ -416,6 +433,9 @@ nm_ip4_get_params(void)
     ipcp_options *opts = &ipcp_gotoptions[0];
     ipcp_options *peer_opts = &ipcp_hisoptions[0];
     GVariantBuilder builder;
+    GVariantBuilder array;
+    GVariant *routes;
+    guint32 gateway = 0;
 
     g_variant_builder_init (&builder, G_VARIANT_TYPE_VARDICT);
 
@@ -437,10 +457,12 @@ nm_ip4_get_params(void)
             g_variant_builder_add (&builder, "{sv}",
                                    NM_VPN_PLUGIN_IP4_CONFIG_PTP,
                                    g_variant_new_uint32 (peer_opts->hisaddr));
+            gateway = peer_opts->hisaddr;
         } else if (opts->hisaddr) {
             g_variant_builder_add (&builder, "{sv}",
                                    NM_VPN_PLUGIN_IP4_CONFIG_PTP,
                                    g_variant_new_uint32 (opts->hisaddr));
+            gateway = peer_opts->hisaddr;
         } else if (peer_opts->hisaddr == pppd_made_up_address) {
             /* As a last resort, use the made-up address */
             g_variant_builder_add (&builder, "{sv}",
@@ -448,15 +470,21 @@ nm_ip4_get_params(void)
                                    g_variant_new_uint32 (peer_opts->ouraddr));
         }
 
+        g_variant_builder_init (&array, G_VARIANT_TYPE ("aau"));
+
         /* DNS Servers */
         if (opts->dnsaddr[0] || opts->dnsaddr[1]) {
             guint32 dns[2];
             int len = 0;
 
-            if (opts->dnsaddr[0])
+            if (opts->dnsaddr[0]) {
                 dns[len++] = opts->dnsaddr[0];
-            if (opts->dnsaddr[1])
+                nm_ip4_add_route (&array, opts->dnsaddr[0], gateway, 32, 0);
+            }
+            if (opts->dnsaddr[1]) {
                 dns[len++] = opts->dnsaddr[1];
+                nm_ip4_add_route (&array, opts->dnsaddr[0], gateway, 32, 0);
+            }
 
             g_variant_builder_add (&builder, "{sv}",
                                    NM_VPN_PLUGIN_IP4_CONFIG_DNS,
@@ -469,15 +497,28 @@ nm_ip4_get_params(void)
             guint32 wins[2];
             int len = 0;
 
-            if (opts->winsaddr[0])
+            if (opts->winsaddr[0]) {
                 wins[len++] = opts->winsaddr[0];
-            if (opts->winsaddr[1])
+                nm_ip4_add_route (&array, opts->dnsaddr[0], gateway, 32, 0);
+            }
+            if (opts->winsaddr[1]) {
                 wins[len++] = opts->winsaddr[1];
+                nm_ip4_add_route (&array, opts->dnsaddr[0], gateway, 32, 0);
+            }
 
             g_variant_builder_add (&builder, "{sv}",
                                    NM_VPN_PLUGIN_IP4_CONFIG_NBNS,
                                    g_variant_new_fixed_array (G_VARIANT_TYPE_UINT32,
                                                               wins, len, sizeof (guint32)));
+        }
+
+        routes = g_variant_builder_end (&array);
+        if (g_variant_n_children (routes)) {
+            g_variant_builder_add (&builder, "{sv}", NM_VPN_PLUGIN_IP4_CONFIG_ROUTES, routes);
+        }
+        else {
+            g_variant_unref (routes);
+            routes = NULL;
         }
     }
 
@@ -676,9 +717,6 @@ nm_ip_up (void *data, int arg)
 
 /**
  * Called when IPv6CP has finished. 
- *
- * NOTE: if enabled, but protocol is rejected; we may never get here.
- *       Disable IPv6 support in Network Manager to bypass this.
  */
 static void
 nm_ip6_up (void *data, int arg) 
@@ -687,6 +725,18 @@ nm_ip6_up (void *data, int arg)
         nm_send_config();
     }
     gl.is_ip6_up = 1;
+}
+
+/**
+ * If peer rejected the IPv6CP protocol, then we won't get an ip6_up callback.
+ */
+static void
+nm_ipv6_protrej(int unit)
+{
+    gl.is_ip6_rej = 1;
+    nm_ip6_up(NULL, 0);
+    (*gl.old_protrej)(unit);
+    ipv6cp_protent.protrej = gl.old_protrej;
 }
 
 /**
@@ -730,7 +780,6 @@ nm_auth_notify (void *data, int arg)
     }
     sstp_notify_sent = 1;
 }
-
 
 /**
  * PPPD exited, clean up resources
@@ -792,6 +841,9 @@ plugin_init (void)
     add_notifier (&ip_up_notifier, nm_ip_up, NULL);
     add_notifier (&ipv6_up_notifier, nm_ip6_up, NULL);
     add_notifier (&auth_up_notifier, nm_auth_notify, NULL);
+
+    gl.old_protrej = ipv6cp_protent.protrej;
+    ipv6cp_protent.protrej = nm_ipv6_protrej;
 
     return 0;
 }
