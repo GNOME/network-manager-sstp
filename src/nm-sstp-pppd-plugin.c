@@ -48,13 +48,11 @@
 
 #include "nm-ppp-status.h"
 #include "nm-sstp-service.h"
+#include "nm-sstp-pppd-mppe.h"
 #include "nm-utils/nm-shared-utils.h"
 #include "nm-utils/nm-vpn-plugin-macros.h"
 
 static int sstp_notify_sent = 0;
-
-#define PPP_PROTO_EAP   0xc227
-#define PPP_PROTO_CHAP  0xc223
 
 int plugin_init (void);
 
@@ -325,13 +323,16 @@ done:
  * Notify SSTPC of the MPPE keys
  */
 static int
-nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
+nm_sstp_notify(void)
 {
     int ret    = (-1);
     int sock   = (-1);
     int retval = (-1);
     uint8_t buf[NM_SSTP_MAX_BUFLEN+1] = {};
     sstp_api_msg_st  *msg  = NULL;
+    unsigned char key[32];
+    char key_buf[255];
+    int key_len;
 
     /* Get the sstpc socket */
     sock = nm_sstp_getsock();
@@ -347,8 +348,30 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     }
 
     /* Add the attributes for the MPPE keys */
-    sstp_api_attr_add(msg, SSTP_API_ATTR_MPPE_SEND, slen, skey);
-    sstp_api_attr_add(msg, SSTP_API_ATTR_MPPE_RECV, rlen, rkey);
+    if (mppe_keys_isset()) {
+
+        /* Add the MPPE Send Key */
+        key_len = mppe_get_send_key(key, sizeof(key));
+        if (key_len > 0) {
+
+            sstp_api_attr_add(msg, SSTP_API_ATTR_MPPE_SEND, key_len, key);
+            if (debug) {
+                slprintf(key_buf, sizeof(key_buf)-1, "%0.*B", key_len, key);
+                _LOGI ("The MPPE-Send-Key: %s", key);
+            }
+        }
+
+        /* Add the MPPE Recv Key */
+        key_len = mppe_get_recv_key(key, sizeof(key));
+        if (key_len > 0) {
+
+            sstp_api_attr_add(msg, SSTP_API_ATTR_MPPE_RECV, key_len, key);
+            if (debug) {
+                slprintf(key_buf, sizeof(key_buf)-1, "%0.*B", key_len, key);
+                _LOGI ("The MPPE-Recv-Key: %s", key);
+            }
+        }
+    }
 
     /* Send the structure */
     ret = send(sock, msg, sstp_api_msg_len(msg), 0);
@@ -365,7 +388,8 @@ nm_sstp_notify(unsigned char *skey, int slen, unsigned char *rkey, int rlen)
     }
 
     /* Sent credentials to sstpc */
-    _LOGI ("sstp-plugin: MPPE keys exchanged with sstpc");
+    _LOGI ("sstp-plugin: Shared authentication details with sstpc");
+    sstp_notify_sent = 1;
 
     /* Success */
     retval = 0;
@@ -692,11 +716,7 @@ nm_new_phase(int phase)
 
     /* Send *blank* MPPE keys to the sstpc client */
     if (!sstp_notify_sent) {
-        BZERO(mppe_send_key, sizeof(mppe_send_key));
-        BZERO(mppe_recv_key, sizeof(mppe_recv_key));
-        nm_sstp_notify(mppe_send_key, sizeof(mppe_send_key),
-                       mppe_recv_key, sizeof(mppe_recv_key));
-        sstp_notify_sent = 1;
+        nm_sstp_notify();
     }
 
     new_phase_hook = NULL;
@@ -745,40 +765,9 @@ nm_ipv6_protrej(int unit)
 static void
 nm_auth_notify (void *data, int arg)
 {
-    eap_state *eap = NULL;
 
-    /* Print the MPPE keys for debugging */
-    if (debug) {
-        char key[255];
-
-        /* Add the MPPE Send Key */
-        slprintf(key, sizeof(key)-1, "S:%0.*B", sizeof(mppe_send_key),
-                 mppe_send_key);
-        _LOGI ("The mppe send key: %s", key);
-
-        /* Add the MPPE Recv Key */
-        slprintf(key, sizeof(key)-1, "S:%0.*B", sizeof(mppe_recv_key),
-                 mppe_recv_key);
-        _LOGI ("The mppe recv key: %s", key);
-    }
-
-    eap = &eap_states[0];
-    if (eap->es_client.ea_using_eaptls ||
-        eap->es_client.ea_using_eaptls) {
-
-        _LOGI ("EAP-TLS was used for authentication");
-
-        /* Use the MSK(0..32) as the key */
-        nm_sstp_notify(mppe_send_key, 16,
-                       mppe_send_key+16, 16);
-    }
-    else {
-
-        /* send the mppe keys to the sstpc client */
-        nm_sstp_notify(mppe_send_key, 16,
-                       mppe_recv_key, 16);
-    }
-    sstp_notify_sent = 1;
+    /* send the mppe keys to the sstpc client */
+    nm_sstp_notify();
 }
 
 /**

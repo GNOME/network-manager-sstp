@@ -112,6 +112,8 @@ pppd_plugin_LTLIBRARIES = src/nm-sstp-pppd-plugin.la
 src_nm_sstp_pppd_plugin_la_SOURCES = \
 	shared/nm-utils/nm-shared-utils.c \
 	src/nm-sstp-pppd-plugin.c \
+	src/nm-sstp-pppd-mppe.c \
+	src/nm-sstp-pppd-mppe.h \
 	src/nm-ppp-status.h
 src_nm_sstp_pppd_plugin_la_CPPFLAGS = \
     $(src_cppflags) \
