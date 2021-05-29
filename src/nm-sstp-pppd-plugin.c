@@ -52,7 +52,14 @@
 #include "nm-utils/nm-shared-utils.h"
 #include "nm-utils/nm-vpn-plugin-macros.h"
 
+#ifndef USE_PPPD_AUTH_HOOK
+
+#define PPP_PROTO_CHAP              0xc223
+#define PPP_PROTO_EAP               0xc227
+
 static int sstp_notify_sent = 0;
+
+#endif  /* USE_PPPD_AUTH_HOOK */
 
 int plugin_init (void);
 
@@ -389,7 +396,9 @@ nm_sstp_notify(void)
 
     /* Sent credentials to sstpc */
     _LOGI ("sstp-plugin: Shared authentication details with sstpc");
+#ifndef USE_PPPD_AUTH_HOOK
     sstp_notify_sent = 1;
+#endif
 
     /* Success */
     retval = 0;
@@ -703,9 +712,10 @@ nm_get_credentials (char *username, char *password)
     return 1;
 }
 
+#ifndef USE_PPPD_AUTH_HOOK
+
 /**
- * Called on transitions between phases, but only act when
- *   pppd has reached state running.
+ * Called on transitions between phases, but only act when pppd has reached state running.
  */
 static int
 nm_new_phase(int phase)
@@ -722,6 +732,87 @@ nm_new_phase(int phase)
     new_phase_hook = NULL;
     return 0;
 }
+
+/**
+ * Let's steal the keys here after pppd has completed the authentication, but before
+ * the CCP layer has completed and thus zero'd them out.
+ *
+ * BUG: if the MPPE keys are sent at ip-up; the WIN2K16 server expects the MPPE keys
+ * to be all zero for computing the appropriate HLAK keys.
+ */
+static void
+nm_snoop_recv(unsigned char *buf, int len)
+{
+    unsigned int psize;
+    unsigned int proto;
+    bool pcomp;
+
+    /* Skip the HDLC header */
+    if (buf[0] == 0xFF && buf[1] == 0x03) {
+        buf += 2;
+        len -= 2;
+    }
+
+    pcomp = (buf[0] & 0x10);
+    psize = pcomp ? 1 : 2;
+
+    /* Too short of a packet */
+    if (len <= psize) {
+        return;
+    }
+
+    /* Stop snooping if it is not a CHAP / EAP packet */
+    proto = pcomp ? buf[0] : (buf[0] << 8 | buf[1]);
+    if (proto != PPP_PROTO_CHAP && proto != PPP_PROTO_EAP) {
+        return;
+    }
+
+    /* Skip the protocol header */
+    buf += psize;
+    len -= psize;
+
+    /* Look for a SUCCESS packet indicating authentication complete */
+    switch (proto)
+    {
+    case PPP_PROTO_CHAP:
+        if (buf[0] != CHAP_SUCCESS) {
+            return;
+        }
+        break;
+    case PPP_PROTO_EAP:
+        if (buf[0] != EAP_SUCCESS) {
+            return;
+        }
+        break;
+    }
+
+    /* Don't bother if the keys aren't set yet */
+    if (!mppe_keys_set) {
+        return;
+    }
+
+    nm_sstp_notify();
+
+    /* Disable the callback */
+    snoop_recv_hook = NULL;
+}
+
+#else /* USE_PPPD_AUTH_HOOK */
+
+/**
+ * Called when Auth phase has completed and before Network phase is initiated (e.g. CCP).
+ *
+ * The introduction of pppd-2.4.9 now supports the callback via auth_up_notifier
+ *    which previously was only done when peer had authenticated itself (server side).
+ */
+static void
+nm_auth_notify (void *data, int arg)
+{
+    /* send the mppe keys to the sstpc client */
+    nm_sstp_notify();
+}
+
+#endif /* USE_PPPD_AUTH_HOOK */
 
 /**
  * Called when IPCP has finished
@@ -757,17 +848,6 @@ nm_ipv6_protrej(int unit)
     nm_ip6_up(NULL, 0);
     (*gl.old_protrej)(unit);
     ipv6cp_protent.protrej = gl.old_protrej;
-}
-
-/**
- * Called when Auth phase has completed and before Network phase is initiated (e.g. CCP).
- */
-static void
-nm_auth_notify (void *data, int arg)
-{
-
-    /* send the mppe keys to the sstpc client */
-    nm_sstp_notify();
 }
 
 /**
@@ -822,14 +902,19 @@ plugin_init (void)
     chap_check_hook = nm_get_chap_check;
     pap_passwd_hook = nm_get_credentials;
     pap_check_hook = nm_get_pap_check;
-    new_phase_hook = nm_new_phase;
     eaptls_passwd_hook = nm_get_credentials;
+#ifndef USE_PPPD_AUTH_HOOK
+    snoop_recv_hook = nm_snoop_recv;
+    new_phase_hook = nm_new_phase;
+#endif
 
     add_notifier (&phasechange, nm_phasechange, NULL);
     add_notifier (&exitnotify, nm_exit_notify, NULL);
     add_notifier (&ip_up_notifier, nm_ip_up, NULL);
     add_notifier (&ipv6_up_notifier, nm_ip6_up, NULL);
+#ifdef USE_PPPD_AUTH_HOOK
     add_notifier (&auth_up_notifier, nm_auth_notify, NULL);
+#endif
 
     gl.old_protrej = ipv6cp_protent.protrej;
     ipv6cp_protent.protrej = nm_ipv6_protrej;

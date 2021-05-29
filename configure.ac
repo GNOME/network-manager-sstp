@@ -43,18 +43,48 @@ dnl
 AC_HEADER_STDC
 AC_CHECK_HEADERS(fcntl.h paths.h sys/ioctl.h sys/time.h syslog.h unistd.h)
 
+#
+# Versions >= 2.4.10 will have pkgconfig support
+PKG_CHECK_EXISTS([pppd],
+    [AS_VAR_SET([pppd_pkgconfig_support],[yes])])
+
+#
+# We do require pppd
 AC_CHECK_HEADERS(pppd/pppd.h,,
-  AC_MSG_ERROR(couldn't find pppd.h. pppd development headers are required.))
+    [AC_MSG_ERROR([pppd.h missing, Hint: apt-get install ppp-dev])])
 
+#
+# More recent versions will have mppe.h defined
 AC_CHECK_HEADER(pppd/mppe.h,
-        [AC_DEFINE(HAVE_MPPE_H, 1, [Define if PPP is of recent version])])
+    [AC_DEFINE(HAVE_MPPE_H, 1, [Define if PPP is of recent version])])
 
-AC_ARG_WITH([pppd-plugin-dir], AS_HELP_STRING([--with-pppd-plugin-dir=DIR], [path to the pppd plugins directory]))
+#
+# Versions >= 2.4.9 will have support for the auth notify callback
+AC_ARG_WITH([pppd-auth-notify-support],
+    [AS_HELP_STRING([--with-pppd-auth-notify-support], [is the auth-notifier supported in this pppd version])])
+if test x"$with_pppd_auth_notify_support" != xyes; then
+    if test x"$pppd_pkgconfig_support" == xyes; then        # pkgconfig implies pppd > 2.4.9
+        AS_VAR_SET([with_pppd_auth_notify_support],[yes])
+    fi
+fi
+if test x"$with_pppd_auth_notify_support" == xyes; then
+    AC_DEFINE(USE_PPPD_AUTH_HOOK,1,[Define if pppd has support for client side authentication complete notification])
+else
+    with_pppd_auth_notify_support=no
+fi
 
+#
+# Specify the path of the pppd plugin directory
+AC_ARG_WITH([pppd-plugin-dir],
+        [AS_HELP_STRING([--with-pppd-plugin-dir=DIR], [path to the pppd plugins directory])])
 if test -n "$with_pppd_plugin_dir" ; then
 	PPPD_PLUGIN_DIR="$with_pppd_plugin_dir"
 else
-	PPPD_PLUGIN_DIR="${libdir}/pppd/2.4.7"
+    if test x"$pppd_pkgconfig_support" == xyes; then
+        PKG_CHECK_VAR(PPPD_PLUGIN_DIR, [pppd], [plugindir])
+    else
+	    PPPD_PLUGIN_DIR="${libdir}/pppd/2.4.7"
+    fi
 fi
 AC_SUBST(PPPD_PLUGIN_DIR)
 
@@ -183,6 +213,7 @@ echo "  --with-dist-version=$ac_distver"
 echo "  --with-gnome=$with_gnome"
 echo "  --with-libnm-glib=$with_libnm_glib"
 echo "  --with-pppd-plugin-dir=$PPPD_PLUGIN_DIR"
+echo "  --with-pppd-auth-notify-support=$with_pppd_auth_notify_support"
 echo "  --with-system-ca-path=$SYSTEM_CA_PATH"
 echo "  --enable-absolute-paths=$enable_absolute_paths"
 echo "  --enable-more-warnings=$set_more_warnings"
