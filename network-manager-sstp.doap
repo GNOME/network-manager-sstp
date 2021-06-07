@@ -20,7 +20,7 @@
     <foaf:Person>
       <foaf:name>Eivind Naess</foaf:name>
       <foaf:mbox rdf:resource="mailto:eivnaes@yahoo.com" />
-      <gnome:userid>dcbw</gnome:userid>
+      <gnome:userid>eivnaes</gnome:userid>
     </foaf:Person>
   </maintainer>
 
