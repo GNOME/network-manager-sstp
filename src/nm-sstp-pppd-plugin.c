@@ -30,7 +30,6 @@
 #include <pppd/ipv6cp.h>
 #include <pppd/chap-new.h>
 #include <pppd/chap_ms.h>
-#include <pppd/mppe.h>
 #include <pppd/eap.h>
 
 #include "nm-default.h"
@@ -787,7 +786,7 @@ nm_snoop_recv(unsigned char *buf, int len)
     }
 
     /* Don't bother if the keys aren't set yet */
-    if (!mppe_keys_set) {
+    if (!mppe_keys_isset()) {
         return;
     }
 
