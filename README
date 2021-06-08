@@ -1,7 +1,7 @@
 SSTP support for NetworkManager
 
 This requires the Linux SSTP client installed 
-http://sstp-client.sourceforge.net/
+https://gitlab.com/eivnaes/sstp-client
 
 This project was a clone based on the network-manager-pptp project. Thanks to the 
 authors of network-manager-pptp for their time and dedication.
