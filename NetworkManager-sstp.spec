@@ -7,7 +7,7 @@ Epoch:     1
 Version:   0.9.10
 Release:   6%{snapshot}%{?dist}
 License:   GPLv2+
-URL:       https://github.com/enaess/network-manager-sstp/
+URL:       https://gitlab.gnome.org/GNOME/network-manager-sstp
 Source:    https://downloads.sourceforge.net/sstp-client/%{name}-%{version}%{snapshot}.tar.bz2
 
 BuildRequires: gtk3-devel
