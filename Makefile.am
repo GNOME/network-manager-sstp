@@ -117,7 +117,7 @@ src_nm_sstp_pppd_plugin_la_SOURCES = \
 	src/nm-ppp-status.h
 src_nm_sstp_pppd_plugin_la_CPPFLAGS = \
     $(src_cppflags) \
-    -DMPPE -DUSE_EAPTLS -DINET6
+    -DUSE_EAPTLS -DINET6
 src_nm_sstp_pppd_plugin_la_LDFLAGS = \
 	-module -avoid-version
 src_nm_sstp_pppd_plugin_la_LIBADD = \
