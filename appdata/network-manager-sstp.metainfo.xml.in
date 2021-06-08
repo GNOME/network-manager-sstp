@@ -25,16 +25,16 @@
 
   <screenshots>
     <screenshot type="default">
-      <image width="800" height="568">https://raw.githubusercontent.com/enaess/network-manager-sstp/master/appdata/sstp.png</image>
+      <image width="632" height="596">https://gitlab.gnome.org/GNOME/network-manager-sstp/-/raw/master/appdata/sstp.png</image>
     </screenshot>
     <screenshot>
       <caption>The advanced options dialog</caption>
-      <image width="800" height="665">https://raw.githubusercontent.com/enaess/network-manager-sstp/master/appdata/sstp-advanced.png</image>
+      <image width="538" height="690">https://gitlab.gnome.org/GNOME/network-manager-sstp/-/raw/master/appdata/sstp-advanced.png</image>
     </screenshot>
   </screenshots>
 
-  <url type="homepage">http://sstp-client.sourceforge.net/#Network_Manager_Plugin</url>
-  <url type="bugtracker">https://github.com/enaess/network-manager-sstp/issues</url>
+  <url type="homepage">https://gitlab.gnome.org/GNOME/network-manager-sstp</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/network-manager-sstp/-/issues</url>
   <update_contact>eivnaes@yahoo.com</update_contact>
   <translation type="gettext">NetworkManager-sstp</translation>
   <_developer_name>Eivind Naess</_developer_name>
