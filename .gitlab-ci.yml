@@ -27,7 +27,7 @@
 .dist: &dist
   stage: test
   dependencies:
-    - fedora31_dist
+    - fedora28_dist
   variables:
     GIT_STRATEGY: none
 
@@ -47,9 +47,9 @@
     - make -j uninstall
 
 # Roll the distribution tarball
-fedora31_dist:
+fedora28_dist:
   <<: *fedora_deps
-  image: fedora:31
+  image: fedora:28
   stage: build
   script:
     - dnf -y install
