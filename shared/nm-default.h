@@ -67,6 +67,7 @@
 #include <nm-setting-connection.h>
 #include <nm-setting-8021x.h>
 #include <nm-setting-ip4-config.h>
+#include <nm-setting-ip6-config.h>
 #include <nm-setting-vpn.h>
 #include <nm-utils.h>
 #include <nm-vpn-plugin-ui-interface.h>
@@ -102,6 +103,10 @@
 #define _nm_utils_is_valid_iface_name(n)            nm_utils_is_valid_iface_name(n, NULL)
 
 #endif /* NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL */
+
+#ifndef NM_SETTING_IP6_CONFIG_METHOD_DISABLED   /* Defined in NM >= 1.20 */
+#define NM_SETTING_IP6_CONFIG_METHOD_DISABLED "disabled"
+#endif
 
 /*****************************************************************************/
 
