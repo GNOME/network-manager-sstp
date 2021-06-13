@@ -47,6 +47,7 @@ src_cppflags = \
 	-DG_LOG_DOMAIN=\"nm-sstp\" \
 	-DNETWORKMANAGER_COMPILATION=NM_NETWORKMANAGER_COMPILATION_DEFAULT \
 	-I$(builddir)/src \
+	-I$(top_srcdir)/src \
 	-I$(top_srcdir)/shared \
 	$(GLIB_CFLAGS) \
 	$(LIBNM_CFLAGS) \
