@@ -24,7 +24,7 @@
 #define __SSTP_MPPE_H__
 
 
-#ifdef HAVE_MPPE_H
+#ifdef HAVE_MPPE_KEYS_FUNCTIONS
 #define MPPE 1
 #include <pppd/chap_ms.h>
 #include <pppd/mppe.h>
@@ -45,5 +45,5 @@ int mppe_get_send_key(unsigned char *send_key, int length);
  */
 bool mppe_keys_isset(void);
 
-#endif  // #ifdef HAVE_MPPE_H
+#endif  // #ifdef HAVE_MPPE_KEYS_FUNCTIONS
 #endif  // #ifdef __SSTP_MPPE_H__

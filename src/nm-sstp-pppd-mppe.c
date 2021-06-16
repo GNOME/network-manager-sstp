@@ -25,7 +25,7 @@
 #include <pppd/pppd.h>
 #include "nm-sstp-pppd-mppe.h"
 
-#ifndef HAVE_MPPE_H
+#ifndef HAVE_MPPE_KEYS_FUNCTIONS
 #define MPPE_MAX_KEY_SIZE 16
 extern u_char mppe_send_key[MPPE_MAX_KEY_SIZE];
 extern u_char mppe_recv_key[MPPE_MAX_KEY_SIZE];
@@ -67,4 +67,4 @@ bool mppe_keys_isset(void)
     return !!mppe_keys_set;
 }
 
-#endif
+#endif  // #ifdef HAVE_MPPE_KEYS_FUNCTIONS
