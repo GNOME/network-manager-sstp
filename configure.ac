@@ -53,6 +53,8 @@ PKG_CHECK_EXISTS([pppd],
 AC_CHECK_HEADERS(pppd/pppd.h,,
     [AC_MSG_ERROR([pppd.h missing, Hint: apt-get install ppp-dev])])
 
+CFLAGS_OLD="$CFLAGS"
+CFLAGS="$CFLAGS -Werror"
 #
 # Check if the version of mppe.h define mppe_keys_xxx() functions, 2.4.9 does not; but 2.4.10 will.
 AC_CACHE_CHECK([if pppd/mppe.h defines mppe_keys_xyz() functions], ac_cv_working_mppe_h,
@@ -70,6 +72,7 @@ if test $ac_cv_working_mppe_h = yes; then
     AC_DEFINE(HAVE_MPPE_KEYS_FUNCTIONS, 1,
         [Define to 1 if you have <pppd/mppe.h> and it declares the mppe_keys_xyz() functions])
 fi
+CFLAGS="$CFLAGS_OLD"
 
 #
 # Versions >= 2.4.9 will have support for the auth notify callback
