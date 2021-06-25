@@ -82,7 +82,7 @@ nm_sstp_x509_get_subject_name(gnutls_x509_crt_t cert, GError **error)
         g_set_error (error,
                      NM_CRYPTO_ERROR,
                      NM_CRYPTO_ERROR_FAILED,
-                     _("Failede to get subject name"));
+                     _("Failed to get subject name"));
     }
     return NULL;
 }
@@ -125,7 +125,7 @@ nm_sstp_get_subject_name(const char *filename, GError **error) {
             g_set_error (error, 
                         NM_CRYPTO_ERROR,
                         NM_CRYPTO_ERROR_FAILED,
-                        _("Failed to initialze certificate"));
+                        _("Failed to initialize certificate"));
         }
         gnutls_free(dt.data);
     } else {
@@ -202,7 +202,7 @@ nm_sstp_get_suject_name_pkcs12(const char *filename, const char *password, GErro
         g_set_error (error, 
                     NM_CRYPTO_ERROR,
                     NM_CRYPTO_ERROR_FAILED,
-                    _("Failed read file"));
+                    _("Failed to read file"));
     }
     return retval;
 }
