@@ -7,27 +7,27 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager sstp\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/issues\n"
-"POT-Creation-Date: 2021-06-09 15:13+0000\n"
-"PO-Revision-Date: 2021-06-25 19:47+0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/issu"
+"es\n"
+"POT-Creation-Date: 2021-07-11 14:20+0000\n"
+"PO-Revision-Date: 2021-07-11 17:23+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 20.12.0\n"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
 msgid "SSTP VPN client"
-msgstr ""
-"Клієнт VPN SSTP"
+msgstr "Клієнт VPN SSTP"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
 msgid "Client for SSTP virtual private networks"
-msgstr ""
-"Клієнт для віртуальних приватних мереж SSTP"
+msgstr "Клієнт для віртуальних приватних мереж SSTP"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
 msgid "Support for configuring SSTP virtual private network connections."
@@ -39,12 +39,12 @@ msgid ""
 "Compatible with servers following the SSTP specification including the "
 "Microsoft servers."
 msgstr ""
-"Сумісність із серверами, які відповідають специфікації SSTP, зокрема серверами Microsoft."
+"Сумісність із серверами, які відповідають специфікації SSTP, зокрема "
+"серверами Microsoft."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
 msgid "Eivind Naess"
-msgstr ""
-"Eivind Naess"
+msgstr "Eivind Naess"
 
 #: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
@@ -52,17 +52,14 @@ msgstr "Автентифікація VPN"
 
 #: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
 msgid "Certificate password:"
-msgstr ""
-"Пароль сертифіката:"
+msgstr "Пароль сертифіката:"
 
 #: ../auth-dialog/main.c:295
-#| msgid "_Password:"
 msgid "_HTTP proxy password:"
 msgstr "П_ароль проксі-сервера HTTP:"
 
 #: ../auth-dialog/main.c:372
 #, c-format
-#| msgid "Authenticate VPN"
 msgid "Authenticate VPN %s"
 msgstr "Автентифікація VPN %s"
 
@@ -71,13 +68,11 @@ msgid "Password:"
 msgstr "Пароль:"
 
 #: ../auth-dialog/main.c:393
-#| msgid "Password:"
 msgid "HTTP proxy password:"
 msgstr "Пароль HTTP proxy:"
 
 #: ../auth-dialog/main.c:508
 #, c-format
-#| msgid "You need to authenticate to access the Virtual Private Network '%s'."
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
 "Вам слід пройти розпізнавання для отримання доступу до віртуальної приватної "
@@ -117,33 +112,27 @@ msgstr "EAP"
 
 #: ../properties/advanced-dialog.c:608
 msgid "Don't verify certificate identification"
-msgstr ""
-"Не перевіряти ідентифікацію сертифіката"
+msgstr "Не перевіряти ідентифікацію сертифіката"
 
 #: ../properties/advanced-dialog.c:616
 msgid "Verify subject exactly"
-msgstr ""
-"Перевіряти призначення точно"
+msgstr "Перевіряти призначення точно"
 
 #: ../properties/advanced-dialog.c:624
 msgid "Verify name exactly"
-msgstr ""
-"Перевіряти назву точно"
+msgstr "Перевіряти назву точно"
 
 #: ../properties/advanced-dialog.c:632
 msgid "Verify name by suffix"
-msgstr ""
-"Перевіряти назву за суфіксом"
+msgstr "Перевіряти назву за суфіксом"
 
 #: ../properties/advanced-dialog.c:677
 msgid "TLS 1.2 (Default)"
-msgstr ""
-"TLS 1.2 (типова)"
+msgstr "TLS 1.2 (типова)"
 
 #: ../properties/advanced-dialog.c:685
 msgid "TLS 1.3"
-msgstr ""
-"TLS 1.3"
+msgstr "TLS 1.3"
 
 #: ../properties/nm-sstp-editor-plugin.c:34
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
@@ -156,36 +145,30 @@ msgstr "Сумісний з серверами Microsoft та іншими се�
 #: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
 #, c-format
 msgid "file is not a certificate"
-msgstr ""
-"файл не є сертифікатом"
+msgstr "файл не є сертифікатом"
 
 #: ../properties/nm-sstp-editor.c:365
 #, c-format
 msgid "file is not a private key"
-msgstr ""
-"файл не є закритим ключем"
+msgstr "файл не є закритим ключем"
 
 #: ../properties/nm-sstp-editor.c:581
 msgid "Certificates (TLS)"
-msgstr ""
-"Сертифікати (TLS)"
+msgstr "Сертифікати (TLS)"
 
 #: ../properties/nm-sstp-editor.c:590
-#| msgid "Password:"
 msgid "Password"
 msgstr "Пароль"
 
 #: ../shared/nm-utils/nm-shared-utils.c:946
 #, c-format
 msgid "object class '%s' has no property named '%s'"
-msgstr ""
-"у класі об’єктів «%s» немає властивості із назвою «%s»"
+msgstr "у класі об’єктів «%s» немає властивості із назвою «%s»"
 
 #: ../shared/nm-utils/nm-shared-utils.c:953
 #, c-format
 msgid "property '%s' of object class '%s' is not writable"
-msgstr ""
-"властивість «%s» класу об'єктів «%s» є непридатною до запису"
+msgstr "властивість «%s» класу об'єктів «%s» є непридатною до запису"
 
 #: ../shared/nm-utils/nm-shared-utils.c:960
 #, c-format
@@ -197,8 +180,7 @@ msgstr ""
 #: ../shared/nm-utils/nm-shared-utils.c:968
 #, c-format
 msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
-msgstr ""
-"«%s::%s» не є коректною назвою властивості; «%s» не є підтипом GObject"
+msgstr "«%s::%s» не є коректною назвою властивості; «%s» не є підтипом GObject"
 
 #: ../shared/nm-utils/nm-shared-utils.c:977
 #, c-format
@@ -219,126 +201,113 @@ msgstr ""
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
 #, c-format
 msgid "unable to get editor plugin name: %s"
-msgstr ""
-"не вдалося отримати назву додатка до редактора: %s"
+msgstr "не вдалося отримати назву додатка до редактора: %s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:103
 #, c-format
 msgid "missing plugin file \"%s\""
-msgstr ""
-"не вистачає файла додатка «%s»"
+msgstr "не вистачає файла додатка «%s»"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:109
 #, c-format
 msgid "cannot load editor plugin: %s"
-msgstr ""
-"не вдалося завантажити додаток до редактора: %s"
+msgstr "не вдалося завантажити додаток до редактора: %s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:118
 #, c-format
 msgid "cannot load factory %s from plugin: %s"
-msgstr ""
-"не вдалося завантажити обробник %s з додатка: %s"
+msgstr "не вдалося завантажити обробник %s з додатка: %s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:144
 msgid "unknown error creating editor instance"
-msgstr ""
-"невідома помилка під час створення екземпляра редактора"
+msgstr "невідома помилка під час створення екземпляра редактора"
 
 #: ../shared/utils.c:58
 msgid "Failed to initialize the crypto engine"
-msgstr ""
-"Не вдалося ініціалізувати рушій шифрування"
+msgstr "Не вдалося ініціалізувати рушій шифрування"
 
 #: ../shared/utils.c:85
 #, c-format
-msgid "Failede to get subject name"
-msgstr ""
-"Не вдалося отримати ім'я отримувача"
+#| msgid "Failede to get subject name"
+msgid "Failed to get subject name"
+msgstr "Не вдалося отримати ім'я отримувача"
 
 #: ../shared/utils.c:121 ../shared/utils.c:135
 #, c-format
 msgid "Failed to load certificate"
-msgstr ""
-"Не вдалося завантажити сертифікат"
+msgstr "Не вдалося завантажити сертифікат"
 
 #: ../shared/utils.c:128
 #, c-format
-msgid "Failed to initialze certificate"
-msgstr ""
-"Не вдалося ініціалізувати сертифікат"
+#| msgid "Failed to initialze certificate"
+msgid "Failed to initialize certificate"
+msgstr "Не вдалося ініціалізувати сертифікат"
 
 #: ../shared/utils.c:185
 #, c-format
 msgid "Failed to parse pkcs12 file"
-msgstr ""
-"Не вдалося обробити файл pkcs12"
+msgstr "Не вдалося обробити файл pkcs12"
 
 #: ../shared/utils.c:191
 #, c-format
 msgid "Failed to import pkcs12 file"
-msgstr ""
-"Не вдалося імпортувати файл pkcs12"
+msgstr "Не вдалося імпортувати файл pkcs12"
 
 #: ../shared/utils.c:198
 #, c-format
 msgid "Failed to initialize pkcs12 structure"
-msgstr ""
-"Не вдалося ініціалізувати структуру pkcs12"
+msgstr "Не вдалося ініціалізувати структуру pkcs12"
 
-#: ../shared/utils.c:205 ../shared/utils.c:257
+#: ../shared/utils.c:205
 #, c-format
-msgid "Failed read file"
-msgstr ""
-"Не вдалося прочитати файл"
+#| msgid "Failed read file"
+msgid "Failed to read file"
+msgstr "Не вдалося прочитати файл"
 
 #: ../shared/utils.c:239
 #, c-format
 msgid "Failed to decrypt private key"
-msgstr ""
-"Не вдалося розшифрувати закритий ключ"
+msgstr "Не вдалося розшифрувати закритий ключ"
 
 #: ../shared/utils.c:249
 #, c-format
 msgid "Failed to initialize private key"
-msgstr ""
-"Не вдалося ініціалізувати закритий ключ"
+msgstr "Не вдалося ініціалізувати закритий ключ"
+
+#: ../shared/utils.c:257
+#, c-format
+msgid "Failed read file"
+msgstr "Не вдалося прочитати файл"
 
 #: ../shared/utils.c:307
 #, c-format
 msgid "invalid delimiter character '%c'"
-msgstr ""
-"некоректний символ-роздільник «%c»"
+msgstr "некоректний символ-роздільник «%c»"
 
 #: ../shared/utils.c:314
 #, c-format
 msgid "invalid non-utf-8 character"
-msgstr ""
-"некоректний символ, який не є символом utf-8"
+msgstr "некоректний символ, який не є символом utf-8"
 
 #: ../shared/utils.c:343
 #, c-format
 msgid "empty host"
-msgstr ""
-"порожній вузол"
+msgstr "порожній вузол"
 
 #: ../shared/utils.c:355
 #, c-format
 msgid "invalid port"
-msgstr ""
-"некоректний порт"
+msgstr "некоректний порт"
 
 #: ../src/nm-sstp-service.c:236
 #, c-format
 msgid "invalid gateway “%s”"
-msgstr ""
-"некоректний шлюз «%s»"
+msgstr "некоректний шлюз «%s»"
 
 #: ../src/nm-sstp-service.c:250
 #, c-format
 msgid "invalid integer property “%s”"
-msgstr ""
-"некоректна цілочисельна властивість «%s»"
+msgstr "некоректна цілочисельна властивість «%s»"
 
 #: ../src/nm-sstp-service.c:260
 #, c-format
@@ -350,55 +319,45 @@ msgstr ""
 #: ../src/nm-sstp-service.c:267
 #, c-format
 msgid "unhandled property “%s” type %s"
-msgstr ""
-"непридатна до обробки властивість «%s» типу %s"
+msgstr "непридатна до обробки властивість «%s» типу %s"
 
 #: ../src/nm-sstp-service.c:278
 #, c-format
 msgid "property “%s” invalid or not supported"
-msgstr ""
-"властивість «%s» є некоректною або її підтримки не передбачено"
+msgstr "властивість «%s» є некоректною або її підтримки не передбачено"
 
 #: ../src/nm-sstp-service.c:296
 msgid "No VPN configuration options."
-msgstr ""
-"Немає параметрів налаштування VPN."
+msgstr "Немає параметрів налаштування VPN."
 
 #: ../src/nm-sstp-service.c:316
 #, c-format
 msgid "Missing required option “%s”."
-msgstr ""
-"Пропущено обов'язковий параметр «%s»."
+msgstr "Пропущено обов'язковий параметр «%s»."
 
 #: ../src/nm-sstp-service.c:486
 msgid "Could not find sstp client binary."
-msgstr ""
-"Не вдалося знайти клієнтський виконуваний файл sstp."
+msgstr "Не вдалося знайти клієнтський виконуваний файл sstp."
 
 #: ../src/nm-sstp-service.c:496
 msgid "Missing VPN gateway."
-msgstr ""
-"Не вказано шлюз VPN."
+msgstr "Не вказано шлюз VPN."
 
 #: ../src/nm-sstp-service.c:922
 msgid "Could not find the pppd binary."
-msgstr ""
-"Не вдалося знайти виконуваний файл pppd."
+msgstr "Не вдалося знайти виконуваний файл pppd."
 
 #: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
 msgid "Missing VPN username."
-msgstr ""
-"Пропущено ім'я користувача VPN."
+msgstr "Пропущено ім'я користувача VPN."
 
 #: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
 msgid "Missing or invalid VPN password."
-msgstr ""
-"Не вказано пароль VPN або вказано некоректний пароль."
+msgstr "Не вказано пароль VPN або вказано некоректний пароль."
 
 #: ../src/nm-sstp-service.c:1163
 msgid "Invalid or missing SSTP gateway."
-msgstr ""
-"Некоректний шлюз SSTP або шлюз не вказано."
+msgstr "Некоректний шлюз SSTP або шлюз не вказано."
 
 #: ../src/nm-sstp-service.c:1224
 msgid ""
@@ -409,23 +368,19 @@ msgstr ""
 
 #: ../src/nm-sstp-service.c:1259
 msgid "Invalid connection type."
-msgstr ""
-"Некоректний тип з'єднання"
+msgstr "Некоректний тип з'єднання"
 
 #: ../src/nm-sstp-service.c:1453
 msgid "Don't quit when VPN connection terminates"
-msgstr ""
-"Не виходити, якщо розірвано з'єднання VPN"
+msgstr "Не виходити, якщо розірвано з'єднання VPN"
 
 #: ../src/nm-sstp-service.c:1454
 msgid "Enable verbose debug logging (may expose passwords)"
-msgstr ""
-"Увімкнути докладний журнал діагностики (можливе виведення паролів)"
+msgstr "Увімкнути докладний журнал діагностики (можливе виведення паролів)"
 
 #: ../src/nm-sstp-service.c:1455
 msgid "D-Bus name to use for this instance"
-msgstr ""
-"Назва D-Bus для використання для цього екземпляра"
+msgstr "Назва D-Bus для використання для цього екземпляра"
 
 #: ../src/nm-sstp-service.c:1476
 msgid ""
@@ -440,7 +395,6 @@ msgid "Default"
 msgstr "Типово"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-#| msgid "General"
 msgid "<b>General</b>"
 msgstr "<b>Загальне</b>"
 
@@ -461,17 +415,14 @@ msgid "Authentication"
 msgstr "Автентифікація"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-#| msgid "CHAP"
 msgid "CA"
 msgstr "CA"
 
 #: ../properties/nm-sstp-dialog.ui.h:8
 msgid "User"
-msgstr ""
-"Користувач"
+msgstr "Користувач"
 
 #: ../properties/nm-sstp-dialog.ui.h:9
-#| msgid "_Username:"
 msgid "Username:"
 msgstr "Користувач:"
 
@@ -487,8 +438,7 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:13
 msgid "Password passed to SSTP when prompted for it."
-msgstr ""
-"Пароль, який буде передано SSTP у відповідь на запит."
+msgstr "Пароль, який буде передано SSTP у відповідь на запит."
 
 #: ../properties/nm-sstp-dialog.ui.h:14
 msgid "Show password"
@@ -510,11 +460,9 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:18
 msgid "Type:"
-msgstr ""
-"Тип:"
+msgstr "Тип:"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
-#| msgid "Allow the following authentication methods:"
 msgid "Select an authentication mode."
 msgstr "Вибрати режим розпізнавання."
 
@@ -528,13 +476,11 @@ msgstr "Додаткові параметри SSTP"
 
 #: ../properties/nm-sstp-dialog.ui.h:22
 msgid "<b>SSL Tunnel</b>"
-msgstr ""
-"<b>Тунель SSL</b>"
+msgstr "<b>Тунель SSL</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:23
 msgid "_Verify certificate type and extended key usage"
-msgstr ""
-"_Перевіряти тип сертифіката і використання розширеного ключа"
+msgstr "_Перевіряти тип сертифіката і використання розширеного ключа"
 
 #: ../properties/nm-sstp-dialog.ui.h:24
 msgid ""
@@ -542,37 +488,39 @@ msgid ""
 "a certificate that has a trusted certificate chain, key usage, and extended "
 "key usage based on RFC3280 TLS rules."
 msgstr ""
-"Вимагати, щоб сертифікат вузла, який використано для зовнішнього тунелю SSL, було підписано сертифікатом, який має надійний ланцюжок сертифікації, довірене використання ключа та розширене використання ключа на основі правил TLS з RFC3280."
+"Вимагати, щоб сертифікат вузла, який використано для зовнішнього тунелю SSL, "
+"було підписано сертифікатом, який має надійний ланцюжок сертифікації, "
+"довірене використання ключа та розширене використання ключа на основі правил "
+"TLS з RFC3280."
 
 #: ../properties/nm-sstp-dialog.ui.h:25
 msgid "_Use TLS hostname extensions"
-msgstr ""
-"_Використовувати розширення назви вузла TLS"
+msgstr "_Використовувати розширення назви вузла TLS"
 
 #: ../properties/nm-sstp-dialog.ui.h:26
+#| msgid ""
+#| "Use the gateway name as specified for this connection in the hostname "
+#| "extentions in the SSL tunnel"
 msgid ""
 "Use the gateway name as specified for this connection in the hostname "
-"extentions in the SSL tunnel"
+"extensions in the SSL tunnel"
 msgstr ""
-"Скористатися назвою шлюзу, яку вказано для цього з'єднання, у розширеннях назви вузла у тунелі SSL"
+"Скористатися назвою шлюзу, яку вказано для цього з'єднання, у розширеннях "
+"назви вузла у тунелі SSL"
 
 #: ../properties/nm-sstp-dialog.ui.h:27
 msgid "<b>Certificate Revocation</b>"
-msgstr ""
-"<b>Відкликання сертифіката</b>"
+msgstr "<b>Відкликання сертифіката</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:28
 msgid "CRL"
-msgstr ""
-"CRL"
+msgstr "CRL"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
-#| msgid "Connect _anonymously"
 msgid "Connection"
 msgstr "З'єднання"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
-#| msgid "Authentication"
 msgid "<b>Authentication</b>"
 msgstr "<b>Автентифікація</b>"
 
@@ -590,7 +538,6 @@ msgstr ""
 "refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
-#| msgid "Security and Compression"
 msgid "<b>Security and Compression</b>"
 msgstr "<b>Шифрування та стиснення</b>"
 
@@ -673,8 +620,7 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:52
 msgid "<b>Echo</b>"
-msgstr ""
-"<b>Відлуння</b>"
+msgstr "<b>Відлуння</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:53
 msgid "Send PPP _echo packets"
@@ -690,13 +636,11 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:56
 msgid "<b>Misc</b>"
-msgstr ""
-"<b>Інше</b>"
+msgstr "<b>Інше</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:57
 msgid "Use custom _unit number:"
-msgstr ""
-"Нетиповий _номер модуля:"
+msgstr "Нетиповий _номер модуля:"
 
 #: ../properties/nm-sstp-dialog.ui.h:58
 msgid ""
@@ -708,13 +652,11 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:60
 msgid "Point-to-Point"
-msgstr ""
-"Точка-точка"
+msgstr "Точка-точка"
 
 #: ../properties/nm-sstp-dialog.ui.h:61
 msgid "<b>Identity</b>"
-msgstr ""
-"<b>Профіль</b>"
+msgstr "<b>Профіль</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:62
 msgid ""
@@ -724,30 +666,29 @@ msgid ""
 "supplied, with the Microsoft OID for username; or the Subject name of the "
 "certificate when this is not available. "
 msgstr ""
-"Скористайтеся цим параметром для перевизначення значення, яке вказано сертифікатом\n"
+"Скористайтеся цим параметром для перевизначення значення, яке вказано "
+"сертифікатом\n"
 "\n"
-"Типово, значення буде заповнено, коли буде надано належний пароль до сертифіката. Значенням буде OID Microsoft для імені користувача або назва отримувача сертифіката, якщо OID виявиться недоступним. "
+"Типово, значення буде заповнено, коли буде надано належний пароль до "
+"сертифіката. Значенням буде OID Microsoft для імені користувача або назва "
+"отримувача сертифіката, якщо OID виявиться недоступним. "
 
 #: ../properties/nm-sstp-dialog.ui.h:65
 msgid "<b>Certificate Validation</b>"
-msgstr ""
-"<b>Перевірка чинності сертифіката</b>"
+msgstr "<b>Перевірка чинності сертифіката</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:66
 msgid "_Subject Match"
-msgstr ""
-"Перевірка п_ризначення"
+msgstr "Перевірка п_ризначення"
 
 #: ../properties/nm-sstp-dialog.ui.h:67
 msgid ""
 "Subject or Common Name to verify server certificate information against. "
-msgstr ""
-"Призначення або CN для перевірки даних сертифікації сервера. "
+msgstr "Призначення або CN для перевірки даних сертифікації сервера. "
 
 #: ../properties/nm-sstp-dialog.ui.h:68
 msgid "_Verify Method"
-msgstr ""
-"Перевіряти сп_осіб"
+msgstr "Перевіряти сп_осіб"
 
 #: ../properties/nm-sstp-dialog.ui.h:69
 msgid ""
@@ -779,51 +720,46 @@ msgstr ""
 "RFC3280."
 
 #: ../properties/nm-sstp-dialog.ui.h:76
-msgid "<b>Compatibiltiy</b>"
-msgstr ""
-"<b>Сумісність</b>"
+#| msgid "<b>Compatibiltiy</b>"
+msgid "<b>Compatibility</b>"
+msgstr "<b>Сумісність</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:77
 msgid "_Max TLS Version"
-msgstr ""
-"_Макс. версія TLS"
+msgstr "_Макс. версія TLS"
 
 #: ../properties/nm-sstp-dialog.ui.h:78
 msgid ""
 "Use this to control the maximum supported EAP-TLS version. Default is TLS "
 "1.2, and use of TLS 1.3 is considered experimental at this point."
 msgstr ""
-"Скористайтеся цим пунктом для керування максимальною підтримуваною версією EAP-TLS. Типовою є версія TLS 1.2, використання TLS 1.3 на поточному етапі вважається експериментальним."
+"Скористайтеся цим пунктом для керування максимальною підтримуваною версією "
+"EAP-TLS. Типовою є версія TLS 1.2, використання TLS 1.3 на поточному етапі "
+"вважається експериментальним."
 
 #: ../properties/nm-sstp-dialog.ui.h:79
-#| msgid "Authentication"
 msgid "TLS Authentication"
 msgstr "Розпізнавання TLS"
 
 #: ../properties/nm-sstp-dialog.ui.h:80
 msgid "Address:"
-msgstr ""
-"Адреса:"
+msgstr "Адреса:"
 
 #: ../properties/nm-sstp-dialog.ui.h:81
 msgid "Port:"
-msgstr ""
-"Порт:"
+msgstr "Порт:"
 
 #: ../properties/nm-sstp-dialog.ui.h:82
 msgid "0"
-msgstr ""
-"0"
+msgstr "0"
 
 #: ../properties/nm-sstp-dialog.ui.h:83
-#| msgid "Show password"
 msgid "Show Password"
 msgstr "Показати пароль"
 
 #: ../properties/nm-sstp-dialog.ui.h:84
 msgid "Proxy"
-msgstr ""
-"Проксі"
+msgstr "Проксі"
 
 #~ msgid "_Secondary Password:"
 #~ msgstr "_Вторинний пароль:"
