@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
 "issues\n"
 "POT-Creation-Date: 2021-07-11 14:20+0000\n"
-"PO-Revision-Date: 2021-07-13 09:37+0200\n"
+"PO-Revision-Date: 2021-07-13 11:54+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -287,7 +287,7 @@ msgstr "Falló al leer el archivo"
 #: ../shared/utils.c:307
 #, c-format
 msgid "invalid delimiter character '%c'"
-msgstr ""
+msgstr "carácter delimitador «%c» no válido"
 
 #: ../shared/utils.c:314
 #, c-format
@@ -498,7 +498,7 @@ msgstr "<b>Túnel SSH</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:23
 msgid "_Verify certificate type and extended key usage"
-msgstr ""
+msgstr "_Verificar el tipo de certificado y el uso extendido de la clave"
 
 #: ../properties/nm-sstp-dialog.ui.h:24
 msgid ""
@@ -506,20 +506,25 @@ msgid ""
 "a certificate that has a trusted certificate chain, key usage, and extended "
 "key usage based on RFC3280 TLS rules."
 msgstr ""
+"Requerir que el certificado del par usado para la salida del túnel SSH esté "
+"firmado con un certificado que tenga una cadena de certificados de "
+"confianza, uso de clave y uso de clave extendida basada en reglas RFC3280."
 
 #: ../properties/nm-sstp-dialog.ui.h:25
 msgid "_Use TLS hostname extensions"
-msgstr ""
+msgstr "_Usar extensiones de nombre de equipo de TLS"
 
 #: ../properties/nm-sstp-dialog.ui.h:26
 msgid ""
 "Use the gateway name as specified for this connection in the hostname "
 "extensions in the SSL tunnel"
 msgstr ""
+"Usar el nombre de la puerta de enlace como se ha especificado para esta "
+"conexión en las extensiones del nombre de equipo en el túnel SSH"
 
 #: ../properties/nm-sstp-dialog.ui.h:27
 msgid "<b>Certificate Revocation</b>"
-msgstr ""
+msgstr "<b>Revocación de certificado</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:28
 msgid "CRL"
@@ -680,7 +685,7 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:65
 msgid "<b>Certificate Validation</b>"
-msgstr ""
+msgstr "<b>Validación de certificado</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:66
 msgid "_Subject Match"
@@ -719,7 +724,7 @@ msgstr "<b>Compatibilidad</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:77
 msgid "_Max TLS Version"
-msgstr ""
+msgstr "Versión _máxima de TLS"
 
 #: ../properties/nm-sstp-dialog.ui.h:78
 msgid ""
