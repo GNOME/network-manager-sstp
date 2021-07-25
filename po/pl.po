@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-27 11:54+0200\n"
-"PO-Revision-Date: 2021-06-27 11:55+0200\n"
+"POT-Creation-Date: 2021-07-25 12:58+0200\n"
+"PO-Revision-Date: 2021-07-25 12:59+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -226,7 +226,7 @@ msgstr "Zainicjowanie mechanizmu kryptografii się nie powiodło"
 
 #: ../shared/utils.c:85
 #, c-format
-msgid "Failede to get subject name"
+msgid "Failed to get subject name"
 msgstr "Uzyskanie nazwy podmiotu się nie powiodło"
 
 #: ../shared/utils.c:121 ../shared/utils.c:135
@@ -236,7 +236,7 @@ msgstr "Wczytanie certyfikatu się nie powiodło"
 
 #: ../shared/utils.c:128
 #, c-format
-msgid "Failed to initialze certificate"
+msgid "Failed to initialize certificate"
 msgstr "Zainicjowanie certyfikatu się nie powiodło"
 
 #: ../shared/utils.c:185
@@ -254,9 +254,9 @@ msgstr "Zaimportowanie pliku PKCS12 się nie powiodło"
 msgid "Failed to initialize pkcs12 structure"
 msgstr "Zainicjowanie struktury PKCS12 się nie powiodło"
 
-#: ../shared/utils.c:205 ../shared/utils.c:257
+#: ../shared/utils.c:205
 #, c-format
-msgid "Failed read file"
+msgid "Failed to read file"
 msgstr "Odczytanie pliku się nie powiodło"
 
 #: ../shared/utils.c:239
@@ -268,6 +268,11 @@ msgstr "Odszyfrowanie klucza prywatnego się nie powiodło"
 #, c-format
 msgid "Failed to initialize private key"
 msgstr "Zainicjowanie klucza prywatnego się nie powiodło"
+
+#: ../shared/utils.c:257
+#, c-format
+msgid "Failed read file"
+msgstr "Odczytanie pliku się nie powiodło"
 
 #: ../shared/utils.c:307
 #, c-format
@@ -490,7 +495,7 @@ msgstr "_Rozszerzenia nazwy komputera TLS"
 #: ../properties/nm-sstp-dialog.ui.h:26
 msgid ""
 "Use the gateway name as specified for this connection in the hostname "
-"extentions in the SSL tunnel"
+"extensions in the SSL tunnel"
 msgstr ""
 "Używa nazwy bramy podanej dla tego połączenia w rozszerzeniach nazwy "
 "komputera w tunelu SSL"
@@ -708,7 +713,7 @@ msgstr ""
 "RFC3280."
 
 #: ../properties/nm-sstp-dialog.ui.h:76
-msgid "<b>Compatibiltiy</b>"
+msgid "<b>Compatibility</b>"
 msgstr "<b>Zgodność</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:77
