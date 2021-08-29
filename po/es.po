@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
 "issues\n"
-"POT-Creation-Date: 2021-07-11 14:20+0000\n"
-"PO-Revision-Date: 2021-07-13 11:54+0200\n"
+"POT-Creation-Date: 2021-07-13 09:55+0000\n"
+"PO-Revision-Date: 2021-08-29 15:02+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 40.0\n"
+"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
@@ -36,13 +36,12 @@ msgid "Support for configuring SSTP virtual private network connections."
 msgstr "Soporte para configurar conexiones a redes privadas virtuales SSTP."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
-#| msgid "Compatible with various SSTP servers including Microsoft."
 msgid ""
 "Compatible with servers following the SSTP specification including the "
 "Microsoft servers."
 msgstr ""
-"Compatible con servidores que sigan la especificación SSTP, incluyendo los "
-"de Microsoft."
+"Compatible con servidores que sigan la especificación SSTP, incluyendo los de "
+"Microsoft."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
 msgid "Eivind Naess"
@@ -57,13 +56,11 @@ msgid "Certificate password:"
 msgstr "Contraseña del certificado:"
 
 #: ../auth-dialog/main.c:295
-#| msgid "_Password:"
 msgid "_HTTP proxy password:"
-msgstr "Contraseña del proxy _HTTP"
+msgstr "Contraseña del proxy _HTTP:"
 
 #: ../auth-dialog/main.c:372
 #, c-format
-#| msgid "Authenticate VPN"
 msgid "Authenticate VPN %s"
 msgstr "Autenticar VPN %s"
 
@@ -72,14 +69,13 @@ msgid "Password:"
 msgstr "Contraseña:"
 
 #: ../auth-dialog/main.c:393
-#| msgid "Password:"
 msgid "HTTP proxy password:"
 msgstr "Contraseña del proxy HTTP:"
 
 #: ../auth-dialog/main.c:508
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
-msgstr "Necesita autenticarse para acceder a la red privada virtual «%s»"
+msgstr "Necesita autenticarse para acceder a la red privada virtual «%s»."
 
 #: ../properties/advanced-dialog.c:235
 msgid "All Available (Default)"
@@ -160,7 +156,6 @@ msgid "Certificates (TLS)"
 msgstr "Certificados (TLS)"
 
 #: ../properties/nm-sstp-editor.c:590
-#| msgid "Password:"
 msgid "Password"
 msgstr "Contraseña"
 
@@ -186,8 +181,7 @@ msgstr ""
 #, c-format
 msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
 msgstr ""
-"«%s::%s» no es un nombre de propiedad válido; «%s» no es un subtipo de "
-"GObject"
+"«%s::%s» no es un nombre de propiedad válido; «%s» no es un subtipo de GObject"
 
 #: ../shared/nm-utils/nm-shared-utils.c:977
 #, c-format
@@ -207,7 +201,6 @@ msgstr ""
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
 #, c-format
-#| msgid "cannot load editor plugin: %s"
 msgid "unable to get editor plugin name: %s"
 msgstr "no se puede obtener el nombre del complemento del editor: %s"
 
@@ -340,7 +333,7 @@ msgstr "Falta la opción requerida «%s»."
 
 #: ../src/nm-sstp-service.c:486
 msgid "Could not find sstp client binary."
-msgstr "No se pudo encontrar el binario del cliente sstp"
+msgstr "No se pudo encontrar el binario del cliente sstp."
 
 #: ../src/nm-sstp-service.c:496
 msgid "Missing VPN gateway."
@@ -375,7 +368,6 @@ msgid "Invalid connection type."
 msgstr "Tipo de conexión no válido."
 
 #: ../src/nm-sstp-service.c:1453
-#| msgid "Don’t quit when VPN connection terminates"
 msgid "Don't quit when VPN connection terminates"
 msgstr "No salir cuando la conexión VPN finaliza"
 
@@ -400,7 +392,6 @@ msgid "Default"
 msgstr "Predeterminado"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-#| msgid "General"
 msgid "<b>General</b>"
 msgstr "<b>General</b>"
 
@@ -421,7 +412,6 @@ msgid "Authentication"
 msgstr "Autenticación"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-#| msgid "CHAP"
 msgid "CA"
 msgstr "CA"
 
@@ -430,18 +420,12 @@ msgid "User"
 msgstr "Usuario"
 
 #: ../properties/nm-sstp-dialog.ui.h:9
-#| msgid "_Username:"
 msgid "Username:"
 msgstr "Nombre de usuario:"
 
 #: ../properties/nm-sstp-dialog.ui.h:10
-#| msgid ""
-#| "Set the name used for authenticating the local system to the peer to "
-#| "<name>.\n"
-#| "config: user <name>"
 msgid ""
-"Set the name used for authenticating the local system to the peer to "
-"<name>.\n"
+"Set the name used for authenticating the local system to the peer to <name>.\n"
 "            config: user <name>"
 msgstr ""
 "Establecer el nombre usado para autenticar el equipo local en el par a "
@@ -461,17 +445,13 @@ msgid "NT Domain:"
 msgstr "Dominio de red:"
 
 #: ../properties/nm-sstp-dialog.ui.h:16
-#| msgid ""
-#| "Append the domain name <domain> to the local host name for authentication "
-#| "purposes.\n"
-#| "config: domain <domain>"
 msgid ""
 "Append the domain name <domain> to the local host name for authentication "
 "purposes.\n"
 "            config: domain <domain>"
 msgstr ""
-"Añadir el nombre del dominio <dominio> al nombre local del equipo por "
-"motivos de autenticación.\n"
+"Añadir el nombre del dominio <dominio> al nombre local del equipo por motivos "
+"de autenticación.\n"
 "            opción: domain <dominio>"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
@@ -479,12 +459,10 @@ msgid "Type:"
 msgstr "Tipo:"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
-#| msgid "Allow the following authentication methods:"
 msgid "Select an authentication mode."
 msgstr "Seleccionar un modo de autenticación."
 
 #: ../properties/nm-sstp-dialog.ui.h:20
-#| msgid "Ad_vanced…"
 msgid "Ad_vanced..."
 msgstr "A_vanzado..."
 
@@ -502,13 +480,13 @@ msgstr "_Verificar el tipo de certificado y el uso extendido de la clave"
 
 #: ../properties/nm-sstp-dialog.ui.h:24
 msgid ""
-"Require that the peer certificate used for outer SSL tunnel was signed with "
-"a certificate that has a trusted certificate chain, key usage, and extended "
-"key usage based on RFC3280 TLS rules."
+"Require that the peer certificate used for outer SSL tunnel was signed with a "
+"certificate that has a trusted certificate chain, key usage, and extended key "
+"usage based on RFC3280 TLS rules."
 msgstr ""
 "Requerir que el certificado del par usado para la salida del túnel SSH esté "
-"firmado con un certificado que tenga una cadena de certificados de "
-"confianza, uso de clave y uso de clave extendida basada en reglas RFC3280."
+"firmado con un certificado que tenga una cadena de certificados de confianza, "
+"uso de clave y uso de clave extendida basada en reglas RFC3280."
 
 #: ../properties/nm-sstp-dialog.ui.h:25
 msgid "_Use TLS hostname extensions"
@@ -531,12 +509,10 @@ msgid "CRL"
 msgstr "CRL"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
-#| msgid "Connect _anonymously"
 msgid "Connection"
 msgstr "Conexión"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
-#| msgid "Authentication"
 msgid "<b>Authentication</b>"
 msgstr "<b>Autenticación</b>"
 
@@ -553,7 +529,6 @@ msgstr ""
 "opción: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
-#| msgid "Security and Compression"
 msgid "<b>Security and Compression</b>"
 msgstr "<b>Seguridad y compresión</b>"
 
@@ -682,6 +657,12 @@ msgid ""
 "supplied, with the Microsoft OID for username; or the Subject name of the "
 "certificate when this is not available. "
 msgstr ""
+"Use esto para ignorar el valor especificado en el certificado\n"
+"\n"
+"De manera predeterminada, estará completado, cuando se proporciona la "
+"contraseña correcta del certificado, con el OID de Microsoft para el nombre "
+"de usuario; o con el nombre de asunto del certificado cuando este no está "
+"disponible. "
 
 #: ../properties/nm-sstp-dialog.ui.h:65
 msgid "<b>Certificate Validation</b>"
@@ -695,6 +676,8 @@ msgstr "Coincidencia del a_sunto"
 msgid ""
 "Subject or Common Name to verify server certificate information against. "
 msgstr ""
+"Asunto o nombre común con el que verificar la información del certificado del "
+"servidor. "
 
 #: ../properties/nm-sstp-dialog.ui.h:68
 msgid "_Verify Method"
@@ -706,17 +689,26 @@ msgid ""
 "\n"
 "When enabled, connection will only succeed if the server certificate matches "
 "some expected properties.\n"
-"Matching can either apply to the whole certificate subject (all the "
-"fields),\n"
+"Matching can either apply to the whole certificate subject (all the fields),\n"
 "or just the Common Name (CN field).\n"
 "                                    "
 msgstr ""
+"Verificar la identificación del certificado del servidor.\n"
+"\n"
+"Cuando se activa, la conexión sólo será exitosa si el certificado del "
+"servidor coincide con las propiedades esperadas.\n"
+"La coincidencia se puede aplicar a todo el asunto del certificado (todos los "
+"campos),\n"
+"o sólo al nombre común (campo CN).\n"
+"                                    "
 
 #: ../properties/nm-sstp-dialog.ui.h:75
 msgid ""
 "Require that peer certificate was signed with an explicit key usage and "
 "extended key usage based on RFC3280 TLS rules."
 msgstr ""
+"Requiere que el certificado de pares se haya firmado con un uso de clave "
+"explícito y un uso de clave extendido según las reglas TLS RFC3280."
 
 #: ../properties/nm-sstp-dialog.ui.h:76
 msgid "<b>Compatibility</b>"
@@ -731,9 +723,11 @@ msgid ""
 "Use this to control the maximum supported EAP-TLS version. Default is TLS "
 "1.2, and use of TLS 1.3 is considered experimental at this point."
 msgstr ""
+"Use esto para controlar la versión máxima de EAP-TLS admitida. El valor "
+"predeterminado es TLS 1.2 y el uso de TLS 1.3 se considera experimental en "
+"este momento."
 
 #: ../properties/nm-sstp-dialog.ui.h:79
-#| msgid "Authentication"
 msgid "TLS Authentication"
 msgstr "Autenticación TLS"
 
@@ -750,7 +744,6 @@ msgid "0"
 msgstr "0"
 
 #: ../properties/nm-sstp-dialog.ui.h:83
-#| msgid "Show password"
 msgid "Show Password"
 msgstr "Mostrar contraseña"
 
@@ -766,13 +759,11 @@ msgstr "Proxy"
 
 #~| msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
 #~ msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
-#~ msgstr ""
-#~ "no se pudo convertir la IP de la puerta de enlace VPN SSTP «%s» (%d)"
+#~ msgstr "no se pudo convertir la IP de la puerta de enlace VPN SSTP «%s» (%d)"
 
 #~| msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
 #~ msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
-#~ msgstr ""
-#~ "no se pudo encontrar la IP de la puerta de enlace VPN SSTP «%s» (%d)"
+#~ msgstr "no se pudo encontrar la IP de la puerta de enlace VPN SSTP «%s» (%d)"
 
 #~| msgid "no usable addresses returned for SSTP VPN gateway '%s'"
 #~ msgid "no usable addresses returned for SSTP VPN gateway “%s”"
