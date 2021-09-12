@@ -692,8 +692,8 @@ msgstr ""
 "\n"
 "Když je zapnuto, bude připojení úspěšné, pouze pokud bude serverový "
 "certifikát odpovídat některým očekávaným vlastnostem.\n"
-"Kontorla shody se může používat na celý subjekt certifikátu (všechna pole),\n"
-"nebo pouze Běžné jméno (pole CN).\n"
+"Kontorla shody se může používat na celý subjekt certifikátu (všechna pole), "
+"nebo pouze Běžné jméno (pole CN)."
 
 #: ../properties/nm-sstp-dialog.ui.h:75
 msgid ""
