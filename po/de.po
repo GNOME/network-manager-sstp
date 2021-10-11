@@ -14,9 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
-"issues\n"
-"POT-Creation-Date: 2021-08-07 17:58+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-11 11:59-0700\n"
 "PO-Revision-Date: 2021-08-22 21:53+0200\n"
 "Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
@@ -50,8 +49,8 @@ msgstr ""
 "folgen."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "Eivind Naess"
-msgstr "Eivind Naess"
+msgid "The NetworkManager Developers"
+msgstr "Die NetworkManager-Entwickler"
 
 #: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
@@ -764,8 +763,8 @@ msgstr "Passwort anzeigen"
 msgid "Proxy"
 msgstr "Proxy"
 
-#~ msgid "The NetworkManager Developers"
-#~ msgstr "Die NetworkManager-Entwickler"
+#~ msgid "Eivind Naess"
+#~ msgstr "Eivind Naess"
 
 #~ msgid "No VPN secrets!"
 #~ msgstr "Keine VPN-Geheimnisse!"

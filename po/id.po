@@ -6,9 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
-"issues\n"
-"POT-Creation-Date: 2021-07-11 14:20+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-11 11:59-0700\n"
 "PO-Revision-Date: 2021-07-12 07:18+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian Translator <gnome@i15n.org>\n"
@@ -40,8 +39,8 @@ msgstr ""
 "server Microsoft."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "Eivind Naess"
-msgstr "Eivind Naess"
+msgid "The NetworkManager Developers"
+msgstr "Para Pengembang NetworkManager"
 
 #: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
@@ -746,8 +745,8 @@ msgstr "Tampilkan Kata Sandi"
 msgid "Proxy"
 msgstr "Proksi"
 
-#~ msgid "The NetworkManager Developers"
-#~ msgstr "Para Pengembang NetworkManager"
+#~ msgid "Eivind Naess"
+#~ msgstr "Eivind Naess"
 
 #~ msgid "No VPN secrets!"
 #~ msgstr "Tak ada rahasia VPN!"

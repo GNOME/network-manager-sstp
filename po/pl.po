@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-25 12:58+0200\n"
+"POT-Creation-Date: 2021-10-11 11:59-0700\n"
 "PO-Revision-Date: 2021-07-25 12:59+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
@@ -40,8 +40,8 @@ msgstr ""
 "Zgodne z serwerami używającymi specyfikacji SSTP, w tym firmy Microsoft."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "Eivind Naess"
-msgstr "Eivind Naess"
+msgid "The NetworkManager Developers"
+msgstr ""
 
 #: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
@@ -751,3 +751,6 @@ msgstr "Wyświetlanie hasła"
 #: ../properties/nm-sstp-dialog.ui.h:84
 msgid "Proxy"
 msgstr "Pośrednik"
+
+#~ msgid "Eivind Naess"
+#~ msgstr "Eivind Naess"

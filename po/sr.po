@@ -5,9 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
-"issues\n"
-"POT-Creation-Date: 2021-07-11 14:20+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-11 11:59-0700\n"
 "PO-Revision-Date: 2021-09-21 14:51+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: српски <gnome-sr@googlegroups.org>\n"
@@ -32,7 +31,6 @@ msgid "Support for configuring SSTP virtual private network connections."
 msgstr "Подршка за подешавање веза ППТП виртуелне приватне мреже."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
-#| msgid "Compatible with various SSTP servers including Microsoft."
 msgid ""
 "Compatible with servers following the SSTP specification including the "
 "Microsoft servers."
@@ -41,8 +39,8 @@ msgstr ""
 "сервере."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "Eivind Naess"
-msgstr "Ејвинд Наес"
+msgid "The NetworkManager Developers"
+msgstr "Програмери Управника мреже"
 
 #: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
@@ -53,13 +51,11 @@ msgid "Certificate password:"
 msgstr "Лозинка уверења:"
 
 #: ../auth-dialog/main.c:295
-#| msgid "_Password:"
 msgid "_HTTP proxy password:"
 msgstr "Лозинка _ХТТП посредника:"
 
 #: ../auth-dialog/main.c:372
 #, c-format
-#| msgid "Authenticate VPN"
 msgid "Authenticate VPN %s"
 msgstr "Потврди ВПН %s"
 
@@ -68,7 +64,6 @@ msgid "Password:"
 msgstr "Лозинка:"
 
 #: ../auth-dialog/main.c:393
-#| msgid "Password:"
 msgid "HTTP proxy password:"
 msgstr "Лозинка _ХТТП посредника:"
 
@@ -158,7 +153,6 @@ msgid "Certificates (TLS)"
 msgstr "Уверења (ТЛС)"
 
 #: ../properties/nm-sstp-editor.c:590
-#| msgid "Password:"
 msgid "Password"
 msgstr "Лозинка"
 
@@ -200,7 +194,6 @@ msgstr ""
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
 #, c-format
-#| msgid "cannot load editor plugin: %s"
 msgid "unable to get editor plugin name: %s"
 msgstr "не могу да добавим назив прикључка уређивача: %s"
 
@@ -366,7 +359,6 @@ msgid "Invalid connection type."
 msgstr "Неисправна врста везе."
 
 #: ../src/nm-sstp-service.c:1453
-#| msgid "Don’t quit when VPN connection terminates"
 msgid "Don't quit when VPN connection terminates"
 msgstr "Не прекида када се завршава ВПН веза"
 
@@ -392,7 +384,6 @@ msgid "Default"
 msgstr "Основно"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-#| msgid "General"
 msgid "<b>General</b>"
 msgstr "<b>Опште</b>"
 
@@ -413,7 +404,6 @@ msgid "Authentication"
 msgstr "Пријава"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-#| msgid "CHAP"
 msgid "CA"
 msgstr "Издавач уверења"
 
@@ -422,15 +412,10 @@ msgid "User"
 msgstr "Корисник"
 
 #: ../properties/nm-sstp-dialog.ui.h:9
-#| msgid "User name:"
 msgid "Username:"
 msgstr "Корисник:"
 
 #: ../properties/nm-sstp-dialog.ui.h:10
-#| msgid ""
-#| "Set the name used for authenticating the local system to the peer to "
-#| "<name>.\n"
-#| "config: user <name>"
 msgid ""
 "Set the name used for authenticating the local system to the peer to "
 "<name>.\n"
@@ -452,17 +437,13 @@ msgid "NT Domain:"
 msgstr "НТ домен:"
 
 #: ../properties/nm-sstp-dialog.ui.h:16
-#| msgid ""
-#| "Append the domain name <domain> to the local host name for authentication "
-#| "purposes.\n"
-#| "config: domain <domain>"
 msgid ""
 "Append the domain name <domain> to the local host name for authentication "
 "purposes.\n"
 "            config: domain <domain>"
 msgstr ""
-"Качи назив домена <domain> на назив локалног рачунара за сврхе пријављивања."
-"\n"
+"Качи назив домена <domain> на назив локалног рачунара за сврхе "
+"пријављивања.\n"
 "             подешавање: домен <domain>"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
@@ -470,12 +451,10 @@ msgid "Type:"
 msgstr "Врста:"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
-#| msgid "Allow the following authentication methods:"
 msgid "Select an authentication mode."
 msgstr "Изаберите режим потврђивања идентитета."
 
 #: ../properties/nm-sstp-dialog.ui.h:20
-#| msgid "Ad_vanced…"
 msgid "Ad_vanced..."
 msgstr "_Напредно..."
 
@@ -526,7 +505,6 @@ msgid "Connection"
 msgstr "Веза"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
-#| msgid "Authentication"
 msgid "<b>Authentication</b>"
 msgstr "<b>Пријава</b>"
 
@@ -544,7 +522,6 @@ msgstr ""
 "eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
-#| msgid "Security and Compression"
 msgid "<b>Security and Compression</b>"
 msgstr "<b>Безбедност и сажимање</b>"
 
@@ -740,7 +717,6 @@ msgstr ""
 "ТЛС 1.2, а коришћење ТЛС-а 1.3 се сматра експерименталним у овом тренутку."
 
 #: ../properties/nm-sstp-dialog.ui.h:79
-#| msgid "Authentication"
 msgid "TLS Authentication"
 msgstr "ТЛС пријава"
 
@@ -757,7 +733,6 @@ msgid "0"
 msgstr "0"
 
 #: ../properties/nm-sstp-dialog.ui.h:83
-#| msgid "Show password"
 msgid "Show Password"
 msgstr "Прикажи лозинку"
 
@@ -765,8 +740,8 @@ msgstr "Прикажи лозинку"
 msgid "Proxy"
 msgstr "Посредник"
 
-#~ msgid "The NetworkManager Developers"
-#~ msgstr "Програмери Управника мреже"
+#~ msgid "Eivind Naess"
+#~ msgstr "Ејвинд Наес"
 
 #~ msgid "No VPN secrets!"
 #~ msgstr "Нема ВПН тајни!"

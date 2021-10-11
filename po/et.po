@@ -10,9 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=NetworkManager&component=VPN: sstp\n"
-"POT-Creation-Date: 2010-12-01 14:17+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-11 11:59-0700\n"
 "PO-Revision-Date: 2010-03-10 06:41+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
@@ -21,103 +20,503 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "_Secondary Password:"
-msgstr "_Teisene parool:"
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
+msgid "SSTP VPN client"
+msgstr ""
 
-msgid "_Username:"
-msgstr "_Kasutajanimi:"
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
+msgid "Client for SSTP virtual private networks"
+msgstr ""
 
-msgid "_Domain:"
-msgstr "_Domeen:"
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
+msgid "Support for configuring SSTP virtual private network connections."
+msgstr ""
 
-msgid "_Password:"
-msgstr "_Parool:"
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
+msgid ""
+"Compatible with servers following the SSTP specification including the "
+"Microsoft servers."
+msgstr ""
 
-msgid "Connect _anonymously"
-msgstr "Ühendu _anonüümselt"
+#: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
+msgid "The NetworkManager Developers"
+msgstr ""
 
-msgid "Connect as _user:"
-msgstr "Ühendu ka_sutajana:"
-
-msgid "_Remember passwords for this session"
-msgstr "_Jäta paroolid selle sessiooni ajaks meelde"
-
-msgid "_Save passwords in keyring"
-msgstr "Paroolide _salvestamine võtmerõngasse"
-
-#, c-format
-msgid "You need to authenticate to access the Virtual Private Network '%s'."
-msgstr "Ligipääsuks '%s' VPN-võrku pead autentima."
-
+#: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
 msgstr "VPN-i autentimine"
 
-msgid "Add, Remove, and Edit SSTP VPN Connections"
-msgstr "SSTP VPN-ühenduste lisamine, muutmine ja eemaldamine"
+#: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
+msgid "Certificate password:"
+msgstr ""
 
-msgid "SSTP VPN Connection Manager"
-msgstr "SSTP VPN-ühenduste haldur"
+#: ../auth-dialog/main.c:295
+#, fuzzy
+msgid "_HTTP proxy password:"
+msgstr "_Parool:"
 
+#: ../auth-dialog/main.c:372
+#, fuzzy, c-format
+msgid "Authenticate VPN %s"
+msgstr "VPN-i autentimine"
+
+#: ../auth-dialog/main.c:379 ../properties/nm-sstp-dialog.ui.h:12
+msgid "Password:"
+msgstr "Parool:"
+
+#: ../auth-dialog/main.c:393
+#, fuzzy
+msgid "HTTP proxy password:"
+msgstr "Parool:"
+
+#: ../auth-dialog/main.c:508
+#, fuzzy, c-format
+msgid "You need to authenticate to access the Virtual Private Network “%s”."
+msgstr "Ligipääsuks '%s' VPN-võrku pead autentima."
+
+#: ../properties/advanced-dialog.c:235
 msgid "All Available (Default)"
 msgstr "Kõik saadaval (vaikimisi)"
 
+#: ../properties/advanced-dialog.c:239
 msgid "128-bit (most secure)"
 msgstr "128-bitine (kõige turvalisem)"
 
+#: ../properties/advanced-dialog.c:248
 msgid "40-bit (less secure)"
 msgstr "40-bitine (vähem turvaline)"
 
+#: ../properties/advanced-dialog.c:367
 msgid "PAP"
 msgstr "PAP"
 
+#: ../properties/advanced-dialog.c:380
 msgid "CHAP"
 msgstr "CHAP"
 
+#: ../properties/advanced-dialog.c:392
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
+#: ../properties/advanced-dialog.c:404
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
+#: ../properties/advanced-dialog.c:416
 msgid "EAP"
 msgstr "EAP"
 
-msgid "Authentication"
-msgstr "Autentimine"
+#: ../properties/advanced-dialog.c:608
+msgid "Don't verify certificate identification"
+msgstr ""
 
-msgid "Echo"
-msgstr "Echo"
+#: ../properties/advanced-dialog.c:616
+msgid "Verify subject exactly"
+msgstr ""
 
-msgid "General"
-msgstr "Üldine"
+#: ../properties/advanced-dialog.c:624
+msgid "Verify name exactly"
+msgstr ""
 
-msgid "Optional"
-msgstr "Valikuline"
+#: ../properties/advanced-dialog.c:632
+msgid "Verify name by suffix"
+msgstr ""
 
-msgid "Security and Compression"
-msgstr "Turvalisus ja tihendamine"
+#: ../properties/advanced-dialog.c:677
+msgid "TLS 1.2 (Default)"
+msgstr ""
 
-msgid "Ad_vanced..."
-msgstr "_Täpsemalt..."
+#: ../properties/advanced-dialog.c:685
+msgid "TLS 1.3"
+msgstr ""
 
-msgid "Allow _BSD data compression"
-msgstr "_BSD-tihendus on lubatud"
+#: ../properties/nm-sstp-editor-plugin.c:34
+msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgstr "Point-to-Point tunneli protokoll (SSTP)"
 
-msgid "Allow _Deflate data compression"
-msgstr "_Deflate-tihendus on lubatud"
+#: ../properties/nm-sstp-editor-plugin.c:35
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Ühildub Microsofti ja teiste SSTP VPN serveritega."
 
-msgid "Allow st_ateful encryption"
-msgstr "Stateful-tihendus on lubatud"
+#: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
+#, c-format
+msgid "file is not a certificate"
+msgstr ""
 
-msgid "Allow the following authentication methods:"
-msgstr "Luba järgnevad autentimise meetodid:"
+#: ../properties/nm-sstp-editor.c:365
+#, c-format
+msgid "file is not a private key"
+msgstr ""
 
+#: ../properties/nm-sstp-editor.c:581
+msgid "Certificates (TLS)"
+msgstr ""
+
+#: ../properties/nm-sstp-editor.c:590
+#, fuzzy
+msgid "Password"
+msgstr "Parool:"
+
+#: ../shared/nm-utils/nm-shared-utils.c:946
+#, c-format
+msgid "object class '%s' has no property named '%s'"
+msgstr ""
+
+#: ../shared/nm-utils/nm-shared-utils.c:953
+#, c-format
+msgid "property '%s' of object class '%s' is not writable"
+msgstr ""
+
+#: ../shared/nm-utils/nm-shared-utils.c:960
+#, c-format
+msgid ""
+"construct property \"%s\" for object '%s' can't be set after construction"
+msgstr ""
+
+#: ../shared/nm-utils/nm-shared-utils.c:968
+#, c-format
+msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
+msgstr ""
+
+#: ../shared/nm-utils/nm-shared-utils.c:977
+#, c-format
+msgid "unable to set property '%s' of type '%s' from value of type '%s'"
+msgstr ""
+
+#: ../shared/nm-utils/nm-shared-utils.c:988
+#, c-format
+msgid ""
+"value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
+"type '%s'"
+msgstr ""
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
+#, c-format
+msgid "unable to get editor plugin name: %s"
+msgstr ""
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:103
+#, c-format
+msgid "missing plugin file \"%s\""
+msgstr ""
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:109
+#, c-format
+msgid "cannot load editor plugin: %s"
+msgstr ""
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:118
+#, c-format
+msgid "cannot load factory %s from plugin: %s"
+msgstr ""
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:144
+msgid "unknown error creating editor instance"
+msgstr ""
+
+#: ../shared/utils.c:58
+msgid "Failed to initialize the crypto engine"
+msgstr ""
+
+#: ../shared/utils.c:85
+#, c-format
+msgid "Failed to get subject name"
+msgstr ""
+
+#: ../shared/utils.c:121 ../shared/utils.c:135
+#, c-format
+msgid "Failed to load certificate"
+msgstr ""
+
+#: ../shared/utils.c:128
+#, c-format
+msgid "Failed to initialize certificate"
+msgstr ""
+
+#: ../shared/utils.c:185
+#, c-format
+msgid "Failed to parse pkcs12 file"
+msgstr ""
+
+#: ../shared/utils.c:191
+#, c-format
+msgid "Failed to import pkcs12 file"
+msgstr ""
+
+#: ../shared/utils.c:198
+#, c-format
+msgid "Failed to initialize pkcs12 structure"
+msgstr ""
+
+#: ../shared/utils.c:205
+#, c-format
+msgid "Failed to read file"
+msgstr ""
+
+#: ../shared/utils.c:239
+#, c-format
+msgid "Failed to decrypt private key"
+msgstr ""
+
+#: ../shared/utils.c:249
+#, c-format
+msgid "Failed to initialize private key"
+msgstr ""
+
+#: ../shared/utils.c:257
+#, c-format
+msgid "Failed read file"
+msgstr ""
+
+#: ../shared/utils.c:307
+#, c-format
+msgid "invalid delimiter character '%c'"
+msgstr ""
+
+#: ../shared/utils.c:314
+#, c-format
+msgid "invalid non-utf-8 character"
+msgstr ""
+
+#: ../shared/utils.c:343
+#, c-format
+msgid "empty host"
+msgstr ""
+
+#: ../shared/utils.c:355
+#, c-format
+msgid "invalid port"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:236
+#, c-format
+msgid "invalid gateway “%s”"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:250
+#, c-format
+msgid "invalid integer property “%s”"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:260
+#, c-format
+msgid "invalid boolean property “%s” (not yes or no)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:267
+#, c-format
+msgid "unhandled property “%s” type %s"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:278
+#, c-format
+msgid "property “%s” invalid or not supported"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:296
+msgid "No VPN configuration options."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:316
+#, c-format
+msgid "Missing required option “%s”."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:486
+msgid "Could not find sstp client binary."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:496
+msgid "Missing VPN gateway."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:922
+msgid "Could not find the pppd binary."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
+msgid "Missing VPN username."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
+msgid "Missing or invalid VPN password."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1163
+msgid "Invalid or missing SSTP gateway."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1224
+msgid ""
+"Could not process the request because the VPN connection settings were "
+"invalid."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1259
+msgid "Invalid connection type."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1453
+msgid "Don't quit when VPN connection terminates"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1454
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1455
+msgid "D-Bus name to use for this instance"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1476
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:1
 msgid "Default"
 msgstr "Vaikimisi"
 
+#: ../properties/nm-sstp-dialog.ui.h:2
+#, fuzzy
+msgid "<b>General</b>"
+msgstr "Üldine"
+
+#: ../properties/nm-sstp-dialog.ui.h:3
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "_Gateway:"
+msgstr "_Lüüs (gateway):"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
+msgid "Authentication"
+msgstr "Autentimine"
+
+#: ../properties/nm-sstp-dialog.ui.h:7
+#, fuzzy
+msgid "CA"
+msgstr "CHAP"
+
+#: ../properties/nm-sstp-dialog.ui.h:8
+msgid "User"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+#, fuzzy
+msgid "Username:"
+msgstr "_Kasutajanimi:"
+
+#: ../properties/nm-sstp-dialog.ui.h:10
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"            config: user <name>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid "Password passed to SSTP when prompted for it."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:14
+msgid "Show password"
+msgstr "Parooli näidatakse"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
 msgid "NT Domain:"
 msgstr "NT-domeen:"
 
+#: ../properties/nm-sstp-dialog.ui.h:16
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"            config: domain <domain>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "Type:"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+#, fuzzy
+msgid "Select an authentication mode."
+msgstr "Luba järgnevad autentimise meetodid:"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+msgid "Ad_vanced..."
+msgstr "_Täpsemalt..."
+
+#: ../properties/nm-sstp-dialog.ui.h:21
+msgid "SSTP Advanced Options"
+msgstr "SSTP täpsemad valikud"
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "<b>SSL Tunnel</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid "_Verify certificate type and extended key usage"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:24
+msgid ""
+"Require that the peer certificate used for outer SSL tunnel was signed with "
+"a certificate that has a trusted certificate chain, key usage, and extended "
+"key usage based on RFC3280 TLS rules."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:25
+msgid "_Use TLS hostname extensions"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid ""
+"Use the gateway name as specified for this connection in the hostname "
+"extensions in the SSL tunnel"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:27
+msgid "<b>Certificate Revocation</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:28
+msgid "CRL"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:29
+#, fuzzy
+msgid "Connection"
+msgstr "Ühendu _anonüümselt"
+
+#: ../properties/nm-sstp-dialog.ui.h:30
+#, fuzzy
+msgid "<b>Authentication</b>"
+msgstr "Autentimine"
+
+#: ../properties/nm-sstp-dialog.ui.h:31
+msgid "Allow the following authentication methods:"
+msgstr "Luba järgnevad autentimise meetodid:"
+
+#: ../properties/nm-sstp-dialog.ui.h:32
+msgid ""
+"Allow/disable authentication methods.\n"
+"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:34
+#, fuzzy
+msgid "<b>Security and Compression</b>"
+msgstr "Turvalisus ja tihendamine"
+
+#: ../properties/nm-sstp-dialog.ui.h:35
+msgid "Use _Point-to-Point encryption (MPPE)"
+msgstr "Kasuta _Point-to-Point krüpteerimist (MPPE)"
+
+#: ../properties/nm-sstp-dialog.ui.h:36
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
@@ -127,35 +526,203 @@ msgstr ""
 "Selle kasti märkimiseks pead valima kummagi MSCHAP autentimismeetodi: MSCHAP "
 "või MSCHAPv2."
 
-msgid "SSTP Advanced Options"
-msgstr "SSTP täpsemad valikud"
-
-msgid "Password:"
-msgstr "Parool:"
-
-msgid "Send PPP _echo packets"
-msgstr "Saada PPP _echo pakette"
-
-msgid "Show password"
-msgstr "Parooli näidatakse"
-
-msgid "Use TCP _header compression"
-msgstr "Kasuta TCP-_päiste tihendamist"
-
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "Kasuta _Point-to-Point krüpteerimist (MPPE)"
-
-msgid "User name:"
-msgstr "Kasutajanimi:"
-
-msgid "_Gateway:"
-msgstr "_Lüüs (gateway):"
-
+#: ../properties/nm-sstp-dialog.ui.h:37
 msgid "_Security:"
 msgstr "_Turvalisus:"
 
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Point-to-Point tunneli protokoll (SSTP)"
+#: ../properties/nm-sstp-dialog.ui.h:38
+msgid ""
+"Require the use of MPPE, with 40/128-bit encryption or all.\n"
+"config: require-mppe, require-mppe-128 or require-mppe-40"
+msgstr ""
 
-msgid "Compatible with Microsoft and other SSTP VPN servers."
-msgstr "Ühildub Microsofti ja teiste SSTP VPN serveritega."
+#: ../properties/nm-sstp-dialog.ui.h:40
+msgid "Allow st_ateful encryption"
+msgstr "Stateful-tihendus on lubatud"
+
+#: ../properties/nm-sstp-dialog.ui.h:41
+msgid ""
+"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
+"config: mppe-stateful (when checked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:43
+msgid "Allow _BSD data compression"
+msgstr "_BSD-tihendus on lubatud"
+
+#: ../properties/nm-sstp-dialog.ui.h:44
+msgid ""
+"Allow/disable BSD-Compress compression.\n"
+"config: nobsdcomp (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:46
+msgid "Allow _Deflate data compression"
+msgstr "_Deflate-tihendus on lubatud"
+
+#: ../properties/nm-sstp-dialog.ui.h:47
+msgid ""
+"Allow/disable Deflate compression.\n"
+"config: nodeflate (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:49
+msgid "Use TCP _header compression"
+msgstr "Kasuta TCP-_päiste tihendamist"
+
+#: ../properties/nm-sstp-dialog.ui.h:50
+msgid ""
+"Allow/disable Van Jacobson style TCP/IP header compression in both the "
+"transmit and the receive directions.\n"
+"config: novj (when unchecked)"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:52
+msgid "<b>Echo</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:53
+msgid "Send PPP _echo packets"
+msgstr "Saada PPP _echo pakette"
+
+#: ../properties/nm-sstp-dialog.ui.h:54
+msgid ""
+"Send LCP echo-requests to find out whether peer is alive.\n"
+"config: lcp-echo-failure and lcp-echo-interval"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:56
+msgid "<b>Misc</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:57
+msgid "Use custom _unit number:"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:58
+msgid ""
+"Enable custom index for ppp<n> device name.\n"
+"config: unit <n>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:60
+msgid "Point-to-Point"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:61
+msgid "<b>Identity</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:62
+msgid ""
+"Use this to override the value specified by the certificate\n"
+"\n"
+"By default, this will be populated, when correct password for certificate is "
+"supplied, with the Microsoft OID for username; or the Subject name of the "
+"certificate when this is not available. "
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:65
+msgid "<b>Certificate Validation</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:66
+msgid "_Subject Match"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:67
+msgid ""
+"Subject or Common Name to verify server certificate information against. "
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:68
+msgid "_Verify Method"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:69
+msgid ""
+"Verify server certificate identification.\n"
+"\n"
+"When enabled, connection will only succeed if the server certificate matches "
+"some expected properties.\n"
+"Matching can either apply to the whole certificate subject (all the "
+"fields),\n"
+"or just the Common Name (CN field).\n"
+"                                    "
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:75
+msgid ""
+"Require that peer certificate was signed with an explicit key usage and "
+"extended key usage based on RFC3280 TLS rules."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:76
+msgid "<b>Compatibility</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:77
+msgid "_Max TLS Version"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:78
+msgid ""
+"Use this to control the maximum supported EAP-TLS version. Default is TLS "
+"1.2, and use of TLS 1.3 is considered experimental at this point."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:79
+#, fuzzy
+msgid "TLS Authentication"
+msgstr "Autentimine"
+
+#: ../properties/nm-sstp-dialog.ui.h:80
+msgid "Address:"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:81
+msgid "Port:"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:82
+msgid "0"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:83
+#, fuzzy
+msgid "Show Password"
+msgstr "Parooli näidatakse"
+
+#: ../properties/nm-sstp-dialog.ui.h:84
+msgid "Proxy"
+msgstr ""
+
+#~ msgid "_Secondary Password:"
+#~ msgstr "_Teisene parool:"
+
+#~ msgid "_Domain:"
+#~ msgstr "_Domeen:"
+
+#~ msgid "Connect as _user:"
+#~ msgstr "Ühendu ka_sutajana:"
+
+#~ msgid "_Remember passwords for this session"
+#~ msgstr "_Jäta paroolid selle sessiooni ajaks meelde"
+
+#~ msgid "_Save passwords in keyring"
+#~ msgstr "Paroolide _salvestamine võtmerõngasse"
+
+#~ msgid "Add, Remove, and Edit SSTP VPN Connections"
+#~ msgstr "SSTP VPN-ühenduste lisamine, muutmine ja eemaldamine"
+
+#~ msgid "SSTP VPN Connection Manager"
+#~ msgstr "SSTP VPN-ühenduste haldur"
+
+#~ msgid "Echo"
+#~ msgstr "Echo"
+
+#~ msgid "Optional"
+#~ msgstr "Valikuline"
+
+#~ msgid "User name:"
+#~ msgstr "Kasutajanimi:"

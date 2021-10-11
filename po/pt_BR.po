@@ -15,9 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
-"issues\n"
-"POT-Creation-Date: 2021-07-11 14:20+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-11 11:59-0700\n"
 "PO-Revision-Date: 2021-08-07 14:55-0300\n"
 "Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
@@ -50,8 +49,8 @@ msgstr ""
 "servidores da Microsoft."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "Eivind Naess"
-msgstr "Eivind Naess"
+msgid "The NetworkManager Developers"
+msgstr ""
 
 #: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
@@ -420,7 +419,6 @@ msgid "Authentication"
 msgstr "Autenticação"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-#| msgid "CHAP"
 msgid "CA"
 msgstr "CA"
 
@@ -759,3 +757,6 @@ msgstr "Mostrar senha"
 #: ../properties/nm-sstp-dialog.ui.h:84
 msgid "Proxy"
 msgstr "Proxy"
+
+#~ msgid "Eivind Naess"
+#~ msgstr "Eivind Naess"

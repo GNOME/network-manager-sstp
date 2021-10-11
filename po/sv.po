@@ -8,9 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
-"issues\n"
-"POT-Creation-Date: 2021-07-11 14:20+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-11 11:59-0700\n"
 "PO-Revision-Date: 2021-07-11 19:52+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -42,8 +41,8 @@ msgstr ""
 "servrarna."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "Eivind Naess"
-msgstr "Eivind Næss"
+msgid "The NetworkManager Developers"
+msgstr ""
 
 #: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
@@ -747,3 +746,6 @@ msgstr "Visa lösenord"
 #: ../properties/nm-sstp-dialog.ui.h:84
 msgid "Proxy"
 msgstr "Proxy"
+
+#~ msgid "Eivind Naess"
+#~ msgstr "Eivind Næss"

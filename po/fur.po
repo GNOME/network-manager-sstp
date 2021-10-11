@@ -6,16 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=NetworkManager&keywords=I18N+L10N&component=VPN: sstp\n"
-"POT-Creation-Date: 2017-04-08 09:27+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-11 11:59-0700\n"
 "PO-Revision-Date: 2017-04-09 19:02+0200\n"
+"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "X-Generator: Poedit 1.8.12\n"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
@@ -31,60 +30,103 @@ msgid "Support for configuring SSTP virtual private network connections."
 msgstr "Supuart par configurâ conessions a rêt privadis virtuâls SSTP."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
-msgid "Compatible with various SSTP servers including Microsoft."
+#, fuzzy
+msgid ""
+"Compatible with servers following the SSTP specification including the "
+"Microsoft servers."
 msgstr "Compatibil cun varis servidôrs SSTP includût Microsoft."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
 msgid "The NetworkManager Developers"
 msgstr "I svilupadôrs di NetworkManager"
 
-#. Otherwise, we have no saved password, or the password flags indicated
-#. * that the password should never be saved.
-#.
-#: ../auth-dialog/main.c:146
+#: ../auth-dialog/main.c:280
+msgid "Authenticate VPN"
+msgstr "Autentiche VPN"
+
+#: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
+msgid "Certificate password:"
+msgstr ""
+
+#: ../auth-dialog/main.c:295
+#, fuzzy
+msgid "_HTTP proxy password:"
+msgstr "Password:"
+
+#: ../auth-dialog/main.c:372
+#, fuzzy, c-format
+msgid "Authenticate VPN %s"
+msgstr "Autentiche VPN"
+
+#: ../auth-dialog/main.c:379 ../properties/nm-sstp-dialog.ui.h:12
+msgid "Password:"
+msgstr "Password:"
+
+#: ../auth-dialog/main.c:393
+#, fuzzy
+msgid "HTTP proxy password:"
+msgstr "Password:"
+
+#: ../auth-dialog/main.c:508
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr "Al covente autenticâsi par acedi ae rêt privade virtuâl “%s”."
 
-#: ../auth-dialog/main.c:155 ../auth-dialog/main.c:175
-msgid "Authenticate VPN"
-msgstr "Autentiche VPN"
-
-#: ../auth-dialog/main.c:157 ../properties/nm-sstp-dialog.ui.h:43
-msgid "Password:"
-msgstr "Password:"
-
-#: ../properties/advanced-dialog.c:169
+#: ../properties/advanced-dialog.c:235
 msgid "All Available (Default)"
 msgstr "Dutis lis disponibilis (Predefinît)"
 
-#: ../properties/advanced-dialog.c:173
+#: ../properties/advanced-dialog.c:239
 msgid "128-bit (most secure)"
 msgstr "128-bit (plui sigure)"
 
-#: ../properties/advanced-dialog.c:182
+#: ../properties/advanced-dialog.c:248
 msgid "40-bit (less secure)"
 msgstr "40-bit (mancul sigure)"
 
-#: ../properties/advanced-dialog.c:286
+#: ../properties/advanced-dialog.c:367
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:299
+#: ../properties/advanced-dialog.c:380
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:311
+#: ../properties/advanced-dialog.c:392
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:323
+#: ../properties/advanced-dialog.c:404
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:336
+#: ../properties/advanced-dialog.c:416
 msgid "EAP"
 msgstr "EAP"
+
+#: ../properties/advanced-dialog.c:608
+msgid "Don't verify certificate identification"
+msgstr ""
+
+#: ../properties/advanced-dialog.c:616
+msgid "Verify subject exactly"
+msgstr ""
+
+#: ../properties/advanced-dialog.c:624
+msgid "Verify name exactly"
+msgstr ""
+
+#: ../properties/advanced-dialog.c:632
+msgid "Verify name by suffix"
+msgstr ""
+
+#: ../properties/advanced-dialog.c:677
+msgid "TLS 1.2 (Default)"
+msgstr ""
+
+#: ../properties/advanced-dialog.c:685
+msgid "TLS 1.3"
+msgstr ""
 
 #: ../properties/nm-sstp-editor-plugin.c:34
 msgid "Point-to-Point Tunneling Protocol (SSTP)"
@@ -94,38 +136,56 @@ msgstr "Protocol di tunel pont a pont (SSTP)"
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Compatibil cun Microsoft e altris servidôrs VPN SSTP."
 
-#: ../shared/nm-utils/nm-shared-utils.c:264
+#: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
+#, c-format
+msgid "file is not a certificate"
+msgstr ""
+
+#: ../properties/nm-sstp-editor.c:365
+#, c-format
+msgid "file is not a private key"
+msgstr ""
+
+#: ../properties/nm-sstp-editor.c:581
+msgid "Certificates (TLS)"
+msgstr ""
+
+#: ../properties/nm-sstp-editor.c:590
+#, fuzzy
+msgid "Password"
+msgstr "Password:"
+
+#: ../shared/nm-utils/nm-shared-utils.c:946
 #, c-format
 msgid "object class '%s' has no property named '%s'"
 msgstr "la classe dal ogjet '%s' no à proprietâts clamadis '%s'"
 
-#: ../shared/nm-utils/nm-shared-utils.c:271
+#: ../shared/nm-utils/nm-shared-utils.c:953
 #, c-format
 msgid "property '%s' of object class '%s' is not writable"
 msgstr "proprietât '%s' de classe dal ogjet '%s' no je scrivibile"
 
-#: ../shared/nm-utils/nm-shared-utils.c:278
+#: ../shared/nm-utils/nm-shared-utils.c:960
 #, c-format
 msgid ""
 "construct property \"%s\" for object '%s' can't be set after construction"
 msgstr ""
-"impussibil stabilî la proprietât \"%s\" dal costrutôr pal ogjet '%s' dopo "
-"de costruzion"
+"impussibil stabilî la proprietât \"%s\" dal costrutôr pal ogjet '%s' dopo de "
+"costruzion"
 
-#: ../shared/nm-utils/nm-shared-utils.c:286
+#: ../shared/nm-utils/nm-shared-utils.c:968
 #, c-format
 msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
 msgstr ""
 "'%s::%s' nol è un non di proprietât valit; '%s' nol è un sot-gjenar GObject"
 
-#: ../shared/nm-utils/nm-shared-utils.c:295
+#: ../shared/nm-utils/nm-shared-utils.c:977
 #, c-format
 msgid "unable to set property '%s' of type '%s' from value of type '%s'"
 msgstr ""
-"impussibil stabilî la proprietât '%s' di gjenar '%s' dal valôr di gjenar "
-"'%s'"
+"impussibil stabilî la proprietât '%s' di gjenar '%s' dal valôr di gjenar '%s'"
 
-#: ../shared/nm-utils/nm-shared-utils.c:306
+#: ../shared/nm-utils/nm-shared-utils.c:988
 #, c-format
 msgid ""
 "value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
@@ -134,115 +194,186 @@ msgstr ""
 "il valôr \"%s\" di gjenar '%s' nol è valit o fûr dal interval pe proprietât "
 "'%s' di gjenar '%s'"
 
-#: ../shared/nm-utils/nm-vpn-plugin-utils.c:80
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
+#, fuzzy, c-format
+msgid "unable to get editor plugin name: %s"
+msgstr "impussibil cjariâ il plugin editôr: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:103
 #, c-format
 msgid "missing plugin file \"%s\""
 msgstr "al mancje il file plugin \"%s\""
 
-#: ../shared/nm-utils/nm-vpn-plugin-utils.c:86
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:109
 #, c-format
 msgid "cannot load editor plugin: %s"
 msgstr "impussibil cjariâ il plugin editôr: %s"
 
-#: ../shared/nm-utils/nm-vpn-plugin-utils.c:95
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:118
 #, c-format
 msgid "cannot load factory %s from plugin: %s"
 msgstr "impussibil cjariâ la fabriche %s dal plugin: %s"
 
-#: ../shared/nm-utils/nm-vpn-plugin-utils.c:121
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:144
 msgid "unknown error creating editor instance"
 msgstr "erôr no cognossût tal creâ la istance dal editôr"
 
-#: ../src/nm-sstp-service.c:193
+#: ../shared/utils.c:58
+msgid "Failed to initialize the crypto engine"
+msgstr ""
+
+#: ../shared/utils.c:85
+#, c-format
+msgid "Failed to get subject name"
+msgstr ""
+
+#: ../shared/utils.c:121 ../shared/utils.c:135
+#, c-format
+msgid "Failed to load certificate"
+msgstr ""
+
+#: ../shared/utils.c:128
+#, c-format
+msgid "Failed to initialize certificate"
+msgstr ""
+
+#: ../shared/utils.c:185
+#, c-format
+msgid "Failed to parse pkcs12 file"
+msgstr ""
+
+#: ../shared/utils.c:191
+#, c-format
+msgid "Failed to import pkcs12 file"
+msgstr ""
+
+#: ../shared/utils.c:198
+#, c-format
+msgid "Failed to initialize pkcs12 structure"
+msgstr ""
+
+#: ../shared/utils.c:205
+#, c-format
+msgid "Failed to read file"
+msgstr ""
+
+#: ../shared/utils.c:239
+#, c-format
+msgid "Failed to decrypt private key"
+msgstr ""
+
+#: ../shared/utils.c:249
+#, c-format
+msgid "Failed to initialize private key"
+msgstr ""
+
+#: ../shared/utils.c:257
+#, c-format
+msgid "Failed read file"
+msgstr ""
+
+#: ../shared/utils.c:307
+#, c-format
+msgid "invalid delimiter character '%c'"
+msgstr ""
+
+#: ../shared/utils.c:314
+#, c-format
+msgid "invalid non-utf-8 character"
+msgstr ""
+
+#: ../shared/utils.c:343
+#, c-format
+msgid "empty host"
+msgstr ""
+
+#: ../shared/utils.c:355
+#, c-format
+msgid "invalid port"
+msgstr ""
+
+#: ../src/nm-sstp-service.c:236
 #, c-format
 msgid "invalid gateway “%s”"
 msgstr "gateway “%s” no valit"
 
-#: ../src/nm-sstp-service.c:207
+#: ../src/nm-sstp-service.c:250
 #, c-format
 msgid "invalid integer property “%s”"
 msgstr "proprietât interie “%s” no valide"
 
-#: ../src/nm-sstp-service.c:217
+#: ../src/nm-sstp-service.c:260
 #, c-format
 msgid "invalid boolean property “%s” (not yes or no)"
 msgstr "proprietât booleane “%s” no valide  (no je sì o no)"
 
-#: ../src/nm-sstp-service.c:224
+#: ../src/nm-sstp-service.c:267
 #, c-format
 msgid "unhandled property “%s” type %s"
 msgstr "proprietât “%s” gjenar %s no tratade"
 
-#: ../src/nm-sstp-service.c:235
+#: ../src/nm-sstp-service.c:278
 #, c-format
 msgid "property “%s” invalid or not supported"
 msgstr "proprietât “%s” no valide o no supuartade"
 
-#: ../src/nm-sstp-service.c:253
+#: ../src/nm-sstp-service.c:296
 msgid "No VPN configuration options."
 msgstr "Nissune opzion di configurazion VPN."
 
-#: ../src/nm-sstp-service.c:273
+#: ../src/nm-sstp-service.c:316
 #, c-format
 msgid "Missing required option “%s”."
 msgstr "E mancje la opzion necessarie “%s”."
 
-#: ../src/nm-sstp-service.c:293
-msgid "No VPN secrets!"
-msgstr "Nissun segret VPN!"
-
-#: ../src/nm-sstp-service.c:447
+#: ../src/nm-sstp-service.c:486
 msgid "Could not find sstp client binary."
 msgstr "Impussibil cjatâ il binari dal client sstp."
 
-#: ../src/nm-sstp-service.c:460
+#: ../src/nm-sstp-service.c:496
 msgid "Missing VPN gateway."
 msgstr "Al mancje il gateway VPN"
 
-#: ../src/nm-sstp-service.c:629
+#: ../src/nm-sstp-service.c:922
 msgid "Could not find the pppd binary."
 msgstr "Impussibil cjatâ il binari pppd."
 
-#: ../src/nm-sstp-service.c:689
+#: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
 msgid "Missing VPN username."
 msgstr "Al mancje il non utent VPN."
 
-#: ../src/nm-sstp-service.c:698
+#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
 msgid "Missing or invalid VPN password."
 msgstr "E mancje o no je valide la password VPN."
 
-#: ../src/nm-sstp-service.c:804
-#, c-format
-msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
-msgstr "impussibil convertî la direzion IP dal gateway VPN SSTP “%s” (%d)"
-
-#: ../src/nm-sstp-service.c:822
-#, c-format
-msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
-msgstr "impussibil cjatâ la direzion IP dal gateway VPN SSTP “%s” (%d)"
-
-#: ../src/nm-sstp-service.c:846
-#, c-format
-msgid "no usable addresses returned for SSTP VPN gateway “%s”"
-msgstr "nissune direzion doprabile tornade pal gateway VPN SSTP “%s”"
-
-#: ../src/nm-sstp-service.c:875
+#: ../src/nm-sstp-service.c:1163
 msgid "Invalid or missing SSTP gateway."
 msgstr "gateway SSTP mancjant o no valit."
 
-#: ../src/nm-sstp-service.c:1123
-msgid "Don’t quit when VPN connection terminates"
+#: ../src/nm-sstp-service.c:1224
+msgid ""
+"Could not process the request because the VPN connection settings were "
+"invalid."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1259
+msgid "Invalid connection type."
+msgstr ""
+
+#: ../src/nm-sstp-service.c:1453
+#, fuzzy
+msgid "Don't quit when VPN connection terminates"
 msgstr "No stâ jessî cuant che e termine la conession VPN"
 
-#: ../src/nm-sstp-service.c:1124
+#: ../src/nm-sstp-service.c:1454
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr "Abilite regjistris di debug prolìs (al podarès esponi lis password)"
 
-#: ../src/nm-sstp-service.c:1125
+#: ../src/nm-sstp-service.c:1455
 msgid "D-Bus name to use for this instance"
 msgstr "Non D-Bus di doprâ par cheste istance"
 
-#: ../src/nm-sstp-service.c:1146
+#: ../src/nm-sstp-service.c:1476
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
@@ -255,18 +386,137 @@ msgid "Default"
 msgstr "Predefinît"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-msgid "SSTP Advanced Options"
-msgstr "Opzions avanzadis SSTP"
+#, fuzzy
+msgid "<b>General</b>"
+msgstr "Gjenerâl"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
+msgid ""
+"SSTP server IP or name.\n"
+"config: the first parameter of sstp"
+msgstr ""
+"Non o IP servidôr SSTP.\n"
+"config: il prin parametri di sstp"
+
+#: ../properties/nm-sstp-dialog.ui.h:5
+msgid "_Gateway:"
+msgstr "_Gateway:"
+
+#: ../properties/nm-sstp-dialog.ui.h:6
 msgid "Authentication"
 msgstr "Autenticazion"
 
-#: ../properties/nm-sstp-dialog.ui.h:4
+#: ../properties/nm-sstp-dialog.ui.h:7
+#, fuzzy
+msgid "CA"
+msgstr "CHAP"
+
+#: ../properties/nm-sstp-dialog.ui.h:8
+msgid "User"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:9
+#, fuzzy
+msgid "Username:"
+msgstr "Non utent:"
+
+#: ../properties/nm-sstp-dialog.ui.h:10
+#, fuzzy
+msgid ""
+"Set the name used for authenticating the local system to the peer to "
+"<name>.\n"
+"            config: user <name>"
+msgstr ""
+"Stabilìs il non doprât par autenticâ il sisteme locâl al grop a <non>.\n"
+"config: user <non>"
+
+#: ../properties/nm-sstp-dialog.ui.h:13
+msgid "Password passed to SSTP when prompted for it."
+msgstr "Password passade a SSTP cuant che e ven domandade."
+
+#: ../properties/nm-sstp-dialog.ui.h:14
+msgid "Show password"
+msgstr "Mostre password"
+
+#: ../properties/nm-sstp-dialog.ui.h:15
+msgid "NT Domain:"
+msgstr "Domini NT:"
+
+#: ../properties/nm-sstp-dialog.ui.h:16
+#, fuzzy
+msgid ""
+"Append the domain name <domain> to the local host name for authentication "
+"purposes.\n"
+"            config: domain <domain>"
+msgstr ""
+"Zonte il non dal domini <domini> al non dal host locâl pe autenticazion.\n"
+"config: domain <domini>"
+
+#: ../properties/nm-sstp-dialog.ui.h:18
+msgid "Type:"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:19
+#, fuzzy
+msgid "Select an authentication mode."
+msgstr "Permet i metodis di autenticazion chi daurman:"
+
+#: ../properties/nm-sstp-dialog.ui.h:20
+#, fuzzy
+msgid "Ad_vanced..."
+msgstr "A_vanzât..."
+
+#: ../properties/nm-sstp-dialog.ui.h:21
+msgid "SSTP Advanced Options"
+msgstr "Opzions avanzadis SSTP"
+
+#: ../properties/nm-sstp-dialog.ui.h:22
+msgid "<b>SSL Tunnel</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:23
+msgid "_Verify certificate type and extended key usage"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:24
+msgid ""
+"Require that the peer certificate used for outer SSL tunnel was signed with "
+"a certificate that has a trusted certificate chain, key usage, and extended "
+"key usage based on RFC3280 TLS rules."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:25
+msgid "_Use TLS hostname extensions"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:26
+msgid ""
+"Use the gateway name as specified for this connection in the hostname "
+"extensions in the SSL tunnel"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:27
+msgid "<b>Certificate Revocation</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:28
+msgid "CRL"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:29
+msgid "Connection"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:30
+#, fuzzy
+msgid "<b>Authentication</b>"
+msgstr "Autenticazion"
+
+#: ../properties/nm-sstp-dialog.ui.h:31
 msgid "Allow the following authentication methods:"
 msgstr "Permet i metodis di autenticazion chi daurman:"
 
-#: ../properties/nm-sstp-dialog.ui.h:5
+#: ../properties/nm-sstp-dialog.ui.h:32
 msgid ""
 "Allow/disable authentication methods.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
@@ -274,15 +524,16 @@ msgstr ""
 "Permet/disabilite metodis di autenticazion.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
-#: ../properties/nm-sstp-dialog.ui.h:7
-msgid "Security and Compression"
+#: ../properties/nm-sstp-dialog.ui.h:34
+#, fuzzy
+msgid "<b>Security and Compression</b>"
 msgstr "Sigurece e compression"
 
-#: ../properties/nm-sstp-dialog.ui.h:8
+#: ../properties/nm-sstp-dialog.ui.h:35
 msgid "Use _Point-to-Point encryption (MPPE)"
 msgstr "Dopre cifradure _pont a pont (MPPE)"
 
-#: ../properties/nm-sstp-dialog.ui.h:9
+#: ../properties/nm-sstp-dialog.ui.h:36
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
@@ -292,11 +543,11 @@ msgstr ""
 "MSCHAP. Par abilitâ cheste casele di selezion, selezione un o plui dai "
 "metodis di autenticazion MSCHAP: MSCHAP or MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.ui.h:10
+#: ../properties/nm-sstp-dialog.ui.h:37
 msgid "_Security:"
 msgstr "_Sigurece:"
 
-#: ../properties/nm-sstp-dialog.ui.h:11
+#: ../properties/nm-sstp-dialog.ui.h:38
 msgid ""
 "Require the use of MPPE, with 40/128-bit encryption or all.\n"
 "config: require-mppe, require-mppe-128 or require-mppe-40"
@@ -304,11 +555,11 @@ msgstr ""
 "Al domande l'ûs di MPPE, cun cifradure a 40/128-bit o dutis.\n"
 "config: require-mppe, require-mppe-128 o require-mppe-40"
 
-#: ../properties/nm-sstp-dialog.ui.h:13
+#: ../properties/nm-sstp-dialog.ui.h:40
 msgid "Allow st_ateful encryption"
 msgstr "Permet cifradure cun stât"
 
-#: ../properties/nm-sstp-dialog.ui.h:14
+#: ../properties/nm-sstp-dialog.ui.h:41
 msgid ""
 "Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
 "config: mppe-stateful (when checked)"
@@ -317,11 +568,11 @@ msgstr ""
 "ancjemò provade par prime.\n"
 "config: mppe-stateful (cuant selezionât)"
 
-#: ../properties/nm-sstp-dialog.ui.h:16
+#: ../properties/nm-sstp-dialog.ui.h:43
 msgid "Allow _BSD data compression"
 msgstr "Permet compression dâts _BSD"
 
-#: ../properties/nm-sstp-dialog.ui.h:17
+#: ../properties/nm-sstp-dialog.ui.h:44
 msgid ""
 "Allow/disable BSD-Compress compression.\n"
 "config: nobsdcomp (when unchecked)"
@@ -329,11 +580,11 @@ msgstr ""
 "Permet/disabilite compression BSD-Compress.\n"
 "config: nobsdcomp (cuant no selezionât)"
 
-#: ../properties/nm-sstp-dialog.ui.h:19
+#: ../properties/nm-sstp-dialog.ui.h:46
 msgid "Allow _Deflate data compression"
 msgstr "Permet compression dâts _Deflate"
 
-#: ../properties/nm-sstp-dialog.ui.h:20
+#: ../properties/nm-sstp-dialog.ui.h:47
 msgid ""
 "Allow/disable Deflate compression.\n"
 "config: nodeflate (when unchecked)"
@@ -341,11 +592,11 @@ msgstr ""
 "Permet/disabilite compression Deflate.\n"
 "config: nodeflate (cuant no selezionât)"
 
-#: ../properties/nm-sstp-dialog.ui.h:22
+#: ../properties/nm-sstp-dialog.ui.h:49
 msgid "Use TCP _header compression"
 msgstr "Dopre compression _intestazion TCP"
 
-#: ../properties/nm-sstp-dialog.ui.h:23
+#: ../properties/nm-sstp-dialog.ui.h:50
 msgid ""
 "Allow/disable Van Jacobson style TCP/IP header compression in both the "
 "transmit and the receive directions.\n"
@@ -355,15 +606,15 @@ msgstr ""
 "ricezion e trasmission.\n"
 "config: novj (cuant no selezionât)"
 
-#: ../properties/nm-sstp-dialog.ui.h:25
-msgid "Echo"
-msgstr "Echo"
+#: ../properties/nm-sstp-dialog.ui.h:52
+msgid "<b>Echo</b>"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.ui.h:26
+#: ../properties/nm-sstp-dialog.ui.h:53
 msgid "Send PPP _echo packets"
 msgstr "Invie pachets _echo PPP"
 
-#: ../properties/nm-sstp-dialog.ui.h:27
+#: ../properties/nm-sstp-dialog.ui.h:54
 msgid ""
 "Send LCP echo-requests to find out whether peer is alive.\n"
 "config: lcp-echo-failure and lcp-echo-interval"
@@ -371,15 +622,15 @@ msgstr ""
 "Invie domandis-echo LCP par verificâ se il grop al è atîf.\n"
 "config: lcp-echo-failure e lcp-echo-interval"
 
-#: ../properties/nm-sstp-dialog.ui.h:29
-msgid "Misc"
-msgstr "Variis"
+#: ../properties/nm-sstp-dialog.ui.h:56
+msgid "<b>Misc</b>"
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.ui.h:30
+#: ../properties/nm-sstp-dialog.ui.h:57
 msgid "Use custom _unit number:"
 msgstr "Doprâ _unitât personalizade:"
 
-#: ../properties/nm-sstp-dialog.ui.h:31
+#: ../properties/nm-sstp-dialog.ui.h:58
 msgid ""
 "Enable custom index for ppp<n> device name.\n"
 "config: unit <n>"
@@ -387,60 +638,118 @@ msgstr ""
 "Abilite indiç personalizât pal non dal dispositîf ppp<n>.\n"
 "config: unit <n>"
 
-#: ../properties/nm-sstp-dialog.ui.h:33
-msgid "General"
-msgstr "Gjenerâl"
-
-#: ../properties/nm-sstp-dialog.ui.h:34
-msgid ""
-"SSTP server IP or name.\n"
-"config: the first parameter of sstp"
+#: ../properties/nm-sstp-dialog.ui.h:60
+msgid "Point-to-Point"
 msgstr ""
-"Non o IP servidôr SSTP.\n"
-"config: il prin parametri di sstp"
 
-#: ../properties/nm-sstp-dialog.ui.h:36
-msgid "_Gateway:"
-msgstr "_Gateway:"
-
-#: ../properties/nm-sstp-dialog.ui.h:37
-msgid "Optional"
-msgstr "Opzionâl"
-
-#: ../properties/nm-sstp-dialog.ui.h:38
-msgid ""
-"Append the domain name <domain> to the local host name for authentication "
-"purposes.\n"
-"config: domain <domain>"
+#: ../properties/nm-sstp-dialog.ui.h:61
+msgid "<b>Identity</b>"
 msgstr ""
-"Zonte il non dal domini <domini> al non dal host locâl pe autenticazion.\n"
-"config: domain <domini>"
 
-#: ../properties/nm-sstp-dialog.ui.h:40
-msgid "NT Domain:"
-msgstr "Domini NT:"
+#: ../properties/nm-sstp-dialog.ui.h:62
+msgid ""
+"Use this to override the value specified by the certificate\n"
+"\n"
+"By default, this will be populated, when correct password for certificate is "
+"supplied, with the Microsoft OID for username; or the Subject name of the "
+"certificate when this is not available. "
+msgstr ""
 
-#: ../properties/nm-sstp-dialog.ui.h:41
-msgid "Show password"
+#: ../properties/nm-sstp-dialog.ui.h:65
+msgid "<b>Certificate Validation</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:66
+msgid "_Subject Match"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:67
+msgid ""
+"Subject or Common Name to verify server certificate information against. "
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:68
+msgid "_Verify Method"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:69
+msgid ""
+"Verify server certificate identification.\n"
+"\n"
+"When enabled, connection will only succeed if the server certificate matches "
+"some expected properties.\n"
+"Matching can either apply to the whole certificate subject (all the "
+"fields),\n"
+"or just the Common Name (CN field).\n"
+"                                    "
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:75
+msgid ""
+"Require that peer certificate was signed with an explicit key usage and "
+"extended key usage based on RFC3280 TLS rules."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:76
+msgid "<b>Compatibility</b>"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:77
+msgid "_Max TLS Version"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:78
+msgid ""
+"Use this to control the maximum supported EAP-TLS version. Default is TLS "
+"1.2, and use of TLS 1.3 is considered experimental at this point."
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:79
+#, fuzzy
+msgid "TLS Authentication"
+msgstr "Autenticazion"
+
+#: ../properties/nm-sstp-dialog.ui.h:80
+msgid "Address:"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:81
+msgid "Port:"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:82
+msgid "0"
+msgstr ""
+
+#: ../properties/nm-sstp-dialog.ui.h:83
+#, fuzzy
+msgid "Show Password"
 msgstr "Mostre password"
 
-#: ../properties/nm-sstp-dialog.ui.h:42
-msgid "Password passed to SSTP when prompted for it."
-msgstr "Password passade a SSTP cuant che e ven domandade."
-
-#: ../properties/nm-sstp-dialog.ui.h:44
-msgid ""
-"Set the name used for authenticating the local system to the peer to "
-"<name>.\n"
-"config: user <name>"
+#: ../properties/nm-sstp-dialog.ui.h:84
+msgid "Proxy"
 msgstr ""
-"Stabilìs il non doprât par autenticâ il sisteme locâl al grop a <non>.\n"
-"config: user <non>"
 
-#: ../properties/nm-sstp-dialog.ui.h:46
-msgid "User name:"
-msgstr "Non utent:"
+#~ msgid "No VPN secrets!"
+#~ msgstr "Nissun segret VPN!"
 
-#: ../properties/nm-sstp-dialog.ui.h:47
-msgid "Ad_vanced…"
-msgstr "A_vanzât..."
+#, c-format
+#~ msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
+#~ msgstr "impussibil convertî la direzion IP dal gateway VPN SSTP “%s” (%d)"
+
+#, c-format
+#~ msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
+#~ msgstr "impussibil cjatâ la direzion IP dal gateway VPN SSTP “%s” (%d)"
+
+#, c-format
+#~ msgid "no usable addresses returned for SSTP VPN gateway “%s”"
+#~ msgstr "nissune direzion doprabile tornade pal gateway VPN SSTP “%s”"
+
+#~ msgid "Echo"
+#~ msgstr "Echo"
+
+#~ msgid "Misc"
+#~ msgstr "Variis"
+
+#~ msgid "Optional"
+#~ msgstr "Opzionâl"
