@@ -37,5 +37,5 @@
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/network-manager-sstp/-/issues</url>
   <update_contact>eivnaes@yahoo.com</update_contact>
   <translation type="gettext">NetworkManager-sstp</translation>
-  <_developer_name>Eivind Naess</_developer_name>
+  <_developer_name>The NetworkManager Developers</_developer_name>
 </component>
