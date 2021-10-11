@@ -15,9 +15,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 11:59-0700\n"
-"PO-Revision-Date: 2021-08-07 14:55-0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
+"issues\n"
+"POT-Creation-Date: 2021-10-11 19:08+0000\n"
+"PO-Revision-Date: 2021-10-11 18:03-0300\n"
 "Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -50,7 +51,7 @@ msgstr ""
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
 msgid "The NetworkManager Developers"
-msgstr ""
+msgstr "Os desenvolvedores do NetworkManager"
 
 #: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
