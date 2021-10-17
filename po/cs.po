@@ -10,9 +10,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 11:59-0700\n"
-"PO-Revision-Date: 2021-09-12 11:16+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
+"issues\n"
+"POT-Creation-Date: 2021-10-11 19:08+0000\n"
+"PO-Revision-Date: 2021-10-17 22:16+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -44,7 +45,7 @@ msgstr ""
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
 msgid "The NetworkManager Developers"
-msgstr ""
+msgstr "Vývojáři softwaru NetworkManager"
 
 #: ../auth-dialog/main.c:280
 msgid "Authenticate VPN"
@@ -741,6 +742,3 @@ msgstr "Zobrazovat heslo"
 #: ../properties/nm-sstp-dialog.ui.h:84
 msgid "Proxy"
 msgstr "Proxy"
-
-#~ msgid "Eivind Naess"
-#~ msgstr "Eivind Naess"
