@@ -51,8 +51,8 @@ int mppe_get_send_key(u_char *send_key, int length)
 int mppe_get_recv_key(u_char *recv_key, int length)
 {
     if (mppe_keys_isset()) {
-        if (length > mppe_keys_set)
-            length = mppe_keys_set;
+        if (length > MPPE_MAX_KEY_SIZE)
+            length = MPPE_MAX_KEY_SIZE;
         BCOPY(mppe_recv_key, recv_key, length);
         return length;
     }
