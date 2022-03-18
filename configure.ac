@@ -1,9 +1,6 @@
-AC_PREREQ(2.63)
+AC_PREREQ([2.69])
 
-AC_INIT(NetworkManager-sstp, 
-	1.3.0,
-	eivnaes@yahoo.com, 
-	NetworkManager-sstp)
+AC_INIT([NetworkManager-sstp],[1.3.0],[eivnaes@yahoo.com],[NetworkManager-sstp])
 AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz -Wno-portability])
 AM_MAINTAINER_MODE
 AM_SILENT_RULES([yes])
@@ -22,10 +19,10 @@ dnl
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
-AC_PROG_LIBTOOL
+LT_INIT
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 
 AC_CHECK_PROG([has_file], file, yes, no)
 if test x$has_file = xno ; then
@@ -37,11 +34,7 @@ if test x$has_find = xno ; then
     AC_MSG_ERROR(["find" utility not found.])
 fi
 
-dnl
-dnl Required headers
-dnl
-AC_HEADER_STDC
-AC_CHECK_HEADERS(fcntl.h paths.h sys/ioctl.h sys/time.h syslog.h unistd.h)
+AC_CHECK_HEADERS(fcntl.h paths.h sys/ioctl.h syslog.h unistd.h)
 
 #
 # Versions >= 2.4.10 will have pkgconfig support
@@ -109,7 +102,6 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 dnl
 AC_TYPE_MODE_T
 AC_TYPE_PID_T
-AC_HEADER_TIME
 
 dnl
 dnl Checks for library functions.
