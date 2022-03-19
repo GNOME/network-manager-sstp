@@ -251,10 +251,6 @@ endif
 
 auth_dialog_nm_sstp_auth_dialog_SOURCES = \
 	$(shared_sources) \
-	shared/utils.c \
-	shared/utils.h \
-	properties/resources.c \
-	properties/resources.h \
 	auth-dialog/main.c
 auth_dialog_nm_sstp_auth_dialog_CFLAGS = \
 	$(GLIB_CFLAGS) \

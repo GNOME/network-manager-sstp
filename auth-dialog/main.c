@@ -30,8 +30,6 @@
 
 #include <nma-vpn-password-dialog.h>
 
-#include "utils.h"
-
 #define KEYRING_UUID_TAG "connection-uuid"
 #define KEYRING_SN_TAG "setting-name"
 #define KEYRING_SK_TAG "setting-key"
