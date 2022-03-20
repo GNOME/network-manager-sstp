@@ -31,7 +31,7 @@
 #include "nm-utils/nm-vpn-plugin-utils.h"
 #endif
 
-#define SSTP_PLUGIN_NAME    _("Point-to-Point Tunneling Protocol (SSTP)")
+#define SSTP_PLUGIN_NAME    _("Secure Socket Tunneling Protocol (SSTP)")
 #define SSTP_PLUGIN_DESC    _("Compatible with Microsoft and other SSTP VPN servers.")
 
 /*****************************************************************************/
