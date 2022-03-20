@@ -1,9 +1,9 @@
 # Swedish messages for NetworkManager SSTP.
-# Copyright © 2004-2021 Free Software Foundation, Inc.
+# Copyright © 2004-2022 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2004, 2005, 2006.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009, 2011, 2012.
 # Josef Andersson <josef.andersson@fripost.org>, 2014, 2017.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2021, 2022.
 # Luna Jernberg <droidbittin@gmail.com>, 2021.
 #
 msgid ""
@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
 "issues\n"
-"POT-Creation-Date: 2021-10-11 19:08+0000\n"
-"PO-Revision-Date: 2021-11-28 21:30+0100\n"
+"POT-Creation-Date: 2022-03-20 21:05+0000\n"
+"PO-Revision-Date: 2022-03-20 22:23+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
 msgid "SSTP VPN client"
@@ -46,32 +46,32 @@ msgstr ""
 msgid "The NetworkManager Developers"
 msgstr "Utvecklarna av Nätverkshanteraren"
 
-#: ../auth-dialog/main.c:280
+#: ../auth-dialog/main.c:278
 msgid "Authenticate VPN"
 msgstr "Autentisera VPN"
 
-#: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
+#: ../auth-dialog/main.c:287 ../auth-dialog/main.c:384
 msgid "Certificate password:"
 msgstr "Certifikatlösenord:"
 
-#: ../auth-dialog/main.c:295
+#: ../auth-dialog/main.c:293
 msgid "_HTTP proxy password:"
 msgstr "_HTTP-proxylösenord:"
 
-#: ../auth-dialog/main.c:372
+#: ../auth-dialog/main.c:370
 #, c-format
 msgid "Authenticate VPN %s"
 msgstr "Autentisera VPN %s"
 
-#: ../auth-dialog/main.c:379 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:377 ../properties/nm-sstp-dialog.ui.h:12
 msgid "Password:"
 msgstr "Lösenord:"
 
-#: ../auth-dialog/main.c:393
+#: ../auth-dialog/main.c:391
 msgid "HTTP proxy password:"
 msgstr "HTTP-proxylösenord:"
 
-#: ../auth-dialog/main.c:508
+#: ../auth-dialog/main.c:506
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
@@ -110,33 +110,33 @@ msgstr "MSCHAPv2"
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/advanced-dialog.c:608
+#: ../properties/advanced-dialog.c:482
 msgid "Don't verify certificate identification"
 msgstr "Verifiera inte certifikatidentifikation"
 
-#: ../properties/advanced-dialog.c:616
+#: ../properties/advanced-dialog.c:490
 msgid "Verify subject exactly"
 msgstr "Verifiera ämnet exakt"
 
-#: ../properties/advanced-dialog.c:624
+#: ../properties/advanced-dialog.c:498
 msgid "Verify name exactly"
 msgstr "Verifiera namnet exakt"
 
-#: ../properties/advanced-dialog.c:632
+#: ../properties/advanced-dialog.c:506
 msgid "Verify name by suffix"
 msgstr "Verifiera namnet efter suffix"
 
-#: ../properties/advanced-dialog.c:677
+#: ../properties/advanced-dialog.c:556
 msgid "TLS 1.2 (Default)"
 msgstr "TLS 1.2 (Standard)"
 
-#: ../properties/advanced-dialog.c:685
+#: ../properties/advanced-dialog.c:564
 msgid "TLS 1.3"
 msgstr "TLS 1.3"
 
 #: ../properties/nm-sstp-editor-plugin.c:34
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Point-to-Point Tunneling Protocol (SSTP)"
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "Secure Socket Tunneling Protocol (SSTP)"
 
 #: ../properties/nm-sstp-editor-plugin.c:35
 msgid "Compatible with Microsoft and other SSTP VPN servers."
@@ -339,23 +339,23 @@ msgstr "Kunde inte hitta binärfilen för sstp-klienten."
 msgid "Missing VPN gateway."
 msgstr "Saknar VPN-gateway."
 
-#: ../src/nm-sstp-service.c:922
+#: ../src/nm-sstp-service.c:929
 msgid "Could not find the pppd binary."
 msgstr "Kunde inte hitta binärfilen pppd."
 
-#: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
+#: ../src/nm-sstp-service.c:994 ../src/nm-sstp-service.c:1013
 msgid "Missing VPN username."
 msgstr "Saknar VPN-användarnamn."
 
-#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
+#: ../src/nm-sstp-service.c:1002 ../src/nm-sstp-service.c:1021
 msgid "Missing or invalid VPN password."
 msgstr "Saknat eller ogiltigt VPN-lösenord."
 
-#: ../src/nm-sstp-service.c:1163
+#: ../src/nm-sstp-service.c:1170
 msgid "Invalid or missing SSTP gateway."
 msgstr "Ogiltig eller saknad SSTP-gateway."
 
-#: ../src/nm-sstp-service.c:1224
+#: ../src/nm-sstp-service.c:1231
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
@@ -363,23 +363,23 @@ msgstr ""
 "Kunde inte bearbeta begäran för att VPN-anslutningsinställningarna var "
 "ogiltiga."
 
-#: ../src/nm-sstp-service.c:1259
+#: ../src/nm-sstp-service.c:1266
 msgid "Invalid connection type."
 msgstr "Ogiltig anslutningstyp."
 
-#: ../src/nm-sstp-service.c:1453
+#: ../src/nm-sstp-service.c:1460
 msgid "Don't quit when VPN connection terminates"
 msgstr "Avsluta inte när VPN-anslutningen terminerar"
 
-#: ../src/nm-sstp-service.c:1454
+#: ../src/nm-sstp-service.c:1461
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr "Aktivera informativ felsökningsloggning (kan exponera lösenord)"
 
-#: ../src/nm-sstp-service.c:1455
+#: ../src/nm-sstp-service.c:1462
 msgid "D-Bus name to use for this instance"
 msgstr "D-Bus-namn att använda för denna instans"
 
-#: ../src/nm-sstp-service.c:1476
+#: ../src/nm-sstp-service.c:1483
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
@@ -748,6 +748,3 @@ msgstr "Visa lösenord"
 #: ../properties/nm-sstp-dialog.ui.h:84
 msgid "Proxy"
 msgstr "Proxy"
-
-#~ msgid "Eivind Naess"
-#~ msgstr "Eivind Næss"
