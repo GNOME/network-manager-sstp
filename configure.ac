@@ -36,20 +36,20 @@ fi
 
 AC_CHECK_HEADERS(fcntl.h paths.h sys/ioctl.h syslog.h unistd.h)
 
-#
-# Versions >= 2.4.10 will have pkgconfig support
+dnl
+dnl Versions >= 2.4.10 will have pkgconfig support
 PKG_CHECK_EXISTS([pppd],
     [AS_VAR_SET([pppd_pkgconfig_support],[yes])])
 
-#
-# We do require pppd
+dnl
+dnl We do require pppd
 AC_CHECK_HEADERS(pppd/pppd.h,,
     [AC_MSG_ERROR([pppd.h missing, Hint: apt-get install ppp-dev])])
 
+dnl
+dnl Check if the version of mppe.h define mppe_keys_xxx() functions, 2.4.9 does not; but 2.4.10 will.
 CFLAGS_OLD="$CFLAGS"
 CFLAGS="$CFLAGS -Werror"
-#
-# Check if the version of mppe.h define mppe_keys_xxx() functions, 2.4.9 does not; but 2.4.10 will.
 AC_CACHE_CHECK([if pppd/mppe.h defines mppe_keys_xyz() functions], ac_cv_working_mppe_h,
 [AC_COMPILE_IFELSE(
     [AC_LANG_PROGRAM([[
@@ -67,10 +67,10 @@ if test $ac_cv_working_mppe_h = yes; then
 fi
 CFLAGS="$CFLAGS_OLD"
 
-#
-# Versions >= 2.4.9 will have support for the auth notify callback
+dnl
+dnl  Support for the auth notify callback in pppd >= 2.4.9
 AC_ARG_WITH([pppd-auth-notify-support],
-    [AS_HELP_STRING([--with-pppd-auth-notify-support], [is the auth-notifier supported in this pppd version])])
+    [AS_HELP_STRING([--with-pppd-auth-notify-support], [is the auth-notifier supported by pppd])])
 if test x"$with_pppd_auth_notify_support" != xyes; then
     if test x"$pppd_pkgconfig_support" == xyes; then        # pkgconfig implies pppd > 2.4.9
         AS_VAR_SET([with_pppd_auth_notify_support],[yes])
@@ -79,11 +79,26 @@ fi
 if test x"$with_pppd_auth_notify_support" == xyes; then
     AC_DEFINE(USE_PPPD_AUTH_HOOK,1,[Define if pppd has support for client side authentication complete notification])
 else
-    with_pppd_auth_notify_support=no
+    AS_VAR_SET([with_pppd_auth_notify_support],[no])
 fi
 
-#
-# Specify the path of the pppd plugin directory
+dnl
+dnl Enable support for extended tls settings in pppd > 2.4.9
+AC_ARG_WITH([pppd-ext-tls-settings-suppport],
+    [AS_HELP_STRING([--with-pppd-ext-tls-settings-support], [is settings such as pkcs12, tls-verify-method, tls-verify-key-usage and max-tls-version supported in by pppd])])
+if test x"$with_pppd_ext_tls_settings_support" != xyes; then
+    if test x"$pppd_pkgconfig_support" == xyes; then        # pkgconfig implies pppd > 2.4.9
+        AS_VAR_SET([with_pppd_ext_tls_settings_support],[yes])
+    fi
+fi
+if test x"$with_pppd_extended_tls_settings" == xyes; then
+    AC_DEFINE(USE_PPP_EXT_TLS_SETTINGS,1,[Define if pppd has support for extended tls-settings like pkcs12, tls-verify-method, tls-verify-key-usage, max-tls-version])
+else
+    AS_VAR_SET([with_pppd_ext_tls_settings_support],[no])
+fi
+
+dnl
+dnl Specify the path of the pppd plugin directory
 AC_ARG_WITH([pppd-plugin-dir],
         [AS_HELP_STRING([--with-pppd-plugin-dir=DIR], [path to the pppd plugins directory])])
 if test -n "$with_pppd_plugin_dir" ; then
@@ -222,6 +237,7 @@ echo "  --with-gnome=$with_gnome"
 echo "  --with-libnm-glib=$with_libnm_glib"
 echo "  --with-pppd-plugin-dir=$PPPD_PLUGIN_DIR"
 echo "  --with-pppd-auth-notify-support=$with_pppd_auth_notify_support"
+echo "  --with-pppd-ext-tls-settings_support=$with_pppd_ext_tls_settings_support"
 echo "  --with-system-ca-path=$SYSTEM_CA_PATH"
 echo "  --enable-absolute-paths=$enable_absolute_paths"
 echo "  --enable-more-warnings=$set_more_warnings"

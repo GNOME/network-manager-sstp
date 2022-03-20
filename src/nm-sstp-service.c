@@ -713,8 +713,10 @@ construct_pppd_args (NMSstpPlugin *plugin,
 
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_CERT);
         if (value && *value) {
-
+#ifdef USE_PPP_EXT_TLS_SETTINGS
+            // "pkcs12" is only available in pppd > 2.4.9
             is_pkcs12 = nm_utils_file_is_pkcs12 (value);
+#endif // USE_PPP_EXT_TLS_SETTINGS
             g_ptr_array_add (args, (gpointer) g_strdup (is_pkcs12 ? "pkcs12" : "cert"));
             args_add_utf8safe_str (args, value);
         }
@@ -737,23 +739,27 @@ construct_pppd_args (NMSstpPlugin *plugin,
             args_add_utf8safe_str(args, g_strdup (SYSTEM_CA_PATH));
         }
 
-        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_MAX_VERSION);
-        if (value && *value) {
-            g_ptr_array_add (args, (gpointer) g_strdup ("max-tls-version"));
-            g_ptr_array_add (args, g_strdup (value));
-        }
-
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CRL_REVOCATION_FILE);
         if (value && *value) {
             g_ptr_array_add (args, (gpointer) g_strdup ("crl"));
             g_ptr_array_add (args, g_strdup (value));
         }
 
+#ifdef USE_PPP_EXT_TLS_SETTINGS
+        // "max-tls-version" is only in pppd > 2.4.9
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_MAX_VERSION);
+        if (value && *value) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("max-tls-version"));
+            g_ptr_array_add (args, g_strdup (value));
+        }
+
+        // "tls-verify-key-usage" is only in pppd > 2.4.9
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE);
         if (value && *value) {
             g_ptr_array_add (args, (gpointer) g_strdup ("tls-verify-key-usage"));
         }
 
+        // "tls-verify-method" is only in pppd > 2.4.9
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_VERIFY_METHOD);
         if (value && *value) {
 
@@ -769,6 +775,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
                 g_ptr_array_add (args, g_strdup (remote));
             }
         }
+#endif // USE_PPP_EXT_TLS_SETTINGS
 
         g_ptr_array_add (args, (gpointer) g_strdup ("need-peer-eap"));
     }

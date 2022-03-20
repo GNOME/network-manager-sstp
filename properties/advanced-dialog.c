@@ -456,6 +456,136 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 }
 
 static void
+tls_page_setup(GtkBuilder *builder, GHashTable *hash, gboolean is_tls, gchar *subject)
+{
+    GtkWidget *widget;
+    GtkListStore *store;
+    GtkTreeIter iter;
+    const char  *value;
+    int active = -1;
+
+    if (is_tls) {
+        // Use the user-specified value for identity, or extracted subject name if not specified
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_identity"));
+        value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_IDENTITY);
+        if (value && strlen (value)) {
+            gtk_entry_set_text (GTK_ENTRY (widget), value);
+        }
+        else if (subject && strlen (subject)) {
+            gtk_entry_set_text (GTK_ENTRY (widget), subject);
+        }
+
+        value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_METHOD);
+        store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                            COL_NAME, _("Don't verify certificate identification"),
+                            COL_VALUE, NM_SSTP_VERIFY_MODE_NONE,
+                            -1);
+        if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_NONE))
+            active = 0;
+
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                            COL_NAME, _("Verify subject exactly"),
+                            COL_VALUE, NM_SSTP_VERIFY_MODE_SUBJECT,
+                            -1);
+        if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_SUBJECT))
+            active = 1;
+
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                            COL_NAME, _("Verify name exactly"),
+                            COL_VALUE, NM_SSTP_VERIFY_MODE_NAME,
+                            -1);
+        if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_NAME))
+            active = 2;
+
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                            COL_NAME, _("Verify name by suffix"),
+                            COL_VALUE, NM_SSTP_VERIFY_MODE_NAME_SUFFIX,
+                            -1);
+        if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_NAME_SUFFIX))
+            active = 3;
+
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_mode_combo"));
+        gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
+        if (active >= 0)
+            gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active);
+        g_object_unref (store);
+
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_entry"));
+        value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_REMOTENAME);
+        if (value && strlen (value)) {
+          gtk_entry_set_text (GTK_ENTRY (widget), value);
+        }
+
+        active = -1;
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_keyusage_check"));
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), FALSE);
+        value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE);
+        if (value && !strcmp (value, "yes"))
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);
+
+#ifndef USE_PPP_EXT_TLS_SETTINGS
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "vbox_tls_validation"));
+        gtk_widget_set_sensitive(widget, FALSE);
+#endif
+
+        value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_MAX_VERSION);
+        store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                            COL_NAME, "TLS 1.0",
+                            COL_VALUE, NM_SSTP_TLS_1_0_SUPPORT,
+                            -1);
+        if (nm_streq0 (value, NM_SSTP_TLS_1_0_SUPPORT))
+            active = 0;
+
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                            COL_NAME, "TLS 1.1",
+                            COL_VALUE, NM_SSTP_TLS_1_1_SUPPORT,
+                            -1);
+        if (nm_streq0 (value, NM_SSTP_TLS_1_1_SUPPORT))
+            active = 1;
+
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                            COL_NAME, _("TLS 1.2 (Default)"),
+                            COL_VALUE, NM_SSTP_TLS_1_2_SUPPORT,
+                            -1);
+        if (nm_streq0 (value, NM_SSTP_TLS_1_2_SUPPORT))
+            active = 2;
+
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                            COL_NAME, _("TLS 1.3"),
+                            COL_VALUE, NM_SSTP_TLS_1_3_SUPPORT,
+                            -1);
+        if (nm_streq0 (value, NM_SSTP_TLS_1_3_SUPPORT))
+            active = 3;
+
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_version_max_combo"));
+        gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
+        if (active > 0)
+            gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active);
+        g_object_unref (store);
+
+#ifndef USE_PPP_EXT_TLS_SETTINGS
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "vbox_tls_version"));
+        gtk_widget_set_sensitive(widget, FALSE);
+#endif
+
+    } else {
+        // Desensitize the child widgets of alignment_tls if not TLS
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "alignment_tls"));
+        gtk_widget_set_sensitive(widget, is_tls);
+    }
+}
+
+static void
 checkbox_toggled_update_widget_cb (GtkWidget *check, gpointer user_data)
 {
     GtkWidget *widget = (GtkWidget*) user_data;
@@ -473,12 +603,8 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
     const char *value;
     const char *value2;
     gboolean mppe = FALSE;
-    int active = -1;
     GError *error = NULL;
     NMSettingSecretFlags pw_flags;
-    GtkListStore *store;
-    GtkTreeIter iter;
-
 
     g_return_val_if_fail (hash != NULL, NULL);
 
@@ -591,111 +717,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
     handle_mppe_changed (widget, TRUE, builder);
     g_signal_connect (G_OBJECT (widget), "toggled", G_CALLBACK (mppe_toggled_cb), builder);
 
-    // Use the user-specified value for identity, or extracted subject name if not specified
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_identity"));
-    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_IDENTITY);
-    if (value && strlen (value)) {
-        gtk_entry_set_text (GTK_ENTRY (widget), value);
-    }
-    else if (subject && strlen (subject)) {
-        gtk_entry_set_text (GTK_ENTRY (widget), subject);
-    }
-
-    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_METHOD);
-    store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter,
-                        COL_NAME, _("Don't verify certificate identification"),
-                        COL_VALUE, NM_SSTP_VERIFY_MODE_NONE,
-                        -1);
-    if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_NONE))
-        active = 0;
-
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter,
-                        COL_NAME, _("Verify subject exactly"),
-                        COL_VALUE, NM_SSTP_VERIFY_MODE_SUBJECT,
-                        -1);
-    if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_SUBJECT))
-        active = 1;
-
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter,
-                        COL_NAME, _("Verify name exactly"),
-                        COL_VALUE, NM_SSTP_VERIFY_MODE_NAME,
-                        -1);
-    if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_NAME))
-        active = 2;
-
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter,
-                        COL_NAME, _("Verify name by suffix"),
-                        COL_VALUE, NM_SSTP_VERIFY_MODE_NAME_SUFFIX,
-                        -1);
-    if (nm_streq0 (value, NM_SSTP_VERIFY_MODE_NAME_SUFFIX))
-        active = 3;
-
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_mode_combo"));
-    gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
-    if (active >= 0)
-        gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active);
-    g_object_unref (store);
-
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_entry"));
-    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_REMOTENAME);
-    if (value && strlen (value)) {
-        gtk_entry_set_text (GTK_ENTRY (widget), value);
-    }
-
-    active = -1;
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_keyusage_check"));
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), FALSE);
-    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE);
-    if (value && !strcmp (value, "yes"))
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);
-
-    value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_MAX_VERSION);
-    store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter,
-                        COL_NAME, "TLS 1.0",
-                        COL_VALUE, NM_SSTP_TLS_1_0_SUPPORT,
-                        -1);
-    if (nm_streq0 (value, NM_SSTP_TLS_1_0_SUPPORT))
-        active = 0;
-
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter,
-                        COL_NAME, "TLS 1.1",
-                        COL_VALUE, NM_SSTP_TLS_1_1_SUPPORT,
-                        -1);
-    if (nm_streq0 (value, NM_SSTP_TLS_1_1_SUPPORT))
-        active = 1;
-
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter,
-                        COL_NAME, _("TLS 1.2 (Default)"),
-                        COL_VALUE, NM_SSTP_TLS_1_2_SUPPORT,
-                        -1);
-    if (nm_streq0 (value, NM_SSTP_TLS_1_2_SUPPORT))
-        active = 2;
-
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter,
-                        COL_NAME, _("TLS 1.3"),
-                        COL_VALUE, NM_SSTP_TLS_1_3_SUPPORT,
-                        -1);
-    if (nm_streq0 (value, NM_SSTP_TLS_1_3_SUPPORT))
-        active = 3;
-
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_version_max_combo"));
-    gtk_combo_box_set_model (GTK_COMBO_BOX (widget), GTK_TREE_MODEL (store));
-    if (active > 0)
-        gtk_combo_box_set_active (GTK_COMBO_BOX (widget), active);
-    g_object_unref (store);
-    
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "alignment_tls"));
-    gtk_widget_set_sensitive(widget, is_tls);
+    tls_page_setup (builder, hash, is_tls, subject);
 
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_SERVER);
     value2 = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_PORT);

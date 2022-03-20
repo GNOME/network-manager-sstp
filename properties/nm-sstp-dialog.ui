@@ -1236,7 +1236,7 @@ By default, this will be populated, when correct password for certificate is sup
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkBox" id="vbox10">
+                      <object class="GtkBox" id="vbox_tls_validation">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
@@ -1367,7 +1367,7 @@ or just the Common Name (CN field).
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkBox" id="vbox15">
+                      <object class="GtkBox" id="vbox_tls_version">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
