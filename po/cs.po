@@ -5,15 +5,15 @@
 # Jakub Friedl <jfriedl@suse.cz>, 2006.
 # Jiří Eischmann <jiri@eischmann.cz>, 2008.
 # Zdeněk Hataš <zdenek.hatas@gmail.com>, 2009 - 2016.
-# Marek Černocký <marek@manet.cz>, 2021.
+# Marek Černocký <marek@manet.cz>, 2021, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
 "issues\n"
-"POT-Creation-Date: 2021-10-11 19:08+0000\n"
-"PO-Revision-Date: 2021-10-17 22:16+0200\n"
+"POT-Creation-Date: 2022-03-20 21:05+0000\n"
+"PO-Revision-Date: 2022-03-24 09:24+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -47,32 +47,32 @@ msgstr ""
 msgid "The NetworkManager Developers"
 msgstr "Vývojáři softwaru NetworkManager"
 
-#: ../auth-dialog/main.c:280
+#: ../auth-dialog/main.c:278
 msgid "Authenticate VPN"
 msgstr "Autentizovat VPN"
 
-#: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
+#: ../auth-dialog/main.c:287 ../auth-dialog/main.c:384
 msgid "Certificate password:"
 msgstr "Heslo k certifikátu:"
 
-#: ../auth-dialog/main.c:295
+#: ../auth-dialog/main.c:293
 msgid "_HTTP proxy password:"
 msgstr "Heslo k _HTTP proxy:"
 
-#: ../auth-dialog/main.c:372
+#: ../auth-dialog/main.c:370
 #, c-format
 msgid "Authenticate VPN %s"
 msgstr "Autentizovat VPN %s"
 
-#: ../auth-dialog/main.c:379 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:377 ../properties/nm-sstp-dialog.ui.h:12
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ../auth-dialog/main.c:393
+#: ../auth-dialog/main.c:391
 msgid "HTTP proxy password:"
 msgstr "Heslo k HTTP proxy:"
 
-#: ../auth-dialog/main.c:508
+#: ../auth-dialog/main.c:506
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr "Pro přístup k virtuální privátní síti „%s“ musíte provést autentizaci."
@@ -109,37 +109,37 @@ msgstr "MSCHAPv2"
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/advanced-dialog.c:608
+#: ../properties/advanced-dialog.c:482
 msgid "Don't verify certificate identification"
 msgstr "Neověřovat identifikaci certifikátu"
 
-#: ../properties/advanced-dialog.c:616
+#: ../properties/advanced-dialog.c:490
 msgid "Verify subject exactly"
 msgstr "Ověřovat právě subjekt"
 
-#: ../properties/advanced-dialog.c:624
+#: ../properties/advanced-dialog.c:498
 msgid "Verify name exactly"
 msgstr "Ověřovat právě jméno"
 
-#: ../properties/advanced-dialog.c:632
+#: ../properties/advanced-dialog.c:506
 msgid "Verify name by suffix"
 msgstr "Ověřovat podle přípony"
 
-#: ../properties/advanced-dialog.c:677
+#: ../properties/advanced-dialog.c:556
 msgid "TLS 1.2 (Default)"
 msgstr "TLS 1.2 (výchozí)"
 
-#: ../properties/advanced-dialog.c:685
+#: ../properties/advanced-dialog.c:564
 msgid "TLS 1.3"
 msgstr "TLS 1.3"
 
 #: ../properties/nm-sstp-editor-plugin.c:34
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Point-to-Point Tunneling Protocol (SSTP)"
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "Secure Socket Tunneling Protocol (SSTP)"
 
 #: ../properties/nm-sstp-editor-plugin.c:35
 msgid "Compatible with Microsoft and other SSTP VPN servers."
-msgstr "Kompatibilní s SSTP VPN servery od Microsoftu a ostatních."
+msgstr "Kompatibilní se servery SSTP VPN od Microsoftu a ostatních."
 
 #: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
 #, c-format
@@ -334,23 +334,23 @@ msgstr "Nelze najít program klienta sstp."
 msgid "Missing VPN gateway."
 msgstr "Chybí brána VPN."
 
-#: ../src/nm-sstp-service.c:922
+#: ../src/nm-sstp-service.c:929
 msgid "Could not find the pppd binary."
 msgstr "Nelze nalézt program sstp."
 
-#: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
+#: ../src/nm-sstp-service.c:994 ../src/nm-sstp-service.c:1013
 msgid "Missing VPN username."
 msgstr "Schází jméno uživatele VPN"
 
-#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
+#: ../src/nm-sstp-service.c:1002 ../src/nm-sstp-service.c:1021
 msgid "Missing or invalid VPN password."
 msgstr "Chybějící nebo neplatné heslo pro VPN."
 
-#: ../src/nm-sstp-service.c:1163
+#: ../src/nm-sstp-service.c:1170
 msgid "Invalid or missing SSTP gateway."
 msgstr "Neplatná nebo chybějící brána SSTP"
 
-#: ../src/nm-sstp-service.c:1224
+#: ../src/nm-sstp-service.c:1231
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
@@ -358,23 +358,23 @@ msgstr ""
 "Nezdařilo se zpracovat požadavek, protože nastavení připojení VPN bylo "
 "neplatné."
 
-#: ../src/nm-sstp-service.c:1259
+#: ../src/nm-sstp-service.c:1266
 msgid "Invalid connection type."
 msgstr "Neplatný typ připojení"
 
-#: ../src/nm-sstp-service.c:1453
+#: ../src/nm-sstp-service.c:1460
 msgid "Don't quit when VPN connection terminates"
 msgstr "Neukončovat, když skončí spojení VPN"
 
-#: ../src/nm-sstp-service.c:1454
+#: ../src/nm-sstp-service.c:1461
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr "Povolit podrobný ladicí výpis (může prozradit hesla)"
 
-#: ../src/nm-sstp-service.c:1455
+#: ../src/nm-sstp-service.c:1462
 msgid "D-Bus name to use for this instance"
 msgstr "Název použitý v D-Bus pro tuto instanci"
 
-#: ../src/nm-sstp-service.c:1476
+#: ../src/nm-sstp-service.c:1483
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
