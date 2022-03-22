@@ -31,6 +31,7 @@ m4/lt*.m4
 appdata/network-manager-sstp.metainfo.xml
 /cscope.*
 /properties/resources.[ch]
+/gtk4
 
 auth-dialog/nm-sstp-auth-dialog
 nm-sstp-service.name
