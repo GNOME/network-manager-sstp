@@ -165,9 +165,9 @@ get_editor (NMVpnEditorPlugin *iface, NMConnection *connection, GError **error)
 	g_module_close (self_module);
 
 	if (gtk3_only_symbol) {
-		editor = "libnm-vpn-plugin-pptp-editor.so";
+		editor = "libnm-vpn-plugin-sstp-editor.so";
 	} else {
-		editor = "libnm-gtk4-vpn-plugin-pptp-editor.so";
+		editor = "libnm-gtk4-vpn-plugin-sstp-editor.so";
 	}
 
 #if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
