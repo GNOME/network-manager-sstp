@@ -145,8 +145,6 @@ editor_sources = \
 	shared/nm-utils/nm-vpn-plugin-utils.h \
 	shared/utils.h \
 	shared/utils.c \
-	properties/resources.c \
-	properties/resources.h \
 	properties/advanced-dialog.c \
 	properties/advanced-dialog.h \
 	properties/nm-sstp-editor.c \
@@ -195,20 +193,28 @@ endif
 
 properties_libnm_vpn_plugin_sstp_editor_la_SOURCES = \
 	$(editor_sources)
+
+nodist_properties_libnm_vpn_plugin_sstp_editor_la_SOURCES = \
+	properties/resources.c \
+	properties/resources.h
+
 properties_libnm_vpn_plugin_sstp_editor_la_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBNM_CFLAGS) \
 	$(LIBNMA_CFLAGS) \
 	$(GNUTLS_CFLAGS)
+
 properties_libnm_vpn_plugin_sstp_editor_la_CPPFLAGS = \
 	-DNETWORKMANAGER_COMPILATION=NM_NETWORKMANAGER_COMPILATION_LIB_EDITOR \
 	$(properties_cppflags)
+
 properties_libnm_vpn_plugin_sstp_editor_la_LIBADD = \
 	$(GTK_LIBS) \
 	$(LIBNM_LIBS) \
 	$(LIBNMA_LIBS) \
 	$(GNUTLS_LIBS)
+
 properties_libnm_vpn_plugin_sstp_editor_la_LDFLAGS = \
 	-avoid-version \
 	-Wl,--version-script="$(srcdir)/properties/libnm-vpn-plugin-sstp-editor.ver"
@@ -223,6 +229,10 @@ properties_libnm_sstp_properties_la_SOURCES = \
 	shared/nm-utils/nm-glib.h \
 	$(plugin_sources) \
 	$(editor_sources)
+
+nodist_properties_libnm_sstp_properties_la_SOURCES = \
+	properties/resources.c \
+	properties/resources.h
 
 properties_libnm_sstp_properties_la_CFLAGS = \
 	$(GLIB_CFLAGS) \
@@ -252,14 +262,17 @@ endif
 auth_dialog_nm_sstp_auth_dialog_SOURCES = \
 	$(shared_sources) \
 	auth-dialog/main.c
+
 auth_dialog_nm_sstp_auth_dialog_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBNM_CFLAGS) \
 	$(LIBNMA_CFLAGS) \
 	$(LIBSECRET_CFLAGS)
+
 auth_dialog_nm_sstp_auth_dialog_CPPFLAGS = \
 	-I$(top_srcdir)/shared
+
 auth_dialog_nm_sstp_auth_dialog_LDADD = \
 	$(GTK_LIBS) \
 	$(LIBNM_LIBS) \
