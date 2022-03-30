@@ -162,11 +162,9 @@ auth_combo_changed_cb (GtkWidget *combo, gpointer user_data)
     GtkTreeModel *model;
     GtkTreeIter iter;
     int new_page;
-    gboolean status;
 
     model = gtk_combo_box_get_model (GTK_COMBO_BOX (combo));
-    status = gtk_combo_box_get_active_iter (GTK_COMBO_BOX (combo), &iter);
-    g_assert (status);
+    g_assert (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (combo), &iter));
     gtk_tree_model_get (model, &iter, COL_AUTH_PAGE, &new_page, -1);
     priv->is_tls = new_page == 0;
 
@@ -568,6 +566,9 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
     /* Authentication Combo */
     widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "auth_combo"));
     g_return_val_if_fail (widget != NULL, FALSE);
+
+    store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING);
+
     if (s_vpn) {
         contype = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
         if (!NM_IN_STRSET (contype, NM_SSTP_CONTYPE_TLS,
@@ -576,14 +577,16 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
     }
 
     /* Certificate (TLS) Tab */
-    store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING);
+    tls_setup(self, s_vpn, stuff_changed_cb);
+
     gtk_list_store_append (store, &iter);
     gtk_list_store_set (store, &iter,
                         COL_AUTH_NAME, _("Certificates (TLS)"),
                         COL_AUTH_PAGE, 0,
                         COL_AUTH_TYPE, NM_SSTP_CONTYPE_TLS,
                         -1);
-    tls_setup(self, s_vpn, stuff_changed_cb);
+
+    pw_setup(self, s_vpn, stuff_changed_cb);
 
     /* Password Tab */
     gtk_list_store_append (store, &iter);
@@ -592,7 +595,6 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
                         COL_AUTH_PAGE, 1,
                         COL_AUTH_TYPE, NM_SSTP_CONTYPE_PASSWORD,
                         -1);
-    pw_setup(self, s_vpn, stuff_changed_cb);
 
     if (active < 0
         && nm_streq (contype, NM_SSTP_CONTYPE_PASSWORD)) {

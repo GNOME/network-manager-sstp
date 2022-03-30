@@ -155,6 +155,8 @@ get_editor (NMVpnEditorPlugin *iface, NMConnection *connection, GError **error)
 	gpointer gtk3_only_symbol;
 	GModule *self_module;
 	const char *editor;
+	GError *tmp_error = NULL;
+	NMVpnEditor *retval = NULL;
 
 	g_return_val_if_fail (SSTP_IS_PLUGIN_UI (iface), NULL);
 	g_return_val_if_fail (NM_IS_CONNECTION (connection), NULL);
@@ -171,16 +173,23 @@ get_editor (NMVpnEditorPlugin *iface, NMConnection *connection, GError **error)
 	}
 
 #if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
-	return nm_vpn_plugin_ui_widget_interface_new (connection, error);
+	retval = nm_vpn_plugin_ui_widget_interface_new (connection, error);
 #else
-	return nm_vpn_plugin_utils_load_editor (editor,
+	retval = nm_vpn_plugin_utils_load_editor (editor,
 											"nm_vpn_editor_factory_sstp",
 											_call_editor_factory,
 											iface,
 											connection,
 											NULL,
-											error);
+											&tmp_error);
 #endif
+    if (retval == NULL) {
+        if (tmp_error != NULL) {
+            g_info ("Could not load Vpn Editor Plugin \"%s\": %s", editor, tmp_error->message);
+            g_propagate_error (error, tmp_error);
+        }
+    }
+    return retval;
 }
 
 static void

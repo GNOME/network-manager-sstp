@@ -1,7 +1,7 @@
 AC_PREREQ([2.69])
 
 AC_INIT([NetworkManager-sstp],[1.3.0],[eivnaes@yahoo.com],[NetworkManager-sstp])
-AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz -Wno-portability])
+AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2 -Wno-portability])
 AM_MAINTAINER_MODE
 AM_SILENT_RULES([yes])
 
@@ -21,8 +21,6 @@ AM_PROG_CC_C_O
 AC_PROG_INSTALL
 LT_INIT
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
-
-AC_USE_SYSTEM_EXTENSIONS
 
 AC_CHECK_PROG([has_file], file, yes, no)
 if test x$has_file = xno ; then
@@ -91,7 +89,7 @@ if test x"$with_pppd_ext_tls_settings_support" != xyes; then
         AS_VAR_SET([with_pppd_ext_tls_settings_support],[yes])
     fi
 fi
-if test x"$with_pppd_extended_tls_settings" == xyes; then
+if test x"$with_pppd_ext_tls_settings_support" == xyes; then
     AC_DEFINE(USE_PPP_EXT_TLS_SETTINGS,1,[Define if pppd has support for extended tls-settings like pkcs12, tls-verify-method, tls-verify-key-usage, max-tls-version])
 else
     AS_VAR_SET([with_pppd_ext_tls_settings_support],[no])
@@ -211,7 +209,7 @@ LIBNM_CFLAGS="$LIBNM_CFLAGS -DNM_VERSION_MAX_ALLOWED=NM_VERSION_1_8"
 AC_ARG_WITH(system-ca-path,
             AS_HELP_STRING([--with-system-ca-path=/path/to/ssl/certs], [path to system CA certificates]))
 if test "x${with_system_ca_path}" = x; then
-    SYSTEM_CA_PATH=/etc/ssl/certs
+    SYSTEM_CA_PATH="${sysconfdir}/ssl/certs"
 else
     SYSTEM_CA_PATH="$with_system_ca_path"
 fi
@@ -253,9 +251,9 @@ echo "  --with-dist-version=$ac_distver"
 echo "  --with-gnome=$with_gnome"
 echo "  --with-gtk4=$with_gtk4"
 echo "  --with-libnm-glib=$with_libnm_glib"
+echo "  --with-system-ca-path=$SYSTEM_CA_PATH"
 echo "  --with-pppd-plugin-dir=$PPPD_PLUGIN_DIR"
 echo "  --with-pppd-auth-notify-support=$with_pppd_auth_notify_support"
-echo "  --with-pppd-ext-tls-settings_support=$with_pppd_ext_tls_settings_support"
-echo "  --with-system-ca-path=$SYSTEM_CA_PATH"
+echo "  --with-pppd-ext-tls-settings-support=$with_pppd_ext_tls_settings_support"
 echo "  --enable-absolute-paths=$enable_absolute_paths"
 echo "  --enable-more-warnings=$set_more_warnings"

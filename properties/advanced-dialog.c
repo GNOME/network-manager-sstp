@@ -47,6 +47,11 @@
 #define TAG_MSCHAPV2  3
 #define TAG_EAP       4
 
+#define PAGE_CONNECTION  0
+#define PAGE_POINT2POINT 1
+#define PAGE_TLS         2
+#define PAGE_PROXY       3
+
 static const char *advanced_keys[] = {
     NM_SSTP_KEY_REFUSE_EAP,
     NM_SSTP_KEY_REFUSE_PAP,
@@ -459,7 +464,7 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 static void
 tls_page_setup(GtkBuilder *builder, GHashTable *hash, gboolean is_tls, gchar *subject)
 {
-    GtkWidget *widget;
+    GtkWidget *widget, *page;
     GtkListStore *store;
     GtkTreeIter iter;
     const char  *value;
@@ -580,9 +585,9 @@ tls_page_setup(GtkBuilder *builder, GHashTable *hash, gboolean is_tls, gchar *su
 #endif
 
     } else {
-        // Desensitize the child widgets of alignment_tls if not TLS
-        widget = GTK_WIDGET (gtk_builder_get_object (builder, "alignment_tls"));
-        gtk_widget_set_sensitive(widget, is_tls);
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "adv_notebook"));
+        page = GTK_WIDGET (gtk_notebook_get_nth_page(GTK_NOTEBOOK(widget), PAGE_TLS));
+        gtk_widget_hide(page);
     }
 }
 
