@@ -8,11 +8,13 @@
   before_script:
     - dnf -y install
       file
+      bzip2
       findutils
       gcc
       gettext-devel
       glib2-devel
       gtk3-devel
+      gtk4-devel
       gnutls-devel
       sstp-client-devel
       intltool
@@ -27,7 +29,7 @@
 .dist: &dist
   stage: test
   dependencies:
-    - fedora28_dist
+    - fedora35_dist
   variables:
     GIT_STRATEGY: none
 
@@ -36,7 +38,7 @@
   <<: *dist
   script:
     - dnf -y install make
-    - tar xJf NetworkManager-sstp-*.tar.xz
+    - tar jxf NetworkManager-sstp-*.tar.bz2
     - cd NetworkManager-sstp-*/
     - ./configure
       --disable-silent-rules
@@ -47,22 +49,23 @@
     - make -j uninstall
 
 # Roll the distribution tarball
-fedora28_dist:
+fedora35_dist:
   <<: *fedora_deps
-  image: fedora:28
+  image: fedora:35
   stage: build
   script:
     - dnf -y install
       /usr/bin/autopoint
       autoconf automake make
-      NetworkManager-devel
-      NetworkManager-glib-devel
-      libnm-gtk-devel
+      xorg-x11-server-Xvfb xorg-x11-xinit
+      NetworkManager-libnm-devel
     - sh autogen.sh
-    - make -j distcheck
+    # The Xvfb dance below is because gtk4-builder-tool require a display
+    - xinit /bin/sh -c 'make -j distcheck && touch .success' -- /usr/bin/Xvfb :5
+    - test -e .success
   artifacts:
     paths:
-      - "*.xz"
+      - "*.tar.bz2"
 
 fedora_from_dist:
   <<: *fedora_from_dist
