@@ -1,36 +1,35 @@
 # Basque translation of network-manager-sstp.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2008, 2009, 2010, 2014, 2015.
 # Edurne Labaka <elabaka@uzei.com>, 2015.
-# 
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2022.
+#
 msgid ""
-msgstr ""
-"Project-Id-Version: network-manager-sstp master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 11:59-0700\n"
-"PO-Revision-Date: 2014-11-19 16:39+0100\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
-"Language-Team: Basque <librezale@librezale.org>\n"
+msgstr "Project-Id-Version: network-manager-sstp master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/issues\n"
+"POT-Creation-Date: 2022-03-20 21:05+0000\n"
+"PO-Revision-Date: 2022-04-03 15:03+0100\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
 msgid "SSTP VPN client"
-msgstr ""
+msgstr "SSTP VPN bezeroa"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
 msgid "Client for SSTP virtual private networks"
-msgstr ""
+msgstr "SSTP sare birtual pribatuetarako bezeroa"
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
 msgid "Support for configuring SSTP virtual private network connections."
-msgstr ""
+msgstr "SSTP sare birtual pribatuetako konexioak konfiguratzeko euskarria."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
 msgid ""
@@ -40,39 +39,37 @@ msgstr ""
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
 msgid "The NetworkManager Developers"
-msgstr ""
+msgstr "NetworkManager aplikazioaren garatzaileak"
 
-#: ../auth-dialog/main.c:280
+#: ../auth-dialog/main.c:278
 msgid "Authenticate VPN"
 msgstr "Autentifikatu VPN"
 
-#: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
+#: ../auth-dialog/main.c:287 ../auth-dialog/main.c:384
 msgid "Certificate password:"
-msgstr ""
+msgstr "Ziurtagiriaren pasahitza:"
 
-#: ../auth-dialog/main.c:295
-#, fuzzy
+#: ../auth-dialog/main.c:293
 msgid "_HTTP proxy password:"
-msgstr "_Pasahitza:"
+msgstr "_HTTP proxy-aren pasahitza:"
 
-#: ../auth-dialog/main.c:372
-#, fuzzy, c-format
+#: ../auth-dialog/main.c:370
+#, c-format
 msgid "Authenticate VPN %s"
-msgstr "Autentifikatu VPN"
+msgstr "Autentifikatu %s VPNa"
 
-#: ../auth-dialog/main.c:379 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:377 ../properties/nm-sstp-dialog.ui.h:12
 msgid "Password:"
 msgstr "Pasahitza:"
 
-#: ../auth-dialog/main.c:393
-#, fuzzy
+#: ../auth-dialog/main.c:391
 msgid "HTTP proxy password:"
-msgstr "Pasahitza:"
+msgstr "HTTP proxy-aren pasahitza:"
 
-#: ../auth-dialog/main.c:508
-#, fuzzy, c-format
+#: ../auth-dialog/main.c:506
+#, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
-msgstr "Autentifikatu egin behar zara '%s' VPN-ra sarbidetzeko."
+msgstr "Autentifikatu egin behar duzu “%s” Sare Birtual Pribatura sartzeko."
 
 #: ../properties/advanced-dialog.c:235
 msgid "All Available (Default)"
@@ -106,33 +103,33 @@ msgstr "MSCHAPv2"
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/advanced-dialog.c:608
+#: ../properties/advanced-dialog.c:482
 msgid "Don't verify certificate identification"
-msgstr ""
+msgstr "Ez egiaztatu ziurtagiriaren identifikazioa"
 
-#: ../properties/advanced-dialog.c:616
+#: ../properties/advanced-dialog.c:490
 msgid "Verify subject exactly"
-msgstr ""
+msgstr "Egiaztatu subjektua zehazki"
 
-#: ../properties/advanced-dialog.c:624
+#: ../properties/advanced-dialog.c:498
 msgid "Verify name exactly"
-msgstr ""
+msgstr "Egiaztatu izena zehazki"
 
-#: ../properties/advanced-dialog.c:632
+#: ../properties/advanced-dialog.c:506
 msgid "Verify name by suffix"
-msgstr ""
+msgstr "Egiaztatu izena atzizkiaren arabera"
 
-#: ../properties/advanced-dialog.c:677
+#: ../properties/advanced-dialog.c:556
 msgid "TLS 1.2 (Default)"
-msgstr ""
+msgstr "TLS 1.2 (lehenetsia)"
 
-#: ../properties/advanced-dialog.c:685
+#: ../properties/advanced-dialog.c:564
 msgid "TLS 1.3"
-msgstr ""
+msgstr "TLS 1.3"
 
 #: ../properties/nm-sstp-editor-plugin.c:34
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Puntutik punturako tunelaren protokoloa (SSTP)"
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "Socket seguruaren tunelaren protokoloa (SSTP)"
 
 #: ../properties/nm-sstp-editor-plugin.c:35
 msgid "Compatible with Microsoft and other SSTP VPN servers."
@@ -141,137 +138,136 @@ msgstr "Microsoft eta beste SSTP VPN zerbitzariekin bateragarria."
 #: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
 #, c-format
 msgid "file is not a certificate"
-msgstr ""
+msgstr "fitxategia ez da ziurtagiria"
 
 #: ../properties/nm-sstp-editor.c:365
 #, c-format
 msgid "file is not a private key"
-msgstr ""
+msgstr "fitxategia ez da gako pribatua"
 
 #: ../properties/nm-sstp-editor.c:581
 msgid "Certificates (TLS)"
-msgstr ""
+msgstr "Ziurtagiriak (TLS)"
 
 #: ../properties/nm-sstp-editor.c:590
-#, fuzzy
 msgid "Password"
-msgstr "Pasahitza:"
+msgstr "Pasahitza"
 
 #: ../shared/nm-utils/nm-shared-utils.c:946
 #, c-format
 msgid "object class '%s' has no property named '%s'"
-msgstr ""
+msgstr "'%s' klaseko objektuak ez du '%s' izeneko propietaterik"
 
 #: ../shared/nm-utils/nm-shared-utils.c:953
 #, c-format
 msgid "property '%s' of object class '%s' is not writable"
-msgstr ""
+msgstr "'%s' propietatea ez da idazgarria '%s' klaseko objektuaren"
 
 #: ../shared/nm-utils/nm-shared-utils.c:960
 #, c-format
 msgid ""
 "construct property \"%s\" for object '%s' can't be set after construction"
-msgstr ""
+msgstr "eraiki ondoren ezin da \"% s\" eraikitzeko jabetza \"% s\" objekturako aldatu"
 
 #: ../shared/nm-utils/nm-shared-utils.c:968
 #, c-format
 msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
-msgstr ""
+msgstr "'%s::%s' ez da baliozko propietate izena; '%s' ez da GObject azpimota"
 
 #: ../shared/nm-utils/nm-shared-utils.c:977
 #, c-format
 msgid "unable to set property '%s' of type '%s' from value of type '%s'"
-msgstr ""
+msgstr "ezin ezarri '%s' propietatea, '%s' motakoa, '%s' motako baliotik"
 
 #: ../shared/nm-utils/nm-shared-utils.c:988
 #, c-format
 msgid ""
 "value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
 "type '%s'"
-msgstr ""
+msgstr "“%s” balioa '%s' motakoa ez da baliozkoa edo tartetik kanpo dago '%s' propietaterako '%s' motakoa"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
 #, c-format
 msgid "unable to get editor plugin name: %s"
-msgstr ""
+msgstr "ezin izan da editore-pluginaren izena lortu: %s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:103
 #, c-format
 msgid "missing plugin file \"%s\""
-msgstr ""
+msgstr "“%s” plugin-fitxategia falta da"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:109
 #, c-format
 msgid "cannot load editor plugin: %s"
-msgstr ""
+msgstr "ezin da editore-plugina kargatu: %s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:118
 #, c-format
 msgid "cannot load factory %s from plugin: %s"
-msgstr ""
+msgstr "ezin da %s fabrika kargatu pluginetik: %s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:144
 msgid "unknown error creating editor instance"
-msgstr ""
+msgstr "errore ezezaguna editore-instantzia sortzean"
 
 #: ../shared/utils.c:58
 msgid "Failed to initialize the crypto engine"
-msgstr ""
+msgstr "Huts egin du zifratze-motorra hasieratzeak"
 
 #: ../shared/utils.c:85
 #, c-format
 msgid "Failed to get subject name"
-msgstr ""
+msgstr "Huts egin du subjektu-izena eskuratzeak"
 
 #: ../shared/utils.c:121 ../shared/utils.c:135
 #, c-format
 msgid "Failed to load certificate"
-msgstr ""
+msgstr "Huts egin du ziurtagiria kargatzeak"
 
 #: ../shared/utils.c:128
 #, c-format
 msgid "Failed to initialize certificate"
-msgstr ""
+msgstr "Huts egin du ziurtagiria hasieratzeak"
 
 #: ../shared/utils.c:185
 #, c-format
 msgid "Failed to parse pkcs12 file"
-msgstr ""
+msgstr "Huts egin du pkcs12 fitxategia analizatzeak"
 
 #: ../shared/utils.c:191
 #, c-format
 msgid "Failed to import pkcs12 file"
-msgstr ""
+msgstr "Huts egin du pkcs12 fitxategia inportatzeak"
 
 #: ../shared/utils.c:198
 #, c-format
 msgid "Failed to initialize pkcs12 structure"
-msgstr ""
+msgstr "Huts egin du pkcs12 egitura hasieratzeak"
 
 #: ../shared/utils.c:205
 #, c-format
 msgid "Failed to read file"
-msgstr ""
+msgstr "Huts egin du fitxategiaren irakurketak"
 
 #: ../shared/utils.c:239
 #, c-format
 msgid "Failed to decrypt private key"
-msgstr ""
+msgstr "Huts egin du gako pribatuaren deszifratzeak"
 
 #: ../shared/utils.c:249
 #, c-format
 msgid "Failed to initialize private key"
-msgstr ""
+msgstr "Huts egin du gako pribatuaren hasieratzeak"
 
 #: ../shared/utils.c:257
 #, c-format
 msgid "Failed read file"
-msgstr ""
+msgstr "Huts egin du fitxategiaren irakurketak"
 
 #: ../shared/utils.c:307
-#, fuzzy, c-format
+#, c-format
 msgid "invalid delimiter character '%c'"
-msgstr "baliogabeko '%s' propietatearen zenbaki osokoa"
+msgstr ""
 
 #: ../shared/utils.c:314
 #, c-format
@@ -281,46 +277,46 @@ msgstr ""
 #: ../shared/utils.c:343
 #, c-format
 msgid "empty host"
-msgstr ""
+msgstr "ostalari hutsa"
 
 #: ../shared/utils.c:355
 #, c-format
 msgid "invalid port"
-msgstr ""
+msgstr "ataka baliogabea"
 
 #: ../src/nm-sstp-service.c:236
-#, fuzzy, c-format
+#, c-format
 msgid "invalid gateway “%s”"
-msgstr "Baliogabeko '%s' atebidea"
+msgstr "“%s” atebide baliogabea"
 
 #: ../src/nm-sstp-service.c:250
-#, fuzzy, c-format
+#, c-format
 msgid "invalid integer property “%s”"
-msgstr "baliogabeko '%s' propietatearen zenbaki osokoa"
+msgstr "“%s” zenbaki osoko propietate baliogabea"
 
 #: ../src/nm-sstp-service.c:260
-#, fuzzy, c-format
+#, c-format
 msgid "invalid boolean property “%s” (not yes or no)"
-msgstr "baliogabeko '%s' propietatearen boolearra (ez bai/ez)"
+msgstr "“%s” propietate boolear baliogabea (ez da bai edo ez)"
 
 #: ../src/nm-sstp-service.c:267
-#, fuzzy, c-format
+#, c-format
 msgid "unhandled property “%s” type %s"
-msgstr "kudeatu gabeko '%s' propietatearen '%s' mota"
+msgstr "maneiatu gabeko “%s” propietate mota %s"
 
 #: ../src/nm-sstp-service.c:278
-#, fuzzy, c-format
+#, c-format
 msgid "property “%s” invalid or not supported"
-msgstr "'%s' propietatea baliogabea edo ez dago onartuta"
+msgstr "“%s” propietatea baliogabea da ez dago onartuta"
 
 #: ../src/nm-sstp-service.c:296
 msgid "No VPN configuration options."
 msgstr "Ez dago VPNaren konfigurazioaren aukerarik."
 
 #: ../src/nm-sstp-service.c:316
-#, fuzzy, c-format
+#, c-format
 msgid "Missing required option “%s”."
-msgstr "Beharrezko '%s' aukera falta da."
+msgstr "Derrigorrezkoa den “%s” aukera falta da."
 
 #: ../src/nm-sstp-service.c:486
 msgid "Could not find sstp client binary."
@@ -330,68 +326,63 @@ msgstr "Ezin izan da sstp-ren bezeroaren bitarrik aurkitu."
 msgid "Missing VPN gateway."
 msgstr "VPN-aren atebidea falta da."
 
-#: ../src/nm-sstp-service.c:922
+#: ../src/nm-sstp-service.c:929
 msgid "Could not find the pppd binary."
 msgstr "Ezin izan da pppd-ren bitarrik aurkitu."
 
-#: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
+#: ../src/nm-sstp-service.c:994 ../src/nm-sstp-service.c:1013
 msgid "Missing VPN username."
 msgstr "VPN-aren erabiltzaile-izena falta da."
 
-#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
+#: ../src/nm-sstp-service.c:1002 ../src/nm-sstp-service.c:1021
 msgid "Missing or invalid VPN password."
 msgstr "VPN-aren pasahitza falta da, edo baliogabea da."
 
-#: ../src/nm-sstp-service.c:1163
+#: ../src/nm-sstp-service.c:1170
 msgid "Invalid or missing SSTP gateway."
 msgstr "SSTP-ren atebidea falta da, edo baliogabea da."
 
-#: ../src/nm-sstp-service.c:1224
+#: ../src/nm-sstp-service.c:1231
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
-msgstr ""
+msgstr "Ezin izan da eskaera prozesatu VPN konexioaren ezarpenak baliogabekoak direlako."
 
-#: ../src/nm-sstp-service.c:1259
+#: ../src/nm-sstp-service.c:1266
 msgid "Invalid connection type."
-msgstr ""
+msgstr "Baliogabeko konexio mota."
 
-#: ../src/nm-sstp-service.c:1453
+#: ../src/nm-sstp-service.c:1460
 msgid "Don't quit when VPN connection terminates"
 msgstr "Ez irten VPNaren konexioa amaitzean"
 
-#: ../src/nm-sstp-service.c:1454
+#: ../src/nm-sstp-service.c:1461
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr "Gaitu arazketaren erregistro xehea (pasahitzak erakuts ditzake)"
 
-#: ../src/nm-sstp-service.c:1455
+#: ../src/nm-sstp-service.c:1462
 msgid "D-Bus name to use for this instance"
-msgstr ""
+msgstr "Instantzia honetan erabiliko den D-Bus izena"
 
-#: ../src/nm-sstp-service.c:1476
+#: ../src/nm-sstp-service.c:1483
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
-msgstr ""
-"'nm-sstp-service' zerbitzuak (Microsoft eta beste inplementazioekin "
-"bateragarria den) VPN SSTP gaitasuna erabiltzea baimentzen dio "
-"NetworkManager-i."
+msgstr "'nm-sstp-service' zerbitzuak (Microsoft eta beste inplementazioekin bateragarria den) VPN SSTP gaitasuna erabiltzea baimentzen dio NetworkManager-i."
 
 #: ../properties/nm-sstp-dialog.ui.h:1
 msgid "Default"
 msgstr "Lehenetsia"
 
 #: ../properties/nm-sstp-dialog.ui.h:2
-#, fuzzy
 msgid "<b>General</b>"
-msgstr "Orokorra"
+msgstr "<b>Orokorra</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:3
 msgid ""
 "SSTP server IP or name.\n"
 "config: the first parameter of sstp"
-msgstr ""
-"SSTP zerbitzariaren IPa edo izena.\n"
+msgstr "SSTP zerbitzariaren IPa edo izena.\n"
 "konfigurazioa: sstp-ren aurreneko parametroa"
 
 #: ../properties/nm-sstp-dialog.ui.h:5
@@ -403,29 +394,24 @@ msgid "Authentication"
 msgstr "Autentifikazioa"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
-#, fuzzy
 msgid "CA"
-msgstr "CHAP"
+msgstr "ZE"
 
 #: ../properties/nm-sstp-dialog.ui.h:8
 msgid "User"
-msgstr ""
+msgstr "Erabiltzailea"
 
 #: ../properties/nm-sstp-dialog.ui.h:9
-#, fuzzy
 msgid "Username:"
-msgstr "_Erabiltzaile-izena:"
+msgstr "Erabiltzaile-izena:"
 
 #: ../properties/nm-sstp-dialog.ui.h:10
-#, fuzzy
 msgid ""
 "Set the name used for authenticating the local system to the peer to "
 "<name>.\n"
 "            config: user <name>"
-msgstr ""
-"Ezarri parekoari <izena> (sistema lokalean autentifikatzeko erabilitako "
-"izena).\n"
-"konfigurazioa: user <izena>"
+msgstr "Ezarri parekoari <izena> (sistema lokalean autentifikatzeko erabilitako izena).\n"
+"            konfigurazioa: user <izena>"
 
 #: ../properties/nm-sstp-dialog.ui.h:13
 msgid "Password passed to SSTP when prompted for it."
@@ -440,24 +426,20 @@ msgid "NT Domain:"
 msgstr "NT domeinua:"
 
 #: ../properties/nm-sstp-dialog.ui.h:16
-#, fuzzy
 msgid ""
 "Append the domain name <domain> to the local host name for authentication "
 "purposes.\n"
 "            config: domain <domain>"
-msgstr ""
-"Erantsi <domeinua> domeinu-izena ostalari lokalaren izenari "
-"autentifikatzeko.\n"
-"konfigurazioa: domain <domeinua>"
+msgstr "Erantsi <domeinua> domeinu-izena ostalari lokalaren izenari autentifikatzeko.\n"
+"            konfigurazioa: domain <domeinua>"
 
 #: ../properties/nm-sstp-dialog.ui.h:18
 msgid "Type:"
-msgstr ""
+msgstr "Mota:"
 
 #: ../properties/nm-sstp-dialog.ui.h:19
-#, fuzzy
 msgid "Select an authentication mode."
-msgstr "Onartu honako autentifikazio metodoak:"
+msgstr "Hautatu autentifikazio-modu bat."
 
 #: ../properties/nm-sstp-dialog.ui.h:20
 msgid "Ad_vanced..."
@@ -469,11 +451,11 @@ msgstr "SSTP-ren aukera aurreratuak"
 
 #: ../properties/nm-sstp-dialog.ui.h:22
 msgid "<b>SSL Tunnel</b>"
-msgstr ""
+msgstr "<b>SSL tunela</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:23
 msgid "_Verify certificate type and extended key usage"
-msgstr ""
+msgstr "_Egiaztatu ziuritagiri mota eta gako-erabilera hedatua"
 
 #: ../properties/nm-sstp-dialog.ui.h:24
 msgid ""
@@ -494,21 +476,19 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:27
 msgid "<b>Certificate Revocation</b>"
-msgstr ""
+msgstr "<b>Ziurtagiri-errebokazioa</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:28
 msgid "CRL"
-msgstr ""
+msgstr "CRL"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
-#, fuzzy
 msgid "Connection"
-msgstr "Konektatu _anonimo gisa"
+msgstr "Konexioa"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
-#, fuzzy
 msgid "<b>Authentication</b>"
-msgstr "Autentifikazioa"
+msgstr "<b>Autentifikazioa</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:31
 msgid "Allow the following authentication methods:"
@@ -518,29 +498,23 @@ msgstr "Onartu honako autentifikazio metodoak:"
 msgid ""
 "Allow/disable authentication methods.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
-msgstr ""
-"Baimendu/desgaitu autentifikazio-metodoak.\n"
-"konfigurazioa: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, "
-"refuse-eap"
+msgstr "Baimendu/desgaitu autentifikazio-metodoak.\n"
+"konfigurazioa: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
 #: ../properties/nm-sstp-dialog.ui.h:34
-#, fuzzy
 msgid "<b>Security and Compression</b>"
-msgstr "Segurtasuna eta konpresioa"
+msgstr "<b>Segurtasuna eta konpresioa</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:35
 msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "Erabili _puntutik punturako enkriptatzea (MPPE)"
+msgstr "Erabili _puntutik punturako zifratzea (MPPE)"
 
 #: ../properties/nm-sstp-dialog.ui.h:36
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
 "methods: MSCHAP or MSCHAPv2."
-msgstr ""
-"Oharra: MPPE enkriptazioa soilik erabilgarri dago MSCHAP autentifikazio "
-"metodoekin. Kontrol-koadro hau aktibatzeko, hautatu MSCHAP autentifikazio "
-"metodo bat edo gehiago: MSCHAP edo MSCHAPv2."
+msgstr "Oharra: MPPE zifratzea soilik erabilgarri dago MSCHAP autentifikazio metodoekin. Kontrol-koadro hau aktibatzeko, hautatu MSCHAP autentifikazio metodo bat edo gehiago: MSCHAP edo MSCHAPv2."
 
 #: ../properties/nm-sstp-dialog.ui.h:37
 msgid "_Security:"
@@ -550,21 +524,18 @@ msgstr "_Segurtasuna:"
 msgid ""
 "Require the use of MPPE, with 40/128-bit encryption or all.\n"
 "config: require-mppe, require-mppe-128 or require-mppe-40"
-msgstr ""
-"MPPE erabiltzea behar du, 40/128 bit-eko enkriptazioarekin edo guztiak.\n"
+msgstr "MPPE erabiltzea behar du, 40/128 bit-eko zifratzearekin edo guztiak.\n"
 "konfigurazioa: require-mppe, require-mppe-128 or require-mppe-40"
 
 #: ../properties/nm-sstp-dialog.ui.h:40
 msgid "Allow st_ateful encryption"
-msgstr "Onartu enkriptazioa _egoerarekin"
+msgstr "Onartu zifratzea _egoerarekin"
 
 #: ../properties/nm-sstp-dialog.ui.h:41
 msgid ""
 "Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
 "config: mppe-stateful (when checked)"
-msgstr ""
-"Baimendu MPPE-k egoeraren modua erabiltzea. Hala ere, egoerarik gabeko modua "
-"saiatuko da lehendabizi.\n"
+msgstr "Baimendu MPPE-k egoeraren modua erabiltzea. Hala ere, egoerarik gabeko modua saiatuko da lehendabizi.\n"
 "konfigurazioa: mppe-stateful (aktibatutakoan)"
 
 #: ../properties/nm-sstp-dialog.ui.h:43
@@ -575,8 +546,7 @@ msgstr "Onartu _BSD datu-konpresioa"
 msgid ""
 "Allow/disable BSD-Compress compression.\n"
 "config: nobsdcomp (when unchecked)"
-msgstr ""
-"Baimendu/desgaitu BSD-Compress konpresioa.\n"
+msgstr "Baimendu/desgaitu BSD-Compress konpresioa.\n"
 "konfigurazioa: nobsdcomp (desaktibatutakoan)"
 
 #: ../properties/nm-sstp-dialog.ui.h:46
@@ -587,8 +557,7 @@ msgstr "Onartu _Deflate datu-konpresioa"
 msgid ""
 "Allow/disable Deflate compression.\n"
 "config: nodeflate (when unchecked)"
-msgstr ""
-"Baimendu/desgaitu Deflate konpresioa.\n"
+msgstr "Baimendu/desgaitu Deflate konpresioa.\n"
 "konfigurazioa: nodeflate (desaktibatutakoan)"
 
 #: ../properties/nm-sstp-dialog.ui.h:49
@@ -600,14 +569,12 @@ msgid ""
 "Allow/disable Van Jacobson style TCP/IP header compression in both the "
 "transmit and the receive directions.\n"
 "config: novj (when unchecked)"
-msgstr ""
-"Baimendu/desgaitu Van Jacobson estiloa TCP/IParen goiburuaren konpresioan bi "
-"noranzkoetan: jasotzekoa eta bidaltzekoa.\n"
+msgstr "Baimendu/desgaitu Van Jacobson estiloa TCP/IParen goiburuaren konpresioan bi noranzkoetan: jasotzekoa eta bidaltzekoa.\n"
 "konfigurazioa: novj (desaktibatutakoan)"
 
 #: ../properties/nm-sstp-dialog.ui.h:52
 msgid "<b>Echo</b>"
-msgstr ""
+msgstr "<b>Oihartzuna</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:53
 msgid "Send PPP _echo packets"
@@ -617,31 +584,31 @@ msgstr "Bidali PPP _oihartzun-paketeak"
 msgid ""
 "Send LCP echo-requests to find out whether peer is alive.\n"
 "config: lcp-echo-failure and lcp-echo-interval"
-msgstr ""
-"Bidali LCP oihartzun-eskaerak zer pareko konektatuta dagoen bilatzeko.\n"
+msgstr "Bidali LCP oihartzun-eskaerak zer pareko konektatuta dagoen bilatzeko.\n"
 "konfigurazioa: lcp-echo-failure eta lcp-echo-interval"
 
 #: ../properties/nm-sstp-dialog.ui.h:56
 msgid "<b>Misc</b>"
-msgstr ""
+msgstr "<b>Hainbat</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:57
 msgid "Use custom _unit number:"
-msgstr ""
+msgstr "Erabili _unitate-zenbaki pertsonalizatua:"
 
 #: ../properties/nm-sstp-dialog.ui.h:58
 msgid ""
 "Enable custom index for ppp<n> device name.\n"
 "config: unit <n>"
-msgstr ""
+msgstr "Erabili indize pertsonalizatua ppp<n> gailu-izenerako.\n"
+"konfig: unit <n>"
 
 #: ../properties/nm-sstp-dialog.ui.h:60
 msgid "Point-to-Point"
-msgstr ""
+msgstr "Puntutik puntura"
 
 #: ../properties/nm-sstp-dialog.ui.h:61
 msgid "<b>Identity</b>"
-msgstr ""
+msgstr "<b>Nortasuna</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:62
 msgid ""
@@ -654,7 +621,7 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:65
 msgid "<b>Certificate Validation</b>"
-msgstr ""
+msgstr "<b>Ziurtagiri-balioztatzea</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:66
 msgid "_Subject Match"
@@ -667,7 +634,7 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:68
 msgid "_Verify Method"
-msgstr ""
+msgstr "Egia_ztatu metodoa"
 
 #: ../properties/nm-sstp-dialog.ui.h:69
 msgid ""
@@ -689,11 +656,11 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:76
 msgid "<b>Compatibility</b>"
-msgstr ""
+msgstr "<b>Bateragarritasuna</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:77
 msgid "_Max TLS Version"
-msgstr ""
+msgstr "TLS bertsio _max"
 
 #: ../properties/nm-sstp-dialog.ui.h:78
 msgid ""
@@ -702,30 +669,28 @@ msgid ""
 msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:79
-#, fuzzy
 msgid "TLS Authentication"
-msgstr "Autentifikazioa"
+msgstr "TLS autentifikazioa"
 
 #: ../properties/nm-sstp-dialog.ui.h:80
 msgid "Address:"
-msgstr ""
+msgstr "Helbidea:"
 
 #: ../properties/nm-sstp-dialog.ui.h:81
 msgid "Port:"
-msgstr ""
+msgstr "Ataka:"
 
 #: ../properties/nm-sstp-dialog.ui.h:82
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../properties/nm-sstp-dialog.ui.h:83
-#, fuzzy
 msgid "Show Password"
 msgstr "Erakutsi pasahitza"
 
 #: ../properties/nm-sstp-dialog.ui.h:84
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy-a"
 
 #~ msgid "SSTP VPN Connection Manager"
 #~ msgstr "SSTP VPN konexio-kudeatzailea"
@@ -751,22 +716,18 @@ msgstr ""
 #~ msgid "Not Required"
 #~ msgstr "Ez da beharrezkoa"
 
-#, c-format
 #~ msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
 #~ msgstr ""
 #~ "ezin izan da  VPN SSTP-aren atebidearen '%s' IP helbidea bihurtu (%d)"
 
-#, c-format
 #~ msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
 #~ msgstr ""
 #~ "ezin izan da VPN SSTP-aren atebidearen '%s' IP helbidea aurkitu (%d)"
 
-#, c-format
 #~ msgid "no usable addresses returned for SSTP VPN gateway '%s'"
 #~ msgstr ""
 #~ "ez da helbide erabilgarririk  itzuli '%s' VPN SSTP-ren atebidearentzako"
 
-#, c-format
 #~ msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
 #~ msgstr ""
 #~ "ez da helbide erabilgarririk  itzuli '%s' VPN SSTP-ren atebidearentzako "
