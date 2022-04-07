@@ -20,7 +20,7 @@ SUBDIRS = \
 plugindir = $(libdir)/NetworkManager
 plugin_LTLIBRARIES =
 
-dbusservicedir = $(sysconfdir)/dbus-1/system.d
+dbusservicedir = $(datadir)/dbus-1/system.d
 dbusservice_DATA = nm-sstp-service.conf
 
 nmvpnservicedir = $(NM_VPN_SERVICE_DIR)
@@ -135,6 +135,19 @@ properties/resources.h: properties/gresource.xml
 properties/resources.c: properties/gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/properties --generate-dependencies $(srcdir)/properties/gresource.xml)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $< --target=$@ --sourcedir=$(srcdir)/properties --generate-source --internal
 
+gtk4/resources.c: properties/gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies $(srcdir)/properties/gresource.xml |sed "s,^,$(builddir)/gtk4/,")
+	@mkdir -p $(builddir)/gtk4
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $< --target=$@ --sourcedir=$(srcdir)/gtk4 --sourcedir=$(builddir)/gtk4 --generate-source --internal
+
+gtk4/%.ui: properties/%.ui
+	@mkdir -p $(builddir)/gtk4
+	gtk4-builder-tool simplify --3to4 $< |grep -v can-default >$@
+
+# Include a prebuilt file in tarball, to avoid hitting
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/4415
+EXTRA_DIST += \
+	gtk4/nm-sstp-dialog.ui
+
 plugin_sources = \
 	shared/nm-utils/nm-vpn-plugin-macros.h \
 	properties/nm-sstp-editor-plugin.c \
@@ -145,8 +158,6 @@ editor_sources = \
 	shared/nm-utils/nm-vpn-plugin-utils.h \
 	shared/utils.h \
 	shared/utils.c \
-	properties/resources.c \
-	properties/resources.h \
 	properties/advanced-dialog.c \
 	properties/advanced-dialog.h \
 	properties/nm-sstp-editor.c \
@@ -158,7 +169,9 @@ properties_cppflags = \
 
 CLEANFILES += \
 	properties/resources.c \
-	properties/resources.h
+	properties/resources.h \
+	gtk4/resources.c \
+	gtk4/nm-sstp-dialog.ui
 
 EXTRA_DIST += \
 	properties/nm-sstp-dialog.ui \
@@ -179,7 +192,6 @@ properties_libnm_vpn_plugin_sstp_la_CFLAGS = \
 	$(LIBNM_CFLAGS)
 properties_libnm_vpn_plugin_sstp_la_CPPFLAGS = \
 	-DNETWORKMANAGER_COMPILATION=NM_NETWORKMANAGER_COMPILATION_LIB_BASE \
-	-DNM_PLUGIN_DIR=\"$(NM_PLUGIN_DIR)\" \
 	$(properties_cppflags)
 properties_libnm_vpn_plugin_sstp_la_LIBADD = \
 	$(LIBNM_LIBS)
@@ -195,23 +207,64 @@ endif
 
 properties_libnm_vpn_plugin_sstp_editor_la_SOURCES = \
 	$(editor_sources)
+
+nodist_properties_libnm_vpn_plugin_sstp_editor_la_SOURCES = \
+	properties/resources.c \
+	properties/resources.h
+
 properties_libnm_vpn_plugin_sstp_editor_la_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBNM_CFLAGS) \
 	$(LIBNMA_CFLAGS) \
 	$(GNUTLS_CFLAGS)
+
 properties_libnm_vpn_plugin_sstp_editor_la_CPPFLAGS = \
 	-DNETWORKMANAGER_COMPILATION=NM_NETWORKMANAGER_COMPILATION_LIB_EDITOR \
 	$(properties_cppflags)
+
 properties_libnm_vpn_plugin_sstp_editor_la_LIBADD = \
 	$(GTK_LIBS) \
 	$(LIBNM_LIBS) \
 	$(LIBNMA_LIBS) \
 	$(GNUTLS_LIBS)
+
 properties_libnm_vpn_plugin_sstp_editor_la_LDFLAGS = \
 	-avoid-version \
 	-Wl,--version-script="$(srcdir)/properties/libnm-vpn-plugin-sstp-editor.ver"
+
+###############################################################################
+
+if WITH_GTK4
+plugin_LTLIBRARIES += properties/libnm-gtk4-vpn-plugin-sstp-editor.la
+endif
+
+properties_libnm_gtk4_vpn_plugin_sstp_editor_la_SOURCES = \
+	$(editor_sources)
+
+nodist_properties_libnm_gtk4_vpn_plugin_sstp_editor_la_SOURCES = \
+	gtk4/resources.c \
+	properties/resources.h
+
+properties_libnm_gtk4_vpn_plugin_sstp_editor_la_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK4_CFLAGS) \
+	$(LIBNM_CFLAGS) \
+	$(LIBNMA_GTK4_CFLAGS) \
+	$(GNUTLS_CFLAGS)
+
+properties_libnm_gtk4_vpn_plugin_sstp_editor_la_CPPFLAGS = \
+	$(properties_libnm_vpn_plugin_sstp_editor_la_CPPFLAGS)
+
+properties_libnm_gtk4_vpn_plugin_sstp_editor_la_LIBADD = \
+	$(GLIB_LIBS) \
+	$(GTK4_LIBS) \
+	$(LIBNM_LIBS) \
+	$(LIBNMA_GTK4_LIBS) \
+	$(GNUTLS_LIBS)
+
+properties_libnm_gtk4_vpn_plugin_sstp_editor_la_LDFLAGS = \
+	$(properties_libnm_vpn_plugin_sstp_editor_la_LDFLAGS)
 
 ###############################################################################
 
@@ -223,6 +276,10 @@ properties_libnm_sstp_properties_la_SOURCES = \
 	shared/nm-utils/nm-glib.h \
 	$(plugin_sources) \
 	$(editor_sources)
+
+nodist_properties_libnm_sstp_properties_la_SOURCES = \
+	properties/resources.c \
+	properties/resources.h
 
 properties_libnm_sstp_properties_la_CFLAGS = \
 	$(GLIB_CFLAGS) \
@@ -252,14 +309,17 @@ endif
 auth_dialog_nm_sstp_auth_dialog_SOURCES = \
 	$(shared_sources) \
 	auth-dialog/main.c
+
 auth_dialog_nm_sstp_auth_dialog_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBNM_CFLAGS) \
 	$(LIBNMA_CFLAGS) \
 	$(LIBSECRET_CFLAGS)
+
 auth_dialog_nm_sstp_auth_dialog_CPPFLAGS = \
 	-I$(top_srcdir)/shared
+
 auth_dialog_nm_sstp_auth_dialog_LDADD = \
 	$(GTK_LIBS) \
 	$(LIBNM_LIBS) \
@@ -284,7 +344,7 @@ uninstall-hook:
 	 rm -f $(DESTDIR)$(sysconfdir)/NetworkManager/VPN/nm-sstp-service.name
 endif
 
-appdatadir = $(datadir)/appdata
+appdatadir = $(datadir)/metainfo
 appdata_files = $(appdata_in_files:.xml.in=.xml)
 if WITH_GNOME
 appdata_DATA = $(appdata_files)

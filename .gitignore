@@ -15,6 +15,7 @@ ltmain.sh
 missing
 mkinstalldirs
 POTFILES
+INSTALL
 *.pot
 .dirstamp
 stamp-*
@@ -24,6 +25,7 @@ autom4te.cache
 intltool-*
 po/*.gmo
 po/.intltool-merge-cache
+po/.intltool-merge-cache.lock
 m4/gtk-doc.m4
 m4/intltool.m4
 m4/libtool.m4
@@ -31,6 +33,7 @@ m4/lt*.m4
 appdata/network-manager-sstp.metainfo.xml
 /cscope.*
 /properties/resources.[ch]
+/gtk4
 
 auth-dialog/nm-sstp-auth-dialog
 nm-sstp-service.name

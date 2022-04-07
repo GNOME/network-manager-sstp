@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*- */
 /***************************************************************************
  *
+ * Copyright (C) 2022 Eivind Naess <eivnaes@yahoo.com>
  * Copyright (C) 2008 Dan Williams, <dcbw@redhat.com>
  * Copyright (C) 2008 - 2011 Red Hat, Inc.
  * Based on work by David Zeuthen, <davidz@redhat.com>
@@ -151,23 +152,44 @@ _call_editor_factory (gpointer factory,
 static NMVpnEditor *
 get_editor (NMVpnEditorPlugin *iface, NMConnection *connection, GError **error)
 {
+	gpointer gtk3_only_symbol;
+	GModule *self_module;
+	const char *editor;
+	GError *tmp_error = NULL;
+	NMVpnEditor *retval = NULL;
+
 	g_return_val_if_fail (SSTP_IS_PLUGIN_UI (iface), NULL);
 	g_return_val_if_fail (NM_IS_CONNECTION (connection), NULL);
 	g_return_val_if_fail (!error || !*error, NULL);
 
-	{
-#if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
-		return nm_vpn_plugin_ui_widget_interface_new (connection, error);
-#else
-		return nm_vpn_plugin_utils_load_editor (NM_PLUGIN_DIR"/libnm-vpn-plugin-sstp-editor.so",
-		                                        "nm_vpn_editor_factory_sstp",
-		                                        _call_editor_factory,
-		                                        iface,
-		                                        connection,
-		                                        NULL,
-		                                        error);
-#endif
+	self_module = g_module_open (NULL, 0);
+	g_module_symbol (self_module, "gtk_container_add", &gtk3_only_symbol);
+	g_module_close (self_module);
+
+	if (gtk3_only_symbol) {
+		editor = "libnm-vpn-plugin-sstp-editor.so";
+	} else {
+		editor = "libnm-gtk4-vpn-plugin-sstp-editor.so";
 	}
+
+#if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
+	retval = nm_vpn_plugin_ui_widget_interface_new (connection, error);
+#else
+	retval = nm_vpn_plugin_utils_load_editor (editor,
+											"nm_vpn_editor_factory_sstp",
+											_call_editor_factory,
+											iface,
+											connection,
+											NULL,
+											&tmp_error);
+#endif
+    if (retval == NULL) {
+        if (tmp_error != NULL) {
+            g_info ("Could not load Vpn Editor Plugin \"%s\": %s", editor, tmp_error->message);
+            g_propagate_error (error, tmp_error);
+        }
+    }
+    return retval;
 }
 
 static void

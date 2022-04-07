@@ -973,8 +973,9 @@ handle_need_secrets (NMDBusSstpPpp *object,
     NMSstpPlugin *self = NM_SSTP_PLUGIN (user_data);
     NMSstpPluginPrivate *priv = NM_SSTP_PLUGIN_GET_PRIVATE (self);
     NMSettingVpn *s_vpn;
-    const char *user, *password, *domain, *value;
+    const char *user = NULL, *password = NULL, *domain, *value;
     gchar *username;
+    gboolean is_encr;
 
     remove_timeout_handler (NM_SSTP_PLUGIN (user_data));
 
@@ -1002,6 +1003,20 @@ handle_need_secrets (NMDBusSstpPpp *object,
                                                            _("Missing or invalid VPN password."));
             return FALSE;
         }
+
+        /* Domain is optional */
+        domain = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_DOMAIN);
+
+        /* Success */
+        if (domain && strlen (domain))
+            username = g_strdup_printf ("%s\\%s", domain, user);
+        else
+            username = g_strdup (user);
+
+        nmdbus_sstp_ppp_complete_need_secrets (object, invocation, username, password);
+        g_free (username);
+
+        return TRUE;
     }
     else {
         /* In case of certificates, the username is the certificate file */
@@ -1013,29 +1028,32 @@ handle_need_secrets (NMDBusSstpPpp *object,
                                                            _("Missing VPN username."));
             return FALSE;
         }
-        password = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET);
-        if (!password || !strlen (password)) {
+
+        if (nm_utils_file_is_private_key(user, &is_encr)) {
+            if (is_encr) {
+                password = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_TLS_USER_KEY_SECRET);
+                if (!password || !strlen (password)) {
+                    g_dbus_method_invocation_return_error_literal (invocation,
+                                                                   NM_VPN_PLUGIN_ERROR,
+                                                                   NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
+                                                                   _("Missing or invalid VPN password."));
+                    return FALSE;
+                }
+            } else {
+                password = "";
+            }
+        }
+        else {
             g_dbus_method_invocation_return_error_literal (invocation,
                                                            NM_VPN_PLUGIN_ERROR,
                                                            NM_VPN_PLUGIN_ERROR_INVALID_CONNECTION,
-                                                           _("Missing or invalid VPN password."));
+                                                           _("Invalid private key file"));
             return FALSE;
         }
+
+        nmdbus_sstp_ppp_complete_need_secrets (object, invocation, user, password);
+        return TRUE;
     }
-
-    /* Domain is optional */
-    domain = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_DOMAIN);
-
-    /* Success */
-    if (domain && strlen (domain))
-        username = g_strdup_printf ("%s\\%s", domain, user);
-    else
-        username = g_strdup (user);
-
-    nmdbus_sstp_ppp_complete_need_secrets (object, invocation, username, password);
-    g_free (username);
-
-    return TRUE;
 }
 
 static gboolean
@@ -1233,7 +1251,7 @@ real_need_secrets (NMVpnServicePlugin *plugin,
     }
 
     ctype = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
-    if (nm_streq (ctype, NM_SSTP_CONTYPE_PASSWORD)) {
+    if (nm_streq0 (ctype, NM_SSTP_CONTYPE_PASSWORD)) {
 
         /* Don't need the password if we already have one */
         if (nm_setting_vpn_get_secret (NM_SETTING_VPN (s_vpn), NM_SSTP_KEY_PASSWORD))
@@ -1247,7 +1265,7 @@ real_need_secrets (NMVpnServicePlugin *plugin,
         *setting_name = NM_SETTING_VPN_SETTING_NAME;
         return TRUE;
     }
-    else if (nm_streq (ctype, NM_SSTP_CONTYPE_TLS)) {
+    else if (nm_streq0 (ctype, NM_SSTP_CONTYPE_TLS)) {
 
         /* The private key may require a password */
         key = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_USER_KEY);

@@ -120,7 +120,7 @@ validate (SstpPluginUiWidget *self, GError **error)
 
     widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "gateway_entry"));
     g_return_val_if_fail (widget, FALSE);
-    str = gtk_entry_get_text (GTK_ENTRY (widget));
+    str = gtk_editable_get_text (GTK_EDITABLE (widget));
     if (str && nm_sstp_parse_gateway(str, NULL, NULL, NULL, NULL) == -1) {
         gtk_style_context_remove_class (gtk_widget_get_style_context (widget), "error");
     } else {
@@ -162,11 +162,9 @@ auth_combo_changed_cb (GtkWidget *combo, gpointer user_data)
     GtkTreeModel *model;
     GtkTreeIter iter;
     int new_page;
-    gboolean status;
 
     model = gtk_combo_box_get_model (GTK_COMBO_BOX (combo));
-    status = gtk_combo_box_get_active_iter (GTK_COMBO_BOX (combo), &iter);
-    g_assert (status);
+    g_assert (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (combo), &iter));
     gtk_tree_model_get (model, &iter, COL_AUTH_PAGE, &new_page, -1);
     priv->is_tls = new_page == 0;
 
@@ -180,8 +178,8 @@ static void
 advanced_dialog_close_cb (GtkWidget *dialog, gpointer user_data)
 {
     gtk_widget_hide (dialog);
-    /* gtk_widget_destroy() will remove the window from the window group */
-    gtk_widget_destroy (dialog);
+    /* gtk_window_destroy() will remove the window from the window group */
+    gtk_window_destroy (GTK_WINDOW(dialog));
 }
 
 static void
@@ -214,10 +212,11 @@ advanced_button_clicked_cb (GtkWidget *button, gpointer user_data)
 {
     SstpPluginUiWidget *self = SSTP_PLUGIN_UI_WIDGET (user_data);
     SstpPluginUiWidgetPrivate *priv = SSTP_PLUGIN_UI_WIDGET_GET_PRIVATE (self);
-    GtkWidget *dialog, *toplevel;
+    GtkWidget *dialog;
+    GtkRoot *root;
 
-    toplevel = gtk_widget_get_toplevel (priv->widget);
-    g_return_if_fail (gtk_widget_is_toplevel (toplevel));
+    root = gtk_widget_get_root (priv->widget);
+    g_return_if_fail (GTK_IS_WINDOW(root));
 
     dialog = advanced_dialog_new (priv->advanced, priv->is_tls, priv->subject);
     if (!dialog) {
@@ -227,15 +226,15 @@ advanced_button_clicked_cb (GtkWidget *button, gpointer user_data)
 
     gtk_window_group_add_window (priv->window_group, GTK_WINDOW (dialog));
     if (!priv->window_added) {
-        gtk_window_group_add_window (priv->window_group, GTK_WINDOW (toplevel));
+        gtk_window_group_add_window (priv->window_group, GTK_WINDOW (root));
         priv->window_added = TRUE;
     }
 
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (toplevel));
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (root));
     g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (advanced_dialog_response_cb), self);
     g_signal_connect (G_OBJECT (dialog), "close", G_CALLBACK (advanced_dialog_close_cb), self);
 
-    gtk_widget_show_all (dialog);
+    gtk_widget_show (dialog);
 }
 
 static void
@@ -245,7 +244,7 @@ show_toggled_cb (GtkCheckButton *button, SstpPluginUiWidget *self)
     GtkWidget *widget;
     gboolean visible;
 
-    visible = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button));
+    visible = gtk_check_button_get_active (GTK_CHECK_BUTTON (button));
 
     widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_password_entry"));
     g_assert (widget);
@@ -490,7 +489,7 @@ pw_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed_
     if (s_vpn) {
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_USER);
         if (value && strlen (value))
-            gtk_entry_set_text (GTK_ENTRY (widget), value);
+            gtk_editable_set_text (GTK_EDITABLE (widget), value);
     }
     g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (changed_cb), self);
     
@@ -500,7 +499,7 @@ pw_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed_
     if (s_vpn) {
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_DOMAIN);
         if (value && strlen (value))
-            gtk_entry_set_text (GTK_ENTRY (widget), value);
+            gtk_editable_set_text (GTK_EDITABLE (widget), value);
     }
     g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (changed_cb), self);
  
@@ -510,7 +509,7 @@ pw_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed_
     if (s_vpn) {
         value = nm_setting_vpn_get_secret (s_vpn, NM_SSTP_KEY_PASSWORD);
         if (value) {
-            gtk_entry_set_text (GTK_ENTRY (widget), value);
+            gtk_editable_set_text (GTK_EDITABLE (widget), value);
         }
     }
     g_signal_connect (widget, "changed", G_CALLBACK (changed_cb), self);
@@ -523,7 +522,7 @@ pw_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed_
         nm_setting_get_secret_flags (NM_SETTING (s_vpn), NM_SSTP_KEY_PASSWORD, &pw_flags, NULL);
     }
 
-    value = gtk_entry_get_text (GTK_ENTRY (widget));
+    value = gtk_editable_get_text (GTK_EDITABLE (widget));
     if ((!value || !*value) && (pw_flags == NM_SETTING_SECRET_FLAG_NONE)) {
         nma_utils_update_password_storage (widget, NM_SETTING_SECRET_FLAG_NOT_SAVED,
                            (NMSetting *) s_vpn, NM_SSTP_KEY_PASSWORD);
@@ -559,7 +558,7 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
     if (s_vpn) {
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_GATEWAY);
         if (value && strlen (value)) {
-            gtk_entry_set_text (GTK_ENTRY (widget), value);
+            gtk_editable_set_text (GTK_EDITABLE (widget), value);
         }
     }
     g_signal_connect (G_OBJECT (widget), "changed", G_CALLBACK (stuff_changed_cb), self);
@@ -567,6 +566,9 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
     /* Authentication Combo */
     widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "auth_combo"));
     g_return_val_if_fail (widget != NULL, FALSE);
+
+    store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING);
+
     if (s_vpn) {
         contype = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
         if (!NM_IN_STRSET (contype, NM_SSTP_CONTYPE_TLS,
@@ -575,14 +577,16 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
     }
 
     /* Certificate (TLS) Tab */
-    store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING);
+    tls_setup(self, s_vpn, stuff_changed_cb);
+
     gtk_list_store_append (store, &iter);
     gtk_list_store_set (store, &iter,
                         COL_AUTH_NAME, _("Certificates (TLS)"),
                         COL_AUTH_PAGE, 0,
                         COL_AUTH_TYPE, NM_SSTP_CONTYPE_TLS,
                         -1);
-    tls_setup(self, s_vpn, stuff_changed_cb);
+
+    pw_setup(self, s_vpn, stuff_changed_cb);
 
     /* Password Tab */
     gtk_list_store_append (store, &iter);
@@ -591,7 +595,6 @@ init_plugin_ui (SstpPluginUiWidget *self, NMConnection *connection, GError **err
                         COL_AUTH_PAGE, 1,
                         COL_AUTH_TYPE, NM_SSTP_CONTYPE_PASSWORD,
                         -1);
-    pw_setup(self, s_vpn, stuff_changed_cb);
 
     if (active < 0
         && nm_streq (contype, NM_SSTP_CONTYPE_PASSWORD)) {
@@ -677,7 +680,7 @@ update_connection (NMVpnEditor *iface,
 
     /* Gateway */
     widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "gateway_entry"));
-    str = gtk_entry_get_text (GTK_ENTRY (widget));
+    str = gtk_editable_get_text (GTK_EDITABLE (widget));
     if (str && strlen (str)) {
         nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_GATEWAY, str);
     }
@@ -691,14 +694,14 @@ update_connection (NMVpnEditor *iface,
 
             /* Username */
             widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_entry"));
-            str = gtk_entry_get_text (GTK_ENTRY (widget));
+            str = gtk_editable_get_text (GTK_EDITABLE (widget));
             if (str && strlen (str)) {
                 nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_USER, str);
             }
 
             /* User password */
             widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "user_password_entry"));
-            str = gtk_entry_get_text (GTK_ENTRY (widget));
+            str = gtk_editable_get_text (GTK_EDITABLE (widget));
             if (str && *str) {
                 nm_setting_vpn_add_secret (s_vpn, NM_SSTP_KEY_PASSWORD, str);
             }
@@ -709,7 +712,7 @@ update_connection (NMVpnEditor *iface,
 
             /* Domain */
             widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "domain_entry"));
-            str = gtk_entry_get_text (GTK_ENTRY (widget));
+            str = gtk_editable_get_text (GTK_EDITABLE (widget));
             if (str && strlen (str)) {
                 nm_setting_vpn_add_data_item (s_vpn, NM_SSTP_KEY_DOMAIN, str);
             }

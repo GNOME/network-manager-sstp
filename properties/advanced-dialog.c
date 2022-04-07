@@ -22,6 +22,7 @@
 
 #include "nm-default.h"
 
+#include "nm-sstp-editor.h"
 #include "advanced-dialog.h"
 
 #include <string.h>
@@ -45,6 +46,11 @@
 #define TAG_MSCHAP    2
 #define TAG_MSCHAPV2  3
 #define TAG_EAP       4
+
+#define PAGE_CONNECTION  0
+#define PAGE_POINT2POINT 1
+#define PAGE_TLS         2
+#define PAGE_PROXY       3
 
 static const char *advanced_keys[] = {
     NM_SSTP_KEY_REFUSE_EAP,
@@ -89,8 +95,8 @@ show_proxy_password_toggled_cb (GtkCheckButton *button, gpointer user_data)
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_password_entry"));
     g_assert (widget);
     
-    visible = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button));
-    gtk_entry_set_visibility (GTK_ENTRY (widget), visible);
+    visible = gtk_check_button_get_active (GTK_CHECK_BUTTON (button));
+    gtk_entry_set_visibility (GTK_ENTRY(widget), visible);
 }
 
 static void
@@ -161,7 +167,7 @@ static void handle_mppe_changed (GtkWidget *check, gboolean is_init, GtkBuilder 
     gboolean valid;
 
     mppe_sensitive = gtk_widget_get_sensitive (check);
-    use_mppe = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+    use_mppe = gtk_check_button_get_active (GTK_CHECK_BUTTON (check));
 
     /* (De)-sensitize MPPE related stuff */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mppe_security_label"));
@@ -314,7 +320,7 @@ check_toggled_cb (GtkCellRendererToggle *cell, gchar *path_str, gpointer user_da
     /* Make sure MPPE is non-sensitive if MSCHAP, MSCHAPv2 and EAP are disabled */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_use_mppe"));
     if (!mppe) {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), FALSE);
         gtk_widget_set_sensitive (widget, FALSE);
     } else {
         gtk_widget_set_sensitive (widget, TRUE);
@@ -449,7 +455,7 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
     /* Make sure MPPE is non-sensitive if MSCHAP and MSCHAPv2 are disabled */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_use_mppe"));
     if (!mschap_state && !mschap2_state && !eap_state) {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), FALSE);
         gtk_widget_set_sensitive (widget, FALSE);
     } else
         gtk_widget_set_sensitive (widget, TRUE);
@@ -458,7 +464,7 @@ auth_methods_setup (GtkBuilder *builder, GHashTable *hash)
 static void
 tls_page_setup(GtkBuilder *builder, GHashTable *hash, gboolean is_tls, gchar *subject)
 {
-    GtkWidget *widget;
+    GtkWidget *widget, *page;
     GtkListStore *store;
     GtkTreeIter iter;
     const char  *value;
@@ -469,10 +475,10 @@ tls_page_setup(GtkBuilder *builder, GHashTable *hash, gboolean is_tls, gchar *su
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_identity"));
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_IDENTITY);
         if (value && strlen (value)) {
-            gtk_entry_set_text (GTK_ENTRY (widget), value);
+            gtk_editable_set_text (GTK_EDITABLE (widget), value);
         }
         else if (subject && strlen (subject)) {
-            gtk_entry_set_text (GTK_ENTRY (widget), subject);
+            gtk_editable_set_text (GTK_EDITABLE (widget), subject);
         }
 
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_METHOD);
@@ -518,15 +524,15 @@ tls_page_setup(GtkBuilder *builder, GHashTable *hash, gboolean is_tls, gchar *su
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_entry"));
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_REMOTENAME);
         if (value && strlen (value)) {
-          gtk_entry_set_text (GTK_ENTRY (widget), value);
+          gtk_editable_set_text (GTK_EDITABLE (widget), value);
         }
 
         active = -1;
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_keyusage_check"));
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), FALSE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON(widget), FALSE);
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE);
         if (value && !strcmp (value, "yes"))
-            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);
+            gtk_check_button_set_active (GTK_CHECK_BUTTON(widget), TRUE);
 
 #ifndef USE_PPP_EXT_TLS_SETTINGS
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "vbox_tls_validation"));
@@ -579,9 +585,9 @@ tls_page_setup(GtkBuilder *builder, GHashTable *hash, gboolean is_tls, gchar *su
 #endif
 
     } else {
-        // Desensitize the child widgets of alignment_tls if not TLS
-        widget = GTK_WIDGET (gtk_builder_get_object (builder, "alignment_tls"));
-        gtk_widget_set_sensitive(widget, is_tls);
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "adv_notebook"));
+        page = GTK_WIDGET (gtk_notebook_get_nth_page(GTK_NOTEBOOK(widget), PAGE_TLS));
+        gtk_widget_hide(page);
     }
 }
 
@@ -590,7 +596,7 @@ checkbox_toggled_update_widget_cb (GtkWidget *check, gpointer user_data)
 {
     GtkWidget *widget = (GtkWidget*) user_data;
 
-    gtk_widget_set_sensitive (widget, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check)));
+    gtk_widget_set_sensitive (widget, gtk_check_button_get_active (GTK_CHECK_BUTTON (check)));
 }
 
 GtkWidget *
@@ -650,13 +656,13 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_IGN_CERT_WARN);
     if (value && !strcmp (value, "yes")) {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
     }
     
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_hostext_checkbutton"));
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_EXT_ENABLE);
     if (value && !strcmp (value, "yes")) {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
     }
 
     setup_security_combo (builder, hash);
@@ -675,30 +681,30 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_use_mppe"));
     if (mppe)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_allow_stateful_mppe"));
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_MPPE_STATEFUL);
     if (value && !strcmp (value, "yes"))
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_allow_bsdcomp"));
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_NOBSDCOMP);
     if (value && !strcmp (value, "yes"))
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), FALSE);
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_allow_deflate"));
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_NODEFLATE);
     if (value && !strcmp (value, "yes"))
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), FALSE);
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_usevj"));
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_NO_VJ_COMP);
     if (value && !strcmp (value, "yes"))
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), FALSE);
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_send_echo_packets"));
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_LCP_ECHO_INTERVAL);
@@ -708,7 +714,7 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
         errno = 0;
         tmp_int = strtol (value, NULL, 10);
         if (errno == 0 && tmp_int > 0)
-            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+            gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
     }
 
     auth_methods_setup (builder, hash);
@@ -734,18 +740,18 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
         gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), (gdouble) tmp);
         
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_server_entry"));
-        gtk_entry_set_text (GTK_ENTRY (widget), value);
+        gtk_editable_set_text (GTK_EDITABLE (widget), value);
         
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_USER);
         if (value && strlen (value)) {
             widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_username_entry"));
-            gtk_entry_set_text (GTK_ENTRY (widget), value);
+            gtk_editable_set_text (GTK_EDITABLE (widget), value);
         }
         
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_PASSWORD);
         if (value && strlen (value)) {
             widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_password_entry"));
-            gtk_entry_set_text (GTK_ENTRY (widget), value);
+            gtk_editable_set_text (GTK_EDITABLE (widget), value);
         }
         
         value = g_hash_table_lookup (hash, NM_SSTP_KEY_PROXY_PASSWORD_FLAGS);
@@ -773,14 +779,14 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
         errno = 0;
         tmp = strtol (value, NULL, 10);
         if (errno == 0 && tmp >= 0 && tmp < 65536) {
-            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
+            gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
 
             widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
             gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), (gdouble) tmp);
             gtk_widget_set_sensitive (widget, TRUE);
         }
     } else {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), FALSE);
 
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
         gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), 0.0);
@@ -835,13 +841,13 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 
     /* Ignore Certificate Warnings */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))) {
         g_hash_table_insert (hash, g_strdup(NM_SSTP_KEY_IGN_CERT_WARN), g_strdup("yes"));
     }
 
     /* Enable TLS hostname extensions */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_hostext_checkbutton"));
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))) {
         g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_TLS_EXT_ENABLE), g_strdup ("yes"));
     }
 
@@ -882,7 +888,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
     }
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_use_mppe"));
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))) {
 
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mppe_security_combo"));
         switch (gtk_combo_box_get_active (GTK_COMBO_BOX (widget))) {
@@ -898,30 +904,30 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
         }
 
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_allow_stateful_mppe"));
-        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+        if (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget)))
             g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_MPPE_STATEFUL), g_strdup ("yes"));
     }
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_allow_bsdcomp"));
-    if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+    if (!gtk_check_button_get_active (GTK_CHECK_BUTTON (widget)))
         g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_NOBSDCOMP), g_strdup ("yes"));
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_allow_deflate"));
-    if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+    if (!gtk_check_button_get_active (GTK_CHECK_BUTTON (widget)))
         g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_NODEFLATE), g_strdup ("yes"));
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_usevj"));
-    if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+    if (!gtk_check_button_get_active (GTK_CHECK_BUTTON (widget)))
         g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_NO_VJ_COMP), g_strdup ("yes"));
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_send_echo_packets"));
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))) {
         g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_LCP_ECHO_FAILURE), g_strdup_printf ("%d", 5));
         g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_LCP_ECHO_INTERVAL), g_strdup_printf ("%d", 30));
     }
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_checkbutton"));
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))) {
         int unit_num;
 
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_unit_spinbutton"));
@@ -932,7 +938,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 
     /* TLS Authentication */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_identity"));
-    value = gtk_entry_get_text (GTK_ENTRY (widget));
+    value = gtk_editable_get_text (GTK_EDITABLE (widget));
     if (value && strlen (value)) {
         g_hash_table_insert (hash,
                              g_strdup (NM_SSTP_KEY_TLS_IDENTITY),
@@ -955,7 +961,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
     }
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_entry"));
-    value = gtk_entry_get_text (GTK_ENTRY (widget));
+    value = gtk_editable_get_text (GTK_EDITABLE (widget));
     if (value && strlen (value)) {
         g_hash_table_insert (hash,
                              g_strdup (NM_SSTP_KEY_TLS_REMOTENAME),
@@ -964,7 +970,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_remote_keyusage_check"));
     g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_TLS_VERIFY_KEY_USAGE),
-                               g_strdup (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)) ? "yes" : "no"));
+                               g_strdup (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget)) ? "yes" : "no"));
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_version_max_combo"));
     model = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
@@ -983,7 +989,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
 
     /* Proxy support */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_server_entry"));
-    value = (char *) gtk_entry_get_text (GTK_ENTRY (widget));
+    value = (char *) gtk_editable_get_text (GTK_EDITABLE (widget));
     if (value && strlen(value))
     {
         NMSettingSecretFlags pw_flags;
@@ -999,7 +1005,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
         }
         
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_username_entry"));
-        value = (char *) gtk_entry_get_text (GTK_ENTRY (widget));
+        value = (char *) gtk_editable_get_text (GTK_EDITABLE (widget));
         if (value && strlen (value)) {
             g_hash_table_insert (hash,
                                  g_strdup (NM_SSTP_KEY_PROXY_USER),
@@ -1007,7 +1013,7 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
         }
         
         widget = GTK_WIDGET (gtk_builder_get_object (builder, "proxy_password_entry"));
-        value = (char *) gtk_entry_get_text (GTK_ENTRY (widget));
+        value = (char *) gtk_editable_get_text (GTK_EDITABLE (widget));
         if (value && strlen (value)) {
             g_hash_table_insert (hash,
                                  g_strdup (NM_SSTP_KEY_PROXY_PASSWORD),
