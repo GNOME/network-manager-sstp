@@ -1653,9 +1653,6 @@ or just the Common Name (CN field).
                   </packing>
                 </child>
               </object>
-              <packing>
-                <property name="position">3</property>
-              </packing>
             </child>
             <child type="tab">
               <object class="GtkLabel" id="adv_tab_label_proxy">
