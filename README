@@ -1,6 +1,7 @@
 SSTP support for NetworkManager
 
-This is a plugin to NetworkManager project, and will enable GNOME desktop integration to connect to your remote workplace using a SSTP VPN connection.
+This is a plugin to NetworkManager project, and will enable GNOME desktop integration to
+connect to your remote workplace using a SSTP VPN connection.
 
 This requires the Linux SSTP client installed 
 https://gitlab.com/eivnaes/sstp-client
