@@ -1,9 +1,626 @@
+2022-04-07  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Removing yet another packing/positioning GTK4 warning
+
+2022-04-07  Yuri Chornoivan  <yurchor@ukr.net>
+
+	* Update Ukrainian translation
+
+2022-04-05  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Allow passwordless keys for RSA/PEM files
+	* Build related changes
+	   - Updating the CI/CD script
+	   - Update appdatadir to metainfo
+	   - Update dbus service dir directory
+
+2022-04-05  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Removing the GtkAlignment objects as a part of moving to Gtk4
+	* Porting properties to GTK4
+	* Updating build infrastructure in preparation of Gtk4 support
+
+2022-04-03  Asier Sarasua Garmendia  <asiersarasua@ni.eus>
+
+	* Update Basque translation
+
+2022-03-27  Piotr Drąg  <piotrdrag@gmail.com>
+
+	* Update Polish translation
+
+2022-03-21  Emin Tufan Çetin  <etcetin@gmail.com>
+
+	* Update Turkish translation
+
+2022-03-21  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Updating the Norwegian translation
+
+2022-03-21  Emin Tufan Çetin  <etcetin@gmail.com>
+
+	* Update Turkish translation
+
+2022-03-21  Marek Černocký  <marek@manet.cz>
+
+	* Updated Czech translation
+
+2022-03-20  Yuri Chornoivan  <yurchor@ukr.net>
+
+	* Update Ukrainian translation
+
+2022-03-20  Anders Jonsson  <anders.jonsson@norsjovallen.se>
+
+	* Update Swedish translation
+
+2022-03-20  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Adding an option to configure to enable "extended" tls options, these are options not yet supported by pppd version up to and including 2.4.9. 
+	   These options are currently available in the upstream (not-released) version of pppd.
+	* Fix for plugin name introduced in a previous import of changes from network-manager-pptp, should be "Secure Socket Tunneling Protocol (SSTP)"
+
+2022-03-19  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Fixing up compile target for auth-dialog
+	* Copying change from c1dc75cf by Thomas Haller to network-manager-pptp project
+
+2022-03-18  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Upgrade configure.ac using autoupdate
+
+2022-01-17  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Fixing a length copy issue with mppe-recv-keys.
+
+2021-11-28  Anders Jonsson  <anders.jonsson@norsjovallen.se>
+
+	* Update Swedish translation
+
+2021-11-01  Goran Vidović  <trebelnik2@gmail.com>
+
+	* Update Croatian translation
+
+2021-10-19  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Update README
+
+2021-10-17  Marek Černocký  <marek@manet.cz>
+
+	* Updated Czech translation
+
+2021-10-17  Piotr Drąg  <piotrdrag@gmail.com>
+
+	* Update Polish translation
+
+2021-10-12  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Updating the Norwegian translations.
+
+2021-10-11  Enrico Nicoletto  <liverig@gmail.com>
+
+	* Update Brazilian Portuguese translation
+
+2021-10-11  Yuri Chornoivan  <yurchor@ukr.net>
+
+	* Update Ukrainian translation
+
+2021-10-11  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Running update-po in po/ directory
+	* Changing developer information from "Eivind Naess" to "The NetworkManager Developers"
+
+2021-09-21  Мирослав Николић  <miroslavnikolic@rocketmail.com>
+
+	* Update Serbian translation
+
+2021-09-17  Tim Sabsch  <tim@sabsch.com>
+
+	* Update German translation
+
+2021-09-12  Marek Černocký  <marek@manet.cz>
+
+	* Updated Czech translation
+
+2021-09-07  Aurimas Černius  <aurisc4@gmail.com>
+
+	* Updated Lithuanian translation
+
+2021-08-29  Rodrigo Lledó  <rodhos92@gmail.com>
+
+	* Update Spanish translation
+
+2021-08-07  Enrico Nicoletto  <liverig@gmail.com>
+
+	* Update Brazilian Portuguese translation
+
+2021-07-25  Piotr Drąg  <piotrdrag@gmail.com>
+
+	* Update Polish translation
+
+2021-07-13  Daniel Mustieles  <daniel.mustieles@gmail.com>
+
+	* Update Spanish translation
+
+2021-07-11  Andika Triwidada  <atriwidada@gnome.org>
+
+	* Update Indonesian translation
+
+2021-07-11  Anders Jonsson  <anders.jonsson@norsjovallen.se>
+
+	* Update Swedish translation
+
+2021-07-11  Yuri Chornoivan  <yurchor@ukr.net>
+
+	* Update Ukrainian translation
+
+2021-07-10  Andika Triwidada  <atriwidada@gnome.org>
+
+	* Update Indonesian translation
+
+2021-06-29  Anders Jonsson  <anders.jonsson@norsjovallen.se>
+
+	* Update Swedish translation
+
+2021-06-27  Piotr Drąg  <piotrdrag@gmail.com>
+
+	* Update Polish translation
+
+2021-06-25  Anders Jonsson  <anders.jonsson@norsjovallen.se>
+
+	* String typo fixes
+
+2021-06-25  Yuri Chornoivan  <yurchor@ukr.net>
+
+	* Update Ukrainian translation
+
+2021-06-16  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Making the configure script detect if mppe_keys_xyz functions are declared.
+
+2021-06-08  Eivind Næss  <eivnaes@yahoo.com>
+
+	* First attempt at setting up a CI build for network-manager-sstp
+	* Remove compile time macro "-DMPPE" when compiling the nm-sstp-pppd-plugin
+	* Improve detection of pppd's mppe functions via configure.ac
+	* Updating the URL for project in the README, RPM SPEC, Metadata
+	* Update pictures to reflect new changes to support certificates
+
+2021-06-07  Andrea Veri  <averi@redhat.com>
+
+	* Project moved to https://gitlab.gnome.org/GNOME/network-manager-sstp
+
+2021-05-29  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Wrap support for auth-notify event if pppd suppports it (> 2.4.9) under conditional compile
+
+2021-05-15  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fixing up pppd-plugin to allow for variable length MPPE keys
+
+2021-03-27  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fixing up IPv6 support and adding route to DNS servers
+
+2021-03-26  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Need to implement SetConfig and proxy the message to nm-sstp-service
+
+2021-03-21  Eivind Naess  <eivnaes@yahoo.com>
+
+	* When calling eaptls_get_secret(), the username is the certificate file
+
+2021-03-14  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fix for problem relating to ip-up replacing /etc/resolv.conf
+	* Fixing up handling of CA certificates when PKCS12 files are used
+	* Add callbacks via D-Bus to handle IPv6
+	* Let the "NeedSecrets" D-Bus callback handle certificates.
+
+2021-03-11  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Instead of defining values locally, Use the values from chap_ms.h and mppe.h
+	* Read settings from ip4 and ip6 config pages.
+
+2021-03-09  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Minor adjustment to checkbox in nm-sstp-editor
+	* Upgrade dependency requirements and add CA path argument.
+	* Fixing up nm-sstp-service to support the new command line paramters.
+
+2021-02-27  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Disable TLS tab when Password is selected.
+
+2021-02-26  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Need the service-defines.h to build.
+	* Updating the advanced tab to include EAP-TLS
+
+2021-02-24  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Touchup of UI components
+	* Fixing up the UI to allow for additional EAP-TLS related properties.
+
+2021-01-26  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Avoid compile errors due to translations
+	* Bump up the version of GLIB to avoid deprecated warnings.
+
+2020-04-04  Eivind.Naess  <eivnaes@yahoo.com>
+
+	* Change to fix a race condition when CHAP authentication completes but sends the 
+	  SSTP_CALL_CONNECTED message to server before the final CHAP_SUCCESS message
+
+2020-02-23  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Add the capability of snooping password from pppd conversation when EAP-MSCHAPv2 is used
+	* Allow user to configure MPPE if EAP is enabled
+
+2020-02-13  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Reverting previous import of nm-utils files
+
+2020-02-11  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Instead of using API from libnma version 1.8.28, clear certificate using existing API with NULL
+	* Fixing up certificate selection.
+
+2020-02-03  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fix for calling stuff_changed() from validate functions caused an infinite loop.
+
+2020-02-02  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Change nm_sstp_parse_gateway() to returns -1 on success, or index of offending character on failure
+
+2020-02-01  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Adding sanity check for gateway input in nm-sstp-editor
+	* Certificate validation and changed callback on updates
+	* Fixing up parsing subject name from pkcs12 certificates.
+
+2020-01-27  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Adding checks on secret field
+	* Adding a client 'Identity' field.
+
+2020-01-25  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Updating files to include subject name in the ppp configuration.
+	* Fixup of the configure.ac / Makefile.am files.
+
+2020-01-22  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Importing shared files from the NetworkManager project
+
+2020-01-19  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Certificate authentication needs to specify \'name\'
+	* The default is to support multiple connections
+
+2020-01-16  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fixes to auth-dialog, must return a value even if no-secrets are specified
+
+2020-01-12  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fix for bug when where authentication properties was not saved when turned off
+	* Update handling of password FLAGS and properties
+	* Fixing up linking issues related to libnm-glib and others
+
+2020-01-11  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fixing password flags and key/value pairs
+	* Upgrading nm-utils library from NetworkManager
+
+2020-01-09  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Correctly validate gateway in nm-sstp-editor
+
+2020-01-08  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Cleanup in advanced-dialog.c
+	* Additional fixes for nm-sstp-editor
+		- Adding labels to label group
+
+2020-01-07  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Adding in utility functions into shared code directory
+	* Adding Certificates / TLS controls
+
+2020-01-05  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Moving connection security options to the advanced settings dialog.
+	* Upgrading nm-default.h
+
+2019-11-18  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Take new update to shared/vpn-plugin-utils from NetworkManager commit cb28719e3a6f602a702f1665434d5c8b9aad3cec
+	* Updating translations
+
+2019-11-18  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Purge INSTALL, it is generated by autogen.sh
+	* Compile with -D_GNU_SOURCE
+	* Drop useless heading in README
+	* Change to configure.ac, don't set 'foreign'
+	* Disable the libnm-glib support by default in configure.ac
+	* Name the project network-manager-sstp instead of NetworkManager-sstp
+
+2019-11-17  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Bump version to 1.2.8
+	* Updating README
+	* Fix compiler warnings that broke the build on Ubuntu Eoan
+	* Cherry picking ab6a989f424b84e26167634238392e43d601ff89 from network-manager-pptp project. Fix passing \"user\" field and add passing \"remotename\".
+		- https://bugzilla.gnome.org/show_bug.cgi?id=794695
+		- https://bugzilla.redhat.com/show_bug.cgi?id=1546583
+
+2018-04-15  Eivind Næss  <eivnaes@yahoo.com>
+
+	* Fix for proxy support without authentication
+	* Build maintenance, added SSTPC_CFLAGS/LIBS to targets
+
+2018-04-09  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fixing the nm-sstp-editor plugin
+
+2018-02-25  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Bump version to 1.2.6
+	* Import translations from network-manager-pptp
+	* Adding in recent updates from the network-manager-pptp to keep the projects aligned
+	* Purge Debian package files, they are being moved to launchpad
+	  - "bzr branch lp:network-manager-sstp-package"
+
+2018-02-21  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Updating the debian control / changelog files.
+
+2018-02-20  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fixing problem when a authentication retries for CHAP trigger two sstp connected messages
+
+2018-02-16  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Adding checkbox to allow user to toggle hostname using tls extentions
+	* Bump version to 1.2.5
+
+2018-01-01  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Few more changes to address lintian problems with Debian package
+
+2017-12-31  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Adding in recent updates from the network-manager-pptp version 1.2.4 to keep the projects aligned
+	* Bump version to 1.2.4, update release related files
+
+2017-12-30  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Changes to debian package, recompile for zesty and aadverk
+
+2017-07-05  Andrea Scarpino  <me@andreascarpino.it>
+
+	* Fix for bug when no proxy user is set, the `--proxy` argument wrongly uses 'null' as username. e.g. http://(null)@myproxy:80
+
+2017-02-15  Arne Neumann  <github@arne.cl>
+
+	* Added hint for network-manager-sstp-gnome to debian package
+
+2016-10-29  Eivind Naess  <eivnaes@yahoo.com>
+
+	* network-manager-sstp 1.2.2 released
+	* Build changes, bump release version
+
+2016-05-14  eivnaes@yahoo.com  <eivnaes@yahoo.com>
+
+	* Adding in recent updates from the network-manager-pptp project to keep the projects aligned
+
+2016-05-11  eivnaes@yahoo.com  <eivnaes@yahoo.com>
+
+	* Renaming the network-manager-sstp.appdata.xml.in to metadata
+
+2016-05-02  enaess  <eivnaes@yahoo.com>
+
+	* Update RPM spec file, thanks to @szpak
+
+2016-04-29  eivnaes@yahoo.com  <eivnaes@yahoo.com>
+
+	* Adding in recent updates from the network-manager-pptp project to keep the projects aligned
+
+2016-04-21  eivnaes@yahoo.com  <eivnaes@yahoo.com>
+
+	* Removing uneeded autotools files and updating readme and authors information
+
+2016-04-21  Lubomir Rintel  <lkundrak@v3.sk>
+
+	* Build Changes
+	  - Don't include the full path to a plugin by default
+
+2016-04-21  Lubomir Rintel  <lkundrak@v3.sk>
+
+	* Don't abort nm-sstp-service when there is no user
+
+2016-04-21  Lubomir Rintel  <lkundrak@v3.sk>
+
+	* Fix a bug which caused the connection object to be leaked
+	* D-bus name update, remove obsolete rules
+
+2016-04-19  eivnaes@yahoo.com  <eivnaes@yahoo.com>
+
+	* Update to debian package, now require pppd version 2.4.7
+	* Needed to link in the new dbus interface generated library
+
+2016-04-17  Lubomir Rintel  <lkundrak@v3.sk>
+
+	* Bump version to 1.2.0 to reflect new release of Network-Manager-1.2
+	* Add AppStream metadata for GNOME
+	* Update nm-sstp-editor to use libnma/libnm-gtk password flags
+	* Add --bus-name argument to nm-sstp-service
+
+2016-04-16  Lubomir Rintel  <lkundrak@v3.sk>
+
+	* Build changes
+	   - Install .service file into /usr/lib/NetworkManager/VPN
+	   - Compile without libnm-glib
+	   - Check for libnm and libnma
+	   - Create .xz files to help with GNOME release tooling
+	   - Remove from source depot files generated by autogen.sh
+	   - Remove the MAINTAINERS file
+	* Port auth-dialog to build against libnm
+	   - Remove unused files for auth-dialog
+	* Port nm-sstp-service to build against libnm
+	* Port nm-sstp-editor to build against libnm
+	   - Refactor classes to be more like libnm
+	   - Use NM error types & quarks
+	* Fix bug report email
+
+2016-02-04  Marcin Zajaczkowski  <szpak@users.sourceforge.net>
+
+	*  Apply remarks after package review
+
 2015-06-02  Eivind Naess <eivnaes@yahoo.com>
+
 	* Fixed a few bugs regarding Gateway validation code.
 
 2015-04-05  Eivind Naess <eivnaes@yahoo.com>
+
 	* Updated the network-manager-sstp plugin to be comparable to the pptp plugin.
 
-2011-16-09  Eivind Naess <eivnaes@yahoo.com>
+2015-06-24  Marcin Zajaczkowski  <szpak@users.sourceforge.net>
 
-	* Cloned network-manager-pptp into supporting sstp-client (sstpc).
+	* RPM Spec update 
+	  - %doc -> %licence, more accureate project URL
+	  - Change %doc to %license for COPYING file
+	  - Change URL to plugin project page instead if NetworkManager itself
+
+2015-06-11  Marcin Zajaczkowski  <szpak@users.sourceforge.net>
+
+	* Explicitly add minimum required NM version 0.9.10 in configure.ac
+
+2015-06-09  Marcin Zajaczkowski  <marcin.zajaczkowski@4finance.com>
+
+	* Adjust RPM SPEC file to Fedora requirements
+	* Applied rpmlint warnings. Removed redundant Obsoletes tag.
+
+2015-06-03  Eivind Naess  <enaess@yahoo.com>
+
+	* Updating the README, ChangeLog and configure script sources. 
+	* Changing the RPM .spec file to reflect new version
+
+2015-06-02  Eivind Naess  <enaess@yahoo.com>
+
+	* Bumping version to 0.9.10.
+
+2015-05-27  Eivind Naess  <enaess@yahoo.com>
+
+	* Updating the network-manager-sstp.spec for RPM builds.
+	* Updating gateway validation code.
+
+2015-05-16  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Make build debend on quilt to escape another lintian warning.
+	* Update the autogen to not create symlinks
+	* Updating the autoconf and standards version to 3.9.6
+	* Updating the po/POTFILES.in otherwise compile will fail.
+
+2015-05-06  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Updating the configure.ac script.
+	* Updating the translations with latest updates from pptp
+
+2015-05-02  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fix debian lintian warnings
+	* Updating the nm-sstp-dialog.ui to latest number of changes
+
+2015-04-23  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Adding in the temporary base for nm-sstp-dialog.ui
+	* First push in order to sync up with the PPTP project.
+
+2013-06-19  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Bumbing the version to 0.9.8, compile against FC-18.
+
+2013-06-18  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Changing to minor release of 1 instead of 2.
+	* Updating the packaging files for debian and redhat
+	* Importing changes from network-manager-pptp version 0.9.6
+
+2012-10-13  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Require sstp-client 1.0.8
+	* Update release number to 0.9.4
+	* Default to refuse EAP.
+
+2012-10-12  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Require sstp-client 1.0.7 or newer
+	* Udate the dependency to libsstp-client0
+	* Pass MPPE keys when we first receive them
+
+2012-05-25  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Updating version of libtool
+
+2012-05-04  Eivind  <eivnaes@yahoo.com>
+
+	* Upgrade build-script to build against NetworkManager 0.9.4
+
+2012-03-30  Eivind Naess  <eivnaes@yahoo.com>
+
+	*  Update to debian package thanks to Peter Meiser
+
+2012-03-03  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Adding back EAP as a placeholder (as EAP-MSCHAPv2 isnt supported by pppd), field is always disabled.
+
+2012-02-08  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Fix to change the order in which the MPPE keys are communicated with sstpc for generating the HLAK.
+
+2011-11-13  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Updating the dependencies on sstp-client version 1.0.3 and network-manager-sstp version
+	* Adding a Fedora Core rpm spec file
+	* Updating the news section
+	* Change version to  0.9.1, and updating the version log.
+
+2011-11-12  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Add suppoort for providing the UUID to the sstpc via ipparam
+	* Need to update the s_vpn object when certificate warnings is toggled
+
+2011-11-11  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Remove EAP option, enable refuse PAP, and refuse CHAP by default.
+
+2011-11-09  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Adding HTTP Proxy configuration page and cert-warning checkbox
+
+2011-10-28  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Remove unneeded code in nm-sstp-service.c, and insert a comment in nm-sstp-pppd-plugin.c.
+	* Fix compiler warnings (unused variables)
+
+2011-10-19  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Search and replace PPTP for SSTP in debian package
+
+2011-10-19  Eivind  <enaess@virt-server.(none)>
+
+	* Fix for compiler warnings
+
+2011-10-18  Eivind Naess  <enaess@yahoo.com>
+
+	* This change works around the fact that network-manager now require the gateway to be specified by ip-address. This causes a problem in certificate validation.
+
+2011-09-18  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Adding debian packaging directory
+
+2011-09-16  Eivind Naess  <eivnaes@yahoo.com>
+
+	* Initial commit, cloned network-manager-pptp into supporting sstp protocol.

@@ -1,46 +1,53 @@
-==========================================================
-NetworkManager-pptp-1.2.9 (not released yet)
-Overview of changes since NetworkManager-pptp-1.2.6
-==========================================================
+Release 1.3.0: (April 9, 2022)
+- Fixes for IPv6 handling
+- Support for EAP authentication 
+  - EAP-MSCHAPv2 is now supported in pppd >= 2.4.9
+  - EAP-TLS is supported in pppd 2.4.9, but patches for MPPE keys may be needed
+- Added support to configure TLS authentication
+- Improved support for handling of MPPE during authentication.
+- New Translation updates supported by the Gnome community
+- Added support for GTK4
+- Lots of bug fixes
 
-* libnm-glib compatibility (NetworkManager < 1.0) is disabled by default.
-  It can be enabled by passing --with-libnm-glib to configure script.
-  Nobody should need it by now. Users that still use this are encourage
-  to let us know before the libnm-glib support is removed for good.
+Announcement: (June 6, 2021)
+- Project moved to https://gitlab.gnome.org/GNOME/network-manager-sstp
 
-=======================================================
-NetworkManager-sstp-1.2.6
-Overview of changes since network-manager-sstp-1.2.4
-=======================================================
+Release 1.2.6: (February 24, 2018)
+- Fix passing "user" and set "remotename"
+- Use gresources for UI file
+- Update build to use non-recursive make
+- Translation updates
 
-This is a new stable release of NetworkManager-sstp.  Notable changes include:
+Release 1.2.4: (December 31, 2017)
+- Fix for bug when HTTP proxy was configured without a username
+- Import various bug fixes already fixed in network-manager-pptp
+- Translation updates
 
-* Fix passing "user" and set "remotename" (bgo#794695)
-* Updated Brazilian Portuguese, Croatian, Czech, Danish, Dutch, Friulian, German,
-  Hungarian, Indonesian, Italian, Latvian, Lithuanian, Polish, Russian, Serbian,
-  Spanish, Swedish translations
-* Use gresources for UI file
-* Update build to use non-recursive make
-* Various cleanups
+Release 1.2.2: (October 29, 2016)
+- Import various bug fixes already fixed in network-manager-pptp
+- Translation updates
 
-=======================================================
-network-manager-sstp-1.0
-=======================================================
+Release 1.2.0: (April 16, 2016)
+- Fix compilation issue with Network-Manager 1.2
+- Import various bug fixes already fixed in network-manager-pptp
+- Translation updates
 
-Update all the changes from network-manager-pptp
+Release 0.9.10: (June 02, 2015)
+- Fix for gateway validation code
+- Import various bug fixes already fixed in network-manager-pptp
 
-=======================================================
-network-manager-sstp-0.9.1
-=======================================================
+Release 0.9.8: (June 19, 2013)
+- Import various bug fixes already fixed in network-manager-pptp
 
-This is the first release of network-manager-sstp
+Release 0.9.6: (June 18, 2013)
+- Improve handling of MPPE keys
+- Import various bug fixes already fixed in network-manager-pptp
+
+Release 0.9.4: (October 13, 2012)
 - Expose settings for HTTP proxy
 - Expose settings for disable certificate warnings
 - Update the default settings for PPP, disable EAP
 
-=======================================================
-network-manager-sstp-0.9.0
-=======================================================
-
-This is the first release of network-manager-sstp.
-- Used the network-manager-pptp as boiler plate copy for sstp handling
+Release 0.9.0: (November 13, 2011)
+- Various changes to support using sstpc instead of pptplinux
+- Initial release of network-manager-sstp, project used network-manager-pptp as a starting point
