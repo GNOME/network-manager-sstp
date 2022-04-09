@@ -1,5 +1,7 @@
 SSTP support for NetworkManager
 
+This is a plugin to NetworkManager project, and will enable GNOME desktop integration to connect to your remote workplace using a SSTP VPN connection.
+
 This requires the Linux SSTP client installed 
 https://gitlab.com/eivnaes/sstp-client
 
@@ -12,21 +14,3 @@ network-manager-pptp - 0.7.x version:
 network-manager-pptp - 0.6.x version:
 (C) 2005 - 2007 Antony Mee   http://www.students.ncl.ac.uk/a.j.mee
 Based entirely on OpenVPN support by Tim Niemueller http://www.niemueller.de
-
-
-This is a plugin to NetworkManager project, and will enable the capability of configure, start and stop a SSTP connection using sstp-client to connect to your remote workplace.
-
-
-Attention Debian Users:
-------------------------------
-Debian/Ubuntu users can now use my personal PPA to download and install the network-manager-sstp and sstp-client project via launchpad. 
-
-You can import the gpg key using the following command: 
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 61FF9694161CE595 
-
-Put the following two lines into the following file: /etc/apt/sources.list.d/sstp-client.list 
-	deb http://ppa.launchpad.net/eivnaes/network-manager-sstp/ubuntu impish main
-	deb-src http://ppa.launchpad.net/eivnaes/network-manager-sstp/ubuntu impish main
-
-Then use your apt-get command to get both network-manager-sstp and sstp-client.
-To use SSTP connections in the NetworkManager GUI, also install network-manager-sstp-gnome this way.
