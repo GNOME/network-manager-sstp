@@ -443,6 +443,11 @@ tls_setup(SstpPluginUiWidget *self, NMSettingVpn *s_vpn, ChangedCallback changed
         if (value) {
             nma_cert_chooser_set_key_password (cert, value);
         }
+
+        value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_TLS_SUBJECT_NAME);
+        if (value && *value) {
+            priv->subject = g_strdup (value);
+        }
     }
 
     nma_cert_chooser_setup_key_password_storage (cert, 0, (NMSetting *) s_vpn,
