@@ -576,7 +576,7 @@ config: the first parameter of sstp</property>
                             <property name="tooltip-text" translatable="yes">Require that the peer certificate used for outer SSL tunnel was signed with a certificate that has a trusted certificate chain, key usage, and extended key usage based on RFC3280 TLS rules.</property>
                             <property name="halign">start</property>
                             <property name="use-underline">True</property>
-                            <property name="active">True</property>
+                            <property name="active">False</property>
                             <property name="draw-indicator">True</property>
                           </object>
                           <packing>
@@ -594,7 +594,7 @@ config: the first parameter of sstp</property>
                             <property name="tooltip-text" translatable="yes">Use the gateway name as specified for this connection in the hostname extensions in the SSL tunnel</property>
                             <property name="halign">start</property>
                             <property name="use-underline">True</property>
-                            <property name="active">True</property>
+                            <property name="active">False</property>
                             <property name="draw-indicator">True</property>
                           </object>
                           <packing>

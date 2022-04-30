@@ -154,6 +154,13 @@ advanced_dialog_new_hash_from_connection (NMConnection *connection,
                              g_strdup("yes"));
     }
 
+    /* Default to use tls hostname extensions */
+    if (!g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_EXT_ENABLE)) {
+        g_hash_table_insert (hash,
+                             g_strdup(NM_SSTP_KEY_TLS_EXT_ENABLE),
+                             g_strdup("yes"));
+    }
+
     return hash;
 }
 
@@ -655,10 +662,10 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_IGN_CERT_WARN);
-    if (value && !strcmp (value, "yes")) {
+    if (!value || !strcmp (value, "no")) {
         gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
     }
-    
+
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_hostext_checkbutton"));
     value = g_hash_table_lookup (hash, NM_SSTP_KEY_TLS_EXT_ENABLE);
     if (value && !strcmp (value, "yes")) {
@@ -839,17 +846,19 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
     }
 
 
-    /* Ignore Certificate Warnings */
+    /* Verify certificate type and extended key usage, if checked the sstp-connection will
+       fail if certificate cannot be validated, otherwise it will ignore the error and connect
+    */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_cert_warn_checkbutton"));
-    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))) {
-        g_hash_table_insert (hash, g_strdup(NM_SSTP_KEY_IGN_CERT_WARN), g_strdup("yes"));
-    }
+    g_hash_table_insert (hash, g_strdup(NM_SSTP_KEY_IGN_CERT_WARN),
+            !gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))
+                    ? g_strdup("yes") : g_strdup("no"));
 
     /* Enable TLS hostname extensions */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "tls_hostext_checkbutton"));
-    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))) {
-        g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_TLS_EXT_ENABLE), g_strdup ("yes"));
-    }
+    g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_TLS_EXT_ENABLE),
+            gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))
+                    ? g_strdup ("yes") : g_strdup("no"));
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_auth_methods"));
     model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
