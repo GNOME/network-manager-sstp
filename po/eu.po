@@ -9,8 +9,8 @@
 msgid ""
 msgstr "Project-Id-Version: network-manager-sstp master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/issues\n"
-"POT-Creation-Date: 2022-03-20 21:05+0000\n"
-"PO-Revision-Date: 2022-04-03 15:03+0100\n"
+"POT-Creation-Date: 2022-05-13 12:42+0000\n"
+"PO-Revision-Date: 2022-05-15 15:03+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -35,7 +35,7 @@ msgstr "SSTP sare birtual pribatuetako konexioak konfiguratzeko euskarria."
 msgid ""
 "Compatible with servers following the SSTP specification including the "
 "Microsoft servers."
-msgstr ""
+msgstr "Bateragarria SSTP espezifikazioa jarraitzen duten zerbitzariekin, Microsoft zerbitzariekin barne."
 
 #: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
 msgid "The NetworkManager Developers"
@@ -71,85 +71,85 @@ msgstr "HTTP proxy-aren pasahitza:"
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr "Autentifikatu egin behar duzu “%s” Sare Birtual Pribatura sartzeko."
 
-#: ../properties/advanced-dialog.c:235
+#: ../properties/advanced-dialog.c:248
 msgid "All Available (Default)"
 msgstr "Erabilgarri denak (lehenetsia)"
 
-#: ../properties/advanced-dialog.c:239
+#: ../properties/advanced-dialog.c:252
 msgid "128-bit (most secure)"
 msgstr "128 bit (seguruena)"
 
-#: ../properties/advanced-dialog.c:248
+#: ../properties/advanced-dialog.c:261
 msgid "40-bit (less secure)"
 msgstr "40 bit (ez hain  segurua)"
 
-#: ../properties/advanced-dialog.c:367
+#: ../properties/advanced-dialog.c:380
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:380
+#: ../properties/advanced-dialog.c:393
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:392
+#: ../properties/advanced-dialog.c:405
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:404
+#: ../properties/advanced-dialog.c:417
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:416
+#: ../properties/advanced-dialog.c:429
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/advanced-dialog.c:482
+#: ../properties/advanced-dialog.c:495
 msgid "Don't verify certificate identification"
 msgstr "Ez egiaztatu ziurtagiriaren identifikazioa"
 
-#: ../properties/advanced-dialog.c:490
+#: ../properties/advanced-dialog.c:503
 msgid "Verify subject exactly"
 msgstr "Egiaztatu subjektua zehazki"
 
-#: ../properties/advanced-dialog.c:498
+#: ../properties/advanced-dialog.c:511
 msgid "Verify name exactly"
 msgstr "Egiaztatu izena zehazki"
 
-#: ../properties/advanced-dialog.c:506
+#: ../properties/advanced-dialog.c:519
 msgid "Verify name by suffix"
 msgstr "Egiaztatu izena atzizkiaren arabera"
 
-#: ../properties/advanced-dialog.c:556
+#: ../properties/advanced-dialog.c:569
 msgid "TLS 1.2 (Default)"
 msgstr "TLS 1.2 (lehenetsia)"
 
-#: ../properties/advanced-dialog.c:564
+#: ../properties/advanced-dialog.c:577
 msgid "TLS 1.3"
 msgstr "TLS 1.3"
 
-#: ../properties/nm-sstp-editor-plugin.c:34
+#: ../properties/nm-sstp-editor-plugin.c:35
 msgid "Secure Socket Tunneling Protocol (SSTP)"
 msgstr "Socket seguruaren tunelaren protokoloa (SSTP)"
 
-#: ../properties/nm-sstp-editor-plugin.c:35
+#: ../properties/nm-sstp-editor-plugin.c:36
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Microsoft eta beste SSTP VPN zerbitzariekin bateragarria."
 
-#: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
+#: ../properties/nm-sstp-editor.c:313 ../properties/nm-sstp-editor.c:341
 #, c-format
 msgid "file is not a certificate"
 msgstr "fitxategia ez da ziurtagiria"
 
-#: ../properties/nm-sstp-editor.c:365
+#: ../properties/nm-sstp-editor.c:364
 #, c-format
 msgid "file is not a private key"
 msgstr "fitxategia ez da gako pribatua"
 
-#: ../properties/nm-sstp-editor.c:581
+#: ../properties/nm-sstp-editor.c:589
 msgid "Certificates (TLS)"
 msgstr "Ziurtagiriak (TLS)"
 
-#: ../properties/nm-sstp-editor.c:590
+#: ../properties/nm-sstp-editor.c:599
 msgid "Password"
 msgstr "Pasahitza"
 
@@ -267,12 +267,12 @@ msgstr "Huts egin du fitxategiaren irakurketak"
 #: ../shared/utils.c:307
 #, c-format
 msgid "invalid delimiter character '%c'"
-msgstr ""
+msgstr "mugatzaile-karaktere baliogabea: '%c'"
 
 #: ../shared/utils.c:314
 #, c-format
 msgid "invalid non-utf-8 character"
-msgstr ""
+msgstr "non-utf-8 karaktere baliogabea"
 
 #: ../shared/utils.c:343
 #, c-format
@@ -324,47 +324,51 @@ msgstr "Ezin izan da sstp-ren bezeroaren bitarrik aurkitu."
 
 #: ../src/nm-sstp-service.c:496
 msgid "Missing VPN gateway."
-msgstr "VPN-aren atebidea falta da."
+msgstr "VPNaren atebidea falta da."
 
 #: ../src/nm-sstp-service.c:929
 msgid "Could not find the pppd binary."
 msgstr "Ezin izan da pppd-ren bitarrik aurkitu."
 
-#: ../src/nm-sstp-service.c:994 ../src/nm-sstp-service.c:1013
+#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1028
 msgid "Missing VPN username."
-msgstr "VPN-aren erabiltzaile-izena falta da."
+msgstr "VPNaren erabiltzaile-izena falta da."
 
-#: ../src/nm-sstp-service.c:1002 ../src/nm-sstp-service.c:1021
+#: ../src/nm-sstp-service.c:1003 ../src/nm-sstp-service.c:1039
 msgid "Missing or invalid VPN password."
-msgstr "VPN-aren pasahitza falta da, edo baliogabea da."
+msgstr "VPNaren pasahitza falta da, edo baliogabea da."
 
-#: ../src/nm-sstp-service.c:1170
+#: ../src/nm-sstp-service.c:1050
+msgid "Invalid private key file"
+msgstr "Gako pribatuaren fitxategi baliogabea"
+
+#: ../src/nm-sstp-service.c:1188
 msgid "Invalid or missing SSTP gateway."
 msgstr "SSTP-ren atebidea falta da, edo baliogabea da."
 
-#: ../src/nm-sstp-service.c:1231
+#: ../src/nm-sstp-service.c:1249
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
 msgstr "Ezin izan da eskaera prozesatu VPN konexioaren ezarpenak baliogabekoak direlako."
 
-#: ../src/nm-sstp-service.c:1266
+#: ../src/nm-sstp-service.c:1284
 msgid "Invalid connection type."
 msgstr "Baliogabeko konexio mota."
 
-#: ../src/nm-sstp-service.c:1460
+#: ../src/nm-sstp-service.c:1478
 msgid "Don't quit when VPN connection terminates"
 msgstr "Ez irten VPNaren konexioa amaitzean"
 
-#: ../src/nm-sstp-service.c:1461
+#: ../src/nm-sstp-service.c:1479
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr "Gaitu arazketaren erregistro xehea (pasahitzak erakuts ditzake)"
 
-#: ../src/nm-sstp-service.c:1462
+#: ../src/nm-sstp-service.c:1480
 msgid "D-Bus name to use for this instance"
 msgstr "Instantzia honetan erabiliko den D-Bus izena"
 
-#: ../src/nm-sstp-service.c:1483
+#: ../src/nm-sstp-service.c:1501
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
@@ -390,8 +394,8 @@ msgid "_Gateway:"
 msgstr "_Atebidea:"
 
 #: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Authentication"
-msgstr "Autentifikazioa"
+msgid "<b>Authentication</b>"
+msgstr "<b>Autentifikazioa</b>"
 
 #: ../properties/nm-sstp-dialog.ui.h:7
 msgid "CA"
@@ -462,17 +466,17 @@ msgid ""
 "Require that the peer certificate used for outer SSL tunnel was signed with "
 "a certificate that has a trusted certificate chain, key usage, and extended "
 "key usage based on RFC3280 TLS rules."
-msgstr ""
+msgstr "Irteerako SSL tunelean erabilitako parekoaren ziurtagiria ziurtagiri-kate fidagarria, gako-erabilera eta RFC3280 TLS arauetan oinarritutako gako-erabilera hedatua duen ziurtagiri batekin sinatuta egotea eskatzen du."
 
 #: ../properties/nm-sstp-dialog.ui.h:25
 msgid "_Use TLS hostname extensions"
-msgstr ""
+msgstr "Erabili _TLS ostalari-izenen hedapenak"
 
 #: ../properties/nm-sstp-dialog.ui.h:26
 msgid ""
 "Use the gateway name as specified for this connection in the hostname "
 "extensions in the SSL tunnel"
-msgstr ""
+msgstr "Erabili atebide-izena SSL tunelean ostalari-izenen hedapenetan konexio honetarako zehaztu den moduan"
 
 #: ../properties/nm-sstp-dialog.ui.h:27
 msgid "<b>Certificate Revocation</b>"
@@ -487,84 +491,80 @@ msgid "Connection"
 msgstr "Konexioa"
 
 #: ../properties/nm-sstp-dialog.ui.h:30
-msgid "<b>Authentication</b>"
-msgstr "<b>Autentifikazioa</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:31
 msgid "Allow the following authentication methods:"
 msgstr "Onartu honako autentifikazio metodoak:"
 
-#: ../properties/nm-sstp-dialog.ui.h:32
+#: ../properties/nm-sstp-dialog.ui.h:31
 msgid ""
 "Allow/disable authentication methods.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 msgstr "Baimendu/desgaitu autentifikazio-metodoak.\n"
 "konfigurazioa: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
-#: ../properties/nm-sstp-dialog.ui.h:34
+#: ../properties/nm-sstp-dialog.ui.h:33
 msgid "<b>Security and Compression</b>"
 msgstr "<b>Segurtasuna eta konpresioa</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:35
+#: ../properties/nm-sstp-dialog.ui.h:34
 msgid "Use _Point-to-Point encryption (MPPE)"
 msgstr "Erabili _puntutik punturako zifratzea (MPPE)"
 
-#: ../properties/nm-sstp-dialog.ui.h:36
+#: ../properties/nm-sstp-dialog.ui.h:35
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
 "methods: MSCHAP or MSCHAPv2."
 msgstr "Oharra: MPPE zifratzea soilik erabilgarri dago MSCHAP autentifikazio metodoekin. Kontrol-koadro hau aktibatzeko, hautatu MSCHAP autentifikazio metodo bat edo gehiago: MSCHAP edo MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.ui.h:37
+#: ../properties/nm-sstp-dialog.ui.h:36
 msgid "_Security:"
 msgstr "_Segurtasuna:"
 
-#: ../properties/nm-sstp-dialog.ui.h:38
+#: ../properties/nm-sstp-dialog.ui.h:37
 msgid ""
 "Require the use of MPPE, with 40/128-bit encryption or all.\n"
 "config: require-mppe, require-mppe-128 or require-mppe-40"
 msgstr "MPPE erabiltzea behar du, 40/128 bit-eko zifratzearekin edo guztiak.\n"
 "konfigurazioa: require-mppe, require-mppe-128 or require-mppe-40"
 
-#: ../properties/nm-sstp-dialog.ui.h:40
+#: ../properties/nm-sstp-dialog.ui.h:39
 msgid "Allow st_ateful encryption"
 msgstr "Onartu zifratzea _egoerarekin"
 
-#: ../properties/nm-sstp-dialog.ui.h:41
+#: ../properties/nm-sstp-dialog.ui.h:40
 msgid ""
 "Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
 "config: mppe-stateful (when checked)"
 msgstr "Baimendu MPPE-k egoeraren modua erabiltzea. Hala ere, egoerarik gabeko modua saiatuko da lehendabizi.\n"
 "konfigurazioa: mppe-stateful (aktibatutakoan)"
 
-#: ../properties/nm-sstp-dialog.ui.h:43
+#: ../properties/nm-sstp-dialog.ui.h:42
 msgid "Allow _BSD data compression"
 msgstr "Onartu _BSD datu-konpresioa"
 
-#: ../properties/nm-sstp-dialog.ui.h:44
+#: ../properties/nm-sstp-dialog.ui.h:43
 msgid ""
 "Allow/disable BSD-Compress compression.\n"
 "config: nobsdcomp (when unchecked)"
 msgstr "Baimendu/desgaitu BSD-Compress konpresioa.\n"
 "konfigurazioa: nobsdcomp (desaktibatutakoan)"
 
-#: ../properties/nm-sstp-dialog.ui.h:46
+#: ../properties/nm-sstp-dialog.ui.h:45
 msgid "Allow _Deflate data compression"
 msgstr "Onartu _Deflate datu-konpresioa"
 
-#: ../properties/nm-sstp-dialog.ui.h:47
+#: ../properties/nm-sstp-dialog.ui.h:46
 msgid ""
 "Allow/disable Deflate compression.\n"
 "config: nodeflate (when unchecked)"
 msgstr "Baimendu/desgaitu Deflate konpresioa.\n"
 "konfigurazioa: nodeflate (desaktibatutakoan)"
 
-#: ../properties/nm-sstp-dialog.ui.h:49
+#: ../properties/nm-sstp-dialog.ui.h:48
 msgid "Use TCP _header compression"
 msgstr "Erabili TCP _goiburu-konpresioa"
 
-#: ../properties/nm-sstp-dialog.ui.h:50
+#: ../properties/nm-sstp-dialog.ui.h:49
 msgid ""
 "Allow/disable Van Jacobson style TCP/IP header compression in both the "
 "transmit and the receive directions.\n"
@@ -572,71 +572,73 @@ msgid ""
 msgstr "Baimendu/desgaitu Van Jacobson estiloa TCP/IParen goiburuaren konpresioan bi noranzkoetan: jasotzekoa eta bidaltzekoa.\n"
 "konfigurazioa: novj (desaktibatutakoan)"
 
-#: ../properties/nm-sstp-dialog.ui.h:52
+#: ../properties/nm-sstp-dialog.ui.h:51
 msgid "<b>Echo</b>"
 msgstr "<b>Oihartzuna</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:53
+#: ../properties/nm-sstp-dialog.ui.h:52
 msgid "Send PPP _echo packets"
 msgstr "Bidali PPP _oihartzun-paketeak"
 
-#: ../properties/nm-sstp-dialog.ui.h:54
+#: ../properties/nm-sstp-dialog.ui.h:53
 msgid ""
 "Send LCP echo-requests to find out whether peer is alive.\n"
 "config: lcp-echo-failure and lcp-echo-interval"
 msgstr "Bidali LCP oihartzun-eskaerak zer pareko konektatuta dagoen bilatzeko.\n"
 "konfigurazioa: lcp-echo-failure eta lcp-echo-interval"
 
-#: ../properties/nm-sstp-dialog.ui.h:56
+#: ../properties/nm-sstp-dialog.ui.h:55
 msgid "<b>Misc</b>"
 msgstr "<b>Hainbat</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:57
+#: ../properties/nm-sstp-dialog.ui.h:56
 msgid "Use custom _unit number:"
 msgstr "Erabili _unitate-zenbaki pertsonalizatua:"
 
-#: ../properties/nm-sstp-dialog.ui.h:58
+#: ../properties/nm-sstp-dialog.ui.h:57
 msgid ""
 "Enable custom index for ppp<n> device name.\n"
 "config: unit <n>"
 msgstr "Erabili indize pertsonalizatua ppp<n> gailu-izenerako.\n"
 "konfig: unit <n>"
 
-#: ../properties/nm-sstp-dialog.ui.h:60
+#: ../properties/nm-sstp-dialog.ui.h:59
 msgid "Point-to-Point"
 msgstr "Puntutik puntura"
 
-#: ../properties/nm-sstp-dialog.ui.h:61
+#: ../properties/nm-sstp-dialog.ui.h:60
 msgid "<b>Identity</b>"
 msgstr "<b>Nortasuna</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:62
+#: ../properties/nm-sstp-dialog.ui.h:61
 msgid ""
 "Use this to override the value specified by the certificate\n"
 "\n"
 "By default, this will be populated, when correct password for certificate is "
 "supplied, with the Microsoft OID for username; or the Subject name of the "
 "certificate when this is not available. "
-msgstr ""
+msgstr "Erabili hau ziurtagiriak zehaztutako balioa indargabetzeko\n"
+"\n"
+"Modu lehenetsian, hau Microsoften OIDn erabiltzaile-izenekin beteko da, ziurtagirirako pasahitz zuzena ematen denean; edo ziurtagiriaren gai-izenarekin, hau erabilgarri ez badago. "
 
-#: ../properties/nm-sstp-dialog.ui.h:65
+#: ../properties/nm-sstp-dialog.ui.h:64
 msgid "<b>Certificate Validation</b>"
 msgstr "<b>Ziurtagiri-balioztatzea</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:66
+#: ../properties/nm-sstp-dialog.ui.h:65
 msgid "_Subject Match"
-msgstr ""
+msgstr "_Gaiaren bat etortzea"
 
-#: ../properties/nm-sstp-dialog.ui.h:67
+#: ../properties/nm-sstp-dialog.ui.h:66
 msgid ""
 "Subject or Common Name to verify server certificate information against. "
-msgstr ""
+msgstr "Zerbitzari-ziurtagiriaren informazioa gai edo izen arrunt honekin egiaztatuko da. "
 
-#: ../properties/nm-sstp-dialog.ui.h:68
+#: ../properties/nm-sstp-dialog.ui.h:67
 msgid "_Verify Method"
 msgstr "Egia_ztatu metodoa"
 
-#: ../properties/nm-sstp-dialog.ui.h:69
+#: ../properties/nm-sstp-dialog.ui.h:68
 msgid ""
 "Verify server certificate identification.\n"
 "\n"
@@ -646,51 +648,71 @@ msgid ""
 "fields),\n"
 "or just the Common Name (CN field).\n"
 "                                    "
-msgstr ""
+msgstr "Egiaztatu zerbitzari-ziurtagiriaren identifikazioa.\n"
+"\n"
+"Gaituta badago, konexioa ongi gauzatzeko, zerbitzari-ziurtagiriak bat etorri behar du espero diren zenbait propietaterekin.\n"
+"Bat etortzea ziurtagiri-gai osoari (eremu guztiei) aplikatu ahal zaio,\n"
+"edo soilik Common Name eremuari (CN eremuari).\n"
+"                                    "
 
-#: ../properties/nm-sstp-dialog.ui.h:75
+#: ../properties/nm-sstp-dialog.ui.h:74
 msgid ""
 "Require that peer certificate was signed with an explicit key usage and "
 "extended key usage based on RFC3280 TLS rules."
-msgstr ""
+msgstr "Behartu parekoaren ziurtagiria gako-erabilera esplizitu batekin sinatuta egon dadin eta gako-erabilera hedatua RFC3280 TLS arauetan oinarrituta egon dadin."
 
-#: ../properties/nm-sstp-dialog.ui.h:76
+#: ../properties/nm-sstp-dialog.ui.h:75
 msgid "<b>Compatibility</b>"
 msgstr "<b>Bateragarritasuna</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:77
+#: ../properties/nm-sstp-dialog.ui.h:76
 msgid "_Max TLS Version"
 msgstr "TLS bertsio _max"
 
-#: ../properties/nm-sstp-dialog.ui.h:78
+#: ../properties/nm-sstp-dialog.ui.h:77
 msgid ""
 "Use this to control the maximum supported EAP-TLS version. Default is TLS "
 "1.2, and use of TLS 1.3 is considered experimental at this point."
-msgstr ""
+msgstr "Erabili hau onartutako EAP-TLS bertsio berriena zein den kontrolatzeko. Balio lehenetsia TLS 1.2 da, eta TLS 1.3 erabiltzea esperimentaltzat hartzen da momentuz."
 
-#: ../properties/nm-sstp-dialog.ui.h:79
+#: ../properties/nm-sstp-dialog.ui.h:78
 msgid "TLS Authentication"
 msgstr "TLS autentifikazioa"
 
-#: ../properties/nm-sstp-dialog.ui.h:80
+#: ../properties/nm-sstp-dialog.ui.h:79
 msgid "Address:"
 msgstr "Helbidea:"
 
-#: ../properties/nm-sstp-dialog.ui.h:81
+#: ../properties/nm-sstp-dialog.ui.h:80
 msgid "Port:"
 msgstr "Ataka:"
 
-#: ../properties/nm-sstp-dialog.ui.h:82
+#: ../properties/nm-sstp-dialog.ui.h:81
 msgid "0"
 msgstr "0"
 
-#: ../properties/nm-sstp-dialog.ui.h:83
+#: ../properties/nm-sstp-dialog.ui.h:82
 msgid "Show Password"
 msgstr "Erakutsi pasahitza"
 
-#: ../properties/nm-sstp-dialog.ui.h:84
+#: ../properties/nm-sstp-dialog.ui.h:83
 msgid "Proxy"
 msgstr "Proxy-a"
+
+#: ../properties/nm-sstp-dialog.ui.h:84
+msgid "Advanced Properties"
+msgstr "Propietate aurreratuak"
+
+#: ../properties/nm-sstp-dialog.ui.h:85
+msgid "_Cancel"
+msgstr "_Utzi"
+
+#: ../properties/nm-sstp-dialog.ui.h:86
+msgid "_Apply"
+msgstr "_Aplikatu"
+
+#~ msgid "Authentication"
+#~ msgstr "Autentifikazioa"
 
 #~ msgid "SSTP VPN Connection Manager"
 #~ msgstr "SSTP VPN konexio-kudeatzailea"
