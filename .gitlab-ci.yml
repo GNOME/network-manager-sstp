@@ -17,7 +17,6 @@
       gtk4-devel
       gnutls-devel
       sstp-client-devel
-      intltool
       libtool
       libsecret-devel
       libnma-devel
@@ -29,7 +28,7 @@
 .dist: &dist
   stage: test
   dependencies:
-    - fedora35_dist
+    - fedora36_dist
   variables:
     GIT_STRATEGY: none
 
@@ -49,9 +48,9 @@
     - make -j uninstall
 
 # Roll the distribution tarball
-fedora35_dist:
+fedora36_dist:
   <<: *fedora_deps
-  image: fedora:35
+  image: fedora:36
   stage: build
   script:
     - dnf -y install
@@ -61,7 +60,7 @@ fedora35_dist:
       NetworkManager-libnm-devel
     - sh autogen.sh
     # The Xvfb dance below is because gtk4-builder-tool require a display
-    - xinit /bin/sh -c 'make -j distcheck && touch .success' -- /usr/bin/Xvfb :5
+    - xinit /bin/sh -c 'make distcheck && touch .success' -- /usr/bin/Xvfb :5
     - test -e .success
   artifacts:
     paths:
