@@ -159,12 +159,15 @@ AM_CONDITIONAL(WITH_GTK4, test x"$with_gtk4" != xno)
 AM_CONDITIONAL(WITH_LIBNM_GLIB, test x"$with_libnm_glib" != xno)
 AC_ARG_ENABLE(absolute-paths, AS_HELP_STRING([--enable-absolute-paths], [Use absolute paths to in .name files. Useful for development. (default is no)]))
 
+dnl
+dnl translation support
+dnl
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.20])
+
 GETTEXT_PACKAGE=NetworkManager-sstp
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
-
-IT_PROG_INTLTOOL([0.35])
-AM_GLIB_GNU_GETTEXT
 
 PKG_CHECK_MODULES(GNUTLS, [gnutls >= 2.12])
 PKG_CHECK_MODULES(SSTPC, [sstp-client-1.0 >= 1.0.10])

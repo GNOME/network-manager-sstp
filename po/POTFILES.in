@@ -3,10 +3,10 @@
 appdata/network-manager-sstp.metainfo.xml.in
 auth-dialog/main.c
 properties/advanced-dialog.c
+properties/nm-sstp-dialog.ui
 properties/nm-sstp-editor-plugin.c
 properties/nm-sstp-editor.c
 shared/nm-utils/nm-shared-utils.c
 shared/nm-utils/nm-vpn-plugin-utils.c
 shared/utils.c
 src/nm-sstp-service.c
-[type: gettext/glade]properties/nm-sstp-dialog.ui
