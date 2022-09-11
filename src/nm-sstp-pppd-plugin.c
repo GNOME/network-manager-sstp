@@ -225,7 +225,7 @@ done:
  * Extract the address SSTPC resolved as the hostname
  */
 static int
-nm_sstp_getaddr(struct sockaddr_in *addr)
+nm_sstp_getaddr(struct sockaddr_storage *addr)
 {
     char *buff = NULL;
     int retval = (-1);
@@ -233,6 +233,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     int ret    = (-1);
     int cnt    = (SSTP_API_ATTR_MAX+1);
     char name[255] = {};
+    char ipstr[INET6_ADDRSTRLEN];
     sstp_api_msg_st msg;
     sstp_api_msg_t  type;
     sstp_api_attr_st *attr;
@@ -297,7 +298,18 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     }
 
     /* Copy the result to the output argument */
-    memcpy(addr, attr->attr_data, sizeof(struct sockaddr_in));
+    memcpy(addr, attr->attr_data, MIN(attr->attr_len, sizeof(*addr)));
+    switch (addr->ss_family)
+    {
+        case AF_INET:
+            inet_ntop(addr->ss_family, &((struct sockaddr_in*)addr)->sin_addr,
+                    ipstr, sizeof(ipstr));
+            break;
+        case AF_INET6:
+            inet_ntop(addr->ss_family, &((struct sockaddr_in6*)addr)->sin6_addr,
+                    ipstr, sizeof(ipstr));
+            break;
+    }
 
     /* Get the gateway name */
     attr = list[SSTP_API_ATTR_GATEWAY];
@@ -310,7 +322,7 @@ nm_sstp_getaddr(struct sockaddr_in *addr)
     memcpy(name, attr->attr_data, attr->attr_len);
 
     _LOGI ("sstp-plugin: sstpc is connected to %s using %s",
-           name, inet_ntoa(addr->sin_addr));
+           name, ipstr);
 
     /* Success */
     retval = 0;
@@ -565,7 +577,7 @@ nm_send_config (void)
 {
     GVariantBuilder builder;
     GVariant *ip4config = NULL, *ip6config = NULL;
-    struct sockaddr_in addr;
+    struct sockaddr_storage addr;
     int mtu;
 
     g_return_if_fail (G_IS_DBUS_PROXY (gl.proxy));
@@ -584,12 +596,12 @@ nm_send_config (void)
     /* Request the address of the server sstpc connected to */
     if (0 == nm_sstp_getaddr(&addr)) {
 
-        if (addr.sin_family == AF_INET) {
+        if (addr.ss_family == AF_INET) {
             g_variant_builder_add (&builder, "{sv}",
                                    NM_VPN_PLUGIN_CONFIG_EXT_GATEWAY,
-                                   g_variant_new_uint32 (addr.sin_addr.s_addr));
+                                   g_variant_new_uint32 (((struct sockaddr_in*)&addr)->sin_addr.s_addr));
         }
-        if (addr.sin_family == AF_INET6) {
+        if (addr.ss_family == AF_INET6) {
             g_variant_builder_add (&builder, "{sv}",
                                    NM_VPN_PLUGIN_CONFIG_EXT_GATEWAY,
                                    g_variant_new_fixed_array (G_VARIANT_TYPE_BYTE, &((struct sockaddr_in6*)&addr)->sin6_addr, 16, 1));
