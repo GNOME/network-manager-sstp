@@ -111,7 +111,7 @@ static const ValidProperty valid_properties[] = {
     { NM_SSTP_KEY_USER,                      G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_PASSWORD_FLAGS,            G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_DOMAIN,                    G_TYPE_STRING,  FALSE },
-    { NM_SSTP_KEY_CONNECTION_TYPE,           G_TYPE_STRING,  TRUE  },
+    { NM_SSTP_KEY_CONNECTION_TYPE,           G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_CA_CERT,                   G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_IGN_CERT_WARN,             G_TYPE_BOOLEAN, FALSE },
     { NM_SSTP_KEY_TLS_EXT_ENABLE,            G_TYPE_BOOLEAN, FALSE },
@@ -672,7 +672,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
 
     /* Username; try SSTP specific username first, then generic username */
     value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
-    if (value && !strcmp (value, NM_SSTP_CONTYPE_PASSWORD)) {
+    if (value == NULL || nm_streq0(value, NM_SSTP_CONTYPE_PASSWORD)) {
 
         value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_USER);
         if (!value || !*value)
@@ -689,7 +689,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
             g_ptr_array_add (args, (gpointer) g_strdup (value));
         }
     }
-    else if (value && !strcmp (value, NM_SSTP_CONTYPE_TLS)) {
+    else if (nm_streq0(value, NM_SSTP_CONTYPE_TLS)) {
 
         /* This is usually the certificate's subject name, but user can specify an override in
          *   the advanced settings dialog
@@ -983,7 +983,7 @@ handle_need_secrets (NMDBusSstpPpp *object,
     g_assert (s_vpn);
 
     value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
-    if (nm_streq0 (value, NM_SSTP_CONTYPE_PASSWORD)) {
+    if (value == NULL || nm_streq0 (value, NM_SSTP_CONTYPE_PASSWORD)) {
         /* Username; try SSTP specific username first, then generic username */
         user = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_USER);
         if (!user || !strlen (user))
@@ -1251,7 +1251,7 @@ real_need_secrets (NMVpnServicePlugin *plugin,
     }
 
     ctype = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_CONNECTION_TYPE);
-    if (nm_streq0 (ctype, NM_SSTP_CONTYPE_PASSWORD)) {
+    if (ctype == NULL || nm_streq0 (ctype, NM_SSTP_CONTYPE_PASSWORD)) {
 
         /* Don't need the password if we already have one */
         if (nm_setting_vpn_get_secret (NM_SETTING_VPN (s_vpn), NM_SSTP_KEY_PASSWORD))
