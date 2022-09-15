@@ -192,8 +192,8 @@ get_passwords_required (GHashTable *data,
     const char *ctype, *val;
     char *prompt = NULL;
     const char *const*iter;
-    gboolean status;
-    NMSettingSecretFlags flags;
+    gboolean status = FALSE;
+    NMSettingSecretFlags flags = NM_SETTING_SECRET_FLAG_NONE;
 
     *out_need_password = FALSE;
     *out_need_certpass = FALSE;
@@ -215,10 +215,14 @@ get_passwords_required (GHashTable *data,
     }
 
     ctype = g_hash_table_lookup (data, NM_SSTP_KEY_CONNECTION_TYPE);
-    g_return_val_if_fail (ctype != NULL, NULL);
-
+    /* Normal user password */
+    if (ctype == NULL || !strcmp(ctype, NM_SSTP_CONTYPE_PASSWORD)) {
+        status = nm_vpn_service_plugin_get_secret_flags (data, NM_SSTP_KEY_PASSWORD, &flags);
+        if (status && !(flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED))
+            *out_need_password = TRUE;
+    }
     /* Certificate Key Password */
-    if (!strcmp (ctype, NM_SSTP_CONTYPE_TLS)) {
+    else if (!strcmp(ctype, NM_SSTP_CONTYPE_TLS)) {
         status = nm_vpn_service_plugin_get_secret_flags (data, NM_SSTP_KEY_TLS_USER_KEY_SECRET, &flags);
         if (status) {
             /* ... but only if private key is encrypted */
@@ -227,13 +231,7 @@ get_passwords_required (GHashTable *data,
                 nm_utils_file_is_private_key (val, out_need_certpass);
             }
         }
-    /* Normal user password */
-    } else if (!strcmp (ctype, NM_SSTP_CONTYPE_PASSWORD)) {
-        status = nm_vpn_service_plugin_get_secret_flags (data, NM_SSTP_KEY_PASSWORD, &flags);
-        if (status && !(flags & NM_SETTING_SECRET_FLAG_NOT_REQUIRED))
-            *out_need_password = TRUE;
     }
-
     /* Proxy Password (but only if proxy is specified) */
     val = g_hash_table_lookup (data, NM_SSTP_KEY_PROXY_SERVER);
     if (val && val[0]) {
