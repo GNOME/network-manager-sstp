@@ -74,6 +74,7 @@ typedef struct {
 
 #define NM_SSTP_PPPD_PLUGIN PLUGINDIR "/nm-sstp-pppd-plugin.so"
 #define NM_SSTP_WAIT_PPPD 10000 /* 10 seconds */
+#define NM_SSTP_MTU_DEFAULT "1400"
 #define SSTP_SERVICE_SECRET_TRIES "sstp-service-secret-tries"
 
 /*****************************************************************************/
@@ -115,6 +116,7 @@ static const ValidProperty valid_properties[] = {
     { NM_SSTP_KEY_CA_CERT,                   G_TYPE_STRING,  FALSE },
     { NM_SSTP_KEY_IGN_CERT_WARN,             G_TYPE_BOOLEAN, FALSE },
     { NM_SSTP_KEY_TLS_EXT_ENABLE,            G_TYPE_BOOLEAN, FALSE },
+    { NM_SSTP_KEY_MTU,                       G_TYPE_UINT,    FALSE },
     { NM_SSTP_KEY_REFUSE_EAP,                G_TYPE_BOOLEAN, FALSE },
     { NM_SSTP_KEY_REFUSE_PAP,                G_TYPE_BOOLEAN, FALSE },
     { NM_SSTP_KEY_REFUSE_CHAP,               G_TYPE_BOOLEAN, FALSE },
@@ -778,6 +780,16 @@ construct_pppd_args (NMSstpPlugin *plugin,
 #endif // USE_PPP_EXT_TLS_SETTINGS
 
         g_ptr_array_add (args, (gpointer) g_strdup ("need-peer-eap"));
+    }
+
+    value = nm_setting_vpn_get_data_item (s_vpn, NM_SSTP_KEY_MTU) ? : NM_SSTP_MTU_DEFAULT;
+    if (value && *value) {
+        long int tmp_int;
+        if (str_to_int (value, &tmp_int)) {
+            g_ptr_array_add (args, (gpointer) g_strdup ("mtu"));
+            g_ptr_array_add (args, (gpointer) g_strdup_printf("%ld", tmp_int));
+        } else
+            _LOGW ("failed to convert mtu value “%s”", value);
     }
 
     /* Allow EAP */

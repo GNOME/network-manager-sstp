@@ -59,6 +59,7 @@
 #define NM_SSTP_KEY_LCP_ECHO_FAILURE            "lcp-echo-failure"
 #define NM_SSTP_KEY_LCP_ECHO_INTERVAL           "lcp-echo-interval"
 #define NM_SSTP_KEY_UNIT_NUM                    "unit"
+#define NM_SSTP_KEY_MTU                         "mtu"
 #define NM_SSTP_KEY_PROXY_SERVER                "proxy-server"
 #define NM_SSTP_KEY_PROXY_PORT                  "proxy-port"
 #define NM_SSTP_KEY_PROXY_USER                  "proxy-user"

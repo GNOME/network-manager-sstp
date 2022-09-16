@@ -68,6 +68,7 @@ static const char *advanced_keys[] = {
     NM_SSTP_KEY_LCP_ECHO_FAILURE,
     NM_SSTP_KEY_LCP_ECHO_INTERVAL,
     NM_SSTP_KEY_UNIT_NUM,
+    NM_SSTP_KEY_MTU,
     NM_SSTP_KEY_PROXY_SERVER,
     NM_SSTP_KEY_PROXY_PORT,
     NM_SSTP_KEY_PROXY_USER,
@@ -800,6 +801,30 @@ advanced_dialog_new (GHashTable *hash, gboolean is_tls, gchar *subject)
         gtk_widget_set_sensitive (widget, FALSE);
     }
 
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mtu_checkbutton"));
+    spin = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mtu_spinbutton"));
+    g_signal_connect (G_OBJECT (widget), "toggled", G_CALLBACK (checkbox_toggled_update_widget_cb), spin);
+
+    value = g_hash_table_lookup (hash, NM_SSTP_KEY_MTU);
+    if (value && *value) {
+        long int tmp;
+
+        errno = 0;
+        tmp = strtol (value, NULL, 10);
+        if (errno == 0 && tmp >= 0 && tmp <= 1500) {
+            gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), TRUE);
+
+            widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mtu_spinbutton"));
+            gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), (gdouble) tmp);
+            gtk_widget_set_sensitive (widget, TRUE);
+        }
+    } else {
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (widget), FALSE);
+
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mtu_spinbutton"));
+        gtk_widget_set_sensitive (widget, FALSE);
+    }
+
     return dialog;
 }
 
@@ -943,6 +968,16 @@ advanced_dialog_new_hash_from_dialog (GtkWidget *dialog, GError **error)
         unit_num = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
         g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_UNIT_NUM),
                              g_strdup_printf ("%d", unit_num));
+    }
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mtu_checkbutton"));
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (widget))) {
+        int mtu;
+
+        widget = GTK_WIDGET (gtk_builder_get_object (builder, "ppp_mtu_spinbutton"));
+        mtu = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
+        g_hash_table_insert (hash, g_strdup (NM_SSTP_KEY_MTU),
+                             g_strdup_printf ("%d", mtu));
     }
 
     /* TLS Authentication */
