@@ -1,3 +1,101 @@
+2022-09-19  Eivind Næss  eivnaes@yahoo.com
+
+	* Bump version to 1.3.1 in configure.ac
+	* Updating ChangeLog and NEWS files
+	* Updating the Norwegian translations
+
+2022-09-18  Eivind Næss  eivnaes@yahoo.com
+
+	* Adding new setting to control the MTU. The default is 1400 for connections
+	  and value can be overriden by an advanced setting.
+
+2022-09-15  Eivind Næss  eivnaes@yahoo.com
+
+	* Fixing additional cases where connection-type could be NULL
+
+2022-09-12  Eivind Næss  eivnaes@yahoo.com
+
+	* Fix for an issue where Kubuntu users faced a problem when upgrading
+	  from 1.2.6 to 1.3.0
+
+2022-09-11  Eivind Næss  eivnaes@yahoo.com
+
+	* Setting DIST_DEPENDS_ON_UPDATE_PO=yes as a workaround for make -j dist not
+	  working with current version of gettext
+
+2022-09-10  Alan Mortensen  alanmortensen.am@gmail.com
+
+	* Update Danish translation
+
+2022-09-03  Sabri Ünal  libreajans@gmail.com
+
+	* Update Turkish translation
+
+2022-08-13  Goran Vidović  trebelnik2@gmail.com
+
+	* Update Croatian translation
+
+2022-07-25  Zurab Kargareteli  zuraxt@gmail.com
+
+	* Update Georgian translation
+
+2022-07-08  Andika Triwidada  atriwidada@gnome.org
+
+	* Update Indonesian translation
+
+2022-06-21  Eivind Næss  eivnaes@yahoo.com
+
+	* Migrate to GNU Gettext instead of using intltool, fixes issue #45
+
+2022-05-15  Asier Sarasua Garmendia  asiersarasua@ni.eus
+
+	* Update Basque translation
+
+2022-05-13  Luna Jernberg  droidbittin@gmail.com
+
+	* Update Swedish translation
+
+2022-05-10  Sam James  sam@gentoo.org
+
+	* Fix bashism problems in configure.ac
+
+2022-04-29  Eivind Næss  eivnaes@yahoo.com
+
+	* Bugfix for make "Verify certificate and extended key usage", and "Use
+	  TLS hostname extension" options persist. Closes issue #49
+
+2022-04-15  Enrico Nicoletto  hiko@duck.com
+
+	* Update Brazilian Portuguese translation
+
+2022-04-11  Eivind Næss  eivnaes@yahoo.com
+
+	* Setting release date to April 11th
+
+2022-04-11  Eivind Næss  eivnaes@yahoo.com
+
+	* Bugfix for setting the correct name in EAP authentication
+
+2022-04-10  Eivind Næss  eivnaes@yahoo.com
+
+	* nm-sstp-service.c should extend copyright to same as the global copyrights in debian/copyright
+
+2022-04-10  Piotr Drąg  piotrdrag@gmail.com
+
+	* Update Polish translation
+
+2022-04-09  Eivind Næss  eivnaes@yahoo.com
+
+	* Update README
+
+2022-04-09  Eivind Næss  eivnaes@yahoo.com
+
+	* Updating NEWS and ChangeLog files reflecting the history of this project
+
+2022-04-09  Alan Mortensen  alanmortensen.am@gmail.com
+
+	* Update Danish translation
+
 2022-04-07  Eivind Næss  <eivnaes@yahoo.com>
 
 	* Removing yet another packing/positioning GTK4 warning

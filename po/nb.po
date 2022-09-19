@@ -6,30 +6,31 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 09:27-0700\n"
-"PO-Revision-Date: 2021-10-12 10:02-0700\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/-/"
+"issues\n"
+"POT-Creation-Date: 2022-09-19 08:56-0700\n"
+"PO-Revision-Date: 2022-09-19 09:02-0700\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
+#: appdata/network-manager-sstp.metainfo.xml.in:9
 msgid "SSTP VPN client"
 msgstr "SSTP VPN-klient"
 
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
+#: appdata/network-manager-sstp.metainfo.xml.in:10
 msgid "Client for SSTP virtual private networks"
 msgstr "Klient for SSTP virtuelle private nettverk"
 
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
+#: appdata/network-manager-sstp.metainfo.xml.in:22
 msgid "Support for configuring SSTP virtual private network connections."
 msgstr "Støtte for å konfigurere SSTP virtuelle private netverkstilkoblinger."
 
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
+#: appdata/network-manager-sstp.metainfo.xml.in:23
 msgid ""
 "Compatible with servers following the SSTP specification including the "
 "Microsoft servers."
@@ -37,359 +38,115 @@ msgstr ""
 "Kompatibel med tjenere som følger SSTP-spesifikasjonen inklusive Microsoft "
 "tjenere."
 
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
+#: appdata/network-manager-sstp.metainfo.xml.in:28
+msgid "The main configuration page"
+msgstr "Ingen konfigurasjonsvalg for VPN"
+
+#: appdata/network-manager-sstp.metainfo.xml.in:32
+msgid "The advanced options dialog"
+msgstr "Avanserte alternativer for SSTP"
+
+#: appdata/network-manager-sstp.metainfo.xml.in:41
 msgid "The NetworkManager Developers"
 msgstr "NetworkManager Utviklere"
 
-#: ../auth-dialog/main.c:278
+#: auth-dialog/main.c:276
 msgid "Authenticate VPN"
 msgstr "Autentiser VPN"
 
-#: ../auth-dialog/main.c:287 ../auth-dialog/main.c:384
+#: auth-dialog/main.c:285 auth-dialog/main.c:382
 msgid "Certificate password:"
 msgstr "Sertifikat Passord:"
 
-#: ../auth-dialog/main.c:293
+#: auth-dialog/main.c:291
 msgid "_HTTP proxy password:"
 msgstr "HTTP proxy passord:"
 
-#: ../auth-dialog/main.c:370
+#: auth-dialog/main.c:368
 #, c-format
 msgid "Authenticate VPN %s"
 msgstr "Autentiser VPN «%s»"
 
-#: ../auth-dialog/main.c:377 ../properties/nm-sstp-dialog.ui.h:12
+#: auth-dialog/main.c:375 properties/nm-sstp-dialog.ui:255
+#: properties/nm-sstp-dialog.ui:1594
 msgid "Password:"
 msgstr "Passord:"
 
-#: ../auth-dialog/main.c:391
+#: auth-dialog/main.c:389
 msgid "HTTP proxy password:"
 msgstr "HTTP proxy passord:"
 
-#: ../auth-dialog/main.c:506
+#: auth-dialog/main.c:504
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
 "Du må autentisere deg for å få tilgang til Virtuelt privat nettverk «%s»."
 
-#: ../properties/advanced-dialog.c:235
+#: properties/advanced-dialog.c:248
 msgid "All Available (Default)"
 msgstr "Alle tilgjengelige (forvalg)"
 
-#: ../properties/advanced-dialog.c:239
+#: properties/advanced-dialog.c:252
 msgid "128-bit (most secure)"
 msgstr "128-bit (mest sikker)"
 
-#: ../properties/advanced-dialog.c:248
+#: properties/advanced-dialog.c:261
 msgid "40-bit (less secure)"
 msgstr "40-bit (mindre sikker)"
 
-#: ../properties/advanced-dialog.c:367
+#: properties/advanced-dialog.c:380
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:380
+#: properties/advanced-dialog.c:393
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:392
+#: properties/advanced-dialog.c:405
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:404
+#: properties/advanced-dialog.c:417
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:416
+#: properties/advanced-dialog.c:429
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/advanced-dialog.c:482
+#: properties/advanced-dialog.c:495
 msgid "Don't verify certificate identification"
 msgstr "Ikke verifiser sertifikat informasjonen"
 
-#: ../properties/advanced-dialog.c:490
+#: properties/advanced-dialog.c:503
 msgid "Verify subject exactly"
 msgstr "Verifiser emnet eksakt"
 
-#: ../properties/advanced-dialog.c:498
+#: properties/advanced-dialog.c:511
 msgid "Verify name exactly"
 msgstr "Verifiser navnet eksakt"
 
-#: ../properties/advanced-dialog.c:506
+#: properties/advanced-dialog.c:519
 msgid "Verify name by suffix"
 msgstr "Verifiser navnet med suffiks"
 
-#: ../properties/advanced-dialog.c:556
+#: properties/advanced-dialog.c:569
 msgid "TLS 1.2 (Default)"
 msgstr "TLS 1.2 (Standard)"
 
-#: ../properties/advanced-dialog.c:564
+#: properties/advanced-dialog.c:577
 msgid "TLS 1.3"
 msgstr "TLS 1.3"
 
-#: ../properties/nm-sstp-editor-plugin.c:34
-msgid "Secure Socket Tunneling Protocol (SSTP)"
-msgstr "Secure Socket Tunneling Protocol (SSTP)"
-
-#: ../properties/nm-sstp-editor-plugin.c:35
-msgid "Compatible with Microsoft and other SSTP VPN servers."
-msgstr "Kompatibel med Microsofts og andres VPN-tjenere basert på SSTP."
-
-#: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
-#, c-format
-msgid "file is not a certificate"
-msgstr "filen er ikke et sertifikat"
-
-#: ../properties/nm-sstp-editor.c:365
-#, c-format
-msgid "file is not a private key"
-msgstr "filen er ikke en privat nøkkel"
-
-#: ../properties/nm-sstp-editor.c:581
-msgid "Certificates (TLS)"
-msgstr "Sertifikat (TLS)"
-
-#: ../properties/nm-sstp-editor.c:590
-msgid "Password"
-msgstr "Passord"
-
-#: ../shared/nm-utils/nm-shared-utils.c:946
-#, c-format
-msgid "object class '%s' has no property named '%s'"
-msgstr "objektklassen «%s». har ingen egenskap med navnet «%s»"
-
-#: ../shared/nm-utils/nm-shared-utils.c:953
-#, c-format
-msgid "property '%s' of object class '%s' is not writable"
-msgstr "egenskapen «%s» for objektklassen «%s» er ikke skrivbar"
-
-#: ../shared/nm-utils/nm-shared-utils.c:960
-#, c-format
-msgid ""
-"construct property \"%s\" for object '%s' can't be set after construction"
-msgstr ""
-"egenskapen for «%s» objektet «%s» kan ikke bli oppdatert etter objektet har "
-"blit laget"
-
-#: ../shared/nm-utils/nm-shared-utils.c:968
-#, c-format
-msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
-msgstr ""
-"\"%s::%s\" er ikke et gyldig egenskapsnavn; «%s» er ikke ett derivat av "
-"GObject"
-
-#: ../shared/nm-utils/nm-shared-utils.c:977
-#, c-format
-msgid "unable to set property '%s' of type '%s' from value of type '%s'"
-msgstr "kan ikke sette egenskapen «%s» av type «%s» fra verdi av typen «%s»"
-
-#: ../shared/nm-utils/nm-shared-utils.c:988
-#, c-format
-msgid ""
-"value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
-"type '%s'"
-msgstr ""
-"verdien av «%s» av type «%s» er ugyldig eller utenfor intervallet for "
-"egenskapen «%s» av type «%s»"
-
-#: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
-#, c-format
-msgid "unable to get editor plugin name: %s"
-msgstr "kan ikke hente navnet for redigering modulen: «%s»"
-
-#: ../shared/nm-utils/nm-vpn-plugin-utils.c:103
-#, c-format
-msgid "missing plugin file \"%s\""
-msgstr "finner ikke filen for redigerings modulen «%s»"
-
-#: ../shared/nm-utils/nm-vpn-plugin-utils.c:109
-#, c-format
-msgid "cannot load editor plugin: %s"
-msgstr "kan ikke laste redigerings modulen: «%s»"
-
-#: ../shared/nm-utils/nm-vpn-plugin-utils.c:118
-#, c-format
-msgid "cannot load factory %s from plugin: %s"
-msgstr "kan ikke laste fabrikken «%s» fra modulen: «%s»"
-
-#: ../shared/nm-utils/nm-vpn-plugin-utils.c:144
-msgid "unknown error creating editor instance"
-msgstr "ukjent feil ved konstruksjon av redigerings modulen"
-
-#: ../shared/utils.c:58
-msgid "Failed to initialize the crypto engine"
-msgstr "Misslykkes med initialisering av kryptografi modulen"
-
-#: ../shared/utils.c:85
-#, c-format
-msgid "Failed to get subject name"
-msgstr "Misslykkes med å få emnenavnet"
-
-#: ../shared/utils.c:121 ../shared/utils.c:135
-#, c-format
-msgid "Failed to load certificate"
-msgstr "Misslykkes med å lese sertifikatet"
-
-#: ../shared/utils.c:128
-#, c-format
-msgid "Failed to initialize certificate"
-msgstr "Misslykkes med å laste sertifikatet"
-
-#: ../shared/utils.c:185
-#, c-format
-msgid "Failed to parse pkcs12 file"
-msgstr "Misslykkes med å lese pkcs12-filen"
-
-#: ../shared/utils.c:191
-#, c-format
-msgid "Failed to import pkcs12 file"
-msgstr "Misslykkes med å importere pkcs12-filen"
-
-#: ../shared/utils.c:198
-#, c-format
-msgid "Failed to initialize pkcs12 structure"
-msgstr "Misslykkes med å initialisere pkcs12 strukturen"
-
-#: ../shared/utils.c:205
-#, c-format
-msgid "Failed to read file"
-msgstr "Misslykkes med å lese filen"
-
-#: ../shared/utils.c:239
-#, c-format
-msgid "Failed to decrypt private key"
-msgstr "Misslykkes med å dekryptere den private nøkkelen"
-
-#: ../shared/utils.c:249
-#, c-format
-msgid "Failed to initialize private key"
-msgstr "Misslykkes med å initialisere den private nøkkelen"
-
-#: ../shared/utils.c:257
-#, c-format
-msgid "Failed read file"
-msgstr "Misslykkes med å lese filen"
-
-#: ../shared/utils.c:307
-#, c-format
-msgid "invalid delimiter character '%c'"
-msgstr "ugyldig heltallsegenskap «%c»"
-
-#: ../shared/utils.c:314
-#, c-format
-msgid "invalid non-utf-8 character"
-msgstr "ugyldig tegn som ikke er utf-8"
-
-#: ../shared/utils.c:343
-#, c-format
-msgid "empty host"
-msgstr "tom tjener navn"
-
-#: ../shared/utils.c:355
-#, c-format
-msgid "invalid port"
-msgstr "ugyldig port"
-
-#: ../src/nm-sstp-service.c:236
-#, c-format
-msgid "invalid gateway “%s”"
-msgstr "ugyldig gateway «%s»"
-
-#: ../src/nm-sstp-service.c:250
-#, c-format
-msgid "invalid integer property “%s”"
-msgstr "ugyldig heltallsegenskap «%s»"
-
-#: ../src/nm-sstp-service.c:260
-#, c-format
-msgid "invalid boolean property “%s” (not yes or no)"
-msgstr "ugyldig boolsk verdi for egenskap «%s» (ikke ja eller nei)"
-
-#: ../src/nm-sstp-service.c:267
-#, c-format
-msgid "unhandled property “%s” type %s"
-msgstr "uhåndtert egenskap «%s» av type «%s»"
-
-#: ../src/nm-sstp-service.c:278
-#, c-format
-msgid "property “%s” invalid or not supported"
-msgstr "egenskapen «%s» er ugyldig eller har ikke støtte"
-
-#: ../src/nm-sstp-service.c:296
-msgid "No VPN configuration options."
-msgstr "Ingen konfigurasjonsvalg for VPN."
-
-#: ../src/nm-sstp-service.c:316
-#, c-format
-msgid "Missing required option “%s”."
-msgstr "Mangler obligatorisk valg «%s»."
-
-#: ../src/nm-sstp-service.c:486
-msgid "Could not find sstp client binary."
-msgstr "Kunne ikke finne kjørbar fil for sstp-klient."
-
-#: ../src/nm-sstp-service.c:496
-msgid "Missing VPN gateway."
-msgstr "Mangler VPN-gateway."
-
-#: ../src/nm-sstp-service.c:929
-msgid "Could not find the pppd binary."
-msgstr "Fant ikke pppd-binærfilen."
-
-#: ../src/nm-sstp-service.c:994 ../src/nm-sstp-service.c:1013
-msgid "Missing VPN username."
-msgstr "Mangler brukernavn for VPN."
-
-#: ../src/nm-sstp-service.c:1002 ../src/nm-sstp-service.c:1021
-msgid "Missing or invalid VPN password."
-msgstr "Passord for VPN mangler eller er ugyldig."
-
-#: ../src/nm-sstp-service.c:1170
-msgid "Invalid or missing SSTP gateway."
-msgstr "Ugyldig eller manglende SSTP-gateway."
-
-#: ../src/nm-sstp-service.c:1231
-msgid ""
-"Could not process the request because the VPN connection settings were "
-"invalid."
-msgstr ""
-"Kunne ikke bearbeide forslaget fordi VPN tilkoblings innstillingene er "
-"ugyldige."
-
-#: ../src/nm-sstp-service.c:1266
-msgid "Invalid connection type."
-msgstr "Ugyldig tilkoblings type."
-
-#: ../src/nm-sstp-service.c:1460
-msgid "Don't quit when VPN connection terminates"
-msgstr "Ikke avslutt når VPN-forbindelsen termineres"
-
-#: ../src/nm-sstp-service.c:1461
-msgid "Enable verbose debug logging (may expose passwords)"
-msgstr "Aktiver informativ feilsøkning logging (kan eksponere passord)"
-
-#: ../src/nm-sstp-service.c:1462
-msgid "D-Bus name to use for this instance"
-msgstr "D-Bus navn å bruke for denne instansen"
-
-#: ../src/nm-sstp-service.c:1483
-msgid ""
-"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
-"Microsoft and other implementations) to NetworkManager."
-msgstr ""
-"nm-sstp-service tilrettelegger for integrert SSTP VPN-funksjonalitet (med "
-"støtte for Microsoft og andre implementasjoner) til NetworkManager."
-
-#: ../properties/nm-sstp-dialog.ui.h:1
+#: properties/nm-sstp-dialog.ui:23 properties/nm-sstp-dialog.ui:479
 msgid "Default"
 msgstr "Standard"
 
-#: ../properties/nm-sstp-dialog.ui.h:2
+#: properties/nm-sstp-dialog.ui:54 properties/nm-sstp-dialog.ui:1440
 msgid "<b>General</b>"
 msgstr "<b>Generelt</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:3
+#: properties/nm-sstp-dialog.ui:75
 msgid ""
 "SSTP server IP or name.\n"
 "config: the first parameter of sstp"
@@ -397,27 +154,28 @@ msgstr ""
 "IP eller navn på SSTP-tjeneren\n"
 "konfig: første innstillingen for sstp"
 
-#: ../properties/nm-sstp-dialog.ui.h:5
+#: properties/nm-sstp-dialog.ui:88
 msgid "_Gateway:"
 msgstr "_Gateway:"
 
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Authentication"
-msgstr "Autentisering"
+#: properties/nm-sstp-dialog.ui:143 properties/nm-sstp-dialog.ui:716
+#: properties/nm-sstp-dialog.ui:1548
+msgid "<b>Authentication</b>"
+msgstr "<b>Autentisering</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:7
+#: properties/nm-sstp-dialog.ui:177 properties/nm-sstp-dialog.ui:610
 msgid "CA"
 msgstr "CA"
 
-#: ../properties/nm-sstp-dialog.ui.h:8
+#: properties/nm-sstp-dialog.ui:190
 msgid "User"
 msgstr "Bruker"
 
-#: ../properties/nm-sstp-dialog.ui.h:9
+#: properties/nm-sstp-dialog.ui:230 properties/nm-sstp-dialog.ui:1570
 msgid "Username:"
 msgstr "Brukernavn:"
 
-#: ../properties/nm-sstp-dialog.ui.h:10
+#: properties/nm-sstp-dialog.ui:241
 msgid ""
 "Set the name used for authenticating the local system to the peer to "
 "<name>.\n"
@@ -427,19 +185,19 @@ msgstr ""
 "motparten til «navn»\n"
 "           konfig: user «navn»"
 
-#: ../properties/nm-sstp-dialog.ui.h:13
+#: properties/nm-sstp-dialog.ui:266
 msgid "Password passed to SSTP when prompted for it."
 msgstr "Passord å gi til SSTP når forespurt."
 
-#: ../properties/nm-sstp-dialog.ui.h:14
+#: properties/nm-sstp-dialog.ui:277
 msgid "Show password"
 msgstr "Vis passord"
 
-#: ../properties/nm-sstp-dialog.ui.h:15
+#: properties/nm-sstp-dialog.ui:293
 msgid "NT Domain:"
 msgstr "NT-domene:"
 
-#: ../properties/nm-sstp-dialog.ui.h:16
+#: properties/nm-sstp-dialog.ui:304
 msgid ""
 "Append the domain name <domain> to the local host name for authentication "
 "purposes.\n"
@@ -449,31 +207,31 @@ msgstr ""
 "autentisering.\n"
 "           konfig: domain «domain»"
 
-#: ../properties/nm-sstp-dialog.ui.h:18
+#: properties/nm-sstp-dialog.ui:359
 msgid "Type:"
 msgstr "Type:"
 
-#: ../properties/nm-sstp-dialog.ui.h:19
+#: properties/nm-sstp-dialog.ui:370
 msgid "Select an authentication mode."
 msgstr "Tillat følgende autentiseringsmetoder."
 
-#: ../properties/nm-sstp-dialog.ui.h:20
+#: properties/nm-sstp-dialog.ui:443
 msgid "Ad_vanced..."
 msgstr "A_vansert …"
 
-#: ../properties/nm-sstp-dialog.ui.h:21
+#: properties/nm-sstp-dialog.ui:496
 msgid "SSTP Advanced Options"
 msgstr "Avanserte alternativer for SSTP"
 
-#: ../properties/nm-sstp-dialog.ui.h:22
+#: properties/nm-sstp-dialog.ui:553
 msgid "<b>SSL Tunnel</b>"
 msgstr "<b>SSL-tunnel</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:23
+#: properties/nm-sstp-dialog.ui:572 properties/nm-sstp-dialog.ui:1272
 msgid "_Verify certificate type and extended key usage"
 msgstr "_Verifiser sertifikat type og utvidet bruk av nøkkelen"
 
-#: ../properties/nm-sstp-dialog.ui.h:24
+#: properties/nm-sstp-dialog.ui:576
 msgid ""
 "Require that the peer certificate used for outer SSL tunnel was signed with "
 "a certificate that has a trusted certificate chain, key usage, and extended "
@@ -483,11 +241,11 @@ msgstr ""
 "sertifikat som har en pålitelig kjede, nøkkel-anvending, og utvidet nøkkel-"
 "anvending basert på regler satt av RFC3280 TLS."
 
-#: ../properties/nm-sstp-dialog.ui.h:25
+#: properties/nm-sstp-dialog.ui:590
 msgid "_Use TLS hostname extensions"
 msgstr "_Anvend TLS verts navn tillegg"
 
-#: ../properties/nm-sstp-dialog.ui.h:26
+#: properties/nm-sstp-dialog.ui:594
 msgid ""
 "Use the gateway name as specified for this connection in the hostname "
 "extensions in the SSL tunnel"
@@ -495,27 +253,23 @@ msgstr ""
 "Anvend gateway navnet som det er angitt for denne tilkoblingen som verts "
 "navn i SSL-tunnelen"
 
-#: ../properties/nm-sstp-dialog.ui.h:27
+#: properties/nm-sstp-dialog.ui:652
 msgid "<b>Certificate Revocation</b>"
 msgstr "<b>Sertifikat Tilbakekalling</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:28
+#: properties/nm-sstp-dialog.ui:667
 msgid "CRL"
 msgstr "CRL"
 
-#: ../properties/nm-sstp-dialog.ui.h:29
+#: properties/nm-sstp-dialog.ui:689
 msgid "Connection"
 msgstr "Tilkobling"
 
-#: ../properties/nm-sstp-dialog.ui.h:30
-msgid "<b>Authentication</b>"
-msgstr "<b>Autentisering</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:31
+#: properties/nm-sstp-dialog.ui:736
 msgid "Allow the following authentication methods:"
 msgstr "Tillat følgende autentiseringsmetoder:"
 
-#: ../properties/nm-sstp-dialog.ui.h:32
+#: properties/nm-sstp-dialog.ui:755
 msgid ""
 "Allow/disable authentication methods.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
@@ -523,15 +277,15 @@ msgstr ""
 "Tilat/inaktiver authentiserings metoder.\n"
 "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
 
-#: ../properties/nm-sstp-dialog.ui.h:34
+#: properties/nm-sstp-dialog.ui:795
 msgid "<b>Security and Compression</b>"
 msgstr "<b>Sikkerhet og komprimering</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:35
+#: properties/nm-sstp-dialog.ui:819
 msgid "Use _Point-to-Point encryption (MPPE)"
 msgstr "Bruk _punkt-til-punkt-kryptering (MPPE)"
 
-#: ../properties/nm-sstp-dialog.ui.h:36
+#: properties/nm-sstp-dialog.ui:823
 msgid ""
 "Note: MPPE encryption is only available with MSCHAP authentication methods. "
 "To enable this checkbox, select one or more of the MSCHAP authentication "
@@ -540,11 +294,11 @@ msgstr ""
 "Merk: MPPE-kryptering er kun tilgjengelig med MSCHAP autentiseringsmetoder. "
 "For å slå på dette valget må du velge en av disse: MSCHAP eller MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.ui.h:37
+#: properties/nm-sstp-dialog.ui:850
 msgid "_Security:"
 msgstr "_Sikkerhet:"
 
-#: ../properties/nm-sstp-dialog.ui.h:38
+#: properties/nm-sstp-dialog.ui:864
 msgid ""
 "Require the use of MPPE, with 40/128-bit encryption or all.\n"
 "config: require-mppe, require-mppe-128 or require-mppe-40"
@@ -552,11 +306,11 @@ msgstr ""
 "Krev anvending av MPPE, med 40/128 biter kryptering eller alle.\n"
 "konfig: require-mppe, require-mppe-128 or require-mppe-40"
 
-#: ../properties/nm-sstp-dialog.ui.h:40
+#: properties/nm-sstp-dialog.ui:889
 msgid "Allow st_ateful encryption"
 msgstr "Tillat kryptering basert på tilst_and"
 
-#: ../properties/nm-sstp-dialog.ui.h:41
+#: properties/nm-sstp-dialog.ui:893
 msgid ""
 "Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
 "config: mppe-stateful (when checked)"
@@ -564,11 +318,11 @@ msgstr ""
 "Tilat MPPE å bruke tilstandbasert modus. Tilstandløs er prøvd først.\n"
 "konfig: mppe-stateful (når tilatt)"
 
-#: ../properties/nm-sstp-dialog.ui.h:43
+#: properties/nm-sstp-dialog.ui:922
 msgid "Allow _BSD data compression"
 msgstr "Tillat _BSD-datakomprimering"
 
-#: ../properties/nm-sstp-dialog.ui.h:44
+#: properties/nm-sstp-dialog.ui:926
 msgid ""
 "Allow/disable BSD-Compress compression.\n"
 "config: nobsdcomp (when unchecked)"
@@ -576,11 +330,11 @@ msgstr ""
 "Tillat/inaktiver BSD-datakomprimering.\n"
 "konfig: nobsdcomp (når inaktiv)"
 
-#: ../properties/nm-sstp-dialog.ui.h:46
+#: properties/nm-sstp-dialog.ui:941
 msgid "Allow _Deflate data compression"
 msgstr "Tillat _deflate-datakomprimering"
 
-#: ../properties/nm-sstp-dialog.ui.h:47
+#: properties/nm-sstp-dialog.ui:945
 msgid ""
 "Allow/disable Deflate compression.\n"
 "config: nodeflate (when unchecked)"
@@ -588,11 +342,11 @@ msgstr ""
 "Tillat/inaktiver deflate-datakomprimering.\n"
 "konfig: nodeflate (når inaktiv)"
 
-#: ../properties/nm-sstp-dialog.ui.h:49
+#: properties/nm-sstp-dialog.ui:960
 msgid "Use TCP _header compression"
 msgstr "Bruk komprimering av TCP-_hoder"
 
-#: ../properties/nm-sstp-dialog.ui.h:50
+#: properties/nm-sstp-dialog.ui:964
 msgid ""
 "Allow/disable Van Jacobson style TCP/IP header compression in both the "
 "transmit and the receive directions.\n"
@@ -602,15 +356,15 @@ msgstr ""
 "mottaker retningene.\n"
 "konfig: novj (når inaktiv)"
 
-#: ../properties/nm-sstp-dialog.ui.h:52
+#: properties/nm-sstp-dialog.ui:1002
 msgid "<b>Echo</b>"
 msgstr "<b>Ekko</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:53
+#: properties/nm-sstp-dialog.ui:1014
 msgid "Send PPP _echo packets"
 msgstr "Send _ekkopakker for PPP"
 
-#: ../properties/nm-sstp-dialog.ui.h:54
+#: properties/nm-sstp-dialog.ui:1018
 msgid ""
 "Send LCP echo-requests to find out whether peer is alive.\n"
 "config: lcp-echo-failure and lcp-echo-interval"
@@ -618,15 +372,15 @@ msgstr ""
 "Sende LCP ekko forespørsler for å finne ut om motparten er i live.\n"
 "config: lcp-echo-failure and lcp-echo-interval"
 
-#: ../properties/nm-sstp-dialog.ui.h:56
+#: properties/nm-sstp-dialog.ui:1049
 msgid "<b>Misc</b>"
 msgstr "<b>Diverse</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:57
+#: properties/nm-sstp-dialog.ui:1066
 msgid "Use custom _unit number:"
 msgstr "Anvend et bestemt _enhets nummer:"
 
-#: ../properties/nm-sstp-dialog.ui.h:58
+#: properties/nm-sstp-dialog.ui:1070 properties/nm-sstp-dialog.ui:1087
 msgid ""
 "Enable custom index for ppp<n> device name.\n"
 "config: unit <n>"
@@ -634,15 +388,15 @@ msgstr ""
 "Anvend et bestemt indeks nummer for ppp <index> enhets navnet\n"
 "config: unit <n>"
 
-#: ../properties/nm-sstp-dialog.ui.h:60
+#: properties/nm-sstp-dialog.ui:1120
 msgid "Point-to-Point"
 msgstr "Punkt-til-Punkt"
 
-#: ../properties/nm-sstp-dialog.ui.h:61
+#: properties/nm-sstp-dialog.ui:1147
 msgid "<b>Identity</b>"
 msgstr "<b>Identitet</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:62
+#: properties/nm-sstp-dialog.ui:1161
 msgid ""
 "Use this to override the value specified by the certificate\n"
 "\n"
@@ -655,24 +409,24 @@ msgstr ""
 "Microsoft-OID for brukernavn; eller emnenavnet av sertifikatet når dette "
 "ikke er tilgjengelig. "
 
-#: ../properties/nm-sstp-dialog.ui.h:65
+#: properties/nm-sstp-dialog.ui:1189
 msgid "<b>Certificate Validation</b>"
 msgstr "<b>Sertifikatsvalidering</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:66
+#: properties/nm-sstp-dialog.ui:1212
 msgid "_Subject Match"
 msgstr "Match av Emnenavn"
 
-#: ../properties/nm-sstp-dialog.ui.h:67
+#: properties/nm-sstp-dialog.ui:1225
 msgid ""
 "Subject or Common Name to verify server certificate information against. "
 msgstr "Emne eller vanlig navn å verifisere sertifikatinformasjonen mot. "
 
-#: ../properties/nm-sstp-dialog.ui.h:68
+#: properties/nm-sstp-dialog.ui:1237
 msgid "_Verify Method"
 msgstr "_Verifiseringsmetode"
 
-#: ../properties/nm-sstp-dialog.ui.h:69
+#: properties/nm-sstp-dialog.ui:1250
 msgid ""
 "Verify server certificate identification.\n"
 "\n"
@@ -691,7 +445,7 @@ msgstr ""
 "eller bare navnet (CN-feltet).\n"
 "                                    "
 
-#: ../properties/nm-sstp-dialog.ui.h:75
+#: properties/nm-sstp-dialog.ui:1276
 msgid ""
 "Require that peer certificate was signed with an explicit key usage and "
 "extended key usage based on RFC3280 TLS rules."
@@ -699,15 +453,15 @@ msgstr ""
 "Krev at motparts sertifikatet var signert med en eksplisitt nøkkel bruk og "
 "utvidet nøkkel bruk basert på regler fra RFC3280."
 
-#: ../properties/nm-sstp-dialog.ui.h:76
+#: properties/nm-sstp-dialog.ui:1320
 msgid "<b>Compatibility</b>"
 msgstr "<b>Kompatibilitet</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:77
+#: properties/nm-sstp-dialog.ui:1343
 msgid "_Max TLS Version"
 msgstr "_Maksimal TLS-version"
 
-#: ../properties/nm-sstp-dialog.ui.h:78
+#: properties/nm-sstp-dialog.ui:1356
 msgid ""
 "Use this to control the maximum supported EAP-TLS version. Default is TLS "
 "1.2, and use of TLS 1.3 is considered experimental at this point."
@@ -716,29 +470,286 @@ msgstr ""
 "av EAP. Standard er TLS 1.2, og bruk av TLS 1.3 er anses for å være "
 "eksperimentell."
 
-#: ../properties/nm-sstp-dialog.ui.h:79
+#: properties/nm-sstp-dialog.ui:1412
 msgid "TLS Authentication"
 msgstr "TLS-autentisering"
 
-#: ../properties/nm-sstp-dialog.ui.h:80
+#: properties/nm-sstp-dialog.ui:1462
 msgid "Address:"
 msgstr "Addresse:"
 
-#: ../properties/nm-sstp-dialog.ui.h:81
+#: properties/nm-sstp-dialog.ui:1486
 msgid "Port:"
 msgstr "Port:"
 
-#: ../properties/nm-sstp-dialog.ui.h:82
+#: properties/nm-sstp-dialog.ui:1498
 msgid "0"
 msgstr "0"
 
-#: ../properties/nm-sstp-dialog.ui.h:83
+#: properties/nm-sstp-dialog.ui:1616
 msgid "Show Password"
 msgstr "Vis passord"
 
-#: ../properties/nm-sstp-dialog.ui.h:84
+#: properties/nm-sstp-dialog.ui:1661
 msgid "Proxy"
 msgstr "Proxy"
+
+#: properties/nm-sstp-dialog.ui:1685
+msgid "Advanced Properties"
+msgstr "Avanserte alternativer for SSTP"
+
+#: properties/nm-sstp-dialog.ui:1694
+msgid "_Cancel"
+msgstr "_Avbryt"
+
+#: properties/nm-sstp-dialog.ui:1703
+msgid "_Apply"
+msgstr "Aksepter"
+
+#: properties/nm-sstp-editor-plugin.c:35
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "Secure Socket Tunneling Protocol (SSTP)"
+
+#: properties/nm-sstp-editor-plugin.c:36
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Kompatibel med Microsofts og andres VPN-tjenere basert på SSTP."
+
+#: properties/nm-sstp-editor.c:313 properties/nm-sstp-editor.c:341
+msgid "file is not a certificate"
+msgstr "filen er ikke et sertifikat"
+
+#: properties/nm-sstp-editor.c:364
+msgid "file is not a private key"
+msgstr "filen er ikke en privat nøkkel"
+
+#: properties/nm-sstp-editor.c:589
+msgid "Certificates (TLS)"
+msgstr "Sertifikat (TLS)"
+
+#: properties/nm-sstp-editor.c:599
+msgid "Password"
+msgstr "Passord"
+
+#: shared/nm-utils/nm-shared-utils.c:946
+#, c-format
+msgid "object class '%s' has no property named '%s'"
+msgstr "objektklassen «%s». har ingen egenskap med navnet «%s»"
+
+#: shared/nm-utils/nm-shared-utils.c:953
+#, c-format
+msgid "property '%s' of object class '%s' is not writable"
+msgstr "egenskapen «%s» for objektklassen «%s» er ikke skrivbar"
+
+#: shared/nm-utils/nm-shared-utils.c:960
+#, c-format
+msgid ""
+"construct property \"%s\" for object '%s' can't be set after construction"
+msgstr ""
+"egenskapen for «%s» objektet «%s» kan ikke bli oppdatert etter objektet har "
+"blit laget"
+
+#: shared/nm-utils/nm-shared-utils.c:968
+#, c-format
+msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
+msgstr ""
+"\"%s::%s\" er ikke et gyldig egenskapsnavn; «%s» er ikke ett derivat av "
+"GObject"
+
+#: shared/nm-utils/nm-shared-utils.c:977
+#, c-format
+msgid "unable to set property '%s' of type '%s' from value of type '%s'"
+msgstr "kan ikke sette egenskapen «%s» av type «%s» fra verdi av typen «%s»"
+
+#: shared/nm-utils/nm-shared-utils.c:988
+#, c-format
+msgid ""
+"value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
+"type '%s'"
+msgstr ""
+"verdien av «%s» av type «%s» er ugyldig eller utenfor intervallet for "
+"egenskapen «%s» av type «%s»"
+
+#: shared/nm-utils/nm-vpn-plugin-utils.c:69
+#, c-format
+msgid "unable to get editor plugin name: %s"
+msgstr "kan ikke hente navnet for redigering modulen: «%s»"
+
+#: shared/nm-utils/nm-vpn-plugin-utils.c:103
+#, c-format
+msgid "missing plugin file \"%s\""
+msgstr "finner ikke filen for redigerings modulen «%s»"
+
+#: shared/nm-utils/nm-vpn-plugin-utils.c:109
+#, c-format
+msgid "cannot load editor plugin: %s"
+msgstr "kan ikke laste redigerings modulen: «%s»"
+
+#: shared/nm-utils/nm-vpn-plugin-utils.c:118
+#, c-format
+msgid "cannot load factory %s from plugin: %s"
+msgstr "kan ikke laste fabrikken «%s» fra modulen: «%s»"
+
+#: shared/nm-utils/nm-vpn-plugin-utils.c:144
+msgid "unknown error creating editor instance"
+msgstr "ukjent feil ved konstruksjon av redigerings modulen"
+
+#: shared/utils.c:58
+msgid "Failed to initialize the crypto engine"
+msgstr "Misslykkes med initialisering av kryptografi modulen"
+
+#: shared/utils.c:85
+msgid "Failed to get subject name"
+msgstr "Misslykkes med å få emnenavnet"
+
+#: shared/utils.c:121 shared/utils.c:135
+msgid "Failed to load certificate"
+msgstr "Misslykkes med å lese sertifikatet"
+
+#: shared/utils.c:128
+msgid "Failed to initialize certificate"
+msgstr "Misslykkes med å laste sertifikatet"
+
+#: shared/utils.c:185
+msgid "Failed to parse pkcs12 file"
+msgstr "Misslykkes med å lese pkcs12-filen"
+
+#: shared/utils.c:191
+msgid "Failed to import pkcs12 file"
+msgstr "Misslykkes med å importere pkcs12-filen"
+
+#: shared/utils.c:198
+msgid "Failed to initialize pkcs12 structure"
+msgstr "Misslykkes med å initialisere pkcs12 strukturen"
+
+#: shared/utils.c:205
+msgid "Failed to read file"
+msgstr "Misslykkes med å lese filen"
+
+#: shared/utils.c:239
+msgid "Failed to decrypt private key"
+msgstr "Misslykkes med å dekryptere den private nøkkelen"
+
+#: shared/utils.c:249
+msgid "Failed to initialize private key"
+msgstr "Misslykkes med å initialisere den private nøkkelen"
+
+#: shared/utils.c:257
+msgid "Failed read file"
+msgstr "Misslykkes med å lese filen"
+
+#: shared/utils.c:307
+#, c-format
+msgid "invalid delimiter character '%c'"
+msgstr "ugyldig heltallsegenskap «%c»"
+
+#: shared/utils.c:314
+msgid "invalid non-utf-8 character"
+msgstr "ugyldig tegn som ikke er utf-8"
+
+#: shared/utils.c:343
+msgid "empty host"
+msgstr "tom tjener navn"
+
+#: shared/utils.c:355
+msgid "invalid port"
+msgstr "ugyldig port"
+
+#: src/nm-sstp-service.c:236
+#, c-format
+msgid "invalid gateway “%s”"
+msgstr "ugyldig gateway «%s»"
+
+#: src/nm-sstp-service.c:250
+#, c-format
+msgid "invalid integer property “%s”"
+msgstr "ugyldig heltallsegenskap «%s»"
+
+#: src/nm-sstp-service.c:260
+#, c-format
+msgid "invalid boolean property “%s” (not yes or no)"
+msgstr "ugyldig boolsk verdi for egenskap «%s» (ikke ja eller nei)"
+
+#: src/nm-sstp-service.c:267
+#, c-format
+msgid "unhandled property “%s” type %s"
+msgstr "uhåndtert egenskap «%s» av type «%s»"
+
+#: src/nm-sstp-service.c:278
+#, c-format
+msgid "property “%s” invalid or not supported"
+msgstr "egenskapen «%s» er ugyldig eller har ikke støtte"
+
+#: src/nm-sstp-service.c:296
+msgid "No VPN configuration options."
+msgstr "Ingen konfigurasjonsvalg for VPN."
+
+#: src/nm-sstp-service.c:316
+#, c-format
+msgid "Missing required option “%s”."
+msgstr "Mangler obligatorisk valg «%s»."
+
+#: src/nm-sstp-service.c:486
+msgid "Could not find sstp client binary."
+msgstr "Kunne ikke finne kjørbar fil for sstp-klient."
+
+#: src/nm-sstp-service.c:496
+msgid "Missing VPN gateway."
+msgstr "Mangler VPN-gateway."
+
+#: src/nm-sstp-service.c:929
+msgid "Could not find the pppd binary."
+msgstr "Fant ikke pppd-binærfilen."
+
+#: src/nm-sstp-service.c:995 src/nm-sstp-service.c:1028
+msgid "Missing VPN username."
+msgstr "Mangler brukernavn for VPN."
+
+#: src/nm-sstp-service.c:1003 src/nm-sstp-service.c:1039
+msgid "Missing or invalid VPN password."
+msgstr "Passord for VPN mangler eller er ugyldig."
+
+#: src/nm-sstp-service.c:1050
+msgid "Invalid private key file"
+msgstr "Ugyldig privat nøkkel fil"
+
+#: src/nm-sstp-service.c:1188
+msgid "Invalid or missing SSTP gateway."
+msgstr "Ugyldig eller manglende SSTP-gateway."
+
+#: src/nm-sstp-service.c:1249
+msgid ""
+"Could not process the request because the VPN connection settings were "
+"invalid."
+msgstr ""
+"Kunne ikke bearbeide forslaget fordi VPN tilkoblings innstillingene er "
+"ugyldige."
+
+#: src/nm-sstp-service.c:1284
+msgid "Invalid connection type."
+msgstr "Ugyldig tilkoblings type."
+
+#: src/nm-sstp-service.c:1478
+msgid "Don't quit when VPN connection terminates"
+msgstr "Ikke avslutt når VPN-forbindelsen termineres"
+
+#: src/nm-sstp-service.c:1479
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Aktiver informativ feilsøkning logging (kan eksponere passord)"
+
+#: src/nm-sstp-service.c:1480
+msgid "D-Bus name to use for this instance"
+msgstr "D-Bus navn å bruke for denne instansen"
+
+#: src/nm-sstp-service.c:1501
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service tilrettelegger for integrert SSTP VPN-funksjonalitet (med "
+"støtte for Microsoft og andre implementasjoner) til NetworkManager."
+
+#~ msgid "Authentication"
+#~ msgstr "Autentisering"
 
 #~ msgid "_Secondary Password:"
 #~ msgstr "_Sekundært passord:"
