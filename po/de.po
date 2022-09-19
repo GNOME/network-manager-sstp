@@ -9,160 +9,136 @@
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2009, 2011, 2016.
 # Philipp Kiemle <philipp.kiemle@gmail.com>, 2021.
 # Tim Sabsch <tim@sabsch.com>, 2021.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2022.
 #
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 11:59-0700\n"
-"PO-Revision-Date: 2021-08-22 21:53+0200\n"
-"Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
+"issues\n"
+"POT-Creation-Date: 2022-09-11 20:31+0000\n"
+"PO-Revision-Date: 2022-09-18 22:36+0200\n"
+"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.1.1\n"
 
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
-msgid "SSTP VPN client"
-msgstr "SSTP-VPN-Client"
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
-msgid "Client for SSTP virtual private networks"
-msgstr "Client für virtuelle private SSTP-Netzwerke"
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
-msgid "Support for configuring SSTP virtual private network connections."
-msgstr ""
-"Unterstützung für die Einrichtung virtueller privater SSTP-"
-"Netzwerkverbindungen."
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
-msgid ""
-"Compatible with servers following the SSTP specification including the "
-"Microsoft servers."
-msgstr ""
-"Kompatibel mit Microsofts und anderen Servern, die der SSTP-Spezifikation "
-"folgen."
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "The NetworkManager Developers"
-msgstr "Die NetworkManager-Entwickler"
-
-#: ../auth-dialog/main.c:280
+#: ../auth-dialog/main.c:278
 msgid "Authenticate VPN"
 msgstr "VPN legitimieren"
 
-#: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
+#: ../auth-dialog/main.c:287 ../auth-dialog/main.c:384
 msgid "Certificate password:"
 msgstr "Zertifikatspasswort:"
 
-#: ../auth-dialog/main.c:295
+#: ../auth-dialog/main.c:293
 msgid "_HTTP proxy password:"
 msgstr "Passwort für _HTTP-Proxy:"
 
-#: ../auth-dialog/main.c:372
+#: ../auth-dialog/main.c:370
 #, c-format
 msgid "Authenticate VPN %s"
 msgstr "VPN »%s« legitimieren"
 
-#: ../auth-dialog/main.c:379 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:377
 msgid "Password:"
 msgstr "Passwort:"
 
-#: ../auth-dialog/main.c:393
+#: ../auth-dialog/main.c:391
 msgid "HTTP proxy password:"
 msgstr "Passwort für HTTP-Proxy:"
 
-#: ../auth-dialog/main.c:508
+#: ../auth-dialog/main.c:506
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
 "Sie müssen sich legitimieren, um auf das Virtuelle Private Netz »%s« "
 "zuzugreifen."
 
-#: ../properties/advanced-dialog.c:235
+#: ../properties/advanced-dialog.c:248
 msgid "All Available (Default)"
 msgstr "Alle verfügbaren (Vorgabe)"
 
-#: ../properties/advanced-dialog.c:239
+#: ../properties/advanced-dialog.c:252
 msgid "128-bit (most secure)"
 msgstr "128-Bit (am sichersten)"
 
-#: ../properties/advanced-dialog.c:248
+#: ../properties/advanced-dialog.c:261
 msgid "40-bit (less secure)"
 msgstr "40-Bit (weniger sicher)"
 
-#: ../properties/advanced-dialog.c:367
+#: ../properties/advanced-dialog.c:380
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:380
+#: ../properties/advanced-dialog.c:393
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:392
+#: ../properties/advanced-dialog.c:405
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:404
+#: ../properties/advanced-dialog.c:417
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:416
+#: ../properties/advanced-dialog.c:429
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/advanced-dialog.c:608
+#: ../properties/advanced-dialog.c:495
 msgid "Don't verify certificate identification"
 msgstr "Identifizierung des Zertifikats nicht überprüfen"
 
-#: ../properties/advanced-dialog.c:616
+#: ../properties/advanced-dialog.c:503
 msgid "Verify subject exactly"
 msgstr "Subjekt exakt überprüfen"
 
-#: ../properties/advanced-dialog.c:624
+#: ../properties/advanced-dialog.c:511
 msgid "Verify name exactly"
 msgstr "Namen exakt überprüfen"
 
-#: ../properties/advanced-dialog.c:632
+#: ../properties/advanced-dialog.c:519
 msgid "Verify name by suffix"
 msgstr "Namen anhand des Präfix überprüfen"
 
-#: ../properties/advanced-dialog.c:677
+#: ../properties/advanced-dialog.c:569
 msgid "TLS 1.2 (Default)"
 msgstr "TLS 1.2 (Vorgabe)"
 
-#: ../properties/advanced-dialog.c:685
+#: ../properties/advanced-dialog.c:577
 msgid "TLS 1.3"
 msgstr "TLS 1.3"
 
-#: ../properties/nm-sstp-editor-plugin.c:34
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Point-to-Point Tunneling Protocol (SSTP)"
-
 #: ../properties/nm-sstp-editor-plugin.c:35
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "Secure Socket Tunneling Protocol (SSTP)"
+
+#: ../properties/nm-sstp-editor-plugin.c:36
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Kompatibel mit Microsofts und anderen SSTP VPN-Servern."
 
-#: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
+#: ../properties/nm-sstp-editor.c:313 ../properties/nm-sstp-editor.c:341
 #, c-format
 msgid "file is not a certificate"
 msgstr "Datei ist kein Zertifikat"
 
-#: ../properties/nm-sstp-editor.c:365
+#: ../properties/nm-sstp-editor.c:364
 #, c-format
 msgid "file is not a private key"
 msgstr "Datei ist kein privater Schlüssel"
 
-#: ../properties/nm-sstp-editor.c:581
+#: ../properties/nm-sstp-editor.c:589
 msgid "Certificates (TLS)"
 msgstr "Zertifikate (TLS)"
 
-#: ../properties/nm-sstp-editor.c:590
+#: ../properties/nm-sstp-editor.c:599
 msgid "Password"
 msgstr "Passwort"
 
@@ -347,23 +323,27 @@ msgstr "Binärdatei für sstp-Client konnte nicht gefunden werden."
 msgid "Missing VPN gateway."
 msgstr "Kein VPN-Gateway angegeben."
 
-#: ../src/nm-sstp-service.c:922
+#: ../src/nm-sstp-service.c:929
 msgid "Could not find the pppd binary."
 msgstr "pppd-Binärdatei konnte nicht gefunden werden."
 
-#: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
+#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1028
 msgid "Missing VPN username."
 msgstr "VPN-Benutzername fehlt."
 
-#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
+#: ../src/nm-sstp-service.c:1003 ../src/nm-sstp-service.c:1039
 msgid "Missing or invalid VPN password."
 msgstr "Fehlendes oder ungültiges VPN-Passwort."
 
-#: ../src/nm-sstp-service.c:1163
+#: ../src/nm-sstp-service.c:1050
+msgid "Invalid private key file"
+msgstr "Ungültige private Schlüsseldatei"
+
+#: ../src/nm-sstp-service.c:1188
 msgid "Invalid or missing SSTP gateway."
 msgstr "Das VPN-Gateway fehlt oder ist ungültig."
 
-#: ../src/nm-sstp-service.c:1224
+#: ../src/nm-sstp-service.c:1249
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
@@ -371,25 +351,25 @@ msgstr ""
 "Die Anfrage konnte aufgrund ungültiger VPN-Verbindungseinstellungen nicht "
 "verarbeitet werden."
 
-#: ../src/nm-sstp-service.c:1259
+#: ../src/nm-sstp-service.c:1284
 msgid "Invalid connection type."
 msgstr "Ungültiger Verbindungstyp."
 
-#: ../src/nm-sstp-service.c:1453
+#: ../src/nm-sstp-service.c:1478
 msgid "Don't quit when VPN connection terminates"
 msgstr "Nicht beenden, wenn die VPN-Verbindung beendet wird"
 
-#: ../src/nm-sstp-service.c:1454
+#: ../src/nm-sstp-service.c:1479
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr ""
 "Ausführliche Protokollierung zur Fehlerdiagnose erlauben (könnte Passwörter "
 "sichtbar machen)"
 
-#: ../src/nm-sstp-service.c:1455
+#: ../src/nm-sstp-service.c:1480
 msgid "D-Bus name to use for this instance"
 msgstr "Für diese Instanz zu verwendender D-Bus-Name"
 
-#: ../src/nm-sstp-service.c:1476
+#: ../src/nm-sstp-service.c:1501
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
@@ -397,371 +377,320 @@ msgstr ""
 "nm-sstp-service integriert SSTP-VPN-Funktionalität in NetworkManager "
 "(kompatibel zu Microsoft und anderen Implementationen)."
 
-#: ../properties/nm-sstp-dialog.ui.h:1
-msgid "Default"
-msgstr "Standard"
+#~ msgid "SSTP VPN client"
+#~ msgstr "SSTP-VPN-Client"
 
-#: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Allgemein</b>"
+#~ msgid "Client for SSTP virtual private networks"
+#~ msgstr "Client für virtuelle private SSTP-Netzwerke"
 
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid ""
-"SSTP server IP or name.\n"
-"config: the first parameter of sstp"
-msgstr ""
-"IP-Adresse oder Name des SSTP-Servers.\n"
-"config: der erste Parameter von SSTP"
+#~ msgid "Support for configuring SSTP virtual private network connections."
+#~ msgstr ""
+#~ "Unterstützung für die Einrichtung virtueller privater SSTP-"
+#~ "Netzwerkverbindungen."
 
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "_Gateway:"
-msgstr "_Gateway:"
+#~ msgid ""
+#~ "Compatible with servers following the SSTP specification including the "
+#~ "Microsoft servers."
+#~ msgstr ""
+#~ "Kompatibel mit Microsofts und anderen Servern, die der SSTP-Spezifikation "
+#~ "folgen."
 
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Authentication"
-msgstr "Legitimierung"
+#~ msgid "The NetworkManager Developers"
+#~ msgstr "Die NetworkManager-Entwickler"
 
-#: ../properties/nm-sstp-dialog.ui.h:7
-msgid "CA"
-msgstr "CA"
+#~ msgid "Default"
+#~ msgstr "Standard"
 
-#: ../properties/nm-sstp-dialog.ui.h:8
-msgid "User"
-msgstr "Benutzer"
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Allgemein</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:9
-msgid "Username:"
-msgstr "Benutzername:"
+#~ msgid ""
+#~ "SSTP server IP or name.\n"
+#~ "config: the first parameter of sstp"
+#~ msgstr ""
+#~ "IP-Adresse oder Name des SSTP-Servers.\n"
+#~ "config: der erste Parameter von SSTP"
 
-#: ../properties/nm-sstp-dialog.ui.h:10
-msgid ""
-"Set the name used for authenticating the local system to the peer to "
-"<name>.\n"
-"            config: user <name>"
-msgstr ""
-"Den Namen zur Authentifizierung des lokalen Systems gegenüber dem Partner "
-"festlegen als <Name>.\n"
-"            config: user <Name>"
+#~ msgid "_Gateway:"
+#~ msgstr "_Gateway:"
 
-#: ../properties/nm-sstp-dialog.ui.h:13
-msgid "Password passed to SSTP when prompted for it."
-msgstr "Auf Anfrage an SSTP übergebenes Passwort."
+#~ msgid "Authentication"
+#~ msgstr "Legitimierung"
 
-#: ../properties/nm-sstp-dialog.ui.h:14
-msgid "Show password"
-msgstr "Passwort zeigen"
+#~ msgid "CA"
+#~ msgstr "CA"
 
-#: ../properties/nm-sstp-dialog.ui.h:15
-msgid "NT Domain:"
-msgstr "NT-Domäne:"
+#~ msgid "User"
+#~ msgstr "Benutzer"
 
-#: ../properties/nm-sstp-dialog.ui.h:16
-msgid ""
-"Append the domain name <domain> to the local host name for authentication "
-"purposes.\n"
-"            config: domain <domain>"
-msgstr ""
-"Hängen Sie den Domänennamen <domain> an den lokalen Rechnernamen zu "
-"Authentifizierungszwecken.\n"
-"            config: domain <domain>"
+#~ msgid "Username:"
+#~ msgstr "Benutzername:"
 
-#: ../properties/nm-sstp-dialog.ui.h:18
-msgid "Type:"
-msgstr "Typ:"
+#~ msgid ""
+#~ "Set the name used for authenticating the local system to the peer to "
+#~ "<name>.\n"
+#~ "            config: user <name>"
+#~ msgstr ""
+#~ "Den Namen zur Authentifizierung des lokalen Systems gegenüber dem Partner "
+#~ "festlegen als <Name>.\n"
+#~ "            config: user <Name>"
 
-#: ../properties/nm-sstp-dialog.ui.h:19
-msgid "Select an authentication mode."
-msgstr "Wählen Sie einen Legitimierungsmodus."
+#~ msgid "Password passed to SSTP when prompted for it."
+#~ msgstr "Auf Anfrage an SSTP übergebenes Passwort."
 
-#: ../properties/nm-sstp-dialog.ui.h:20
-msgid "Ad_vanced..."
-msgstr "Er_weitert …"
+#~ msgid "Show password"
+#~ msgstr "Passwort zeigen"
 
-#: ../properties/nm-sstp-dialog.ui.h:21
-msgid "SSTP Advanced Options"
-msgstr "Erweiterte SSTP-Optionen"
+#~ msgid "NT Domain:"
+#~ msgstr "NT-Domäne:"
 
-#: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>SSL Tunnel</b>"
-msgstr "<b>SSL-Tunnel</b>"
+#~ msgid ""
+#~ "Append the domain name <domain> to the local host name for authentication "
+#~ "purposes.\n"
+#~ "            config: domain <domain>"
+#~ msgstr ""
+#~ "Hängen Sie den Domänennamen <domain> an den lokalen Rechnernamen zu "
+#~ "Authentifizierungszwecken.\n"
+#~ "            config: domain <domain>"
 
-#: ../properties/nm-sstp-dialog.ui.h:23
-msgid "_Verify certificate type and extended key usage"
-msgstr "Zertifikatstyp und erweiterten Verwendungsschlüssel überprüfen"
+#~ msgid "Type:"
+#~ msgstr "Typ:"
 
-#: ../properties/nm-sstp-dialog.ui.h:24
-msgid ""
-"Require that the peer certificate used for outer SSL tunnel was signed with "
-"a certificate that has a trusted certificate chain, key usage, and extended "
-"key usage based on RFC3280 TLS rules."
-msgstr ""
+#~ msgid "Select an authentication mode."
+#~ msgstr "Wählen Sie einen Legitimierungsmodus."
 
-#: ../properties/nm-sstp-dialog.ui.h:25
-msgid "_Use TLS hostname extensions"
-msgstr "TLS-Rechnernamen-Erweiterungen nutzen"
+#~ msgid "Ad_vanced..."
+#~ msgstr "Er_weitert …"
 
-#: ../properties/nm-sstp-dialog.ui.h:26
-msgid ""
-"Use the gateway name as specified for this connection in the hostname "
-"extensions in the SSL tunnel"
-msgstr ""
+#~ msgid "SSTP Advanced Options"
+#~ msgstr "Erweiterte SSTP-Optionen"
 
-#: ../properties/nm-sstp-dialog.ui.h:27
-msgid "<b>Certificate Revocation</b>"
-msgstr "<b>Widerrufen von Zertifikaten</b>"
+#~ msgid "<b>SSL Tunnel</b>"
+#~ msgstr "<b>SSL-Tunnel</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:28
-msgid "CRL"
-msgstr "CRL"
+#~ msgid "_Verify certificate type and extended key usage"
+#~ msgstr "Zertifikatstyp und erweiterten Verwendungsschlüssel überprüfen"
 
-#: ../properties/nm-sstp-dialog.ui.h:29
-msgid "Connection"
-msgstr "Verbindung"
+#~ msgid "_Use TLS hostname extensions"
+#~ msgstr "TLS-Rechnernamen-Erweiterungen nutzen"
 
-#: ../properties/nm-sstp-dialog.ui.h:30
-msgid "<b>Authentication</b>"
-msgstr "<b>Legitimierung</b>"
+#~ msgid "<b>Certificate Revocation</b>"
+#~ msgstr "<b>Widerrufen von Zertifikaten</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:31
-msgid "Allow the following authentication methods:"
-msgstr "Die folgenden Methoden zur Legitimierung erlauben:"
+#~ msgid "CRL"
+#~ msgstr "CRL"
 
-#: ../properties/nm-sstp-dialog.ui.h:32
-msgid ""
-"Allow/disable authentication methods.\n"
-"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
-msgstr ""
-"Authentifizierungsmethoden erlauben/abschalten.\n"
-"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
+#~ msgid "Connection"
+#~ msgstr "Verbindung"
 
-#: ../properties/nm-sstp-dialog.ui.h:34
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Sicherheit und Komprimierung</b>"
+#~ msgid "<b>Authentication</b>"
+#~ msgstr "<b>Legitimierung</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:35
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "_Point-to-Point Verschlüsselung (MPPE) verwenden"
+#~ msgid "Allow the following authentication methods:"
+#~ msgstr "Die folgenden Methoden zur Legitimierung erlauben:"
 
-#: ../properties/nm-sstp-dialog.ui.h:36
-msgid ""
-"Note: MPPE encryption is only available with MSCHAP authentication methods. "
-"To enable this checkbox, select one or more of the MSCHAP authentication "
-"methods: MSCHAP or MSCHAPv2."
-msgstr ""
-"Achtung: MPPE-Verschlüsselung ist nur mit MSCHAP-Legitimierungsmethoden "
-"verfügbar. Um dieses Ankreuzfeld zu aktivieren, wählen Sie eine oder mehrere "
-"der folgenden Legitimierungsmethoden aus: MSCHAP oder MSCHAPv2."
+#~ msgid ""
+#~ "Allow/disable authentication methods.\n"
+#~ "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-"
+#~ "eap"
+#~ msgstr ""
+#~ "Authentifizierungsmethoden erlauben/abschalten.\n"
+#~ "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-"
+#~ "eap"
 
-#: ../properties/nm-sstp-dialog.ui.h:37
-msgid "_Security:"
-msgstr "_Sicherheit:"
+#~ msgid "<b>Security and Compression</b>"
+#~ msgstr "<b>Sicherheit und Komprimierung</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:38
-msgid ""
-"Require the use of MPPE, with 40/128-bit encryption or all.\n"
-"config: require-mppe, require-mppe-128 or require-mppe-40"
-msgstr ""
-"Den Einsatz von MPPE-Verschlüsselung auf automatische Auswahl, 128-Bit oder "
-"40-Bit festlegen.\n"
-"config: require-mppe, require-mppe-128 oder require-mppe-40"
+#~ msgid "Use _Point-to-Point encryption (MPPE)"
+#~ msgstr "_Point-to-Point Verschlüsselung (MPPE) verwenden"
 
-#: ../properties/nm-sstp-dialog.ui.h:40
-msgid "Allow st_ateful encryption"
-msgstr "St_ateful-Verschlüsselung erlauben"
+#~ msgid ""
+#~ "Note: MPPE encryption is only available with MSCHAP authentication "
+#~ "methods. To enable this checkbox, select one or more of the MSCHAP "
+#~ "authentication methods: MSCHAP or MSCHAPv2."
+#~ msgstr ""
+#~ "Achtung: MPPE-Verschlüsselung ist nur mit MSCHAP-Legitimierungsmethoden "
+#~ "verfügbar. Um dieses Ankreuzfeld zu aktivieren, wählen Sie eine oder "
+#~ "mehrere der folgenden Legitimierungsmethoden aus: MSCHAP oder MSCHAPv2."
 
-#: ../properties/nm-sstp-dialog.ui.h:41
-msgid ""
-"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
-"config: mppe-stateful (when checked)"
-msgstr ""
-"MPPE im Modus »stateful« erlauben. Statusloser Modus wird weiterhin zuerst "
-"versucht.\n"
-"config: mppe-stateful (wenn gewählt)"
+#~ msgid "_Security:"
+#~ msgstr "_Sicherheit:"
 
-#: ../properties/nm-sstp-dialog.ui.h:43
-msgid "Allow _BSD data compression"
-msgstr "_BSD-Datenkomprimierung erlauben"
+#~ msgid ""
+#~ "Require the use of MPPE, with 40/128-bit encryption or all.\n"
+#~ "config: require-mppe, require-mppe-128 or require-mppe-40"
+#~ msgstr ""
+#~ "Den Einsatz von MPPE-Verschlüsselung auf automatische Auswahl, 128-Bit "
+#~ "oder 40-Bit festlegen.\n"
+#~ "config: require-mppe, require-mppe-128 oder require-mppe-40"
 
-#: ../properties/nm-sstp-dialog.ui.h:44
-msgid ""
-"Allow/disable BSD-Compress compression.\n"
-"config: nobsdcomp (when unchecked)"
-msgstr ""
-"BSD-Compress Kompression erlauben/abschalten.\n"
-"config: nobsdcomp (wenn abgewählt)"
+#~ msgid "Allow st_ateful encryption"
+#~ msgstr "St_ateful-Verschlüsselung erlauben"
 
-#: ../properties/nm-sstp-dialog.ui.h:46
-msgid "Allow _Deflate data compression"
-msgstr "_Deflate-Datenkomprimierung erlauben"
+#~ msgid ""
+#~ "Allow MPPE to use stateful mode. Stateless mode is still attempted "
+#~ "first.\n"
+#~ "config: mppe-stateful (when checked)"
+#~ msgstr ""
+#~ "MPPE im Modus »stateful« erlauben. Statusloser Modus wird weiterhin "
+#~ "zuerst versucht.\n"
+#~ "config: mppe-stateful (wenn gewählt)"
 
-#: ../properties/nm-sstp-dialog.ui.h:47
-msgid ""
-"Allow/disable Deflate compression.\n"
-"config: nodeflate (when unchecked)"
-msgstr ""
-"Deflate-Kompression erlauben/abschalten.\n"
-"config: nodeflate (wenn abgewählt)"
+#~ msgid "Allow _BSD data compression"
+#~ msgstr "_BSD-Datenkomprimierung erlauben"
 
-#: ../properties/nm-sstp-dialog.ui.h:49
-msgid "Use TCP _header compression"
-msgstr "TCP-_Header-Komprimierung verwenden"
+#~ msgid ""
+#~ "Allow/disable BSD-Compress compression.\n"
+#~ "config: nobsdcomp (when unchecked)"
+#~ msgstr ""
+#~ "BSD-Compress Kompression erlauben/abschalten.\n"
+#~ "config: nobsdcomp (wenn abgewählt)"
 
-#: ../properties/nm-sstp-dialog.ui.h:50
-msgid ""
-"Allow/disable Van Jacobson style TCP/IP header compression in both the "
-"transmit and the receive directions.\n"
-"config: novj (when unchecked)"
-msgstr ""
-"Van Jacobson TCP/IP Header-Kompression in Sende- und Empfangsrichtung "
-"erlauben/abschalten.\n"
-"config: novj (wenn abgewählt)"
+#~ msgid "Allow _Deflate data compression"
+#~ msgstr "_Deflate-Datenkomprimierung erlauben"
 
-#: ../properties/nm-sstp-dialog.ui.h:52
-msgid "<b>Echo</b>"
-msgstr "<b>Echo</b>"
+#~ msgid ""
+#~ "Allow/disable Deflate compression.\n"
+#~ "config: nodeflate (when unchecked)"
+#~ msgstr ""
+#~ "Deflate-Kompression erlauben/abschalten.\n"
+#~ "config: nodeflate (wenn abgewählt)"
 
-#: ../properties/nm-sstp-dialog.ui.h:53
-msgid "Send PPP _echo packets"
-msgstr "PPP-_Echo Pakete senden"
+#~ msgid "Use TCP _header compression"
+#~ msgstr "TCP-_Header-Komprimierung verwenden"
+
+#~ msgid ""
+#~ "Allow/disable Van Jacobson style TCP/IP header compression in both the "
+#~ "transmit and the receive directions.\n"
+#~ "config: novj (when unchecked)"
+#~ msgstr ""
+#~ "Van Jacobson TCP/IP Header-Kompression in Sende- und Empfangsrichtung "
+#~ "erlauben/abschalten.\n"
+#~ "config: novj (wenn abgewählt)"
+
+#~ msgid "<b>Echo</b>"
+#~ msgstr "<b>Echo</b>"
+
+#~ msgid "Send PPP _echo packets"
+#~ msgstr "PPP-_Echo Pakete senden"
 
 # Alternativ: Echo-Anfragen
-#: ../properties/nm-sstp-dialog.ui.h:54
-msgid ""
-"Send LCP echo-requests to find out whether peer is alive.\n"
-"config: lcp-echo-failure and lcp-echo-interval"
-msgstr ""
-"LCP Echo-Requests senden, um zu erkennen, ob der Partner reagiert.\n"
-"config: lcp-echo-failure und lcp-echo-interval"
+#~ msgid ""
+#~ "Send LCP echo-requests to find out whether peer is alive.\n"
+#~ "config: lcp-echo-failure and lcp-echo-interval"
+#~ msgstr ""
+#~ "LCP Echo-Requests senden, um zu erkennen, ob der Partner reagiert.\n"
+#~ "config: lcp-echo-failure und lcp-echo-interval"
 
-#: ../properties/nm-sstp-dialog.ui.h:56
-msgid "<b>Misc</b>"
-msgstr "<b>Verschiedenes</b>"
+#~ msgid "<b>Misc</b>"
+#~ msgstr "<b>Verschiedenes</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:57
-msgid "Use custom _unit number:"
-msgstr "Benutzerdefinierte N_ummer für Einheit verwenden:"
+#~ msgid "Use custom _unit number:"
+#~ msgstr "Benutzerdefinierte N_ummer für Einheit verwenden:"
 
-#: ../properties/nm-sstp-dialog.ui.h:58
-msgid ""
-"Enable custom index for ppp<n> device name.\n"
-"config: unit <n>"
-msgstr ""
-"Benutzerdefinierten Index für ppp<n>-Gerätenamen aktivieren.\n"
-"config: unit <n>"
+#~ msgid ""
+#~ "Enable custom index for ppp<n> device name.\n"
+#~ "config: unit <n>"
+#~ msgstr ""
+#~ "Benutzerdefinierten Index für ppp<n>-Gerätenamen aktivieren.\n"
+#~ "config: unit <n>"
 
 # Das ist ein Fachbegriff, deshalb lasse ich ihn unübersetzt. - pk
 # Siehe https://de.wikipedia.org/w/index.php?title=Point-to-Point
-#: ../properties/nm-sstp-dialog.ui.h:60
-msgid "Point-to-Point"
-msgstr "Point-to-Point"
+#~ msgid "Point-to-Point"
+#~ msgstr "Point-to-Point"
 
-#: ../properties/nm-sstp-dialog.ui.h:61
-msgid "<b>Identity</b>"
-msgstr "<b>Identität</b>"
+#~ msgid "<b>Identity</b>"
+#~ msgstr "<b>Identität</b>"
 
 # Siehe https://gitlab.gnome.org/GNOME/network-manager-sstp/-/blob/d527bc9ad/src/nm-sstp-service.c#L694
-#: ../properties/nm-sstp-dialog.ui.h:62
-msgid ""
-"Use this to override the value specified by the certificate\n"
-"\n"
-"By default, this will be populated, when correct password for certificate is "
-"supplied, with the Microsoft OID for username; or the Subject name of the "
-"certificate when this is not available. "
-msgstr ""
-"Den im Zertifikat spezifizierten Wert überschreiben\n"
-"\n"
-"Standardmäßig wird dieser Wert gefüllt, wenn das richtige Passwort für das "
-"Zertifikat angegeben wird, und enthält als Benutzernamen die Microsoft OID, "
-"beziehungsweise den Zertifikat-Subjektnamen, falls keine OID verfügbar ist."
+#~ msgid ""
+#~ "Use this to override the value specified by the certificate\n"
+#~ "\n"
+#~ "By default, this will be populated, when correct password for certificate "
+#~ "is supplied, with the Microsoft OID for username; or the Subject name of "
+#~ "the certificate when this is not available. "
+#~ msgstr ""
+#~ "Den im Zertifikat spezifizierten Wert überschreiben\n"
+#~ "\n"
+#~ "Standardmäßig wird dieser Wert gefüllt, wenn das richtige Passwort für "
+#~ "das Zertifikat angegeben wird, und enthält als Benutzernamen die "
+#~ "Microsoft OID, beziehungsweise den Zertifikat-Subjektnamen, falls keine "
+#~ "OID verfügbar ist."
 
-#: ../properties/nm-sstp-dialog.ui.h:65
-msgid "<b>Certificate Validation</b>"
-msgstr "<b>Validieren von Zertifikaten</b>"
+#~ msgid "<b>Certificate Validation</b>"
+#~ msgstr "<b>Validieren von Zertifikaten</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:66
-msgid "_Subject Match"
-msgstr "Subjekt-Überein_stimmung"
+#~ msgid "_Subject Match"
+#~ msgstr "Subjekt-Überein_stimmung"
 
 # https://www.sslplus.de/wiki/Was_ist_ein_Common-Name
-#: ../properties/nm-sstp-dialog.ui.h:67
-msgid ""
-"Subject or Common Name to verify server certificate information against. "
-msgstr ""
-"Subjekt oder gemeinsamer Name, gegen den die Information des "
-"Serverzertifikats überprüft werden soll. "
+#~ msgid ""
+#~ "Subject or Common Name to verify server certificate information against. "
+#~ msgstr ""
+#~ "Subjekt oder gemeinsamer Name, gegen den die Information des "
+#~ "Serverzertifikats überprüft werden soll. "
 
-#: ../properties/nm-sstp-dialog.ui.h:68
-msgid "_Verify Method"
-msgstr "_Überprüfungsmethode"
+#~ msgid "_Verify Method"
+#~ msgstr "_Überprüfungsmethode"
 
-#: ../properties/nm-sstp-dialog.ui.h:69
-msgid ""
-"Verify server certificate identification.\n"
-"\n"
-"When enabled, connection will only succeed if the server certificate matches "
-"some expected properties.\n"
-"Matching can either apply to the whole certificate subject (all the "
-"fields),\n"
-"or just the Common Name (CN field).\n"
-"                                    "
-msgstr ""
-"Identifizierung des Serverzertifikats überprüfen.\n"
-"\n"
-"Wenn aktiviert, ist der Verbindungsaufbau nur dann erfolgreich, wenn das "
-"Serverzertifikat bestimmte erwartete Eigenschaften aufweist.\n"
-"Die Übereinstimmungsprüfung kann entweder auf den gesamten "
-"Zertifikatsbetreff angewendet werden (alle Felder),\n"
-"oder nur den gemeinsamen Namen (CN-Feld).\n"
-"                                    "
+#~ msgid ""
+#~ "Verify server certificate identification.\n"
+#~ "\n"
+#~ "When enabled, connection will only succeed if the server certificate "
+#~ "matches some expected properties.\n"
+#~ "Matching can either apply to the whole certificate subject (all the "
+#~ "fields),\n"
+#~ "or just the Common Name (CN field).\n"
+#~ "                                    "
+#~ msgstr ""
+#~ "Identifizierung des Serverzertifikats überprüfen.\n"
+#~ "\n"
+#~ "Wenn aktiviert, ist der Verbindungsaufbau nur dann erfolgreich, wenn das "
+#~ "Serverzertifikat bestimmte erwartete Eigenschaften aufweist.\n"
+#~ "Die Übereinstimmungsprüfung kann entweder auf den gesamten "
+#~ "Zertifikatsbetreff angewendet werden (alle Felder),\n"
+#~ "oder nur den gemeinsamen Namen (CN-Feld).\n"
+#~ "                                    "
 
-#: ../properties/nm-sstp-dialog.ui.h:75
-msgid ""
-"Require that peer certificate was signed with an explicit key usage and "
-"extended key usage based on RFC3280 TLS rules."
-msgstr ""
-"Verlangen, dass das Zertifikat der Gegenstelle mit einem ausdrücklichen "
-"Verwendungsschlüssel sowie erweitertem Verwendungsschlüssel entsprechend "
-"RFC3280 TLS-Regeln signiert wurde."
+#~ msgid ""
+#~ "Require that peer certificate was signed with an explicit key usage and "
+#~ "extended key usage based on RFC3280 TLS rules."
+#~ msgstr ""
+#~ "Verlangen, dass das Zertifikat der Gegenstelle mit einem ausdrücklichen "
+#~ "Verwendungsschlüssel sowie erweitertem Verwendungsschlüssel entsprechend "
+#~ "RFC3280 TLS-Regeln signiert wurde."
 
-#: ../properties/nm-sstp-dialog.ui.h:76
-msgid "<b>Compatibility</b>"
-msgstr "<b>Kompatibilität</b>"
+#~ msgid "<b>Compatibility</b>"
+#~ msgstr "<b>Kompatibilität</b>"
 
-#: ../properties/nm-sstp-dialog.ui.h:77
-msgid "_Max TLS Version"
-msgstr "Maximale TLS-Version"
+#~ msgid "_Max TLS Version"
+#~ msgstr "Maximale TLS-Version"
 
-#: ../properties/nm-sstp-dialog.ui.h:78
-msgid ""
-"Use this to control the maximum supported EAP-TLS version. Default is TLS "
-"1.2, and use of TLS 1.3 is considered experimental at this point."
-msgstr ""
-"Maximal unterstützte EAP-TLS-Version angeben. Voreingestellt ist TLS 1.2, "
-"aktuell befindet sich TLS 1.3 im experimentellen Stadium."
+#~ msgid ""
+#~ "Use this to control the maximum supported EAP-TLS version. Default is TLS "
+#~ "1.2, and use of TLS 1.3 is considered experimental at this point."
+#~ msgstr ""
+#~ "Maximal unterstützte EAP-TLS-Version angeben. Voreingestellt ist TLS 1.2, "
+#~ "aktuell befindet sich TLS 1.3 im experimentellen Stadium."
 
-#: ../properties/nm-sstp-dialog.ui.h:79
-msgid "TLS Authentication"
-msgstr "TLS-Legitimierung"
+#~ msgid "TLS Authentication"
+#~ msgstr "TLS-Legitimierung"
 
-#: ../properties/nm-sstp-dialog.ui.h:80
-msgid "Address:"
-msgstr "Adresse:"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
 
-#: ../properties/nm-sstp-dialog.ui.h:81
-msgid "Port:"
-msgstr "Port:"
+#~ msgid "Port:"
+#~ msgstr "Port:"
 
-#: ../properties/nm-sstp-dialog.ui.h:82
-msgid "0"
-msgstr "0"
+#~ msgid "0"
+#~ msgstr "0"
 
-#: ../properties/nm-sstp-dialog.ui.h:83
-msgid "Show Password"
-msgstr "Passwort anzeigen"
+#~ msgid "Show Password"
+#~ msgstr "Passwort anzeigen"
 
-#: ../properties/nm-sstp-dialog.ui.h:84
-msgid "Proxy"
-msgstr "Proxy"
+#~ msgid "Proxy"
+#~ msgstr "Proxy"
 
 #~ msgid "Eivind Naess"
 #~ msgstr "Eivind Naess"
