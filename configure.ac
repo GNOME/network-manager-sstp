@@ -1,6 +1,6 @@
 AC_PREREQ([2.69])
 
-AC_INIT([NetworkManager-sstp],[1.3.0],[eivnaes@yahoo.com],[NetworkManager-sstp])
+AC_INIT([NetworkManager-sstp],[1.3.1],[eivnaes@yahoo.com],[NetworkManager-sstp])
 AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2 -Wno-portability])
 AM_MAINTAINER_MODE
 AM_SILENT_RULES([yes])

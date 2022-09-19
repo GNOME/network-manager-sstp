@@ -1,3 +1,13 @@
+Release 1.3.1: (September 19, 2022)
+- Migrating project to use GNU Gettext instead of intltool
+- Several bug fixes:
+ - Persist options for "verify certificate and extended key usage"
+ - Handle cases where "connection-type" option is empty
+ - Handling of IPv6 Gateways and removed use of inet_ntoa()
+ - MTU is limited to 1400 by default, new advanced option to override this
+- Update of translations for Basque, Brazilian Portuguese, Croatian,
+  Danish, Georgian, Indonesian, Norwegian, Swedish, and Turkish
+
 Release 1.3.0: (April 11, 2022)
 - Fixes for IPv6 handling
 - Support for EAP authentication 
