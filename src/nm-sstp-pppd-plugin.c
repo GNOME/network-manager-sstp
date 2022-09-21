@@ -233,7 +233,7 @@ nm_sstp_getaddr(struct sockaddr_storage *addr)
     int ret    = (-1);
     int cnt    = (SSTP_API_ATTR_MAX+1);
     char name[255] = {};
-    char ipstr[INET6_ADDRSTRLEN];
+    char ipstr[NM_INET_ADDRSTRLEN];
     sstp_api_msg_st msg;
     sstp_api_msg_t  type;
     sstp_api_attr_st *attr;
@@ -302,12 +302,10 @@ nm_sstp_getaddr(struct sockaddr_storage *addr)
     switch (addr->ss_family)
     {
         case AF_INET:
-            inet_ntop(addr->ss_family, &((struct sockaddr_in*)addr)->sin_addr,
-                    ipstr, sizeof(ipstr));
+            nm_utils_inet4_ntop(((struct sockaddr_in*)addr)->sin_addr.s_addr, ipstr);
             break;
         case AF_INET6:
-            inet_ntop(addr->ss_family, &((struct sockaddr_in6*)addr)->sin6_addr,
-                    ipstr, sizeof(ipstr));
+            nm_utils_inet6_ntop(&((struct sockaddr_in6*)addr)->sin6_addr, ipstr);
             break;
     }
 

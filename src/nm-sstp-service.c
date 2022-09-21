@@ -587,7 +587,7 @@ construct_pppd_args (NMSstpPlugin *plugin,
             const char *ipv4_str = NULL;
             const char *gway_str = NULL;
             const char *mask_str = NULL;
-            char buf[NM_UTILS_INET_ADDRSTRLEN];
+            char buf[NM_INET_ADDRSTRLEN];
             NMIPAddress *ipv4 = NULL;
 
             // IF <local:remote> is specified, the IPCP negotiation will fail unless

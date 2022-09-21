@@ -26,6 +26,11 @@
 
 /*****************************************************************************/
 
+#ifndef NM_INET_ADDRSTRLEN
+#define NM_INET_ADDRSTRLEN INET6_ADDRSTRLEN
+#endif
+
+
 static inline char
 nm_utils_addr_family_to_char (int addr_family)
 {
