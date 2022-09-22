@@ -1,162 +1,138 @@
-# Hungarian translation of network-manager-sstp
-# Copyright (C) 2006-2016 Free Software Foundation, Inc.
+# Hungarian translation for network-manager-sstp.
+# Copyright (C) 2006, 2007, 2008, 2010, 2011, 2012, 2015, 2016, 2022 Free Software Foundation, Inc.
 # This file is distributed under the same license as the network-manager-sstp package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2006, 2007, 2008, 2010, 2012, 2015, 2016.
 # Mate Ory <orymate at ubuntu dot com>, 2011.
-# Balázs Úr <urbalazs at gmail dot com>, 2015, 2016.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2015, 2016, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 11:59-0700\n"
-"PO-Revision-Date: 2016-10-04 12:17+0200\n"
-"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
-"Language-Team: Hungarian <openscope at gmail dot com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/issu"
+"es\n"
+"POT-Creation-Date: 2022-09-11 20:31+0000\n"
+"PO-Revision-Date: 2022-09-23 01:07+0200\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Lokalize 19.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
-msgid "SSTP VPN client"
-msgstr "SSTP VPN kliens"
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
-msgid "Client for SSTP virtual private networks"
-msgstr "Kliens a SSTP virtuális magánhálózatokhoz"
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
-msgid "Support for configuring SSTP virtual private network connections."
-msgstr "A SSTP virtuális magánhálózati kapcsolatok beállításának támogatása."
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
-#, fuzzy
-msgid ""
-"Compatible with servers following the SSTP specification including the "
-"Microsoft servers."
-msgstr "Kompatibilis különböző SSTP kiszolgálókkal, beleértve a Microsoftot."
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "The NetworkManager Developers"
-msgstr "A Hálózatkezelő fejlesztői"
-
-#: ../auth-dialog/main.c:280
+#: ../auth-dialog/main.c:278
 msgid "Authenticate VPN"
-msgstr "VPN-hitelesítés"
+msgstr "VPN hitelesítése"
 
-#: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
+#: ../auth-dialog/main.c:287 ../auth-dialog/main.c:384
 msgid "Certificate password:"
-msgstr ""
+msgstr "Tanúsítvány jelszava:"
 
-#: ../auth-dialog/main.c:295
-#, fuzzy
+#: ../auth-dialog/main.c:293
 msgid "_HTTP proxy password:"
-msgstr "_Jelszó:"
+msgstr "_HTTP-proxy jelszava:"
 
-#: ../auth-dialog/main.c:372
-#, fuzzy, c-format
+#: ../auth-dialog/main.c:370
+#, c-format
 msgid "Authenticate VPN %s"
-msgstr "VPN-hitelesítés"
+msgstr "%s VPN hitelesítése"
 
-#: ../auth-dialog/main.c:379 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:377
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: ../auth-dialog/main.c:393
-#, fuzzy
+#: ../auth-dialog/main.c:391
 msgid "HTTP proxy password:"
-msgstr "Jelszó:"
+msgstr "HTTP-proxy jelszava:"
 
-#: ../auth-dialog/main.c:508
+#: ../auth-dialog/main.c:506
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr "Hitelesítenie kell magát a(z) „%s” virtuális magánhálózat eléréséhez."
 
-#: ../properties/advanced-dialog.c:235
+#: ../properties/advanced-dialog.c:248
 msgid "All Available (Default)"
 msgstr "Mind elérhető (alapértelmezett)"
 
-#: ../properties/advanced-dialog.c:239
+#: ../properties/advanced-dialog.c:252
 msgid "128-bit (most secure)"
 msgstr "128 bites (legbiztonságosabb)"
 
-#: ../properties/advanced-dialog.c:248
+#: ../properties/advanced-dialog.c:261
 msgid "40-bit (less secure)"
 msgstr "40 bites (kevésbé biztonságos)"
 
-#: ../properties/advanced-dialog.c:367
+#: ../properties/advanced-dialog.c:380
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:380
+#: ../properties/advanced-dialog.c:393
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:392
+#: ../properties/advanced-dialog.c:405
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:404
+#: ../properties/advanced-dialog.c:417
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:416
+#: ../properties/advanced-dialog.c:429
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/advanced-dialog.c:608
+#: ../properties/advanced-dialog.c:495
 msgid "Don't verify certificate identification"
-msgstr ""
+msgstr "Ne ellenőrizze a tanúsítvány azonosítóját"
 
-#: ../properties/advanced-dialog.c:616
+#: ../properties/advanced-dialog.c:503
 msgid "Verify subject exactly"
-msgstr ""
+msgstr "Tárgy pontos ellenőrzése"
 
-#: ../properties/advanced-dialog.c:624
+#: ../properties/advanced-dialog.c:511
 msgid "Verify name exactly"
-msgstr ""
+msgstr "Név pontos ellenőrzése"
 
-#: ../properties/advanced-dialog.c:632
+#: ../properties/advanced-dialog.c:519
 msgid "Verify name by suffix"
-msgstr ""
+msgstr "Név ellenőrzése utótag alapján"
 
-#: ../properties/advanced-dialog.c:677
+#: ../properties/advanced-dialog.c:569
 msgid "TLS 1.2 (Default)"
-msgstr ""
+msgstr "TLS 1.2 (alapértelmezett)"
 
-#: ../properties/advanced-dialog.c:685
+#: ../properties/advanced-dialog.c:577
 msgid "TLS 1.3"
-msgstr ""
-
-#: ../properties/nm-sstp-editor-plugin.c:34
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Ponttól pontig alagutazási protokoll (SSTP)"
+msgstr "TLS 1.3"
 
 #: ../properties/nm-sstp-editor-plugin.c:35
+#| msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "Biztonságos foglalat-alagutazási protokoll (SSTP)"
+
+#: ../properties/nm-sstp-editor-plugin.c:36
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Kompatibilis a Microsoft és más SSTP VPN-kiszolgálókkal."
 
-#: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
+#: ../properties/nm-sstp-editor.c:313 ../properties/nm-sstp-editor.c:341
 #, c-format
 msgid "file is not a certificate"
-msgstr ""
+msgstr "a fájl nem tanúsítvány"
 
-#: ../properties/nm-sstp-editor.c:365
+#: ../properties/nm-sstp-editor.c:364
 #, c-format
 msgid "file is not a private key"
-msgstr ""
+msgstr "a fájl nem személyes kulcs"
 
-#: ../properties/nm-sstp-editor.c:581
+#: ../properties/nm-sstp-editor.c:589
 msgid "Certificates (TLS)"
-msgstr ""
+msgstr "Tanúsítványok (TLS)"
 
-#: ../properties/nm-sstp-editor.c:590
-#, fuzzy
+#: ../properties/nm-sstp-editor.c:599
 msgid "Password"
-msgstr "Jelszó:"
+msgstr "Jelszó"
 
 #: ../shared/nm-utils/nm-shared-utils.c:946
 #, c-format
@@ -199,9 +175,9 @@ msgstr ""
 "típus „%3$s” tulajdonságának tartományán"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
-#, fuzzy, c-format
+#, c-format
 msgid "unable to get editor plugin name: %s"
-msgstr "nem tölthető be a szerkesztő bővítmény: %s"
+msgstr "nem lehet lekérni a szerkesztő bővítmény nevét: %s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:103
 #, c-format
@@ -224,77 +200,77 @@ msgstr "ismeretlen hiba a szerkesztő példány létrehozásakor"
 
 #: ../shared/utils.c:58
 msgid "Failed to initialize the crypto engine"
-msgstr ""
+msgstr "A kriptográfiai motor előkészítése sikertelen"
 
 #: ../shared/utils.c:85
 #, c-format
 msgid "Failed to get subject name"
-msgstr ""
+msgstr "A tárgy nevének lekérése sikertelen"
 
 #: ../shared/utils.c:121 ../shared/utils.c:135
 #, c-format
 msgid "Failed to load certificate"
-msgstr ""
+msgstr "A tanúsítvány betöltése sikertelen"
 
 #: ../shared/utils.c:128
 #, c-format
 msgid "Failed to initialize certificate"
-msgstr ""
+msgstr "A tanúsítvány előkészítése sikertelen"
 
 #: ../shared/utils.c:185
 #, c-format
 msgid "Failed to parse pkcs12 file"
-msgstr ""
+msgstr "A pkcs12-fájl feldolgozása sikertelen"
 
 #: ../shared/utils.c:191
 #, c-format
 msgid "Failed to import pkcs12 file"
-msgstr ""
+msgstr "A pkcs12-fájl importálása sikertelen"
 
 #: ../shared/utils.c:198
 #, c-format
 msgid "Failed to initialize pkcs12 structure"
-msgstr ""
+msgstr "A pkcs12 szerkezet előkészítése sikertelen"
 
 #: ../shared/utils.c:205
 #, c-format
 msgid "Failed to read file"
-msgstr ""
+msgstr "A fájl olvasása sikertelen"
 
 #: ../shared/utils.c:239
 #, c-format
 msgid "Failed to decrypt private key"
-msgstr ""
+msgstr "A személyes kulcs visszafejtése sikertelen"
 
 #: ../shared/utils.c:249
 #, c-format
 msgid "Failed to initialize private key"
-msgstr ""
+msgstr "A személyes kulcs előkészítése sikertelen"
 
 #: ../shared/utils.c:257
 #, c-format
 msgid "Failed read file"
-msgstr ""
+msgstr "A fájl olvasása sikertelen"
 
 #: ../shared/utils.c:307
 #, c-format
 msgid "invalid delimiter character '%c'"
-msgstr ""
+msgstr "érvénytelen elválasztó karakter: „%c”"
 
 #: ../shared/utils.c:314
 #, c-format
 msgid "invalid non-utf-8 character"
-msgstr ""
+msgstr "érvénytelen nem UTF-8 karakter"
 
 #: ../shared/utils.c:343
 #, c-format
 msgid "empty host"
-msgstr ""
+msgstr "üres gép"
 
 #: ../shared/utils.c:355
 #, c-format
 msgid "invalid port"
-msgstr ""
+msgstr "érvénytelen port"
 
 #: ../src/nm-sstp-service.c:236
 #, c-format
@@ -338,479 +314,56 @@ msgstr "Nem található a sstp client program."
 msgid "Missing VPN gateway."
 msgstr "Hiányzik a VPN-átjáró."
 
-#: ../src/nm-sstp-service.c:922
+#: ../src/nm-sstp-service.c:929
 msgid "Could not find the pppd binary."
 msgstr "Nem található a sstp program."
 
-#: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
+#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1028
 msgid "Missing VPN username."
 msgstr "Hiányzó VPN-felhasználónév."
 
-#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
+#: ../src/nm-sstp-service.c:1003 ../src/nm-sstp-service.c:1039
 msgid "Missing or invalid VPN password."
 msgstr "Hiányzó vagy érvénytelen VPN-jelszó."
 
-#: ../src/nm-sstp-service.c:1163
+#: ../src/nm-sstp-service.c:1050
+msgid "Invalid private key file"
+msgstr "Érvénytelen személyes kulcs fájl"
+
+#: ../src/nm-sstp-service.c:1188
 msgid "Invalid or missing SSTP gateway."
 msgstr "Érvénytelen vagy hiányzó SSTP-átjáró."
 
-#: ../src/nm-sstp-service.c:1224
+#: ../src/nm-sstp-service.c:1249
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
 msgstr ""
+"Nem sikerült feldolgozni a kérést, mert a VPN-kapcsolat beállításai"
+" érvénytelenek voltak."
 
-#: ../src/nm-sstp-service.c:1259
+#: ../src/nm-sstp-service.c:1284
 msgid "Invalid connection type."
-msgstr ""
+msgstr "Érvénytelen kapcsolattípus."
 
-#: ../src/nm-sstp-service.c:1453
-#, fuzzy
+#: ../src/nm-sstp-service.c:1478
 msgid "Don't quit when VPN connection terminates"
 msgstr "Ne lépjen ki, ha a VPN-kapcsolat megszakad"
 
-#: ../src/nm-sstp-service.c:1454
+#: ../src/nm-sstp-service.c:1479
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr ""
 "Részletes hibakeresési naplózás engedélyezése (jelszavak is  a naplóba "
 "kerülhetnek)"
 
-#: ../src/nm-sstp-service.c:1455
+#: ../src/nm-sstp-service.c:1480
 msgid "D-Bus name to use for this instance"
 msgstr "Ehhez a példányhoz használandó D-Bus név"
 
-#: ../src/nm-sstp-service.c:1476
+#: ../src/nm-sstp-service.c:1501
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
 msgstr ""
 "Az nm-sstp-service integrált SSTP VPN-támogatást nyújt a Hálózatkezelőhöz, "
 "amely kompatibilis a Microsoft és mások megvalósításaival."
-
-#: ../properties/nm-sstp-dialog.ui.h:1
-msgid "Default"
-msgstr "Alapértelmezett"
-
-#: ../properties/nm-sstp-dialog.ui.h:2
-#, fuzzy
-msgid "<b>General</b>"
-msgstr "Általános"
-
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid ""
-"SSTP server IP or name.\n"
-"config: the first parameter of sstp"
-msgstr ""
-"SSTP kiszolgáló IP-címe vagy neve.\n"
-"config: a sstp első paramétere"
-
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "_Gateway:"
-msgstr "Á_tjáró:"
-
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Authentication"
-msgstr "Hitelesítés"
-
-#: ../properties/nm-sstp-dialog.ui.h:7
-#, fuzzy
-msgid "CA"
-msgstr "CHAP"
-
-#: ../properties/nm-sstp-dialog.ui.h:8
-msgid "User"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:9
-#, fuzzy
-msgid "Username:"
-msgstr "_Felhasználónév:"
-
-#: ../properties/nm-sstp-dialog.ui.h:10
-#, fuzzy
-msgid ""
-"Set the name used for authenticating the local system to the peer to "
-"<name>.\n"
-"            config: user <name>"
-msgstr ""
-"A helyi rendszer partner felé hitelesítéséhez használt <név> megadása.\n"
-"config: user <név>"
-
-#: ../properties/nm-sstp-dialog.ui.h:13
-msgid "Password passed to SSTP when prompted for it."
-msgstr "A SSTP-nek átadott jelszó, amikor kéri."
-
-#: ../properties/nm-sstp-dialog.ui.h:14
-msgid "Show password"
-msgstr "Jelszó megjelenítése"
-
-#: ../properties/nm-sstp-dialog.ui.h:15
-msgid "NT Domain:"
-msgstr "NT tartomány:"
-
-#: ../properties/nm-sstp-dialog.ui.h:16
-#, fuzzy
-msgid ""
-"Append the domain name <domain> to the local host name for authentication "
-"purposes.\n"
-"            config: domain <domain>"
-msgstr ""
-"A <tartomány> tartománynév hozzáfűzése a helyi gépnévhez hitelesítési "
-"céllal.\n"
-"config: domain <tartomány>"
-
-#: ../properties/nm-sstp-dialog.ui.h:18
-msgid "Type:"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:19
-#, fuzzy
-msgid "Select an authentication mode."
-msgstr "A következő hitelesítési módszerek engedélyezése:"
-
-#: ../properties/nm-sstp-dialog.ui.h:20
-#, fuzzy
-msgid "Ad_vanced..."
-msgstr "S_peciális…"
-
-#: ../properties/nm-sstp-dialog.ui.h:21
-msgid "SSTP Advanced Options"
-msgstr "SSTP speciális beállításai"
-
-#: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>SSL Tunnel</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:23
-msgid "_Verify certificate type and extended key usage"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:24
-msgid ""
-"Require that the peer certificate used for outer SSL tunnel was signed with "
-"a certificate that has a trusted certificate chain, key usage, and extended "
-"key usage based on RFC3280 TLS rules."
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:25
-msgid "_Use TLS hostname extensions"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:26
-msgid ""
-"Use the gateway name as specified for this connection in the hostname "
-"extensions in the SSL tunnel"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:27
-msgid "<b>Certificate Revocation</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:28
-msgid "CRL"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:29
-#, fuzzy
-msgid "Connection"
-msgstr "Kapcsolódás _névtelenül"
-
-#: ../properties/nm-sstp-dialog.ui.h:30
-#, fuzzy
-msgid "<b>Authentication</b>"
-msgstr "Hitelesítés"
-
-#: ../properties/nm-sstp-dialog.ui.h:31
-msgid "Allow the following authentication methods:"
-msgstr "A következő hitelesítési módszerek engedélyezése:"
-
-#: ../properties/nm-sstp-dialog.ui.h:32
-msgid ""
-"Allow/disable authentication methods.\n"
-"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
-msgstr ""
-"Hitelesítési módszerek engedélyezése/letiltása.\n"
-"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
-
-#: ../properties/nm-sstp-dialog.ui.h:34
-#, fuzzy
-msgid "<b>Security and Compression</b>"
-msgstr "Biztonság és tömörítés"
-
-#: ../properties/nm-sstp-dialog.ui.h:35
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "_Ponttól pontig (MPPE) titkosítás használata"
-
-#: ../properties/nm-sstp-dialog.ui.h:36
-msgid ""
-"Note: MPPE encryption is only available with MSCHAP authentication methods. "
-"To enable this checkbox, select one or more of the MSCHAP authentication "
-"methods: MSCHAP or MSCHAPv2."
-msgstr ""
-"Megjegyzés: az MPPE titkosítás csak az MSCHAP hitelesítési módokkal érhető "
-"el. Ezen négyzet engedélyezéséhez válassza ki legalább az egyik MSCHAP "
-"hitelesítési módot: MSCHAP vagy MSCHAPv2."
-
-#: ../properties/nm-sstp-dialog.ui.h:37
-msgid "_Security:"
-msgstr "Bi_ztonság:"
-
-#: ../properties/nm-sstp-dialog.ui.h:38
-msgid ""
-"Require the use of MPPE, with 40/128-bit encryption or all.\n"
-"config: require-mppe, require-mppe-128 or require-mppe-40"
-msgstr ""
-"Az MPPE használatának megkövetelése 40/128 bites titkosítással vagy "
-"minddel.\n"
-"config: require-mppe, require-mppe-128 vagy require-mppe-40"
-
-#: ../properties/nm-sstp-dialog.ui.h:40
-msgid "Allow st_ateful encryption"
-msgstr "Állap_ottartó tömörítés engedélyezése"
-
-#: ../properties/nm-sstp-dialog.ui.h:41
-msgid ""
-"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
-"config: mppe-stateful (when checked)"
-msgstr ""
-"Az MPPE használhat állapottartó módot. Az állapot nélküli mód továbbra is "
-"elsőként lesz megpróbálva. \n"
-"config: mppe-stateful (ha be van jelölve)"
-
-#: ../properties/nm-sstp-dialog.ui.h:43
-msgid "Allow _BSD data compression"
-msgstr "B_SD tömörítés engedélyezése"
-
-#: ../properties/nm-sstp-dialog.ui.h:44
-msgid ""
-"Allow/disable BSD-Compress compression.\n"
-"config: nobsdcomp (when unchecked)"
-msgstr ""
-"BSD-Compress tömörítés engedélyezése/letiltása. \n"
-"config: nobsdcomp (ha nincs bejelölve)"
-
-#: ../properties/nm-sstp-dialog.ui.h:46
-msgid "Allow _Deflate data compression"
-msgstr "_Deflate tömörítés engedélyezése"
-
-#: ../properties/nm-sstp-dialog.ui.h:47
-msgid ""
-"Allow/disable Deflate compression.\n"
-"config: nodeflate (when unchecked)"
-msgstr ""
-"Deflate tömörítés engedélyezése/letiltása. \n"
-"config: nodeflate (ha nincs bejelölve)"
-
-#: ../properties/nm-sstp-dialog.ui.h:49
-msgid "Use TCP _header compression"
-msgstr "TPC _fejléctömörítés használata"
-
-#: ../properties/nm-sstp-dialog.ui.h:50
-msgid ""
-"Allow/disable Van Jacobson style TCP/IP header compression in both the "
-"transmit and the receive directions.\n"
-"config: novj (when unchecked)"
-msgstr ""
-"Van Jacobson stílusú TCP/IP fejléctömörítés engedélyezése/letiltása a küldés "
-"és fogadás irányokban is. \n"
-"config: novj (ha nincs bejelölve)"
-
-#: ../properties/nm-sstp-dialog.ui.h:52
-msgid "<b>Echo</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:53
-msgid "Send PPP _echo packets"
-msgstr "PPP _visszhangcsomagok küldése"
-
-#: ../properties/nm-sstp-dialog.ui.h:54
-msgid ""
-"Send LCP echo-requests to find out whether peer is alive.\n"
-"config: lcp-echo-failure and lcp-echo-interval"
-msgstr ""
-"LCP echo kérések küldése a partner elérhetőségének megállapításához.\n"
-"config: lcp-echo-failure és lcp-echo-interval"
-
-#: ../properties/nm-sstp-dialog.ui.h:56
-msgid "<b>Misc</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:57
-msgid "Use custom _unit number:"
-msgstr "Egyéni _egységszám használata:"
-
-#: ../properties/nm-sstp-dialog.ui.h:58
-msgid ""
-"Enable custom index for ppp<n> device name.\n"
-"config: unit <n>"
-msgstr ""
-"Egyéni index engedélyezése a ppp<n> eszköznévhez.\n"
-"beállítás: egység <n>"
-
-#: ../properties/nm-sstp-dialog.ui.h:60
-msgid "Point-to-Point"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:61
-msgid "<b>Identity</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:62
-msgid ""
-"Use this to override the value specified by the certificate\n"
-"\n"
-"By default, this will be populated, when correct password for certificate is "
-"supplied, with the Microsoft OID for username; or the Subject name of the "
-"certificate when this is not available. "
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:65
-msgid "<b>Certificate Validation</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:66
-msgid "_Subject Match"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:67
-msgid ""
-"Subject or Common Name to verify server certificate information against. "
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:68
-msgid "_Verify Method"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:69
-msgid ""
-"Verify server certificate identification.\n"
-"\n"
-"When enabled, connection will only succeed if the server certificate matches "
-"some expected properties.\n"
-"Matching can either apply to the whole certificate subject (all the "
-"fields),\n"
-"or just the Common Name (CN field).\n"
-"                                    "
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:75
-msgid ""
-"Require that peer certificate was signed with an explicit key usage and "
-"extended key usage based on RFC3280 TLS rules."
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:76
-msgid "<b>Compatibility</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:77
-msgid "_Max TLS Version"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:78
-msgid ""
-"Use this to control the maximum supported EAP-TLS version. Default is TLS "
-"1.2, and use of TLS 1.3 is considered experimental at this point."
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:79
-#, fuzzy
-msgid "TLS Authentication"
-msgstr "Hitelesítés"
-
-#: ../properties/nm-sstp-dialog.ui.h:80
-msgid "Address:"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:81
-msgid "Port:"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:82
-msgid "0"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:83
-#, fuzzy
-msgid "Show Password"
-msgstr "Jelszó megjelenítése"
-
-#: ../properties/nm-sstp-dialog.ui.h:84
-msgid "Proxy"
-msgstr ""
-
-#~ msgid "No VPN secrets!"
-#~ msgstr "Nincs VPN-titok!"
-
-#, c-format
-#~ msgid "couldn’t convert SSTP VPN gateway IP address “%s” (%d)"
-#~ msgstr "a SSTP VPN-átjáró IP-címének átalakítása sikertelen: „%s” (%d)"
-
-#, c-format
-#~ msgid "couldn’t look up SSTP VPN gateway IP address “%s” (%d)"
-#~ msgstr "nem található a SSTP VPN-átjáró IP-címe: „%s” (%d)"
-
-#, c-format
-#~ msgid "no usable addresses returned for SSTP VPN gateway “%s”"
-#~ msgstr "nem került használható cím visszaadása a SSTP VPN-átjáróhoz: „%s”"
-
-#~ msgid "Echo"
-#~ msgstr "Visszhang"
-
-#~ msgid "Misc"
-#~ msgstr "Egyéb"
-
-#~ msgid "Optional"
-#~ msgstr "Nem kötelező"
-
-#~ msgid "User name:"
-#~ msgstr "Felhasználónév:"
-
-#~ msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
-#~ msgstr "Nem küldött a SSTP VPN-átjáró használható IP-címet: „%s” (%d)"
-
-#~ msgid "Could not find secrets (connection invalid, no vpn setting)."
-#~ msgstr ""
-#~ "Nem található titok (érvénytelen kapcsolat, nincsenek vpn beállítások)."
-
-#~ msgid "Missing or invalid VPN username."
-#~ msgstr "Hiányzó vagy érvénytelen VPN-felhasználónév."
-
-#~ msgid "No cached credentials."
-#~ msgstr "Nincsenek gyorsítótárazott hitelesítési adatok."
-
-#~ msgid "SSTP VPN Connection Manager"
-#~ msgstr "SSTP VPN-kapcsolatkezelő"
-
-#~ msgid "Add, Remove, and Edit SSTP VPN Connections"
-#~ msgstr "SSTP VPN-kapcsolatok hozzáadása, szerkesztése és eltávolítása"
-
-#~ msgid "Saved"
-#~ msgstr "Mentett"
-
-#~ msgid "Always Ask"
-#~ msgstr "Mindig kérdezzen"
-
-#~ msgid "Not Required"
-#~ msgstr "Nem szükséges"
-
-#~ msgid "Invalid VPN username."
-#~ msgstr "Érvénytelen VPN-felhasználónév."
-
-#~ msgid "_Secondary Password:"
-#~ msgstr "Jelszó _még egyszer:"
-
-#~ msgid "Sh_ow passwords"
-#~ msgstr "Je_lszavak megjelenítése"
-
-#~ msgid "_Domain:"
-#~ msgstr "_Tartomány:"
-
-#~ msgid "Connect as _user:"
-#~ msgstr "Csatlakozás _mint:"
-
-#~ msgid "_Remember passwords for this session"
-#~ msgstr "Jelszó meg_jegyzése erre a munkamenetre"
-
-#~ msgid "_Save passwords in keyring"
-#~ msgstr "Jelszavak mentése a k_ulcstartóra"
