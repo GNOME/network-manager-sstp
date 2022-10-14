@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
 "issues\n"
 "POT-Creation-Date: 2022-07-08 03:56+0000\n"
-"PO-Revision-Date: 2022-07-25 21:16+0200\n"
+"PO-Revision-Date: 2022-10-14 16:53+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
 "Language: ka\n"
@@ -129,7 +129,7 @@ msgstr "TLS 1.3"
 
 #: ../properties/nm-sstp-editor-plugin.c:35
 msgid "Secure Socket Tunneling Protocol (SSTP)"
-msgstr ""
+msgstr "Secure Socket Tunneling Protocol (SSTP)"
 
 #: ../properties/nm-sstp-editor-plugin.c:36
 msgid "Compatible with Microsoft and other SSTP VPN servers."
@@ -156,28 +156,31 @@ msgstr "Password"
 #: ../shared/nm-utils/nm-shared-utils.c:946
 #, c-format
 msgid "object class '%s' has no property named '%s'"
-msgstr ""
+msgstr "ობიექტის კლასს '%s ' თვისება სახელით'%s' არ გააჩნია"
 
 #: ../shared/nm-utils/nm-shared-utils.c:953
 #, c-format
 msgid "property '%s' of object class '%s' is not writable"
-msgstr ""
+msgstr "თვისება '%s' ობიექტის კლასისთვის '%s' ჩაწერადი არაა"
 
 #: ../shared/nm-utils/nm-shared-utils.c:960
 #, c-format
 msgid ""
 "construct property \"%s\" for object '%s' can't be set after construction"
 msgstr ""
+"აგებული თვისების \"%s\" დაყენება ობიექტის (\"%s\") აგების შემდეგ შეუძლებელია"
 
 #: ../shared/nm-utils/nm-shared-utils.c:968
 #, c-format
 msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
 msgstr ""
+"'%s::%s' თვისების სწორ სახელს არ წარმოადგენს; '%s' GObject-ის ქვეტიპი არაა"
 
 #: ../shared/nm-utils/nm-shared-utils.c:977
 #, c-format
 msgid "unable to set property '%s' of type '%s' from value of type '%s'"
 msgstr ""
+"თვისების (%s) ტიპისთვის '%s' ტიპის '%s' მნიშვნელობიდან დაყენების შეცდომა"
 
 #: ../shared/nm-utils/nm-shared-utils.c:988
 #, c-format
@@ -185,6 +188,8 @@ msgid ""
 "value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
 "type '%s'"
 msgstr ""
+"მნიშვნელობა '%s' ტიპისთვის '%s' არასწორია ან დიაპაზონს გარეთაა თვისებისთვის "
+"'%s' ტიპისთვის '%s'"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
 #, c-format
@@ -247,7 +252,7 @@ msgstr ""
 #: ../shared/utils.c:205
 #, c-format
 msgid "Failed to read file"
-msgstr ""
+msgstr "ფაილის წაკითხვის შეცდომა"
 
 #: ../shared/utils.c:239
 #, c-format
@@ -292,7 +297,7 @@ msgstr "არასწორი ნაგულისხმები რაუ�
 #: ../src/nm-sstp-service.c:250
 #, c-format
 msgid "invalid integer property “%s”"
-msgstr ""
+msgstr "არასწორი რიცხვითი თვისება \"%s\""
 
 #: ../src/nm-sstp-service.c:260
 #, c-format
@@ -302,7 +307,7 @@ msgstr "\"%s\"-ის არასწორი ბულევური თვ�
 #: ../src/nm-sstp-service.c:267
 #, c-format
 msgid "unhandled property “%s” type %s"
-msgstr ""
+msgstr "\"%s\"-ის დაუმუშავებელი თვისება. ტიპი %s"
 
 #: ../src/nm-sstp-service.c:278
 #, c-format
@@ -332,11 +337,11 @@ msgstr ""
 
 #: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1028
 msgid "Missing VPN username."
-msgstr ""
+msgstr "აკლია VPN-ის მომხმარებლის სახელი."
 
 #: ../src/nm-sstp-service.c:1003 ../src/nm-sstp-service.c:1039
 msgid "Missing or invalid VPN password."
-msgstr ""
+msgstr "ნაკლული ან არასწორი VPN-ის პაროლი."
 
 #: ../src/nm-sstp-service.c:1050
 msgid "Invalid private key file"
@@ -366,7 +371,7 @@ msgstr ""
 
 #: ../src/nm-sstp-service.c:1480
 msgid "D-Bus name to use for this instance"
-msgstr ""
+msgstr "ამ გაშვებული ასლისთვის გამოყენებული D-Bus -ის სახელი"
 
 #: ../src/nm-sstp-service.c:1501
 msgid ""
@@ -425,7 +430,7 @@ msgstr "პაროლის ჩვენება"
 
 #: ../properties/nm-sstp-dialog.ui.h:15
 msgid "NT Domain:"
-msgstr ""
+msgstr "NT დომენი:"
 
 #: ../properties/nm-sstp-dialog.ui.h:16
 msgid ""
@@ -481,7 +486,7 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:28
 msgid "CRL"
-msgstr ""
+msgstr "CRL"
 
 #: ../properties/nm-sstp-dialog.ui.h:29
 msgid "Connection"
@@ -593,7 +598,7 @@ msgstr ""
 
 #: ../properties/nm-sstp-dialog.ui.h:59
 msgid "Point-to-Point"
-msgstr ""
+msgstr "წერტილიდან წერტილამდე"
 
 #: ../properties/nm-sstp-dialog.ui.h:60
 msgid "<b>Identity</b>"
