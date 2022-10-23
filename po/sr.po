@@ -1,158 +1,138 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright © YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the network-manager-sstp package.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012–2021.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012–2022.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-sstp\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 11:59-0700\n"
-"PO-Revision-Date: 2021-09-21 14:51+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
+"issues\n"
+"POT-Creation-Date: 2022-09-11 20:31+0000\n"
+"PO-Revision-Date: 2022-10-19 10:18+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: српски <gnome-sr@googlegroups.org>\n"
+"Language-Team: Serbian <српски <gnome-sr@googlegroups.org>>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 "X-Project-Style: gnome\n"
+"X-Generator: Gtranslator 3.36.0\n"
 
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
-msgid "SSTP VPN client"
-msgstr "ППТП ВПН клијент"
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
-msgid "Client for SSTP virtual private networks"
-msgstr "Клијент за ППТП виртуелне приватне мреже"
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
-msgid "Support for configuring SSTP virtual private network connections."
-msgstr "Подршка за подешавање веза ППТП виртуелне приватне мреже."
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
-msgid ""
-"Compatible with servers following the SSTP specification including the "
-"Microsoft servers."
-msgstr ""
-"Сагласно са серверима који следе ППТП одредбу укључујући и Мајкрософт "
-"сервере."
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "The NetworkManager Developers"
-msgstr "Програмери Управника мреже"
-
-#: ../auth-dialog/main.c:280
+#: ../auth-dialog/main.c:278
 msgid "Authenticate VPN"
 msgstr "Потврди ВПН"
 
-#: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
+#: ../auth-dialog/main.c:287 ../auth-dialog/main.c:384
 msgid "Certificate password:"
 msgstr "Лозинка уверења:"
 
-#: ../auth-dialog/main.c:295
+#: ../auth-dialog/main.c:293
 msgid "_HTTP proxy password:"
 msgstr "Лозинка _ХТТП посредника:"
 
-#: ../auth-dialog/main.c:372
+#: ../auth-dialog/main.c:370
 #, c-format
 msgid "Authenticate VPN %s"
 msgstr "Потврди ВПН %s"
 
-#: ../auth-dialog/main.c:379 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:377
 msgid "Password:"
 msgstr "Лозинка:"
 
-#: ../auth-dialog/main.c:393
+#: ../auth-dialog/main.c:391
 msgid "HTTP proxy password:"
 msgstr "Лозинка _ХТТП посредника:"
 
-#: ../auth-dialog/main.c:508
+#: ../auth-dialog/main.c:506
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
 "Морате да потврдите идентитет да бисте могли да приступите Виртуелној "
 "приватној мрежи „%s“."
 
-#: ../properties/advanced-dialog.c:235
+#: ../properties/advanced-dialog.c:248
 msgid "All Available (Default)"
 msgstr "Све доступно (основно)"
 
-#: ../properties/advanced-dialog.c:239
+#: ../properties/advanced-dialog.c:252
 msgid "128-bit (most secure)"
 msgstr "128-битно (најсигурније)"
 
-#: ../properties/advanced-dialog.c:248
+#: ../properties/advanced-dialog.c:261
 msgid "40-bit (less secure)"
 msgstr "40-битно (мање сигурно)"
 
-#: ../properties/advanced-dialog.c:367
+#: ../properties/advanced-dialog.c:380
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:380
+#: ../properties/advanced-dialog.c:393
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:392
+#: ../properties/advanced-dialog.c:405
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:404
+#: ../properties/advanced-dialog.c:417
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:416
+#: ../properties/advanced-dialog.c:429
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/advanced-dialog.c:608
+#: ../properties/advanced-dialog.c:495
 msgid "Don't verify certificate identification"
 msgstr "Не проверавај идентификацију уверења"
 
-#: ../properties/advanced-dialog.c:616
+#: ../properties/advanced-dialog.c:503
 msgid "Verify subject exactly"
 msgstr "Тачно провери тему"
 
-#: ../properties/advanced-dialog.c:624
+#: ../properties/advanced-dialog.c:511
 msgid "Verify name exactly"
 msgstr "Тачно провери назив"
 
-#: ../properties/advanced-dialog.c:632
+#: ../properties/advanced-dialog.c:519
 msgid "Verify name by suffix"
 msgstr "Провери назив по суфиксу"
 
-#: ../properties/advanced-dialog.c:677
+#: ../properties/advanced-dialog.c:569
 msgid "TLS 1.2 (Default)"
 msgstr "ТЛС 1.2 (основно)"
 
-#: ../properties/advanced-dialog.c:685
+#: ../properties/advanced-dialog.c:577
 msgid "TLS 1.3"
 msgstr "ТЛС 1.3"
 
-#: ../properties/nm-sstp-editor-plugin.c:34
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "Проток тунелисања од тачке до тачке (ППТП)"
-
 #: ../properties/nm-sstp-editor-plugin.c:35
+#| msgid "Point-to-Point Tunneling Protocol (SSTP)"
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "Проток тунелисања безбедне прикључнице (ССТП)"
+
+#: ../properties/nm-sstp-editor-plugin.c:36
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "Сагласно са Мајкрософтовим и другим ППТП ВПН серверима."
 
-#: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
+#: ../properties/nm-sstp-editor.c:313 ../properties/nm-sstp-editor.c:341
 #, c-format
 msgid "file is not a certificate"
 msgstr "датотека није уверење"
 
-#: ../properties/nm-sstp-editor.c:365
+#: ../properties/nm-sstp-editor.c:364
 #, c-format
 msgid "file is not a private key"
 msgstr "датотека није лични кључ"
 
-#: ../properties/nm-sstp-editor.c:581
+#: ../properties/nm-sstp-editor.c:589
 msgid "Certificates (TLS)"
 msgstr "Уверења (ТЛС)"
 
-#: ../properties/nm-sstp-editor.c:590
+#: ../properties/nm-sstp-editor.c:599
 msgid "Password"
 msgstr "Лозинка"
 
@@ -332,46 +312,50 @@ msgstr "Не могу да пронађем извршни пптп клијен
 msgid "Missing VPN gateway."
 msgstr "Недостаје ВПН мрежни пролаз."
 
-#: ../src/nm-sstp-service.c:922
+#: ../src/nm-sstp-service.c:929
 msgid "Could not find the pppd binary."
 msgstr "Не могу да пронађем пптп извршни."
 
-#: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
+#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1028
 msgid "Missing VPN username."
 msgstr "Недостаје ВПН корисничко име."
 
-#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
+#: ../src/nm-sstp-service.c:1003 ../src/nm-sstp-service.c:1039
 msgid "Missing or invalid VPN password."
 msgstr "Недостаје или је неисправна ВПН лозинка."
 
-#: ../src/nm-sstp-service.c:1163
+#: ../src/nm-sstp-service.c:1050
+msgid "Invalid private key file"
+msgstr "Неисправна датотека приватног кључа"
+
+#: ../src/nm-sstp-service.c:1188
 msgid "Invalid or missing SSTP gateway."
 msgstr "Неисправан или недостаје ППТП мрежни пролаз."
 
-#: ../src/nm-sstp-service.c:1224
+#: ../src/nm-sstp-service.c:1249
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
 msgstr "Не могу да обрадим захтев јер су поставке ВПН везе неисправне."
 
-#: ../src/nm-sstp-service.c:1259
+#: ../src/nm-sstp-service.c:1284
 msgid "Invalid connection type."
 msgstr "Неисправна врста везе."
 
-#: ../src/nm-sstp-service.c:1453
+#: ../src/nm-sstp-service.c:1478
 msgid "Don't quit when VPN connection terminates"
 msgstr "Не прекида када се завршава ВПН веза"
 
-#: ../src/nm-sstp-service.c:1454
+#: ../src/nm-sstp-service.c:1479
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr ""
 "Укључује опширно записивање зарад исправљања грешака (може да изложи лозинке)"
 
-#: ../src/nm-sstp-service.c:1455
+#: ../src/nm-sstp-service.c:1480
 msgid "D-Bus name to use for this instance"
 msgstr "Назив Д-сабирнице која ће се користити за овај примерак"
 
-#: ../src/nm-sstp-service.c:1476
+#: ../src/nm-sstp-service.c:1501
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
@@ -379,366 +363,324 @@ msgstr ""
 "нм-пптп-услуга обезбеђује Управнику мреже обједињену ППТП ВПН могућност "
 "(сагласну са Мајкрософтом и другим применама)."
 
-#: ../properties/nm-sstp-dialog.ui.h:1
-msgid "Default"
-msgstr "Основно"
-
-#: ../properties/nm-sstp-dialog.ui.h:2
-msgid "<b>General</b>"
-msgstr "<b>Опште</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid ""
-"SSTP server IP or name.\n"
-"config: the first parameter of sstp"
-msgstr ""
-"ИП или назив ППТП сервера.\n"
-"подешавање: први параметар за пптп"
-
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "_Gateway:"
-msgstr "_Мрежни пролаз:"
-
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Authentication"
-msgstr "Пријава"
-
-#: ../properties/nm-sstp-dialog.ui.h:7
-msgid "CA"
-msgstr "Издавач уверења"
-
-#: ../properties/nm-sstp-dialog.ui.h:8
-msgid "User"
-msgstr "Корисник"
-
-#: ../properties/nm-sstp-dialog.ui.h:9
-msgid "Username:"
-msgstr "Корисник:"
-
-#: ../properties/nm-sstp-dialog.ui.h:10
-msgid ""
-"Set the name used for authenticating the local system to the peer to "
-"<name>.\n"
-"            config: user <name>"
-msgstr ""
-"Подесите назив коришћен за пријављивање локалног система парљаку на <name>.\n"
-"            подешавање: корисник <name>"
-
-#: ../properties/nm-sstp-dialog.ui.h:13
-msgid "Password passed to SSTP when prompted for it."
-msgstr "Лозинка дата ППТП-у када је затражена."
-
-#: ../properties/nm-sstp-dialog.ui.h:14
-msgid "Show password"
-msgstr "Прикажи лозинку"
-
-#: ../properties/nm-sstp-dialog.ui.h:15
-msgid "NT Domain:"
-msgstr "НТ домен:"
-
-#: ../properties/nm-sstp-dialog.ui.h:16
-msgid ""
-"Append the domain name <domain> to the local host name for authentication "
-"purposes.\n"
-"            config: domain <domain>"
-msgstr ""
-"Качи назив домена <domain> на назив локалног рачунара за сврхе "
-"пријављивања.\n"
-"             подешавање: домен <domain>"
-
-#: ../properties/nm-sstp-dialog.ui.h:18
-msgid "Type:"
-msgstr "Врста:"
-
-#: ../properties/nm-sstp-dialog.ui.h:19
-msgid "Select an authentication mode."
-msgstr "Изаберите режим потврђивања идентитета."
-
-#: ../properties/nm-sstp-dialog.ui.h:20
-msgid "Ad_vanced..."
-msgstr "_Напредно..."
-
-#: ../properties/nm-sstp-dialog.ui.h:21
-msgid "SSTP Advanced Options"
-msgstr "Напредне опције за ППТП"
-
-#: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>SSL Tunnel</b>"
-msgstr "<b>ССЛ тунел</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:23
-msgid "_Verify certificate type and extended key usage"
-msgstr "_Провери врсту уверења и коришћење проширеног кључа"
-
-#: ../properties/nm-sstp-dialog.ui.h:24
-msgid ""
-"Require that the peer certificate used for outer SSL tunnel was signed with "
-"a certificate that has a trusted certificate chain, key usage, and extended "
-"key usage based on RFC3280 TLS rules."
-msgstr ""
-"Захтевајте да је уверење парњака коришћено за спољни ССЛ тунел потписано "
-"уверењем које има поверљив ланац уверења, коришћење кључа и коришћење "
-"проширеног кључа засновано на RFC3280 ТЛС правилима."
-
-#: ../properties/nm-sstp-dialog.ui.h:25
-msgid "_Use TLS hostname extensions"
-msgstr "_Користи проширења ТЛС назива домаћина"
-
-#: ../properties/nm-sstp-dialog.ui.h:26
-msgid ""
-"Use the gateway name as specified for this connection in the hostname "
-"extensions in the SSL tunnel"
-msgstr ""
-"Користите назив пролаза као што је наведено за ову везу у проширењима назива "
-"домаћина у ССЛ тунелу"
-
-#: ../properties/nm-sstp-dialog.ui.h:27
-msgid "<b>Certificate Revocation</b>"
-msgstr "<b>Опозивање уверења</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:28
-msgid "CRL"
-msgstr "ЦРЛ"
-
-#: ../properties/nm-sstp-dialog.ui.h:29
-msgid "Connection"
-msgstr "Веза"
-
-#: ../properties/nm-sstp-dialog.ui.h:30
-msgid "<b>Authentication</b>"
-msgstr "<b>Пријава</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:31
-msgid "Allow the following authentication methods:"
-msgstr "Дозволи следеће начине пријављивања:"
-
-#: ../properties/nm-sstp-dialog.ui.h:32
-msgid ""
-"Allow/disable authentication methods.\n"
-"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
-msgstr ""
-"Укључује/искључује начине пријављивања.\n"
-"подешавање: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-"
-"eap"
-
-#: ../properties/nm-sstp-dialog.ui.h:34
-msgid "<b>Security and Compression</b>"
-msgstr "<b>Безбедност и сажимање</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:35
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "_Користи шифровање „тачка-до-тачке“ (МППЕ)"
-
-#: ../properties/nm-sstp-dialog.ui.h:36
-msgid ""
-"Note: MPPE encryption is only available with MSCHAP authentication methods. "
-"To enable this checkbox, select one or more of the MSCHAP authentication "
-"methods: MSCHAP or MSCHAPv2."
-msgstr ""
-"Напомена: МППЕ шифровање је доступно само са МСЦХАП-ом. Да укључите ову "
-"кућицу за избор, изаберите један или неколико МСЦХАП начина пријављивања: "
-"МСЦХАП или МСЦХАПв2."
-
-#: ../properties/nm-sstp-dialog.ui.h:37
-msgid "_Security:"
-msgstr "_Безбедност:"
-
-#: ../properties/nm-sstp-dialog.ui.h:38
-msgid ""
-"Require the use of MPPE, with 40/128-bit encryption or all.\n"
-"config: require-mppe, require-mppe-128 or require-mppe-40"
-msgstr ""
-"Захтева коришћење МППЕ-а, са 40/128-битним шифровањем или све.\n"
-"подешавање: require-mppe, require-mppe-128 или require-mppe-40"
-
-#: ../properties/nm-sstp-dialog.ui.h:40
-msgid "Allow st_ateful encryption"
-msgstr "Допусти _речито шифровање"
-
-#: ../properties/nm-sstp-dialog.ui.h:41
-msgid ""
-"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
-"config: mppe-stateful (when checked)"
-msgstr ""
-"Допушта МППЕ-у да користи речит режим. Речит режим се још увек покушава као "
-"први.\n"
-"подешавање: mppe-stateful (када је изабран)"
-
-#: ../properties/nm-sstp-dialog.ui.h:43
-msgid "Allow _BSD data compression"
-msgstr "Дозволи _БСД паковање података"
-
-#: ../properties/nm-sstp-dialog.ui.h:44
-msgid ""
-"Allow/disable BSD-Compress compression.\n"
-"config: nobsdcomp (when unchecked)"
-msgstr ""
-"Укључује/искључује сажимање БСД-Сажимања.\n"
-"подешавање: nobsdcomp (када није изабрано)"
-
-#: ../properties/nm-sstp-dialog.ui.h:46
-msgid "Allow _Deflate data compression"
-msgstr "Дозволи _Дефлејт паковање података"
-
-#: ../properties/nm-sstp-dialog.ui.h:47
-msgid ""
-"Allow/disable Deflate compression.\n"
-"config: nodeflate (when unchecked)"
-msgstr ""
-"Укључује/искључује Дефлејт сажимање.\n"
-"подешавање: nodeflate (када није изабрано)"
-
-#: ../properties/nm-sstp-dialog.ui.h:49
-msgid "Use TCP _header compression"
-msgstr "Користи _паковање ТЦП заглавља"
-
-#: ../properties/nm-sstp-dialog.ui.h:50
-msgid ""
-"Allow/disable Van Jacobson style TCP/IP header compression in both the "
-"transmit and the receive directions.\n"
-"config: novj (when unchecked)"
-msgstr ""
-"Укључује/искључује Ван Јакобсонов стил паковања ТЦП/ИП заглавља како у смеру "
-"преноса тако и у смеру пријема.\n"
-"подешавање: novj (када није изабрано)"
-
-#: ../properties/nm-sstp-dialog.ui.h:52
-msgid "<b>Echo</b>"
-msgstr "<b>Ехо</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:53
-msgid "Send PPP _echo packets"
-msgstr "Шаљи пакете ППП _одјека"
-
-#: ../properties/nm-sstp-dialog.ui.h:54
-msgid ""
-"Send LCP echo-requests to find out whether peer is alive.\n"
-"config: lcp-echo-failure and lcp-echo-interval"
-msgstr ""
-"Шаље ЛЦП захтеве одјека да би дознао да ли је парњак активан.\n"
-"подешавање: lcp-echo-failure и lcp-echo-interval"
-
-#: ../properties/nm-sstp-dialog.ui.h:56
-msgid "<b>Misc</b>"
-msgstr "<b>Разно</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:57
-msgid "Use custom _unit number:"
-msgstr "Користи произвољни број _јединице:"
-
-#: ../properties/nm-sstp-dialog.ui.h:58
-msgid ""
-"Enable custom index for ppp<n> device name.\n"
-"config: unit <n>"
-msgstr ""
-"Укључи произвољни индекс за назив „ппп<n>“ уређаја.\n"
-"подешавање: јединица <n>"
-
-#: ../properties/nm-sstp-dialog.ui.h:60
-msgid "Point-to-Point"
-msgstr "Тачка-до-тачке"
-
-#: ../properties/nm-sstp-dialog.ui.h:61
-msgid "<b>Identity</b>"
-msgstr "<b>Идентитет</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:62
-msgid ""
-"Use this to override the value specified by the certificate\n"
-"\n"
-"By default, this will be populated, when correct password for certificate is "
-"supplied, with the Microsoft OID for username; or the Subject name of the "
-"certificate when this is not available. "
-msgstr ""
-"Користите ово да заобиђете вредност наведену уверењем\n"
-"\n"
-"По основи, ово ће бити попуњено, када се достави одговарајућа лозинка за "
-"уверење, Мајкрософтовим ОИБ-ом за корисничко име; или називом теме уверења "
-"када ово није доступно."
-
-#: ../properties/nm-sstp-dialog.ui.h:65
-msgid "<b>Certificate Validation</b>"
-msgstr "<b>Потврђивање уверења</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:66
-msgid "_Subject Match"
-msgstr "_Поклапање теме"
-
-#: ../properties/nm-sstp-dialog.ui.h:67
-msgid ""
-"Subject or Common Name to verify server certificate information against. "
-msgstr "Тема или општи назив за потврђивање информација уверења сервера."
-
-#: ../properties/nm-sstp-dialog.ui.h:68
-msgid "_Verify Method"
-msgstr "_Начин потврђивања"
-
-#: ../properties/nm-sstp-dialog.ui.h:69
-msgid ""
-"Verify server certificate identification.\n"
-"\n"
-"When enabled, connection will only succeed if the server certificate matches "
-"some expected properties.\n"
-"Matching can either apply to the whole certificate subject (all the "
-"fields),\n"
-"or just the Common Name (CN field).\n"
-"                                    "
-msgstr ""
-"Потврди идентификацију уверења сервера.\n"
-"\n"
-"Када је укључено, веза ће успети само ако уверење сервера одговара неким "
-"очекиваним својствима.\n"
-"Поклапање се може применити на читаву тему уверења (сва поља),\n"
-"или само на општи назив (ОН поље).\n"
-"                                    "
-
-#: ../properties/nm-sstp-dialog.ui.h:75
-msgid ""
-"Require that peer certificate was signed with an explicit key usage and "
-"extended key usage based on RFC3280 TLS rules."
-msgstr ""
-"Захтевајте да је уверење парњака потписано изричитим коришћењем кључа и "
-"коришћењем проширеног кључа на основу RFC3280 ТЛС правила."
-
-#: ../properties/nm-sstp-dialog.ui.h:76
-msgid "<b>Compatibility</b>"
-msgstr "<b>Саобразност</b>"
-
-#: ../properties/nm-sstp-dialog.ui.h:77
-msgid "_Max TLS Version"
-msgstr "_Највеће ТЛС издање"
-
-#: ../properties/nm-sstp-dialog.ui.h:78
-msgid ""
-"Use this to control the maximum supported EAP-TLS version. Default is TLS "
-"1.2, and use of TLS 1.3 is considered experimental at this point."
-msgstr ""
-"Користитие ово да управљате највећим подржаним „EAP-TLS“ издањем. Основно је "
-"ТЛС 1.2, а коришћење ТЛС-а 1.3 се сматра експерименталним у овом тренутку."
-
-#: ../properties/nm-sstp-dialog.ui.h:79
-msgid "TLS Authentication"
-msgstr "ТЛС пријава"
-
-#: ../properties/nm-sstp-dialog.ui.h:80
-msgid "Address:"
-msgstr "Адреса:"
-
-#: ../properties/nm-sstp-dialog.ui.h:81
-msgid "Port:"
-msgstr "Прикључник:"
-
-#: ../properties/nm-sstp-dialog.ui.h:82
-msgid "0"
-msgstr "0"
-
-#: ../properties/nm-sstp-dialog.ui.h:83
-msgid "Show Password"
-msgstr "Прикажи лозинку"
-
-#: ../properties/nm-sstp-dialog.ui.h:84
-msgid "Proxy"
-msgstr "Посредник"
+#~ msgid "SSTP VPN client"
+#~ msgstr "ППТП ВПН клијент"
+
+#~ msgid "Client for SSTP virtual private networks"
+#~ msgstr "Клијент за ППТП виртуелне приватне мреже"
+
+#~ msgid "Support for configuring SSTP virtual private network connections."
+#~ msgstr "Подршка за подешавање веза ППТП виртуелне приватне мреже."
+
+#~ msgid ""
+#~ "Compatible with servers following the SSTP specification including the "
+#~ "Microsoft servers."
+#~ msgstr ""
+#~ "Сагласно са серверима који следе ППТП одредбу укључујући и Мајкрософт "
+#~ "сервере."
+
+#~ msgid "The NetworkManager Developers"
+#~ msgstr "Програмери Управника мреже"
+
+#~ msgid "Default"
+#~ msgstr "Основно"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Опште</b>"
+
+#~ msgid ""
+#~ "SSTP server IP or name.\n"
+#~ "config: the first parameter of sstp"
+#~ msgstr ""
+#~ "ИП или назив ППТП сервера.\n"
+#~ "подешавање: први параметар за пптп"
+
+#~ msgid "_Gateway:"
+#~ msgstr "_Мрежни пролаз:"
+
+#~ msgid "Authentication"
+#~ msgstr "Пријава"
+
+#~ msgid "CA"
+#~ msgstr "Издавач уверења"
+
+#~ msgid "User"
+#~ msgstr "Корисник"
+
+#~ msgid "Username:"
+#~ msgstr "Корисник:"
+
+#~ msgid ""
+#~ "Set the name used for authenticating the local system to the peer to "
+#~ "<name>.\n"
+#~ "            config: user <name>"
+#~ msgstr ""
+#~ "Подесите назив коришћен за пријављивање локалног система парљаку на "
+#~ "<name>.\n"
+#~ "            подешавање: корисник <name>"
+
+#~ msgid "Password passed to SSTP when prompted for it."
+#~ msgstr "Лозинка дата ППТП-у када је затражена."
+
+#~ msgid "Show password"
+#~ msgstr "Прикажи лозинку"
+
+#~ msgid "NT Domain:"
+#~ msgstr "НТ домен:"
+
+#~ msgid ""
+#~ "Append the domain name <domain> to the local host name for authentication "
+#~ "purposes.\n"
+#~ "            config: domain <domain>"
+#~ msgstr ""
+#~ "Качи назив домена <domain> на назив локалног рачунара за сврхе "
+#~ "пријављивања.\n"
+#~ "             подешавање: домен <domain>"
+
+#~ msgid "Type:"
+#~ msgstr "Врста:"
+
+#~ msgid "Select an authentication mode."
+#~ msgstr "Изаберите режим потврђивања идентитета."
+
+#~ msgid "Ad_vanced..."
+#~ msgstr "_Напредно..."
+
+#~ msgid "SSTP Advanced Options"
+#~ msgstr "Напредне опције за ППТП"
+
+#~ msgid "<b>SSL Tunnel</b>"
+#~ msgstr "<b>ССЛ тунел</b>"
+
+#~ msgid "_Verify certificate type and extended key usage"
+#~ msgstr "_Провери врсту уверења и коришћење проширеног кључа"
+
+#~ msgid ""
+#~ "Require that the peer certificate used for outer SSL tunnel was signed "
+#~ "with a certificate that has a trusted certificate chain, key usage, and "
+#~ "extended key usage based on RFC3280 TLS rules."
+#~ msgstr ""
+#~ "Захтевајте да је уверење парњака коришћено за спољни ССЛ тунел потписано "
+#~ "уверењем које има поверљив ланац уверења, коришћење кључа и коришћење "
+#~ "проширеног кључа засновано на RFC3280 ТЛС правилима."
+
+#~ msgid "_Use TLS hostname extensions"
+#~ msgstr "_Користи проширења ТЛС назива домаћина"
+
+#~ msgid ""
+#~ "Use the gateway name as specified for this connection in the hostname "
+#~ "extensions in the SSL tunnel"
+#~ msgstr ""
+#~ "Користите назив пролаза као што је наведено за ову везу у проширењима "
+#~ "назива домаћина у ССЛ тунелу"
+
+#~ msgid "<b>Certificate Revocation</b>"
+#~ msgstr "<b>Опозивање уверења</b>"
+
+#~ msgid "CRL"
+#~ msgstr "ЦРЛ"
+
+#~ msgid "Connection"
+#~ msgstr "Веза"
+
+#~ msgid "<b>Authentication</b>"
+#~ msgstr "<b>Пријава</b>"
+
+#~ msgid "Allow the following authentication methods:"
+#~ msgstr "Дозволи следеће начине пријављивања:"
+
+#~ msgid ""
+#~ "Allow/disable authentication methods.\n"
+#~ "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-"
+#~ "eap"
+#~ msgstr ""
+#~ "Укључује/искључује начине пријављивања.\n"
+#~ "подешавање: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, "
+#~ "refuse-eap"
+
+#~ msgid "<b>Security and Compression</b>"
+#~ msgstr "<b>Безбедност и сажимање</b>"
+
+#~ msgid "Use _Point-to-Point encryption (MPPE)"
+#~ msgstr "_Користи шифровање „тачка-до-тачке“ (МППЕ)"
+
+#~ msgid ""
+#~ "Note: MPPE encryption is only available with MSCHAP authentication "
+#~ "methods. To enable this checkbox, select one or more of the MSCHAP "
+#~ "authentication methods: MSCHAP or MSCHAPv2."
+#~ msgstr ""
+#~ "Напомена: МППЕ шифровање је доступно само са МСЦХАП-ом. Да укључите ову "
+#~ "кућицу за избор, изаберите један или неколико МСЦХАП начина пријављивања: "
+#~ "МСЦХАП или МСЦХАПв2."
+
+#~ msgid "_Security:"
+#~ msgstr "_Безбедност:"
+
+#~ msgid ""
+#~ "Require the use of MPPE, with 40/128-bit encryption or all.\n"
+#~ "config: require-mppe, require-mppe-128 or require-mppe-40"
+#~ msgstr ""
+#~ "Захтева коришћење МППЕ-а, са 40/128-битним шифровањем или све.\n"
+#~ "подешавање: require-mppe, require-mppe-128 или require-mppe-40"
+
+#~ msgid "Allow st_ateful encryption"
+#~ msgstr "Допусти _речито шифровање"
+
+#~ msgid ""
+#~ "Allow MPPE to use stateful mode. Stateless mode is still attempted "
+#~ "first.\n"
+#~ "config: mppe-stateful (when checked)"
+#~ msgstr ""
+#~ "Допушта МППЕ-у да користи речит режим. Речит режим се још увек покушава "
+#~ "као први.\n"
+#~ "подешавање: mppe-stateful (када је изабран)"
+
+#~ msgid "Allow _BSD data compression"
+#~ msgstr "Дозволи _БСД паковање података"
+
+#~ msgid ""
+#~ "Allow/disable BSD-Compress compression.\n"
+#~ "config: nobsdcomp (when unchecked)"
+#~ msgstr ""
+#~ "Укључује/искључује сажимање БСД-Сажимања.\n"
+#~ "подешавање: nobsdcomp (када није изабрано)"
+
+#~ msgid "Allow _Deflate data compression"
+#~ msgstr "Дозволи _Дефлејт паковање података"
+
+#~ msgid ""
+#~ "Allow/disable Deflate compression.\n"
+#~ "config: nodeflate (when unchecked)"
+#~ msgstr ""
+#~ "Укључује/искључује Дефлејт сажимање.\n"
+#~ "подешавање: nodeflate (када није изабрано)"
+
+#~ msgid "Use TCP _header compression"
+#~ msgstr "Користи _паковање ТЦП заглавља"
+
+#~ msgid ""
+#~ "Allow/disable Van Jacobson style TCP/IP header compression in both the "
+#~ "transmit and the receive directions.\n"
+#~ "config: novj (when unchecked)"
+#~ msgstr ""
+#~ "Укључује/искључује Ван Јакобсонов стил паковања ТЦП/ИП заглавља како у "
+#~ "смеру преноса тако и у смеру пријема.\n"
+#~ "подешавање: novj (када није изабрано)"
+
+#~ msgid "<b>Echo</b>"
+#~ msgstr "<b>Ехо</b>"
+
+#~ msgid "Send PPP _echo packets"
+#~ msgstr "Шаљи пакете ППП _одјека"
+
+#~ msgid ""
+#~ "Send LCP echo-requests to find out whether peer is alive.\n"
+#~ "config: lcp-echo-failure and lcp-echo-interval"
+#~ msgstr ""
+#~ "Шаље ЛЦП захтеве одјека да би дознао да ли је парњак активан.\n"
+#~ "подешавање: lcp-echo-failure и lcp-echo-interval"
+
+#~ msgid "<b>Misc</b>"
+#~ msgstr "<b>Разно</b>"
+
+#~ msgid "Use custom _unit number:"
+#~ msgstr "Користи произвољни број _јединице:"
+
+#~ msgid ""
+#~ "Enable custom index for ppp<n> device name.\n"
+#~ "config: unit <n>"
+#~ msgstr ""
+#~ "Укључи произвољни индекс за назив „ппп<n>“ уређаја.\n"
+#~ "подешавање: јединица <n>"
+
+#~ msgid "Point-to-Point"
+#~ msgstr "Тачка-до-тачке"
+
+#~ msgid "<b>Identity</b>"
+#~ msgstr "<b>Идентитет</b>"
+
+#~ msgid ""
+#~ "Use this to override the value specified by the certificate\n"
+#~ "\n"
+#~ "By default, this will be populated, when correct password for certificate "
+#~ "is supplied, with the Microsoft OID for username; or the Subject name of "
+#~ "the certificate when this is not available. "
+#~ msgstr ""
+#~ "Користите ово да заобиђете вредност наведену уверењем\n"
+#~ "\n"
+#~ "По основи, ово ће бити попуњено, када се достави одговарајућа лозинка за "
+#~ "уверење, Мајкрософтовим ОИБ-ом за корисничко име; или називом теме "
+#~ "уверења када ово није доступно."
+
+#~ msgid "<b>Certificate Validation</b>"
+#~ msgstr "<b>Потврђивање уверења</b>"
+
+#~ msgid "_Subject Match"
+#~ msgstr "_Поклапање теме"
+
+#~ msgid ""
+#~ "Subject or Common Name to verify server certificate information against. "
+#~ msgstr "Тема или општи назив за потврђивање информација уверења сервера."
+
+#~ msgid "_Verify Method"
+#~ msgstr "_Начин потврђивања"
+
+#~ msgid ""
+#~ "Verify server certificate identification.\n"
+#~ "\n"
+#~ "When enabled, connection will only succeed if the server certificate "
+#~ "matches some expected properties.\n"
+#~ "Matching can either apply to the whole certificate subject (all the "
+#~ "fields),\n"
+#~ "or just the Common Name (CN field).\n"
+#~ "                                    "
+#~ msgstr ""
+#~ "Потврди идентификацију уверења сервера.\n"
+#~ "\n"
+#~ "Када је укључено, веза ће успети само ако уверење сервера одговара неким "
+#~ "очекиваним својствима.\n"
+#~ "Поклапање се може применити на читаву тему уверења (сва поља),\n"
+#~ "или само на општи назив (ОН поље).\n"
+#~ "                                    "
+
+#~ msgid ""
+#~ "Require that peer certificate was signed with an explicit key usage and "
+#~ "extended key usage based on RFC3280 TLS rules."
+#~ msgstr ""
+#~ "Захтевајте да је уверење парњака потписано изричитим коришћењем кључа и "
+#~ "коришћењем проширеног кључа на основу RFC3280 ТЛС правила."
+
+#~ msgid "<b>Compatibility</b>"
+#~ msgstr "<b>Саобразност</b>"
+
+#~ msgid "_Max TLS Version"
+#~ msgstr "_Највеће ТЛС издање"
+
+#~ msgid ""
+#~ "Use this to control the maximum supported EAP-TLS version. Default is TLS "
+#~ "1.2, and use of TLS 1.3 is considered experimental at this point."
+#~ msgstr ""
+#~ "Користитие ово да управљате највећим подржаним „EAP-TLS“ издањем. Основно "
+#~ "је ТЛС 1.2, а коришћење ТЛС-а 1.3 се сматра експерименталним у овом "
+#~ "тренутку."
+
+#~ msgid "TLS Authentication"
+#~ msgstr "ТЛС пријава"
+
+#~ msgid "Address:"
+#~ msgstr "Адреса:"
+
+#~ msgid "Port:"
+#~ msgstr "Прикључник:"
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "Show Password"
+#~ msgstr "Прикажи лозинку"
+
+#~ msgid "Proxy"
+#~ msgstr "Посредник"
 
 #~ msgid "Eivind Naess"
 #~ msgstr "Ејвинд Наес"
