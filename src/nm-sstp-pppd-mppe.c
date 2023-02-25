@@ -21,8 +21,9 @@
  */
 
 #include <config.h>
-
+#include <string.h>
 #include <pppd/pppd.h>
+
 #include "nm-sstp-pppd-mppe.h"
 
 #ifndef HAVE_MPPE_KEYS_FUNCTIONS
@@ -39,7 +40,7 @@ int mppe_get_send_key(u_char *send_key, int length)
     if (mppe_keys_isset()) {
         if (length > MPPE_MAX_KEY_SIZE)
             length = MPPE_MAX_KEY_SIZE;
-        BCOPY(mppe_send_key, send_key, length);
+        memcpy(mppe_send_key, send_key, length);
         return length;
     }
     return 0;
@@ -53,7 +54,7 @@ int mppe_get_recv_key(u_char *recv_key, int length)
     if (mppe_keys_isset()) {
         if (length > MPPE_MAX_KEY_SIZE)
             length = MPPE_MAX_KEY_SIZE;
-        BCOPY(mppe_recv_key, recv_key, length);
+        memcpy(mppe_recv_key, recv_key, length);
         return length;
     }
     return 0;

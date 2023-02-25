@@ -96,7 +96,7 @@ src_nm_sstp_service_SOURCES = \
 	shared/utils.c \
 	shared/utils.h \
 	shared/nm-service-defines.h \
-	src/nm-ppp-status.h \
+	src/nm-sstp-pppd-status.h \
 	src/nm-sstp-service.h \
 	src/nm-sstp-service.c
 src_nm_sstp_service_CPPFLAGS = \
@@ -114,12 +114,15 @@ pppd_plugin_LTLIBRARIES = src/nm-sstp-pppd-plugin.la
 src_nm_sstp_pppd_plugin_la_SOURCES = \
 	shared/nm-utils/nm-shared-utils.c \
 	src/nm-sstp-pppd-plugin.c \
-	src/nm-sstp-pppd-mppe.c \
 	src/nm-sstp-pppd-mppe.h \
-	src/nm-ppp-status.h
+	src/nm-sstp-pppd-compat.h \
+	src/nm-sstp-pppd-status.h
+if !WITH_PPP_MPPE_KEYS
+src_nm_sstp_pppd_plugin_la_SOURCES += \
+	src/nm-sstp-pppd-mppe.h
+endif
 src_nm_sstp_pppd_plugin_la_CPPFLAGS = \
-    $(src_cppflags) \
-    -DUSE_EAPTLS -DINET6
+	$(src_cppflags)
 src_nm_sstp_pppd_plugin_la_LDFLAGS = \
 	-module -avoid-version
 src_nm_sstp_pppd_plugin_la_LIBADD = \

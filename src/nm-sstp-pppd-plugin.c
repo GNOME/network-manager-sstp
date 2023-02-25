@@ -20,19 +20,10 @@
  *
  */
 
-#include <config.h>
+#ifndef __CONFIG_H__
 #define __CONFIG_H__
-#include <pppd/pppd.h>
-#include <pppd/fsm.h>
-#include <pppd/ccp.h>
-#include <pppd/eui64.h>
-#include <pppd/ipcp.h>
-#include <pppd/ipv6cp.h>
-#include <pppd/chap-new.h>
-#include <pppd/chap_ms.h>
-#include <pppd/eap.h>
-
-#include "nm-default.h"
+#include <config.h>
+#endif
 
 #include <string.h>
 #include <stdlib.h>
@@ -43,26 +34,26 @@
 #include <sys/un.h>
 #include <paths.h>
 #include <unistd.h>
+
 #include <sstp-client/sstp-api.h>
 
-#include "nm-ppp-status.h"
-#include "nm-sstp-service.h"
+#include "nm-sstp-pppd-compat.h"
+#include "nm-sstp-pppd-status.h"
 #include "nm-sstp-pppd-mppe.h"
+
+#include "nm-default.h"
+#include "nm-sstp-service.h"
 #include "nm-utils/nm-shared-utils.h"
 #include "nm-utils/nm-vpn-plugin-macros.h"
 
 #ifndef USE_PPPD_AUTH_HOOK
-
-#define PPP_PROTO_CHAP              0xc223
-#define PPP_PROTO_EAP               0xc227
-
 static int sstp_notify_sent = 0;
-
 #endif  /* USE_PPPD_AUTH_HOOK */
 
 int plugin_init (void);
 
-char pppd_version[] = VERSION;
+
+char pppd_version[] = PPPD_VERSION;
 
 /*****************************************************************************/
 typedef void (*protrej_fn)(int unit);
@@ -200,7 +191,7 @@ nm_sstp_getsock(void)
 
     /* Setup the address */
     addr.sun_family = AF_UNIX;
-    snprintf(addr.sun_path, sizeof(addr.sun_path), "/var/run/sstpc/sstpc-%s", ipparam);
+    snprintf(addr.sun_path, sizeof(addr.sun_path), "/var/run/sstpc/sstpc-%s", ppp_ipparam());
 
     /* Connect the socket */
     ret = connect(sock, (struct sockaddr*) &addr, alen);
@@ -371,7 +362,7 @@ nm_sstp_notify(void)
         if (key_len > 0) {
 
             sstp_api_attr_add(msg, SSTP_API_ATTR_MPPE_SEND, key_len, key);
-            if (debug) {
+            if (debug_on()) {
                 slprintf(key_buf, sizeof(key_buf)-1, "%0.*B", key_len, key);
                 _LOGI ("The MPPE-Send-Key: %s", key);
             }
@@ -382,7 +373,7 @@ nm_sstp_notify(void)
         if (key_len > 0) {
 
             sstp_api_attr_add(msg, SSTP_API_ATTR_MPPE_RECV, key_len, key);
-            if (debug) {
+            if (debug_on()) {
                 slprintf(key_buf, sizeof(key_buf)-1, "%0.*B", key_len, key);
                 _LOGI ("The MPPE-Recv-Key: %s", key);
             }
@@ -471,7 +462,7 @@ nm_ip4_add_route(GVariantBuilder *builder, int network, int gateway, int prefix,
 static GVariant*
 nm_ip4_get_params(void)
 {
-    guint32 pppd_made_up_address = htonl (0x0a404040 + ifunit);
+    guint32 pppd_made_up_address = htonl (0x0a404040 + ppp_ifunit());
     ipcp_options *opts = &ipcp_gotoptions[0];
     ipcp_options *peer_opts = &ipcp_hisoptions[0];
     GVariantBuilder builder;
@@ -584,9 +575,9 @@ nm_send_config (void)
 
     g_variant_builder_add (&builder, "{sv}",
                            NM_VPN_PLUGIN_CONFIG_TUNDEV,
-                           g_variant_new_string (ifname));
+                           g_variant_new_string (ppp_ifname()));
 
-    mtu = netif_get_mtu (ifunit);
+    mtu = ppp_get_mtu (ppp_ifunit());
     g_variant_builder_add (&builder, "{sv}",
                            NM_VPN_PLUGIN_CONFIG_MTU,
                             g_variant_new_uint32 (mtu));
@@ -870,6 +861,31 @@ nm_exit_notify (void *data, int arg)
     g_clear_object (&gl.proxy);
 }
 
+#if WITH_PPP_VERSION >= PPP_VERSION(2,5,0)
+static void
+nm_add_notifiers (void)
+{
+    ppp_add_notify (NF_PHASE_CHANGE, nm_phasechange, NULL);
+    ppp_add_notify (NF_EXIT, nm_exit_notify, NULL);
+    ppp_add_notify (NF_IP_UP, nm_ip_up, NULL);
+    ppp_add_notify (NF_IPV6_UP, nm_ip6_up, NULL);
+    ppp_add_notify (NF_AUTH_UP, nm_auth_notify, NULL);
+}
+#else
+static void
+nm_add_notifiers (void)
+{
+    add_notifier (&phasechange, nm_phasechange, NULL);
+    add_notifier (&exitnotify, nm_exit_notify, NULL);
+    add_notifier (&ip_up_notifier, nm_ip_up, NULL);
+    add_notifier (&ipv6_up_notifier, nm_ip6_up, NULL);
+
+#ifdef USE_PPPD_AUTH_HOOK
+    add_notifier (&auth_up_notifier, nm_auth_notify, NULL);
+#endif
+}
+#endif
+
 int
 plugin_init (void)
 {
@@ -916,14 +932,7 @@ plugin_init (void)
     snoop_recv_hook = nm_snoop_recv;
     new_phase_hook = nm_new_phase;
 #endif
-
-    add_notifier (&phasechange, nm_phasechange, NULL);
-    add_notifier (&exitnotify, nm_exit_notify, NULL);
-    add_notifier (&ip_up_notifier, nm_ip_up, NULL);
-    add_notifier (&ipv6_up_notifier, nm_ip6_up, NULL);
-#ifdef USE_PPPD_AUTH_HOOK
-    add_notifier (&auth_up_notifier, nm_auth_notify, NULL);
-#endif
+    nm_add_notifiers();
 
     gl.old_protrej = ipv6cp_protent.protrej;
     ipv6cp_protent.protrej = nm_ipv6_protrej;
