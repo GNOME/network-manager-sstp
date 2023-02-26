@@ -44,7 +44,7 @@
 #include <netdb.h>
 
 #include "utils.h"
-#include "nm-ppp-status.h"
+#include "nm-sstp-pppd-status.h"
 #include "nm-sstp-pppd-service-dbus.h"
 #include "nm-utils/nm-shared-utils.h"
 #include "nm-utils/nm-vpn-plugin-macros.h"
