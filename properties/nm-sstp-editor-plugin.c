@@ -26,11 +26,7 @@
 
 #include "nm-sstp-editor-plugin.h"
 
-#if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
-#include "nm-sstp-editor.h"
-#else
 #include "nm-utils/nm-vpn-plugin-utils.h"
-#endif
 
 #define SSTP_PLUGIN_NAME    _("Secure Socket Tunneling Protocol (SSTP)")
 #define SSTP_PLUGIN_DESC    _("Compatible with Microsoft and other SSTP VPN servers.")
@@ -135,7 +131,6 @@ get_capabilities (NMVpnEditorPlugin *iface)
            NM_VPN_EDITOR_PLUGIN_CAPABILITY_IPV6;
 }
 
-#if !((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
 static NMVpnEditor *
 _call_editor_factory (gpointer factory,
                       NMVpnEditorPlugin *editor_plugin,
@@ -147,7 +142,6 @@ _call_editor_factory (gpointer factory,
 	                                       connection,
 	                                       error);
 }
-#endif
 
 static NMVpnEditor *
 get_editor (NMVpnEditorPlugin *iface, NMConnection *connection, GError **error)
@@ -172,17 +166,13 @@ get_editor (NMVpnEditorPlugin *iface, NMConnection *connection, GError **error)
 		editor = "libnm-gtk4-vpn-plugin-sstp-editor.so";
 	}
 
-#if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
-	retval = nm_vpn_plugin_ui_widget_interface_new (connection, error);
-#else
 	retval = nm_vpn_plugin_utils_load_editor (editor,
-											"nm_vpn_editor_factory_sstp",
-											_call_editor_factory,
-											iface,
-											connection,
-											NULL,
-											&tmp_error);
-#endif
+	                                          "nm_vpn_editor_factory_sstp",
+	                                          _call_editor_factory,
+	                                          iface,
+	                                          connection,
+	                                          NULL,
+	                                          &tmp_error);
     if (retval == NULL) {
         if (tmp_error != NULL) {
             g_info ("Could not load Vpn Editor Plugin \"%s\": %s", editor, tmp_error->message);

@@ -929,8 +929,6 @@ sstp_plugin_ui_widget_interface_init (NMVpnEditorInterface *iface_class)
 
 /*****************************************************************************/
 
-#if !((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
-
 #include "nm-sstp-editor-plugin.h"
 
 G_MODULE_EXPORT NMVpnEditor *
@@ -942,4 +940,3 @@ nm_vpn_editor_factory_sstp (NMVpnEditorPlugin *editor_plugin,
 
     return nm_vpn_plugin_ui_widget_interface_new (connection, error);
 }
-#endif
