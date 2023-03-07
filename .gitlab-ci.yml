@@ -37,7 +37,7 @@
   <<: *dist
   script:
     - dnf -y install make
-    - tar jxf NetworkManager-sstp-*.tar.bz2
+    - tar xJf NetworkManager-sstp-*.tar.xz
     - cd NetworkManager-sstp-*/
     - ./configure
       --disable-silent-rules
@@ -63,7 +63,7 @@ fedora36_dist:
     - test -e .success
   artifacts:
     paths:
-      - "*.tar.bz2"
+      - "*.tar.xz"
 
 fedora_from_dist:
   <<: *fedora_from_dist

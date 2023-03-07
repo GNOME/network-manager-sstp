@@ -8,7 +8,7 @@ Version:   0.9.10
 Release:   6%{snapshot}%{?dist}
 License:   GPLv2+
 URL:       https://gitlab.gnome.org/GNOME/network-manager-sstp
-Source:    https://downloads.sourceforge.net/sstp-client/%{name}-%{version}%{snapshot}.tar.bz2
+Source:    https://downloads.sourceforge.net/sstp-client/%{name}-%{version}%{snapshot}.tar.xz
 
 BuildRequires: gtk3-devel
 BuildRequires: dbus-devel
