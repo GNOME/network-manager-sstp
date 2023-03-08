@@ -861,31 +861,6 @@ nm_exit_notify (void *data, int arg)
     g_clear_object (&gl.proxy);
 }
 
-#if WITH_PPP_VERSION >= PPP_VERSION(2,5,0)
-static void
-nm_add_notifiers (void)
-{
-    ppp_add_notify (NF_PHASE_CHANGE, nm_phasechange, NULL);
-    ppp_add_notify (NF_EXIT, nm_exit_notify, NULL);
-    ppp_add_notify (NF_IP_UP, nm_ip_up, NULL);
-    ppp_add_notify (NF_IPV6_UP, nm_ip6_up, NULL);
-    ppp_add_notify (NF_AUTH_UP, nm_auth_notify, NULL);
-}
-#else
-static void
-nm_add_notifiers (void)
-{
-    add_notifier (&phasechange, nm_phasechange, NULL);
-    add_notifier (&exitnotify, nm_exit_notify, NULL);
-    add_notifier (&ip_up_notifier, nm_ip_up, NULL);
-    add_notifier (&ipv6_up_notifier, nm_ip6_up, NULL);
-
-#ifdef USE_PPPD_AUTH_HOOK
-    add_notifier (&auth_up_notifier, nm_auth_notify, NULL);
-#endif
-}
-#endif
-
 int
 plugin_init (void)
 {
@@ -928,11 +903,19 @@ plugin_init (void)
     pap_passwd_hook = nm_get_credentials;
     pap_check_hook = nm_get_pap_check;
     eaptls_passwd_hook = nm_get_credentials;
+
 #ifndef USE_PPPD_AUTH_HOOK
     snoop_recv_hook = nm_snoop_recv;
     new_phase_hook = nm_new_phase;
 #endif
-    nm_add_notifiers();
+
+    ppp_add_notify (NF_PHASE_CHANGE, nm_phasechange, NULL);
+    ppp_add_notify (NF_EXIT, nm_exit_notify, NULL);
+    ppp_add_notify (NF_IP_UP, nm_ip_up, NULL);
+    ppp_add_notify (NF_IPV6_UP, nm_ip6_up, NULL);
+#ifdef USE_PPPD_AUTH_HOOK
+    ppp_add_notify (NF_AUTH_UP, nm_auth_notify, NULL);
+#endif
 
     gl.old_protrej = ipv6cp_protent.protrej;
     ipv6cp_protent.protrej = nm_ipv6_protrej;
