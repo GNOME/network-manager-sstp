@@ -1,7 +1,7 @@
 AC_PREREQ([2.69])
 
 AC_INIT([NetworkManager-sstp],[1.3.1],[eivnaes@yahoo.com],[NetworkManager-sstp])
-AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2 -Wno-portability])
+AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz -Wno-portability])
 AM_MAINTAINER_MODE
 AM_SILENT_RULES([yes])
 
@@ -175,12 +175,6 @@ dnl GNOME support
 dnl
 AC_ARG_WITH(gnome, AS_HELP_STRING([--without-gnome], [Build NetworkManager-sstp without GNOME support, e.g. vpn service only]), [], [with_gnome_specified=no])
 AC_ARG_WITH(gtk4, AS_HELP_STRING([--with-gtk4], [Build NetworkManager-sstp with libnma-gtk4 support]), [], [with_gtk4_specified=no])
-AC_ARG_WITH(libnm-glib, AS_HELP_STRING([--with-libnm-glib], [Build NetworkManager-sstp with libnm-glib comatibility (deprecated)]), [], [with_libnm_glib_specified=no])
-if test x"$with_libnm_glib_specified" != xno -a x"$with_libnm_glib" != xno; then
-	if test x"$with_gnome_specified" != xno -a x"$with_gnome" = xno; then
-		AC_MSG_ERROR(Building --with-libnm-glib conflicts with --without-gnome)
-	fi
-fi
 if test x"$with_gnome" != xno; then
 	with_gnome=yes
 fi
@@ -190,15 +184,8 @@ fi
 if test x"$with_gtk4" != xyes; then
 	with_gtk4=no
 fi
-if test x"$with_libnm_glib_specified" = xno; then
-	with_libnm_glib=no
-fi
-if test x"$with_libnm_glib" != xyes; then
-	with_libnm_glib=no
-fi
 AM_CONDITIONAL(WITH_GNOME, test x"$with_gnome" != xno)
 AM_CONDITIONAL(WITH_GTK4, test x"$with_gtk4" != xno)
-AM_CONDITIONAL(WITH_LIBNM_GLIB, test x"$with_libnm_glib" != xno)
 AC_ARG_ENABLE(absolute-paths, AS_HELP_STRING([--enable-absolute-paths], [Use absolute paths to in .name files. Useful for development. (default is no)]))
 
 dnl
@@ -224,19 +211,8 @@ if test x"$with_gnome" != xno; then
 	GTK_CFLAGS="$GTK_CFLAGS -DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_4"
 	GTK_CFLAGS="$GTK_CFLAGS -DGDK_VERSION_MAX_REQUIRED=GDK_VERSION_3_4"
 
-	PKG_CHECK_MODULES(LIBNMA, libnma >= 1.7.0)
+	PKG_CHECK_MODULES(LIBNMA, libnma >= 1.8.0)
 	PKG_CHECK_MODULES(LIBSECRET, libsecret-1 >= 0.18)
-
-	if test x"$with_libnm_glib" != xno; then
-		PKG_CHECK_MODULES(LIBNM_GLIB,
-			NetworkManager >= 1.7.0
-			libnm-util >= 1.7.0
-			libnm-glib >= 1.7.0
-			libnm-glib-vpn >= 1.7.0);
-
-		LIBNM_GLIB_CFLAGS="$LIBNM_GLIB_CFLAGS -DNM_VERSION_MIN_REQUIRED=NM_VERSION_1_2"
-		LIBNM_GLIB_CFLAGS="$LIBNM_GLIB_CFLAGS -DNM_VERSION_MAX_ALLOWED=NM_VERSION_1_2"
-	fi
 fi
 
 if test x"$with_gtk4" != xno; then
@@ -295,7 +271,6 @@ echo "Build configuration: "
 echo "  --with-dist-version=$ac_distver"
 echo "  --with-gnome=$with_gnome"
 echo "  --with-gtk4=$with_gtk4"
-echo "  --with-libnm-glib=$with_libnm_glib"
 echo "  --with-system-ca-path=$SYSTEM_CA_PATH"
 echo "  --with-pppd-plugin-dir=$PPPD_PLUGIN_DIR"
 echo "  --with-pppd-auth-notify-support=$with_pppd_auth_notify_support"
