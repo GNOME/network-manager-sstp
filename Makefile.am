@@ -120,7 +120,7 @@ src_nm_sstp_pppd_plugin_la_SOURCES = \
 	src/nm-sstp-pppd-status.h
 if !WITH_PPP_MPPE_KEYS
 src_nm_sstp_pppd_plugin_la_SOURCES += \
-	src/nm-sstp-pppd-mppe.h
+	src/nm-sstp-pppd-mppe.c
 endif
 src_nm_sstp_pppd_plugin_la_CPPFLAGS = \
 	$(src_cppflags)
