@@ -4,183 +4,161 @@
 # Wei Mingzhi <whistler@openoffice.org>, 2009.
 # Aron Xu <aronxu@gnome.org>, 2010.
 # YunQiang Su <wzssyqa@gmail.com>, 2011.
+# Dingzhong Chen <wsxy162@gmail.com>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: NetworkManager-sstp master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 11:59-0700\n"
-"PO-Revision-Date: 2011-11-27 18:26+0800\n"
-"Last-Translator: YunQiang Su <wzssyqa@gmail.com>\n"
-"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
+"issues\n"
+"POT-Creation-Date: 2023-03-09 16:54+0000\n"
+"PO-Revision-Date: 2023-08-03 19:46-0400\n"
+"Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
+"Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.4.3\n"
 
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:1
-msgid "SSTP VPN client"
-msgstr ""
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:2
-msgid "Client for SSTP virtual private networks"
-msgstr ""
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:3
-msgid "Support for configuring SSTP virtual private network connections."
-msgstr ""
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:4
-msgid ""
-"Compatible with servers following the SSTP specification including the "
-"Microsoft servers."
-msgstr ""
-
-#: ../appdata/network-manager-sstp.metainfo.xml.in.h:5
-msgid "The NetworkManager Developers"
-msgstr ""
-
-#: ../auth-dialog/main.c:280
+#: ../auth-dialog/main.c:276
 msgid "Authenticate VPN"
 msgstr "认证 VPN"
 
-#: ../auth-dialog/main.c:289 ../auth-dialog/main.c:386
+#: ../auth-dialog/main.c:285 ../auth-dialog/main.c:382
 msgid "Certificate password:"
-msgstr ""
+msgstr "证书密码："
 
-#: ../auth-dialog/main.c:295
-#, fuzzy
+#: ../auth-dialog/main.c:291
 msgid "_HTTP proxy password:"
-msgstr "密码(_P)："
+msgstr "_HTTP 代理密码："
 
-#: ../auth-dialog/main.c:372
-#, fuzzy, c-format
+#: ../auth-dialog/main.c:368
+#, c-format
 msgid "Authenticate VPN %s"
-msgstr "认证 VPN"
+msgstr "认证 VPN %s"
 
-#: ../auth-dialog/main.c:379 ../properties/nm-sstp-dialog.ui.h:12
+#: ../auth-dialog/main.c:375
 msgid "Password:"
 msgstr "密码:"
 
-#: ../auth-dialog/main.c:393
-#, fuzzy
+#: ../auth-dialog/main.c:389
 msgid "HTTP proxy password:"
-msgstr "密码:"
+msgstr "HTTP 代理密码："
 
-#: ../auth-dialog/main.c:508
-#, fuzzy, c-format
+#: ../auth-dialog/main.c:504
+#, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
-msgstr "您需要进行身份验证才能访问虚拟专用网络 '%s'。"
+msgstr "您需要进行身份验证才能访问虚拟专用网络“%s”。"
 
-#: ../properties/advanced-dialog.c:235
+#: ../properties/advanced-dialog.c:249
 msgid "All Available (Default)"
-msgstr "全部可用 (默认)"
+msgstr "全部可用（默认）"
 
-#: ../properties/advanced-dialog.c:239
+#: ../properties/advanced-dialog.c:253
 msgid "128-bit (most secure)"
-msgstr "128 位 (最安全的)"
+msgstr "128 位（最安全的）"
 
-#: ../properties/advanced-dialog.c:248
+#: ../properties/advanced-dialog.c:262
 msgid "40-bit (less secure)"
-msgstr "40 位 (不太安全)"
+msgstr "40 位（不太安全）"
 
-#: ../properties/advanced-dialog.c:367
+#: ../properties/advanced-dialog.c:381
 msgid "PAP"
 msgstr "PAP"
 
-#: ../properties/advanced-dialog.c:380
+#: ../properties/advanced-dialog.c:394
 msgid "CHAP"
 msgstr "CHAP"
 
-#: ../properties/advanced-dialog.c:392
+#: ../properties/advanced-dialog.c:406
 msgid "MSCHAP"
 msgstr "MSCHAP"
 
-#: ../properties/advanced-dialog.c:404
+#: ../properties/advanced-dialog.c:418
 msgid "MSCHAPv2"
 msgstr "MSCHAPv2"
 
-#: ../properties/advanced-dialog.c:416
+#: ../properties/advanced-dialog.c:430
 msgid "EAP"
 msgstr "EAP"
 
-#: ../properties/advanced-dialog.c:608
+#: ../properties/advanced-dialog.c:496
 msgid "Don't verify certificate identification"
-msgstr ""
+msgstr "不要验证证书标识"
 
-#: ../properties/advanced-dialog.c:616
+#: ../properties/advanced-dialog.c:504
 msgid "Verify subject exactly"
-msgstr ""
+msgstr "完全验证主题"
 
-#: ../properties/advanced-dialog.c:624
+#: ../properties/advanced-dialog.c:512
 msgid "Verify name exactly"
-msgstr ""
+msgstr "完全验证名称"
 
-#: ../properties/advanced-dialog.c:632
+#: ../properties/advanced-dialog.c:520
 msgid "Verify name by suffix"
-msgstr ""
+msgstr "验证名称后缀"
 
-#: ../properties/advanced-dialog.c:677
+#: ../properties/advanced-dialog.c:570
 msgid "TLS 1.2 (Default)"
-msgstr ""
+msgstr "TLS 1.2（默认）"
 
-#: ../properties/advanced-dialog.c:685
+#: ../properties/advanced-dialog.c:578
 msgid "TLS 1.3"
-msgstr ""
+msgstr "TLS 1.3"
 
-#: ../properties/nm-sstp-editor-plugin.c:34
-msgid "Point-to-Point Tunneling Protocol (SSTP)"
-msgstr "点到点隧道协议(SSTP)"
+#: ../properties/nm-sstp-editor-plugin.c:31
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "安全套接字隧道协议（SSTP）"
 
-#: ../properties/nm-sstp-editor-plugin.c:35
+#: ../properties/nm-sstp-editor-plugin.c:32
 msgid "Compatible with Microsoft and other SSTP VPN servers."
 msgstr "与微软及其他的 SSTP VPN 服务器兼容。"
 
-#: ../properties/nm-sstp-editor.c:314 ../properties/nm-sstp-editor.c:342
+#: ../properties/nm-sstp-editor.c:313 ../properties/nm-sstp-editor.c:341
 #, c-format
 msgid "file is not a certificate"
-msgstr ""
+msgstr "文件不为证书"
 
-#: ../properties/nm-sstp-editor.c:365
+#: ../properties/nm-sstp-editor.c:364
 #, c-format
 msgid "file is not a private key"
-msgstr ""
+msgstr "文件不为私钥"
 
-#: ../properties/nm-sstp-editor.c:581
+#: ../properties/nm-sstp-editor.c:589
 msgid "Certificates (TLS)"
-msgstr ""
+msgstr "证书（TLS）"
 
-#: ../properties/nm-sstp-editor.c:590
-#, fuzzy
+#: ../properties/nm-sstp-editor.c:599
 msgid "Password"
-msgstr "密码:"
+msgstr "密码"
 
 #: ../shared/nm-utils/nm-shared-utils.c:946
 #, c-format
 msgid "object class '%s' has no property named '%s'"
-msgstr ""
+msgstr "对象类“%s”没有名为“%s”的属性"
 
 #: ../shared/nm-utils/nm-shared-utils.c:953
 #, c-format
 msgid "property '%s' of object class '%s' is not writable"
-msgstr ""
+msgstr "属性“%s”（属于对象类“%s”）是不可写的"
 
 #: ../shared/nm-utils/nm-shared-utils.c:960
 #, c-format
 msgid ""
 "construct property \"%s\" for object '%s' can't be set after construction"
-msgstr ""
+msgstr "构造属性“%s”（用于对象“%s”）在构造后不能被设置"
 
 #: ../shared/nm-utils/nm-shared-utils.c:968
 #, c-format
 msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
-msgstr ""
+msgstr "“%s::%s”不是有效的属性名；“%s”不是 GObject 子类型"
 
 #: ../shared/nm-utils/nm-shared-utils.c:977
 #, c-format
 msgid "unable to set property '%s' of type '%s' from value of type '%s'"
-msgstr ""
+msgstr "无法设置属性“%s”（属于类型“%s”，来自类型“%s”的值）"
 
 #: ../shared/nm-utils/nm-shared-utils.c:988
 #, c-format
@@ -188,514 +166,503 @@ msgid ""
 "value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
 "type '%s'"
 msgstr ""
+"类型 \"%2$s\" 的值 \"%1$s\" 无效或超出类型为 \"%4$s\" 的属性 \"%3$s\" 范围"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
 #, c-format
 msgid "unable to get editor plugin name: %s"
-msgstr ""
+msgstr "无法获取编辑器插件名称：%s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:103
 #, c-format
 msgid "missing plugin file \"%s\""
-msgstr ""
+msgstr "缺少插件文件“%s”"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:109
 #, c-format
 msgid "cannot load editor plugin: %s"
-msgstr ""
+msgstr "无法加载编辑器插件：%s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:118
 #, c-format
 msgid "cannot load factory %s from plugin: %s"
-msgstr ""
+msgstr "无法加载工厂（factory）%s，来自插件：%s"
 
 #: ../shared/nm-utils/nm-vpn-plugin-utils.c:144
 msgid "unknown error creating editor instance"
-msgstr ""
+msgstr "创建编辑器实例时出现未知错误"
 
 #: ../shared/utils.c:58
 msgid "Failed to initialize the crypto engine"
-msgstr ""
+msgstr "初始化加密引擎失败"
 
 #: ../shared/utils.c:85
 #, c-format
 msgid "Failed to get subject name"
-msgstr ""
+msgstr "获取主题名称失败"
 
 #: ../shared/utils.c:121 ../shared/utils.c:135
 #, c-format
 msgid "Failed to load certificate"
-msgstr ""
+msgstr "加载证书失败"
 
 #: ../shared/utils.c:128
 #, c-format
 msgid "Failed to initialize certificate"
-msgstr ""
+msgstr "初始化证书失败"
 
 #: ../shared/utils.c:185
 #, c-format
 msgid "Failed to parse pkcs12 file"
-msgstr ""
+msgstr "解析 pkcs12 文件失败"
 
 #: ../shared/utils.c:191
 #, c-format
 msgid "Failed to import pkcs12 file"
-msgstr ""
+msgstr "导入 pkcs12 文件失败"
 
 #: ../shared/utils.c:198
 #, c-format
 msgid "Failed to initialize pkcs12 structure"
-msgstr ""
+msgstr "初始化 pkcs12 结构失败"
 
 #: ../shared/utils.c:205
 #, c-format
 msgid "Failed to read file"
-msgstr ""
+msgstr "读取文件失败"
 
 #: ../shared/utils.c:239
 #, c-format
 msgid "Failed to decrypt private key"
-msgstr ""
+msgstr "解密私钥失败"
 
 #: ../shared/utils.c:249
 #, c-format
 msgid "Failed to initialize private key"
-msgstr ""
+msgstr "初始化私钥失败"
 
 #: ../shared/utils.c:257
 #, c-format
 msgid "Failed read file"
-msgstr ""
+msgstr "读取文件失败"
 
 #: ../shared/utils.c:307
-#, fuzzy, c-format
+#, c-format
 msgid "invalid delimiter character '%c'"
-msgstr "无效的整型属性“%s”"
+msgstr "无效的分隔符“%c”"
 
 #: ../shared/utils.c:314
 #, c-format
 msgid "invalid non-utf-8 character"
-msgstr ""
+msgstr "无效的非 utf-8 字符"
 
 #: ../shared/utils.c:343
 #, c-format
 msgid "empty host"
-msgstr ""
+msgstr "空主机"
 
 #: ../shared/utils.c:355
 #, c-format
 msgid "invalid port"
-msgstr ""
+msgstr "无效端口"
 
-#: ../src/nm-sstp-service.c:236
-#, fuzzy, c-format
+#: ../src/nm-sstp-service.c:238
+#, c-format
 msgid "invalid gateway “%s”"
 msgstr "无效的网关“%s”"
 
-#: ../src/nm-sstp-service.c:250
-#, fuzzy, c-format
+#: ../src/nm-sstp-service.c:252
+#, c-format
 msgid "invalid integer property “%s”"
 msgstr "无效的整型属性“%s”"
 
-#: ../src/nm-sstp-service.c:260
-#, fuzzy, c-format
+#: ../src/nm-sstp-service.c:262
+#, c-format
 msgid "invalid boolean property “%s” (not yes or no)"
-msgstr "无效的布尔型属性“%s”(不是 yes 或 no)"
+msgstr "无效的布尔型属性“%s”（不是 yes 或 no）"
 
-#: ../src/nm-sstp-service.c:267
-#, fuzzy, c-format
+#: ../src/nm-sstp-service.c:269
+#, c-format
 msgid "unhandled property “%s” type %s"
 msgstr "无法处理的属性“%s”类型 %s"
 
-#: ../src/nm-sstp-service.c:278
-#, fuzzy, c-format
+#: ../src/nm-sstp-service.c:280
+#, c-format
 msgid "property “%s” invalid or not supported"
 msgstr "属性“%s”无效或不支持"
 
-#: ../src/nm-sstp-service.c:296
+#: ../src/nm-sstp-service.c:298
 msgid "No VPN configuration options."
 msgstr "没有 VPN 配置选项。"
 
-#: ../src/nm-sstp-service.c:316
-#, fuzzy, c-format
+#: ../src/nm-sstp-service.c:318
+#, c-format
 msgid "Missing required option “%s”."
-msgstr "缺少需要的选项“%s”。"
+msgstr "缺少所需的选项“%s”。"
 
-#: ../src/nm-sstp-service.c:486
+#: ../src/nm-sstp-service.c:488
 msgid "Could not find sstp client binary."
 msgstr "无法找到 sstp 客户端二进制文件。"
 
-#: ../src/nm-sstp-service.c:496
+#: ../src/nm-sstp-service.c:498
 msgid "Missing VPN gateway."
 msgstr "缺少 VPN 网关。"
 
-#: ../src/nm-sstp-service.c:922
+#: ../src/nm-sstp-service.c:941
 msgid "Could not find the pppd binary."
 msgstr "无法找到 pppd 二进制文件。"
 
-#: ../src/nm-sstp-service.c:987 ../src/nm-sstp-service.c:1006
+#: ../src/nm-sstp-service.c:1007 ../src/nm-sstp-service.c:1040
 msgid "Missing VPN username."
 msgstr "缺少 VPN 用户名。"
 
-#: ../src/nm-sstp-service.c:995 ../src/nm-sstp-service.c:1014
+#: ../src/nm-sstp-service.c:1015 ../src/nm-sstp-service.c:1051
 msgid "Missing or invalid VPN password."
 msgstr "VPN 密码缺失或无效。"
 
-#: ../src/nm-sstp-service.c:1163
+#: ../src/nm-sstp-service.c:1062
+msgid "Invalid private key file"
+msgstr "私钥文件无效"
+
+#: ../src/nm-sstp-service.c:1200
 msgid "Invalid or missing SSTP gateway."
 msgstr "SSTP 网关缺失或无效。"
 
-#: ../src/nm-sstp-service.c:1224
+#: ../src/nm-sstp-service.c:1261
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
-msgstr ""
+msgstr "无法处理请求，因为 VPN 连接设置无效。"
 
-#: ../src/nm-sstp-service.c:1259
+#: ../src/nm-sstp-service.c:1296
 msgid "Invalid connection type."
-msgstr ""
+msgstr "错误的连接类型。"
 
-#: ../src/nm-sstp-service.c:1453
+#: ../src/nm-sstp-service.c:1490
 msgid "Don't quit when VPN connection terminates"
 msgstr "在 VPN 连接终止时不退出"
 
-#: ../src/nm-sstp-service.c:1454
+#: ../src/nm-sstp-service.c:1491
 msgid "Enable verbose debug logging (may expose passwords)"
-msgstr "启用详细的调试记录(可能暴露密码)"
+msgstr "启用详细的调试记录（可能暴露密码）"
 
-#: ../src/nm-sstp-service.c:1455
+#: ../src/nm-sstp-service.c:1492
 msgid "D-Bus name to use for this instance"
-msgstr ""
+msgstr "此实例使用的 D-Bus 名称"
 
-#: ../src/nm-sstp-service.c:1476
+#: ../src/nm-sstp-service.c:1513
 msgid ""
 "nm-sstp-service provides integrated SSTP VPN capability (compatible with "
 "Microsoft and other implementations) to NetworkManager."
 msgstr ""
-"nm-sstp-service 为网络管理器提供了集成的 SSTP VPN 功能(与微软和其他实现兼"
-"容)。"
-
-#: ../properties/nm-sstp-dialog.ui.h:1
-msgid "Default"
-msgstr "默认"
-
-#: ../properties/nm-sstp-dialog.ui.h:2
-#, fuzzy
-msgid "<b>General</b>"
-msgstr "一般"
-
-#: ../properties/nm-sstp-dialog.ui.h:3
-msgid ""
-"SSTP server IP or name.\n"
-"config: the first parameter of sstp"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:5
-msgid "_Gateway:"
-msgstr "网关(_G)："
-
-#: ../properties/nm-sstp-dialog.ui.h:6
-msgid "Authentication"
-msgstr "身份验证"
-
-#: ../properties/nm-sstp-dialog.ui.h:7
-#, fuzzy
-msgid "CA"
-msgstr "CHAP"
-
-#: ../properties/nm-sstp-dialog.ui.h:8
-msgid "User"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:9
-#, fuzzy
-msgid "Username:"
-msgstr "用户名(_U)："
-
-#: ../properties/nm-sstp-dialog.ui.h:10
-msgid ""
-"Set the name used for authenticating the local system to the peer to "
-"<name>.\n"
-"            config: user <name>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:13
-msgid "Password passed to SSTP when prompted for it."
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:14
-msgid "Show password"
-msgstr "显示密码"
-
-#: ../properties/nm-sstp-dialog.ui.h:15
-msgid "NT Domain:"
-msgstr "NT 域:"
-
-#: ../properties/nm-sstp-dialog.ui.h:16
-msgid ""
-"Append the domain name <domain> to the local host name for authentication "
-"purposes.\n"
-"            config: domain <domain>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:18
-msgid "Type:"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:19
-#, fuzzy
-msgid "Select an authentication mode."
-msgstr "允许以下认证方法:"
-
-#: ../properties/nm-sstp-dialog.ui.h:20
-msgid "Ad_vanced..."
-msgstr "高级(_V)..."
-
-#: ../properties/nm-sstp-dialog.ui.h:21
-msgid "SSTP Advanced Options"
-msgstr "SSTP 高级选项"
-
-#: ../properties/nm-sstp-dialog.ui.h:22
-msgid "<b>SSL Tunnel</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:23
-msgid "_Verify certificate type and extended key usage"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:24
-msgid ""
-"Require that the peer certificate used for outer SSL tunnel was signed with "
-"a certificate that has a trusted certificate chain, key usage, and extended "
-"key usage based on RFC3280 TLS rules."
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:25
-msgid "_Use TLS hostname extensions"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:26
-msgid ""
-"Use the gateway name as specified for this connection in the hostname "
-"extensions in the SSL tunnel"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:27
-msgid "<b>Certificate Revocation</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:28
-msgid "CRL"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:29
-#, fuzzy
-msgid "Connection"
-msgstr "匿名连接(_A)"
-
-#: ../properties/nm-sstp-dialog.ui.h:30
-#, fuzzy
-msgid "<b>Authentication</b>"
-msgstr "身份验证"
-
-#: ../properties/nm-sstp-dialog.ui.h:31
-msgid "Allow the following authentication methods:"
-msgstr "允许以下认证方法:"
-
-#: ../properties/nm-sstp-dialog.ui.h:32
-msgid ""
-"Allow/disable authentication methods.\n"
-"config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-eap"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:34
-#, fuzzy
-msgid "<b>Security and Compression</b>"
-msgstr "安全性及压缩"
-
-#: ../properties/nm-sstp-dialog.ui.h:35
-msgid "Use _Point-to-Point encryption (MPPE)"
-msgstr "使用点到点加密(MPPE)(_P)"
-
-#: ../properties/nm-sstp-dialog.ui.h:36
-msgid ""
-"Note: MPPE encryption is only available with MSCHAP authentication methods. "
-"To enable this checkbox, select one or more of the MSCHAP authentication "
-"methods: MSCHAP or MSCHAPv2."
-msgstr ""
-"注意：MPPE 加密仅在使用 MSCHAP 认证方式时可用。要启用此选项，请选择 MSCHAP 认"
-"证方式之中的一个或多个：MSCHAP 或 MSCHAPv2"
-
-#: ../properties/nm-sstp-dialog.ui.h:37
-msgid "_Security:"
-msgstr "安全性(_S)："
-
-#: ../properties/nm-sstp-dialog.ui.h:38
-msgid ""
-"Require the use of MPPE, with 40/128-bit encryption or all.\n"
-"config: require-mppe, require-mppe-128 or require-mppe-40"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:40
-msgid "Allow st_ateful encryption"
-msgstr "允许有状态的加密(_A)"
-
-#: ../properties/nm-sstp-dialog.ui.h:41
-msgid ""
-"Allow MPPE to use stateful mode. Stateless mode is still attempted first.\n"
-"config: mppe-stateful (when checked)"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:43
-msgid "Allow _BSD data compression"
-msgstr "允许 _BSD 数据压缩"
-
-#: ../properties/nm-sstp-dialog.ui.h:44
-msgid ""
-"Allow/disable BSD-Compress compression.\n"
-"config: nobsdcomp (when unchecked)"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:46
-msgid "Allow _Deflate data compression"
-msgstr "允许 _Deflate 数据压缩"
-
-#: ../properties/nm-sstp-dialog.ui.h:47
-msgid ""
-"Allow/disable Deflate compression.\n"
-"config: nodeflate (when unchecked)"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:49
-msgid "Use TCP _header compression"
-msgstr "使用 TCP 头压缩(_H)"
-
-#: ../properties/nm-sstp-dialog.ui.h:50
-msgid ""
-"Allow/disable Van Jacobson style TCP/IP header compression in both the "
-"transmit and the receive directions.\n"
-"config: novj (when unchecked)"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:52
-msgid "<b>Echo</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:53
-msgid "Send PPP _echo packets"
-msgstr "发送 PPP 回响包(_E)"
-
-#: ../properties/nm-sstp-dialog.ui.h:54
-msgid ""
-"Send LCP echo-requests to find out whether peer is alive.\n"
-"config: lcp-echo-failure and lcp-echo-interval"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:56
-msgid "<b>Misc</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:57
-msgid "Use custom _unit number:"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:58
-msgid ""
-"Enable custom index for ppp<n> device name.\n"
-"config: unit <n>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:60
-msgid "Point-to-Point"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:61
-msgid "<b>Identity</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:62
-msgid ""
-"Use this to override the value specified by the certificate\n"
-"\n"
-"By default, this will be populated, when correct password for certificate is "
-"supplied, with the Microsoft OID for username; or the Subject name of the "
-"certificate when this is not available. "
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:65
-msgid "<b>Certificate Validation</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:66
-msgid "_Subject Match"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:67
-msgid ""
-"Subject or Common Name to verify server certificate information against. "
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:68
-msgid "_Verify Method"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:69
-msgid ""
-"Verify server certificate identification.\n"
-"\n"
-"When enabled, connection will only succeed if the server certificate matches "
-"some expected properties.\n"
-"Matching can either apply to the whole certificate subject (all the "
-"fields),\n"
-"or just the Common Name (CN field).\n"
-"                                    "
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:75
-msgid ""
-"Require that peer certificate was signed with an explicit key usage and "
-"extended key usage based on RFC3280 TLS rules."
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:76
-msgid "<b>Compatibility</b>"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:77
-msgid "_Max TLS Version"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:78
-msgid ""
-"Use this to control the maximum supported EAP-TLS version. Default is TLS "
-"1.2, and use of TLS 1.3 is considered experimental at this point."
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:79
-#, fuzzy
-msgid "TLS Authentication"
-msgstr "身份验证"
-
-#: ../properties/nm-sstp-dialog.ui.h:80
-msgid "Address:"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:81
-msgid "Port:"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:82
-msgid "0"
-msgstr ""
-
-#: ../properties/nm-sstp-dialog.ui.h:83
-#, fuzzy
-msgid "Show Password"
-msgstr "显示密码"
-
-#: ../properties/nm-sstp-dialog.ui.h:84
-msgid "Proxy"
-msgstr ""
+"nm-sstp-service 提供集成到网络管理器（NetworkManager）的 SSTP VPN 功能（与微"
+"软和其他实现兼容）。"
+
+#~ msgid "SSTP VPN client"
+#~ msgstr "SSTP VPN 客户端"
+
+#~ msgid "Client for SSTP virtual private networks"
+#~ msgstr "SSTP 虚拟专用网络的客户端"
+
+#~ msgid "Support for configuring SSTP virtual private network connections."
+#~ msgstr "支持配置 SSTP 虚拟专用网络连接。"
+
+#~ msgid ""
+#~ "Compatible with servers following the SSTP specification including the "
+#~ "Microsoft servers."
+#~ msgstr "兼容包括微软服务器在内遵循 SSTP 规范的服务器。"
+
+#~ msgid "The NetworkManager Developers"
+#~ msgstr "NetworkManager 开发者"
+
+#~ msgid "Default"
+#~ msgstr "默认"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>常规</b>"
+
+#~ msgid ""
+#~ "SSTP server IP or name.\n"
+#~ "config: the first parameter of sstp"
+#~ msgstr ""
+#~ "SSTP 服务器 IP 或名称。\n"
+#~ "配置：SSTP 的第一项参数"
+
+#~ msgid "_Gateway:"
+#~ msgstr "网关(_G)："
+
+#~ msgid "Authentication"
+#~ msgstr "身份验证"
+
+#~ msgid "CA"
+#~ msgstr "CA"
+
+#~ msgid "User"
+#~ msgstr "用户"
+
+#~ msgid "Username:"
+#~ msgstr "用户名："
+
+#~ msgid ""
+#~ "Set the name used for authenticating the local system to the peer to "
+#~ "<name>.\n"
+#~ "            config: user <name>"
+#~ msgstr ""
+#~ "设置用于验证本地系统对等连接到的 <名称>。\n"
+#~ "            配置：user <名称>"
+
+#~ msgid "Password passed to SSTP when prompted for it."
+#~ msgstr "当被提示时传递给 SSTP 的密码。"
+
+#~ msgid "Show password"
+#~ msgstr "显示密码"
+
+#~ msgid "NT Domain:"
+#~ msgstr "NT 域："
+
+#~ msgid ""
+#~ "Append the domain name <domain> to the local host name for authentication "
+#~ "purposes.\n"
+#~ "            config: domain <domain>"
+#~ msgstr ""
+#~ "以验证目的添加域名到本地主机名。\n"
+#~ "            配置：domain <域名>"
+
+#~ msgid "Type:"
+#~ msgstr "类型："
+
+#~ msgid "Select an authentication mode."
+#~ msgstr "选择身份验证模式。"
+
+#~ msgid "Ad_vanced..."
+#~ msgstr "高级(_V)…"
+
+#~ msgid "SSTP Advanced Options"
+#~ msgstr "SSTP 高级选项"
+
+#~ msgid "<b>SSL Tunnel</b>"
+#~ msgstr "<b>SSL 隧道</b>"
+
+#~ msgid "_Verify certificate type and extended key usage"
+#~ msgstr "验证证书类型和扩展密钥用法(_V)"
+
+#~ msgid ""
+#~ "Require that the peer certificate used for outer SSL tunnel was signed "
+#~ "with a certificate that has a trusted certificate chain, key usage, and "
+#~ "extended key usage based on RFC3280 TLS rules."
+#~ msgstr ""
+#~ "要求用于外部 SSL 隧道的对等端证书，必须被使用基于 RFC3280 TLS 规则的可信证"
+#~ "书链、密钥用法和扩展密钥用法的证书所签名。 "
+
+#~ msgid "_Use TLS hostname extensions"
+#~ msgstr "使用 TLS 主机名扩展(_U)"
+
+#~ msgid ""
+#~ "Use the gateway name as specified for this connection in the hostname "
+#~ "extensions in the SSL tunnel"
+#~ msgstr "在 SSL 隧道的主机名扩展中使用为此连接指定的网关名称"
+
+#~ msgid "<b>Certificate Revocation</b>"
+#~ msgstr "<b>证书吊销</b>"
+
+#~ msgid "CRL"
+#~ msgstr "CRL"
+
+#~ msgid "Connection"
+#~ msgstr "连接"
+
+#~ msgid "<b>Authentication</b>"
+#~ msgstr "<b>身份验证</b>"
+
+#~ msgid "Allow the following authentication methods:"
+#~ msgstr "允许以下认证方法:"
+
+#~ msgid ""
+#~ "Allow/disable authentication methods.\n"
+#~ "config: refuse-pap, refuse-chap, refuse-mschap, refuse-mschap-v2, refuse-"
+#~ "eap"
+#~ msgstr ""
+#~ "允许/禁用身份验证方法。\n"
+#~ "配置：refuse-pap、refuse-chap、refuse-mschap、refuse-mschap-v2、refuse-eap"
+
+#~ msgid "<b>Security and Compression</b>"
+#~ msgstr "<b>安全性及压缩</b>"
+
+#~ msgid "Use _Point-to-Point encryption (MPPE)"
+#~ msgstr "使用点到点加密(MPPE)(_P)"
+
+#~ msgid ""
+#~ "Note: MPPE encryption is only available with MSCHAP authentication "
+#~ "methods. To enable this checkbox, select one or more of the MSCHAP "
+#~ "authentication methods: MSCHAP or MSCHAPv2."
+#~ msgstr ""
+#~ "注意：MPPE 加密仅在使用 MSCHAP 认证方式时可用。要启用此选项，请选择 "
+#~ "MSCHAP 认证方式之中的一个或多个：MSCHAP 或 MSCHAPv2。"
+
+#~ msgid "_Security:"
+#~ msgstr "安全性(_S)："
+
+#~ msgid ""
+#~ "Require the use of MPPE, with 40/128-bit encryption or all.\n"
+#~ "config: require-mppe, require-mppe-128 or require-mppe-40"
+#~ msgstr ""
+#~ "需要使用 40/128 位或全部 MPPE 加密。\n"
+#~ "配置：require-mppe、require-mppe-128 或者 require-mppe-40"
+
+#~ msgid "Allow st_ateful encryption"
+#~ msgstr "允许有状态的加密(_A)"
+
+#~ msgid ""
+#~ "Allow MPPE to use stateful mode. Stateless mode is still attempted "
+#~ "first.\n"
+#~ "config: mppe-stateful (when checked)"
+#~ msgstr ""
+#~ "允许 MPPE 使用有状态模式。仍会优先尝试无状态模式。\n"
+#~ "配置：mppe-stateful（选中时）"
+
+#~ msgid "Allow _BSD data compression"
+#~ msgstr "允许 _BSD 数据压缩"
+
+#~ msgid ""
+#~ "Allow/disable BSD-Compress compression.\n"
+#~ "config: nobsdcomp (when unchecked)"
+#~ msgstr ""
+#~ "允许/禁用 BSD-Compress 压缩。\n"
+#~ "配置：nobsdcomp（未选中时）"
+
+#~ msgid "Allow _Deflate data compression"
+#~ msgstr "允许 _Deflate 数据压缩"
+
+#~ msgid ""
+#~ "Allow/disable Deflate compression.\n"
+#~ "config: nodeflate (when unchecked)"
+#~ msgstr ""
+#~ "允许/禁用 Deflate 压缩。\n"
+#~ "配置：nodeflate（未选中时）"
+
+#~ msgid "Use TCP _header compression"
+#~ msgstr "使用 TCP 头压缩(_H)"
+
+#~ msgid ""
+#~ "Allow/disable Van Jacobson style TCP/IP header compression in both the "
+#~ "transmit and the receive directions.\n"
+#~ "config: novj (when unchecked)"
+#~ msgstr ""
+#~ "允许/禁用在发送和接受方向启用 Van Jacobson 样式 TCP/IP 首部压缩。\n"
+#~ "配置：novj（未选中时）"
+
+#~ msgid "<b>Echo</b>"
+#~ msgstr "<b>回响</b>"
+
+#~ msgid "Send PPP _echo packets"
+#~ msgstr "发送 PPP 回响包(_E)"
+
+#~ msgid ""
+#~ "Send LCP echo-requests to find out whether peer is alive.\n"
+#~ "config: lcp-echo-failure and lcp-echo-interval"
+#~ msgstr ""
+#~ "发送 LCP echo-requests 来检查对等连接是否存活。\n"
+#~ "配置：lcp-echo-failure 和 lcp-echo-interval"
+
+#~ msgid "<b>Misc</b>"
+#~ msgstr "<b>杂项</b>"
+
+#~ msgid "Use custom _unit number:"
+#~ msgstr "使用自定义单元号码(_U)："
+
+#~ msgid ""
+#~ "Enable custom index for ppp<n> device name.\n"
+#~ "config: unit <n>"
+#~ msgstr ""
+#~ "为 ppp<n> 设备名启用自定义索引。\n"
+#~ "配置：unit <n>"
+
+#~ msgid "Point-to-Point"
+#~ msgstr "点对点"
+
+#~ msgid "<b>Identity</b>"
+#~ msgstr "<b>标识</b>"
+
+#~ msgid ""
+#~ "Use this to override the value specified by the certificate\n"
+#~ "\n"
+#~ "By default, this will be populated, when correct password for certificate "
+#~ "is supplied, with the Microsoft OID for username; or the Subject name of "
+#~ "the certificate when this is not available. "
+#~ msgstr ""
+#~ "使用此项覆盖证书的指定值。\n"
+#~ "\n"
+#~ "默认情况下，当提供了正确的证书密码时，此项将自动填充为用于用户名的微软 "
+#~ "OID，或者前者不可用时填充为证书的主题名称。"
+
+#~ msgid "<b>Certificate Validation</b>"
+#~ msgstr "<b>证书验证</b>"
+
+#~ msgid "_Subject Match"
+#~ msgstr "主题匹配(_S)："
+
+#~ msgid ""
+#~ "Subject or Common Name to verify server certificate information against. "
+#~ msgstr "用以验证服务器证书信息的主题或者通用名称"
+
+#~ msgid "_Verify Method"
+#~ msgstr "验证方式(_V)"
+
+#~ msgid ""
+#~ "Verify server certificate identification.\n"
+#~ "\n"
+#~ "When enabled, connection will only succeed if the server certificate "
+#~ "matches some expected properties.\n"
+#~ "Matching can either apply to the whole certificate subject (all the "
+#~ "fields),\n"
+#~ "or just the Common Name (CN field).\n"
+#~ "                                    "
+#~ msgstr ""
+#~ "验证服务器证书标识。\n"
+#~ "\n"
+#~ "启用时，当服务器证书符合一些需要的属性时连接才会成功。匹配可以应用到完整的"
+#~ "证书主题（所有字段），或者只是通用名称（CN 字段）。"
+
+#~ msgid ""
+#~ "Require that peer certificate was signed with an explicit key usage and "
+#~ "extended key usage based on RFC3280 TLS rules."
+#~ msgstr ""
+#~ "要求对等端证书为明确的基于 RFC3280 TLS 规则的密钥用法和扩展密钥用法所签"
+#~ "名。"
+
+#~ msgid "<b>Compatibility</b>"
+#~ msgstr "<b>兼容性</b>"
+
+#~ msgid "_Max TLS Version"
+#~ msgstr "TLS 最高版本(_M)"
+
+#~ msgid ""
+#~ "Use this to control the maximum supported EAP-TLS version. Default is TLS "
+#~ "1.2, and use of TLS 1.3 is considered experimental at this point."
+#~ msgstr ""
+#~ "使用此项控制支持的最高 EAP-TLS 版本。默认为 TLS 1.2，当前使用 TLS 1.3 仍是"
+#~ "实验性的。"
+
+#~ msgid "TLS Authentication"
+#~ msgstr "TLS 认证"
+
+#~ msgid "Address:"
+#~ msgstr "地址："
+
+#~ msgid "Port:"
+#~ msgstr "端口："
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "Show Password"
+#~ msgstr "显示密码"
+
+#~ msgid "Proxy"
+#~ msgstr "代理"
+
+#~ msgid "Eivind Naess"
+#~ msgstr "Eivind Naess"
 
 #~ msgid "_Secondary Password:"
 #~ msgstr "次要密码(_S)："
@@ -727,19 +694,15 @@ msgstr ""
 #~ msgid "Not Required"
 #~ msgstr "不要求"
 
-#, c-format
 #~ msgid "couldn't convert SSTP VPN gateway IP address '%s' (%d)"
 #~ msgstr "无法转换 SSTP VPN 网关 IP 地址“%s”(%d)"
 
-#, c-format
 #~ msgid "couldn't look up SSTP VPN gateway IP address '%s' (%d)"
 #~ msgstr "无法查找 SSTP VPN 网关 IP 地址“%s”(%d)"
 
-#, c-format
 #~ msgid "no usable addresses returned for SSTP VPN gateway '%s'"
 #~ msgstr "未返回对应 SSTP VPN 网关“%s”的可用地址"
 
-#, c-format
 #~ msgid "no usable addresses returned for SSTP VPN gateway '%s' (%d)"
 #~ msgstr "未返回对应 SSTP VPN 网关“%s”的可用地址(%d)"
 
