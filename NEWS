@@ -1,3 +1,12 @@
+Release 1.3.2: (November 27, 2022)
+* Support for compiling against ppp-2.5.0
+* Various build-infrastructure fixes bringing it up to par with the other VPN plugins
+  - Drop the libnma-glib dependency
+  - Bump the libnma version
+  - Produce a .xz file by default
+  - Update to the .gitlab-ci script
+* Update translations: Slovenian, Georgian, Hungarian, Serbian, Chinese, Russian, Lithuanian and Turkish
+
 Release 1.3.1: (September 19, 2022)
 - Migrating project to use GNU Gettext instead of intltool
 - Several bug fixes:
