@@ -1,0 +1,358 @@
+# Hindi translation for network-manager-sstp.
+# Copyright (C) 2024 network-manager-sstp's COPYRIGHT HOLDER
+# This file is distributed under the same license as the network-manager-sstp package.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: network-manager-sstp master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
+"issues\n"
+"POT-Creation-Date: 2024-01-30 09:48+0000\n"
+"PO-Revision-Date: 2024-04-23 17:46+0530\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Gtranslator 46.0\n"
+
+#: ../auth-dialog/main.c:276
+msgid "Authenticate VPN"
+msgstr "VPN को प्रमाणित करें"
+
+#: ../auth-dialog/main.c:285 ../auth-dialog/main.c:382
+msgid "Certificate password:"
+msgstr "प्रमाणपत्र पासवर्ड:"
+
+#: ../auth-dialog/main.c:291
+msgid "_HTTP proxy password:"
+msgstr "_HTTP प्रॉक्सी पासवर्ड:"
+
+#: ../auth-dialog/main.c:368
+#, c-format
+msgid "Authenticate VPN %s"
+msgstr "VPN %s को प्रमाणित करें"
+
+#: ../auth-dialog/main.c:375
+msgid "Password:"
+msgstr "पासवर्ड:"
+
+#: ../auth-dialog/main.c:389
+msgid "HTTP proxy password:"
+msgstr "HTTP प्रॉक्सी पासवर्ड:"
+
+#: ../auth-dialog/main.c:504
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network “%s”."
+msgstr "आपको वर्चुअल प्राइवेट नेटवर्क “%s” तक पहुंचने के लिए प्रमाणित करने की आवश्यकता है।"
+
+#: ../properties/advanced-dialog.c:249
+msgid "All Available (Default)"
+msgstr "सभी उपलब्ध (तयशुदा)"
+
+#: ../properties/advanced-dialog.c:253
+msgid "128-bit (most secure)"
+msgstr "128-bit (सबसे सुरक्षित)"
+
+#: ../properties/advanced-dialog.c:262
+msgid "40-bit (less secure)"
+msgstr "40-bit (कम सुरक्षित)"
+
+#: ../properties/advanced-dialog.c:381
+msgid "PAP"
+msgstr "PAP"
+
+#: ../properties/advanced-dialog.c:394
+msgid "CHAP"
+msgstr "CHAP"
+
+#: ../properties/advanced-dialog.c:406
+msgid "MSCHAP"
+msgstr "MSCHAP"
+
+#: ../properties/advanced-dialog.c:418
+msgid "MSCHAPv2"
+msgstr "MSCHAPv2"
+
+#: ../properties/advanced-dialog.c:430
+msgid "EAP"
+msgstr "EAP"
+
+#: ../properties/advanced-dialog.c:496
+msgid "Don't verify certificate identification"
+msgstr "प्रमाणपत्र पहचान सत्यापित न करें"
+
+#: ../properties/advanced-dialog.c:504
+msgid "Verify subject exactly"
+msgstr "विषय की सटीक पुष्टि करें"
+
+#: ../properties/advanced-dialog.c:512
+msgid "Verify name exactly"
+msgstr "नाम की सटीक पुष्टि करें"
+
+#: ../properties/advanced-dialog.c:520
+msgid "Verify name by suffix"
+msgstr "प्रत्यय द्वारा नाम की पुष्टि करें"
+
+#: ../properties/advanced-dialog.c:570
+msgid "TLS 1.2 (Default)"
+msgstr "TLS 1.2 (तयशुदा)"
+
+#: ../properties/advanced-dialog.c:578
+msgid "TLS 1.3"
+msgstr "TLS 1.3"
+
+#: ../properties/nm-sstp-editor-plugin.c:31
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "सुरक्षित सॉकेट टनलिंग प्रोटोकॉल (SSTP)"
+
+#: ../properties/nm-sstp-editor-plugin.c:32
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Microsoft और अन्य SSTP VPN सर्वर के साथ संगत।"
+
+#: ../properties/nm-sstp-editor.c:313 ../properties/nm-sstp-editor.c:341
+#, c-format
+msgid "file is not a certificate"
+msgstr "फाइल कोई प्रमाणपत्र नहीं है"
+
+#: ../properties/nm-sstp-editor.c:364
+#, c-format
+msgid "file is not a private key"
+msgstr "फाइल एक निजी कुंजी नहीं है"
+
+#: ../properties/nm-sstp-editor.c:589
+msgid "Certificates (TLS)"
+msgstr "प्रमाणपत्र (TLS)"
+
+#: ../properties/nm-sstp-editor.c:599
+msgid "Password"
+msgstr "पासवर्ड"
+
+#: ../shared/nm-utils/nm-shared-utils.c:946
+#, c-format
+msgid "object class '%s' has no property named '%s'"
+msgstr "वस्तु वर्ग '%s' में '%s' नाम का कोई गुण नहीं है"
+
+#: ../shared/nm-utils/nm-shared-utils.c:953
+#, c-format
+msgid "property '%s' of object class '%s' is not writable"
+msgstr "वस्तु वर्ग '%2$s' का गुण '%1$s' लिखने योग्य नहीं है"
+
+#: ../shared/nm-utils/nm-shared-utils.c:960
+#, c-format
+msgid ""
+"construct property \"%s\" for object '%s' can't be set after construction"
+msgstr ""
+"वस्तु '%2$s' के लिए निर्माण गुण \"%1$s\" निर्माण के बाद निर्धारित नहीं की जा सकती"
+
+#: ../shared/nm-utils/nm-shared-utils.c:968
+#, c-format
+msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
+msgstr "'%s::%s' मान्य गुण नाम नहीं है; '%s' एक GObject उपप्रकार नहीं है"
+
+#: ../shared/nm-utils/nm-shared-utils.c:977
+#, c-format
+msgid "unable to set property '%s' of type '%s' from value of type '%s'"
+msgstr "'%2$s' प्रकार की गुण '%1$s' को '%3$s' प्रकार के मान से निर्धारित करने में असमर्थ"
+
+#: ../shared/nm-utils/nm-shared-utils.c:988
+#, c-format
+msgid ""
+"value \"%s\" of type '%s' is invalid or out of range for property '%s' of "
+"type '%s'"
+msgstr ""
+"प्रकार '%2$s' का मान \"%1$s\" प्रकार '%4$s' के गुण '%3$s' के लिए अमान्य या सीमा से "
+"बाहर है"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
+#, c-format
+msgid "unable to get editor plugin name: %s"
+msgstr "संपादक प्लगइन नाम प्राप्त करने में असमर्थ: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:103
+#, c-format
+msgid "missing plugin file \"%s\""
+msgstr "अनुपलब्ध प्लगइन फाइल \"%s\""
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:109
+#, c-format
+msgid "cannot load editor plugin: %s"
+msgstr "संपादक प्लगइन लोड नहीं कर सकता: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:118
+#, c-format
+msgid "cannot load factory %s from plugin: %s"
+msgstr "प्लगइन से फ़ैक्टरी %s लोड नहीं हो सकता: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:144
+msgid "unknown error creating editor instance"
+msgstr "संपादक इंस्टैंस बनाने में अज्ञात त्रुटि"
+
+#: ../shared/utils.c:58
+msgid "Failed to initialize the crypto engine"
+msgstr "क्रिप्टो इंजन आरंभ करने में विफल"
+
+#: ../shared/utils.c:85
+#, c-format
+msgid "Failed to get subject name"
+msgstr "विषय का नाम पाने में असफल"
+
+#: ../shared/utils.c:121 ../shared/utils.c:135
+#, c-format
+msgid "Failed to load certificate"
+msgstr "प्रमाणपत्र लोड करने में विफल"
+
+#: ../shared/utils.c:128
+#, c-format
+msgid "Failed to initialize certificate"
+msgstr "प्रमाणपत्र प्रारंभ करने में विफल"
+
+#: ../shared/utils.c:185
+#, c-format
+msgid "Failed to parse pkcs12 file"
+msgstr "PKCS12 फाइल का विश्लेषण करने में विफल"
+
+#: ../shared/utils.c:191
+#, c-format
+msgid "Failed to import pkcs12 file"
+msgstr "PKCS12 फाइल आयात करने में विफल"
+
+#: ../shared/utils.c:198
+#, c-format
+msgid "Failed to initialize pkcs12 structure"
+msgstr "PKCS12 संरचना प्रारंभ करने में विफल"
+
+#: ../shared/utils.c:205
+#, c-format
+msgid "Failed to read file"
+msgstr "फाइल पढ़ने में विफल"
+
+#: ../shared/utils.c:239
+#, c-format
+msgid "Failed to decrypt private key"
+msgstr "निजी कुंजी डिक्रिप्ट करने में विफल"
+
+#: ../shared/utils.c:249
+#, c-format
+msgid "Failed to initialize private key"
+msgstr "निजी कुंजी आरंभ करने में विफल"
+
+#: ../shared/utils.c:257
+#, c-format
+msgid "Failed read file"
+msgstr "फाइल पढ़ने में विफल"
+
+#: ../shared/utils.c:307
+#, c-format
+msgid "invalid delimiter character '%c'"
+msgstr "अमान्य सीमांकक वर्ण '%c'"
+
+#: ../shared/utils.c:314
+#, c-format
+msgid "invalid non-utf-8 character"
+msgstr "अमान्य गैर-UTF-8 वर्ण"
+
+#: ../shared/utils.c:343
+#, c-format
+msgid "empty host"
+msgstr "खाली होस्ट"
+
+#: ../shared/utils.c:355
+#, c-format
+msgid "invalid port"
+msgstr "अमान्य पोर्ट"
+
+#: ../src/nm-sstp-service.c:238
+#, c-format
+msgid "invalid gateway “%s”"
+msgstr "अमान्य गेटवे “%s”"
+
+#: ../src/nm-sstp-service.c:252
+#, c-format
+msgid "invalid integer property “%s”"
+msgstr "अमान्य पूर्णांक गुण “%s”"
+
+#: ../src/nm-sstp-service.c:262
+#, c-format
+msgid "invalid boolean property “%s” (not yes or no)"
+msgstr "अमान्य बूलियन गुण “%s” (हां नहीं या नहीं)"
+
+#: ../src/nm-sstp-service.c:269
+#, c-format
+msgid "unhandled property “%s” type %s"
+msgstr "असंभाला हुए गुण “%s” प्रकार %s"
+
+#: ../src/nm-sstp-service.c:280
+#, c-format
+msgid "property “%s” invalid or not supported"
+msgstr "गुण “%s” अमान्य है या समर्थित नहीं है"
+
+#: ../src/nm-sstp-service.c:298
+msgid "No VPN configuration options."
+msgstr "कोई VPN विन्यास विकल्प नहीं।"
+
+#: ../src/nm-sstp-service.c:318
+#, c-format
+msgid "Missing required option “%s”."
+msgstr "आवश्यक विकल्प “%s” अनुपलब्ध है।"
+
+#: ../src/nm-sstp-service.c:488
+msgid "Could not find sstp client binary."
+msgstr "SSTP क्लाइंट बाइनरी नहीं मिल सकी।"
+
+#: ../src/nm-sstp-service.c:498
+msgid "Missing VPN gateway."
+msgstr "VPN गेटवे अनुपलब्ध है।"
+
+#: ../src/nm-sstp-service.c:941
+msgid "Could not find the pppd binary."
+msgstr "PPPD क्लाइंट बाइनरी नहीं मिल सकी।"
+
+#: ../src/nm-sstp-service.c:1007 ../src/nm-sstp-service.c:1040
+msgid "Missing VPN username."
+msgstr "VPN उपयोक्तानाम अनुपलब्ध है।"
+
+#: ../src/nm-sstp-service.c:1015 ../src/nm-sstp-service.c:1051
+msgid "Missing or invalid VPN password."
+msgstr "अनुपलब्ध या अमान्य VPN पासवर्ड।"
+
+#: ../src/nm-sstp-service.c:1062
+msgid "Invalid private key file"
+msgstr "अमान्य निजी कुंजी फाइल"
+
+#: ../src/nm-sstp-service.c:1200
+msgid "Invalid or missing SSTP gateway."
+msgstr "अमान्य या अनुपलब्ध SSTP गेटवे।"
+
+#: ../src/nm-sstp-service.c:1261
+msgid ""
+"Could not process the request because the VPN connection settings were "
+"invalid."
+msgstr "अनुरोध संसाधित नहीं किया जा सका क्योंकि VPN कनेक्शन सेटिंग्स अमान्य थीं।"
+
+#: ../src/nm-sstp-service.c:1296
+msgid "Invalid connection type."
+msgstr "अमान्य कनेक्शन प्रकार।"
+
+#: ../src/nm-sstp-service.c:1490
+msgid "Don't quit when VPN connection terminates"
+msgstr "VPN कनेक्शन समाप्त होने पर न छोड़ें"
+
+#: ../src/nm-sstp-service.c:1491
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "वाचाल डिबग लॉगिंग सक्षम करें (पासवर्ड उजागर हो सकता है)"
+
+#: ../src/nm-sstp-service.c:1492
+msgid "D-Bus name to use for this instance"
+msgstr "इस इंस्टैंस के लिए उपयोग हेतु D-Bus नाम"
+
+#: ../src/nm-sstp-service.c:1513
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-pptp-service NetworkManager को एकीकृत PPTP VPN क्षमता (Microsoft और अन्य "
+"कार्यान्वयन के साथ संगत) प्रदान करती है।"
