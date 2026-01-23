@@ -39,6 +39,9 @@
   script:
     - tar xJf NetworkManager-sstp-*.tar.xz
     - cd NetworkManager-sstp-*/
+    # Sometimes the CI builder clocks are skewed.
+    # Make sure the dst files are not from future.
+    - find |xargs touch
     - ./configure $EXTRA_CONFIGURE_FLAGS
       --disable-silent-rules
     - make -j
