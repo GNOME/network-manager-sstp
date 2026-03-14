@@ -1,0 +1,358 @@
+# Kazakh translation for network-manager-sstp.
+# Copyright (C) 2026 network-manager-sstp's COPYRIGHT HOLDER
+# This file is distributed under the same license as the network-manager-sstp package.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>,  2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: network-manager-sstp master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/network-manager-sstp/"
+"issues\n"
+"POT-Creation-Date: 2026-03-10 21:20+0000\n"
+"PO-Revision-Date: 2026-03-14 12:37+0500\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"Language-Team: Kazakh <Kazakh>\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+
+#: ../auth-dialog/main.c:276
+msgid "Authenticate VPN"
+msgstr "VPN аутентификациясы"
+
+#: ../auth-dialog/main.c:285 ../auth-dialog/main.c:382
+msgid "Certificate password:"
+msgstr "Сертификат паролі:"
+
+#: ../auth-dialog/main.c:291
+msgid "_HTTP proxy password:"
+msgstr "_HTTP прокси паролі:"
+
+#: ../auth-dialog/main.c:368
+#, c-format
+msgid "Authenticate VPN %s"
+msgstr "%s VPN аутентификациясы"
+
+#: ../auth-dialog/main.c:375
+msgid "Password:"
+msgstr "Пароль:"
+
+#: ../auth-dialog/main.c:389
+msgid "HTTP proxy password:"
+msgstr "HTTP прокси паролі:"
+
+#: ../auth-dialog/main.c:504
+#, c-format
+msgid "You need to authenticate to access the Virtual Private Network “%s”."
+msgstr ""
+"«%s» виртуалды жеке желісіне (VPN) қол жеткізу үшін аутентификациядан өтуіңіз "
+"керек."
+
+#: ../properties/advanced-dialog.c:249
+msgid "All Available (Default)"
+msgstr "Барлығы қолжетімді (Бастапқы)"
+
+#: ../properties/advanced-dialog.c:253
+msgid "128-bit (most secure)"
+msgstr "128-бит (ең қауіпсіз)"
+
+#: ../properties/advanced-dialog.c:262
+msgid "40-bit (less secure)"
+msgstr "40-бит (қауіпсіздігі төмен)"
+
+#: ../properties/advanced-dialog.c:381
+msgid "PAP"
+msgstr "PAP"
+
+#: ../properties/advanced-dialog.c:394
+msgid "CHAP"
+msgstr "CHAP"
+
+#: ../properties/advanced-dialog.c:406
+msgid "MSCHAP"
+msgstr "MSCHAP"
+
+#: ../properties/advanced-dialog.c:418
+msgid "MSCHAPv2"
+msgstr "MSCHAPv2"
+
+#: ../properties/advanced-dialog.c:430
+msgid "EAP"
+msgstr "EAP"
+
+#: ../properties/advanced-dialog.c:496
+msgid "Don't verify certificate identification"
+msgstr "Сертификат идентификациясын тексермеу"
+
+#: ../properties/advanced-dialog.c:504
+msgid "Verify subject exactly"
+msgstr "Субъектіні дәл тексеру"
+
+#: ../properties/advanced-dialog.c:512
+msgid "Verify name exactly"
+msgstr "Атын дәл тексеру"
+
+#: ../properties/advanced-dialog.c:520
+msgid "Verify name by suffix"
+msgstr "Атын суффикс бойынша тексеру"
+
+#: ../properties/advanced-dialog.c:570
+msgid "TLS 1.2 (Default)"
+msgstr "TLS 1.2 (Бастапқы)"
+
+#: ../properties/advanced-dialog.c:578
+msgid "TLS 1.3"
+msgstr "TLS 1.3"
+
+#: ../properties/nm-sstp-editor-plugin.c:31
+msgid "Secure Socket Tunneling Protocol (SSTP)"
+msgstr "Secure Socket Tunneling Protocol (SSTP)"
+
+#: ../properties/nm-sstp-editor-plugin.c:32
+msgid "Compatible with Microsoft and other SSTP VPN servers."
+msgstr "Microsoft және басқа SSTP VPN серверлерімен үйлесімді."
+
+#: ../properties/nm-sstp-editor.c:313 ../properties/nm-sstp-editor.c:341
+#, c-format
+msgid "file is not a certificate"
+msgstr "файл сертификат емес"
+
+#: ../properties/nm-sstp-editor.c:364
+#, c-format
+msgid "file is not a private key"
+msgstr "файл жеке кілт емес"
+
+#: ../properties/nm-sstp-editor.c:589
+msgid "Certificates (TLS)"
+msgstr "Сертификаттар (TLS)"
+
+#: ../properties/nm-sstp-editor.c:599
+msgid "Password"
+msgstr "Пароль"
+
+#: ../shared/nm-utils/nm-shared-utils.c:946
+#, c-format
+msgid "object class '%s' has no property named '%s'"
+msgstr "'%s' объект класында '%s' атты қасиет жоқ"
+
+#: ../shared/nm-utils/nm-shared-utils.c:953
+#, c-format
+msgid "property '%s' of object class '%s' is not writable"
+msgstr "'%s' қасиеті ('%s' объект класының) жазуға келмейді"
+
+#: ../shared/nm-utils/nm-shared-utils.c:960
+#, c-format
+msgid "construct property \"%s\" for object '%s' can't be set after construction"
+msgstr ""
+"«%s» құрастыру қасиеті ('%s' объектісі үшін) құрастырудан кейін орнатылмайды"
+
+#: ../shared/nm-utils/nm-shared-utils.c:968
+#, c-format
+msgid "'%s::%s' is not a valid property name; '%s' is not a GObject subtype"
+msgstr "'%s::%s' жарамды қасиет аты емес; '%s' GObject ішкі түрі емес"
+
+#: ../shared/nm-utils/nm-shared-utils.c:977
+#, c-format
+msgid "unable to set property '%s' of type '%s' from value of type '%s'"
+msgstr "'%s' қасиетін ('%s' түріндегі) '%s' түріндегі мәннен орнату мүмкін емес"
+
+#: ../shared/nm-utils/nm-shared-utils.c:988
+#, c-format
+msgid ""
+"value \"%s\" of type '%s' is invalid or out of range for property '%s' of type "
+"'%s'"
+msgstr ""
+"«%s» мәні ('%s' түріндегі) жарамсыз немесе '%s' қасиетінің ('%s' түріндегі) "
+"ауқымынан тыс"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:69
+#, c-format
+msgid "unable to get editor plugin name: %s"
+msgstr "редактор плагинінің атын алу мүмкін емес: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:103
+#, c-format
+msgid "missing plugin file \"%s\""
+msgstr "«%s» плагин файлы жетіспейді"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:109
+#, c-format
+msgid "cannot load editor plugin: %s"
+msgstr "редактор плагинін жүктеу мүмкін емес: %s"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:118
+#, c-format
+msgid "cannot load factory %s from plugin: %s"
+msgstr "%s фабрикасын %s плагинінен жүктеу мүмкін емес"
+
+#: ../shared/nm-utils/nm-vpn-plugin-utils.c:144
+msgid "unknown error creating editor instance"
+msgstr "редактор данасын жасау кезінде белгісіз қате орын алды"
+
+#: ../shared/utils.c:58
+msgid "Failed to initialize the crypto engine"
+msgstr "Криптографиялық қозғалтқышты инициализациялау сәтсіз аяқталды"
+
+#: ../shared/utils.c:85
+#, c-format
+msgid "Failed to get subject name"
+msgstr "Субъект атын алу сәтсіз аяқталды"
+
+#: ../shared/utils.c:121 ../shared/utils.c:135
+#, c-format
+msgid "Failed to load certificate"
+msgstr "Сертификатты жүктеу сәтсіз аяқталды"
+
+#: ../shared/utils.c:128
+#, c-format
+msgid "Failed to initialize certificate"
+msgstr "Сертификатты инициализациялау сәтсіз аяқталды"
+
+#: ../shared/utils.c:185
+#, c-format
+msgid "Failed to parse pkcs12 file"
+msgstr "pkcs12 файлын талдау сәтсіз аяқталды"
+
+#: ../shared/utils.c:191
+#, c-format
+msgid "Failed to import pkcs12 file"
+msgstr "pkcs12 файлын импорттау сәтсіз аяқталды"
+
+#: ../shared/utils.c:198
+#, c-format
+msgid "Failed to initialize pkcs12 structure"
+msgstr "pkcs12 құрылымын инициализациялау сәтсіз аяқталды"
+
+#: ../shared/utils.c:205
+#, c-format
+msgid "Failed to read file"
+msgstr "Файлды оқу сәтсіз аяқталды"
+
+#: ../shared/utils.c:239
+#, c-format
+msgid "Failed to decrypt private key"
+msgstr "Жеке кілтті шифрдан шешу сәтсіз аяқталды"
+
+#: ../shared/utils.c:249
+#, c-format
+msgid "Failed to initialize private key"
+msgstr "Жеке кілтті инициализациялау сәтсіз аяқталды"
+
+#: ../shared/utils.c:257
+#, c-format
+msgid "Failed read file"
+msgstr "Файлды оқу сәтсіз аяқталды"
+
+#: ../shared/utils.c:307
+#, c-format
+msgid "invalid delimiter character '%c'"
+msgstr "жарамсыз '%c' ажыратқыш таңбасы"
+
+#: ../shared/utils.c:314
+#, c-format
+msgid "invalid non-utf-8 character"
+msgstr "жарамсыз non-utf-8 таңбасы"
+
+#: ../shared/utils.c:343
+#, c-format
+msgid "empty host"
+msgstr "бос хост"
+
+#: ../shared/utils.c:355
+#, c-format
+msgid "invalid port"
+msgstr "жарамсыз порт"
+
+#: ../src/nm-sstp-service.c:238
+#, c-format
+msgid "invalid gateway “%s”"
+msgstr "жарамсыз «%s» шлюзі"
+
+#: ../src/nm-sstp-service.c:252
+#, c-format
+msgid "invalid integer property “%s”"
+msgstr "«%s» бүтін сан қасиеті жарамсыз"
+
+#: ../src/nm-sstp-service.c:262
+#, c-format
+msgid "invalid boolean property “%s” (not yes or no)"
+msgstr "«%s» логикалық қасиеті жарамсыз (иә немесе жоқ емес)"
+
+#: ../src/nm-sstp-service.c:269
+#, c-format
+msgid "unhandled property “%s” type %s"
+msgstr "өңделмеген «%s» қасиеті, түрі %s"
+
+#: ../src/nm-sstp-service.c:280
+#, c-format
+msgid "property “%s” invalid or not supported"
+msgstr "«%s» қасиеті жарамсыз немесе оған қолдау көрсетілмейді"
+
+#: ../src/nm-sstp-service.c:298
+msgid "No VPN configuration options."
+msgstr "VPN баптау опциялары жоқ."
+
+#: ../src/nm-sstp-service.c:318
+#, c-format
+msgid "Missing required option “%s”."
+msgstr "Қажетті «%s» опциясы жетіспейді."
+
+#: ../src/nm-sstp-service.c:488
+msgid "Could not find sstp client binary."
+msgstr "sstp клиентінің бинарлық файлы табылмады."
+
+#: ../src/nm-sstp-service.c:498
+msgid "Missing VPN gateway."
+msgstr "VPN шлюзі жетіспейді."
+
+#: ../src/nm-sstp-service.c:941
+msgid "Could not find the pppd binary."
+msgstr "pppd бинарлық файлы табылмады."
+
+#: ../src/nm-sstp-service.c:1007 ../src/nm-sstp-service.c:1040
+msgid "Missing VPN username."
+msgstr "VPN пайдаланушы аты жетіспейді."
+
+#: ../src/nm-sstp-service.c:1015 ../src/nm-sstp-service.c:1051
+msgid "Missing or invalid VPN password."
+msgstr "VPN паролі жоқ немесе жарамсыз."
+
+#: ../src/nm-sstp-service.c:1062
+msgid "Invalid private key file"
+msgstr "Жеке кілт файлы жарамсыз"
+
+#: ../src/nm-sstp-service.c:1200
+msgid "Invalid or missing SSTP gateway."
+msgstr "SSTP шлюзі жарамсыз немесе жетіспейді."
+
+#: ../src/nm-sstp-service.c:1261
+msgid ""
+"Could not process the request because the VPN connection settings were invalid."
+msgstr ""
+"VPN байланыс баптаулары жарамсыз болғандықтан, сұранысты өңдеу мүмкін болмады."
+
+#: ../src/nm-sstp-service.c:1296
+msgid "Invalid connection type."
+msgstr "Байланыс түрі жарамсыз."
+
+#: ../src/nm-sstp-service.c:1490
+msgid "Don't quit when VPN connection terminates"
+msgstr "VPN байланысы үзілгенде шықпау"
+
+#: ../src/nm-sstp-service.c:1491
+msgid "Enable verbose debug logging (may expose passwords)"
+msgstr "Толық жөндеу журналын іске қосу (парольдер ашылып қалуы мүмкін)"
+
+#: ../src/nm-sstp-service.c:1492
+msgid "D-Bus name to use for this instance"
+msgstr "Осы дана үшін қолданылатын D-Bus аты"
+
+#: ../src/nm-sstp-service.c:1513
+msgid ""
+"nm-sstp-service provides integrated SSTP VPN capability (compatible with "
+"Microsoft and other implementations) to NetworkManager."
+msgstr ""
+"nm-sstp-service NetworkManager үшін интеграцияланған SSTP VPN мүмкіндігін "
+"(Microsoft және басқа іске асырулармен үйлесімді) қамтамасыз етеді."
